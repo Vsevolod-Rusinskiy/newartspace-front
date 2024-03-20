@@ -24,12 +24,15 @@ a {
   max-width: 1535px;
   margin: 0 auto;
   padding: 0 15px;
+  /*min-height: 100vh;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
 }
 
 
 @font-face {
   font-family: 'EkaterinaVelikaya', Arial, sans-serif;
-  src: url('../public/fonts/ekaterina-velikaya-two.woff') format('woff');
+  src: url('../../public/fonts/ekaterina-velikaya-two.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
