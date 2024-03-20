@@ -1,0 +1,66 @@
+.footer {
+  background: url('../../public/img/Roses.png') no-repeat center center / cover;
+  color: var(--white-color);
+  position: relative;
+  font-weight: var(--font-light);
+  padding-top: 45px;
+  padding-bottom: 22px;
+
+  a, .address p {
+    margin-bottom: 16px;
+  }
+
+  .address {
+    font-style: normal;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    padding-left: 25px;
+  }
+
+  &_menu {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; // Добавлено для более гибкой адаптации
+
+    .nav_left, .nav_right {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .rights {
+    text-align: center;
+  }
+}
+
+.menu_item {
+  width: 33%;
+
+  @media screen and (max-width: 624px) {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 624px) {
+  .footer {
+    font-size: var(--font-size-l);
+
+    &_menu {
+      align-items: center;
+    }
+  }
+}

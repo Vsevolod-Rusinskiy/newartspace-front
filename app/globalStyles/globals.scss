@@ -1,4 +1,4 @@
-@import "./variables.css";
+@import "variables";
 
 * {
   margin: 0;
@@ -20,14 +20,14 @@ a {
   color: inherit;
 }
 
-.container {
-  max-width: 1535px;
-  margin: 0 auto;
-  padding: 0 15px;
-  /*min-height: 100vh;*/
-  /*display: flex;*/
-  /*flex-direction: column;*/
-}
+//.container {
+//  max-width: 1535px;
+//  margin: 0 auto;
+//  padding: 0 15px;
+//  /*min-height: 100vh;*/
+//  /*display: flex;*/
+//  /*flex-direction: column;*/
+//}
 
 
 @font-face {
