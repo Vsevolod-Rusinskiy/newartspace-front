@@ -31,7 +31,9 @@ export const Footer = () => (
             <a href='tel:89219326215'>Тел: +7 (921) 932-62-15</a>
           </p>
           <p>
-            <a href='mailto:9326215@mail.ru?subject='>E-mail:9326215@mail.ru</a>
+            <a href='mailto:9326215@mail.ru?subject='>
+              E-mail: 9326215@mail.ru
+            </a>
           </p>
         </address>
       </div>

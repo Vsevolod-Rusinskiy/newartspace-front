@@ -36,6 +36,18 @@
           font-size: 15px;
         }
       }
+
+      .contacts {
+        .email::before {
+          content: '';
+          display: inline-block;
+          width: 18px;
+          height: 14px;
+          background-image: url('/img/email.svg');
+          background-size: cover; /* Или используйте contain в зависимости от нужного эффекта */
+          margin-right: 11px; /* Отступ от иконки до текста, если необходим */
+        }
+      }
     }
   }
 }

@@ -15,7 +15,16 @@ const Header = () => (
             </div>
           </div>
         </div>
-        <div>address</div>
+        <div className={styles.contacts}>
+          <p>
+            <a className={styles.email} href='mailto:9326215@mail.ru?subject='>
+              9326215@mail.ru
+            </a>
+          </p>
+          <p className={styles.phone}>
+            <a href='tel:89219326215'>+7 (921) 932-62-15</a>
+          </p>
+        </div>
         <div>work time</div>
         <div>???</div>
         <div>Lang</div>
