@@ -1,6 +1,5 @@
-import styles from '../../styles/footer/index.module.scss'
+import styles from '../../../styles/footer/footer.module.scss'
 import Link from 'next/link'
-import { format } from 'date-fns'
 
 export const Footer = () => (
   <footer className={` ${styles.footer}`}>
@@ -38,7 +37,7 @@ export const Footer = () => (
       </div>
       <div className={styles.rights}>
         <p>
-          © 2021 – {format(new Date(), 'yyyy')} «Новое пространство». Все права
+          © 2021 – {new Date().getFullYear()} «Новое пространство». Все права
           защищены и запатентованы
         </p>
       </div>
