@@ -22,7 +22,7 @@ a {
 
 
 @font-face {
-  font-family: 'EkaterinaVelikaya', Arial, sans-serif;
+  font-family: 'EkaterinaVelikaya';
   src: url('../../public/fonts/ekaterina-velikaya-two.woff') format('woff');
   font-weight: normal;
   font-style: normal;
@@ -39,3 +39,16 @@ select {
   font: inherit;
 }
 
+.btn_reset {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.list_reset {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}

@@ -1,9 +1,9 @@
-import styles from '../../../styles/footer/footer.module.scss'
 import Link from 'next/link'
+import styles from '../../../styles/footer/footer.module.scss'
 
 export const Footer = () => (
   <footer className={` ${styles.footer}`}>
-    <div className={styles.content}>
+    <div className={`container ${styles.content}`}>
       <div className={styles.menu}>
         <nav className={styles.nav}>
           <Link href='/catalog'>Каталог</Link>
@@ -31,7 +31,9 @@ export const Footer = () => (
             <a href='tel:89219326215'>Тел: +7 (921) 932-62-15</a>
           </p>
           <p>
-            <a href='mailto:9326215@mail.ru?subject='>E-mail:9326215@mail.ru</a>
+            <a href='mailto:9326215@mail.ru?subject='>
+              E-mail: 9326215@mail.ru
+            </a>
           </p>
         </address>
       </div>
