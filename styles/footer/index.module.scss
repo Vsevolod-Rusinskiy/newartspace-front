@@ -1,3 +1,4 @@
+
 .footer {
   background: url('../../public/img/Roses.png') no-repeat center center / cover;
   color: var(--white-color);
@@ -31,12 +32,12 @@
     padding-left: 25px;
   }
 
-  &_menu {
+  .menu {
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap; // Добавлено для более гибкой адаптации
+    flex-wrap: wrap; /* Добавлено для более гибкой адаптации */
 
-    .nav_left, .nav_right {
+    .nav, address {
       display: flex;
       flex-direction: column;
     }
@@ -47,7 +48,7 @@
   }
 }
 
-.menu_item {
+.nav, .address {
   width: 33%;
 
   @media screen and (max-width: 624px) {
@@ -59,8 +60,10 @@
   .footer {
     font-size: var(--font-size-l);
 
-    &_menu {
-      align-items: center;
+    .menu {
+      .nav, address {
+        align-items: center;
+      }
     }
   }
 }
