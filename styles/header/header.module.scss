@@ -64,6 +64,23 @@
           @include icon-before(22px, 20px, '/img/clock.svg');
         }
       }
+
+      .links {
+        display: flex;
+        align-items: center;
+
+        .links_item_cart::before {
+          @include icon-before(22px, 20px, '/img/clock.svg');
+        }
+
+        .links_item_user::before {
+          @include icon-before(22px, 20px, '/img/user.svg');
+        }
+
+        .links_item_favorites::before {
+          @include icon-before(22px, 20px, '/img/star.svg');
+        }
+      }
     }
   }
 }

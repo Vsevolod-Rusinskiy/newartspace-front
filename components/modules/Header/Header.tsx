@@ -36,11 +36,13 @@ const Header = () => (
           <li className={styles.links_item}>
             <Link className={styles.links_item_cart} href='/cart' />
           </li>
+
           <li className={styles.links_item}>
-            <Link className={styles.links_item_user} href='/cart' />
+            <Link className={styles.links_item_user} href='/user' />
           </li>
+
           <li className={styles.links_item}>
-            <Link className={styles.links_item_favorites} href='/cart' />
+            <Link className={styles.links_item_favorites} href='/favorites' />
           </li>
         </ul>
         {/*</div>*/}
