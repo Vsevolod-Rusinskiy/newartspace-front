@@ -27,13 +27,14 @@
     .top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
 
       .logo {
         display: flex;
 
         .gallery {
           font-size: 15px;
+          line-height: 1.3;
         }
       }
 
@@ -44,8 +45,31 @@
           width: 18px;
           height: 14px;
           background-image: url('/img/email.svg');
-          background-size: cover; /* Или используйте contain в зависимости от нужного эффекта */
-          margin-right: 11px; /* Отступ от иконки до текста, если необходим */
+          background-size: cover;
+          margin-right: 11px;
+        }
+
+        .phone::before {
+          content: '';
+          display: inline-block;
+          width: 15px;
+          height: 15px;
+          background-image: url('/img/phone.svg');
+          background-size: cover;
+          margin-right: 11px;
+        }
+      }
+
+      .work_time {
+        p:first-child::before {
+          content: '';
+          display: inline-block;
+          width: 18px;
+          height: 16px;
+          background-image: url('/img/clock.svg');
+          background-size: cover;
+          margin-right: 11px;
+          margin-left: -2px;
         }
       }
     }
