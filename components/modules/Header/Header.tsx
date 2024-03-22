@@ -1,5 +1,7 @@
 import styles from '../../../styles/header/header.module.scss'
 import LogoSVG from '@/components/elements/Logo/LogoSVG'
+import cn from 'classnames'
+import Link from 'next/link'
 
 const Header = () => (
   <header className={styles.header}>
@@ -29,7 +31,19 @@ const Header = () => (
           <p>Пн – Пт с 13:00 до 19:00</p>
           <p>Сб – Вс по предварительной договоренности</p>
         </div>
-        <div>???</div>
+        {/*<div className={styles.links}>*/}
+        <ul className={cn('list_reset', styles.links)}>
+          <li className={styles.links_item}>
+            <Link className={styles.links_item_cart} href='/cart' />
+          </li>
+          <li className={styles.links_item}>
+            <Link className={styles.links_item_user} href='/cart' />
+          </li>
+          <li className={styles.links_item}>
+            <Link className={styles.links_item_favorites} href='/cart' />
+          </li>
+        </ul>
+        {/*</div>*/}
         <div>Lang</div>
       </div>
       <div className={styles.middle}>Галерея молодых</div>

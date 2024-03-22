@@ -38,38 +38,30 @@
         }
       }
 
+      // Mixin for icons
+      @mixin icon-before($width, $height, $image-url) {
+        content: '';
+        display: inline-block;
+        width: $width;
+        height: $height;
+        background-image: url($image-url);
+        background-size: cover;
+        margin-right: 11px;
+      }
+
       .contacts {
         .email::before {
-          content: '';
-          display: inline-block;
-          width: 18px;
-          height: 14px;
-          background-image: url('/img/email.svg');
-          background-size: cover;
-          margin-right: 11px;
+          @include icon-before(18px, 14px, '/img/email.svg');
         }
 
         .phone::before {
-          content: '';
-          display: inline-block;
-          width: 15px;
-          height: 15px;
-          background-image: url('/img/phone.svg');
-          background-size: cover;
-          margin-right: 11px;
+          @include icon-before(15px, 15px, '/img/phone.svg');
         }
       }
 
       .work_time {
         p:first-child::before {
-          content: '';
-          display: inline-block;
-          width: 18px;
-          height: 16px;
-          background-image: url('/img/clock.svg');
-          background-size: cover;
-          margin-right: 11px;
-          margin-left: -2px;
+          @include icon-before(22px, 20px, '/img/clock.svg');
         }
       }
     }
