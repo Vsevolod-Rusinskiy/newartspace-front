@@ -34,7 +34,7 @@ const Header = () => (
         </div>
         <div className={styles.contacts}>
           <p>
-            <a className={styles.email} href='mailto:9326215@mail.ru?subject='>
+            <a className={styles.email} href='mailto:rodoc461@aersm.com'>
               9326215@mail.ru
             </a>
           </p>
