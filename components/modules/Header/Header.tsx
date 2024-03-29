@@ -1,11 +1,9 @@
 import Link from 'next/link'
-import LogoPNG from '@/components/elements/Logo/LogoPNG'
-import UserSVG from '@/components/elements/User/UserSVG'
-import CartSVG from '@/components/elements/Сart/CartSVG'
-import FavoritesSVG from '@/components/elements/Favorites/FavoritesSVG'
-import VkSVG from '@/components/elements/Vk/VkSVG'
-import TelegramSVG from '@/components/elements/Telegram/TelegramSVG'
-import HamburgerSVG from '@/components/elements/Hamburger/HamburgerSVG'
+import LogoPNG from '@/components/elements/LogoPNG/LogoPNG'
+import UserSVG from '@/components/elements/UserSVG/UserSVG'
+import CartSVG from '@/components/elements/СartSVG/CartSVG'
+import FavoritesSVG from '@/components/elements/FavoritesSVG/FavoritesSVG'
+import HamburgerSVG from '@/components/elements/HamburgerSVG/HamburgerSVG'
 import styles from '../../../styles/header/header.module.scss'
 
 const Header = () => (
@@ -21,16 +19,16 @@ const Header = () => (
           </div>
         </div>
         <div className={styles.social}>
-          <div className={styles.vk}>
-            <Link href='/'>
-              <VkSVG />
-            </Link>
-          </div>
-          <div className={styles.tg}>
-            <Link href='/'>
-              <TelegramSVG />
-            </Link>
-          </div>
+          <a
+            className={styles.tg}
+            href='https://t.me/newartspace'
+            target='_blank'
+          />
+          <a
+            className={styles.vk}
+            href='https://vk.com/public207408538'
+            target='_blank'
+          />
         </div>
         <div className={styles.contacts}>
           <p>
@@ -82,13 +80,29 @@ const Header = () => (
       </div>
       <div className={styles.bottom}>
         <nav className={styles.nav}>
-          <Link href='/catalog'>Каталог</Link>
-          <Link href='/names'>Имена</Link>
-          <Link href='/about'>О нас</Link>
-          <Link href='/services'>Услуги</Link>
-          <Link href='/another'>Другое</Link>
-          <Link href='/events'>События</Link>
-          <Link href='/contacts'>Контакты</Link>
+          <ul>
+            <li>
+              <Link href='/catalog'>Каталог</Link>
+            </li>
+            <li>
+              <Link href='/names'>Имена</Link>
+            </li>
+            <li>
+              <Link href='/about'>О нас</Link>
+            </li>
+            <li>
+              <Link href='/services'>Услуги</Link>
+            </li>
+            <li>
+              <Link href='/another'>Другое</Link>
+            </li>
+            <li>
+              <Link href='/events'>События</Link>
+            </li>
+            <li>
+              <Link href='/contacts'>Контакты</Link>
+            </li>
+          </ul>
         </nav>
       </div>
     </div>
