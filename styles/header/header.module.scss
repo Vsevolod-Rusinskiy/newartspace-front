@@ -17,20 +17,26 @@
   }
 
   .content {
-    height: 500px;
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
+
     .top {
       display: flex;
+      align-items: flex-start;
       justify-content: space-between;
       align-items: flex-start;
 
       .logo {
         display: flex;
+
+        img {
+          width: 59px;
+          margin-right: 5px;
+        }
 
         .gallery {
           font-size: 15px;
@@ -38,48 +44,291 @@
         }
       }
 
-      // Mixin for icons
-      @mixin icon-before($width, $height, $image-url) {
-        content: '';
-        display: inline-block;
+      @mixin icon-styles($width, $height) {
+        fill: white;
         width: $width;
         height: $height;
-        background-image: url($image-url);
-        background-size: cover;
-        margin-right: 11px;
+        transition: fill 0.3s ease;
+      }
+
+      .social {
+        .vk svg {
+          @include icon-styles(29px, auto);
+        }
+
+        .tg svg {
+          @include icon-styles(22px, 23px);
+          position: relative;
+          top: -9px;
+          left: 2px;
+        }
+
+        svg:hover {
+          fill: var(--links-hover);
+        }
+
+      }
+
+      // Mixin for icons
+      @mixin icon-before($width, $height, $image-url) {
+        position: absolute;
+        content: '';
+        -webkit-mask: url($image-url) no-repeat 50% 50%;
+        mask: url($image-url) no-repeat 50% 50%;
+        background: var(--white-color);
+        height: $height;
+        width: $width;
+        top: 0;
+        left: 0;
+        transition: background-color 0.3s ease;
       }
 
       .contacts {
+        .email, .phone {
+          position: relative;
+          padding-left: 30px;
+          transition: color 0.3s ease;
+        }
+
+        .email {
+          padding-left: 35px;
+        }
+
+
         .email::before {
-          @include icon-before(18px, 14px, '/img/email.svg');
+          @include icon-before(25px, 24px, '/img/email.svg');
         }
 
         .phone::before {
-          @include icon-before(15px, 15px, '/img/phone.svg');
+          @include icon-before(27px, 25px, '/img/phone.svg');
+        }
+
+        .email:hover::before,
+        .phone:hover::before {
+          background-color: var(--links-hover);
+          transition: background-color 0.3s ease;
+        }
+
+        .email:hover,
+        .phone:hover {
+          color: var(--links-hover);
+          transition: color 0.3s ease;
         }
       }
 
       .work_time {
+        p:first-child {
+          padding-left: 30px;
+          position: relative;
+        }
+
         p:first-child::before {
-          @include icon-before(22px, 20px, '/img/clock.svg');
+          @include icon-before(20px, 24px, '/img/clock.svg');
         }
       }
 
+
       .links {
+        height: 100%;
         display: flex;
         align-items: center;
+        width: 80px;
+        justify-content: space-between;
 
-        .links_item_cart::before {
-          @include icon-before(22px, 20px, '/img/clock.svg');
+        .cart svg {
+          @include icon-styles(22px, 23px);
         }
 
-        .links_item_user::before {
-          @include icon-before(22px, 20px, '/img/user.svg');
+        .user svg {
+          @include icon-styles(22px, 23px);
         }
 
-        .links_item_favorites::before {
-          @include icon-before(22px, 20px, '/img/star.svg');
+        .favorites svg {
+          @include icon-styles(27px, 27px);
         }
+
+        svg:hover {
+          fill: var(--links-hover);
+        }
+      }
+
+      .translation {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        font-size: 22px;
+
+        button {
+          color: var(--white-color);
+          transition: color 0.3s ease;
+        }
+
+        button:hover {
+          color: var(--links-hover);
+        }
+
+        span {
+          padding: 0 10px;
+        }
+      }
+
+      .hamburger {
+        display: none;
+      }
+    }
+
+    .middle {
+      flex-basis: 60%;
+      text-align: end;
+      margin-bottom: 107px;
+
+      p:first-child {
+        position: relative;
+        font-size: 25px;
+        top: 41px;
+        right: 92px;
+      }
+
+      p:last-child {
+        font-family: 'EkaterinaVelikaya', Arial, sans-serif;
+        font-size: 100px;
+      }
+    }
+
+    .bottom {
+      padding-bottom: 20px;
+      font-family: 'EkaterinaVelikaya', Arial, sans-serif;
+      font-size: 30px;
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      a {
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: var(--links-hover);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 970px) {
+
+  .header .content {
+    .top {
+      .translation {
+        display: none;
+      }
+
+      .work_time {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+        height: 100%;
+        align-items: center;
+      }
+    }
+
+    .middle {
+      margin-bottom: 50px;
+
+      p:first-child {
+        font-size: 20px;
+        top: 30px;
+        right: 52px;
+      }
+
+      p:last-child {
+        font-size: 70px;
+      }
+    }
+
+    .bottom {
+      .nav {
+        display: none;
+      }
+    }
+  }
+
+
+}
+
+@media screen and (max-width: 670px) {
+
+  .header .content {
+    .top {
+      margin-bottom: 20px;
+
+      .logo {
+        display: none;
+      }
+
+      .social {
+        display: none;
+      }
+
+      .contacts {
+        display: flex;
+      }
+
+      .contacts p:first-child {
+        margin-right: 15px;
+      }
+    }
+
+
+    .middle {
+      margin-bottom: 20px;
+
+      p:first-child {
+        position: static;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      p:last-child {
+        font-size: 50px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 520px) {
+
+  .header .content {
+    .top {
+      .contacts p:first-child {
+        display: none;
+      }
+    }
+
+    .middle {
+
+      p:first-child {
+        margin-bottom: 40px;
+      }
+
+      p:last-child {
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+
+  .header .content {
+    .top {
+      .contacts p:last-child {
+        display: none;
       }
     }
   }

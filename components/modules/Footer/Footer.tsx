@@ -1,9 +1,9 @@
-import styles from '../../../styles/footer/footer.module.scss'
 import Link from 'next/link'
+import styles from '../../../styles/footer/footer.module.scss'
 
 export const Footer = () => (
   <footer className={` ${styles.footer}`}>
-    <div className={styles.content}>
+    <div className={`container ${styles.content}`}>
       <div className={styles.menu}>
         <nav className={styles.nav}>
           <Link href='/catalog'>Каталог</Link>
