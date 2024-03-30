@@ -51,24 +51,6 @@
         transition: fill 0.3s ease;
       }
 
-      .social {
-        .vk svg {
-          @include icon-styles(29px, auto);
-        }
-
-        .tg svg {
-          @include icon-styles(22px, 23px);
-          position: relative;
-          top: -9px;
-          left: 2px;
-        }
-
-        svg:hover {
-          fill: var(--links-hover);
-        }
-
-      }
-
       // Mixin for icons
       @mixin icon-before($width, $height, $image-url) {
         position: absolute;
@@ -82,6 +64,35 @@
         left: 0;
         transition: background-color 0.3s ease;
       }
+
+      .social {
+        position: relative;
+        margin-right: 10px;
+
+        .vk::before {
+          @include icon-before(25px, 24px, '/img/vk.svg');
+          top: 27px;
+        }
+
+        .tg::before {
+          @include icon-before(20px, 20px, '/img/telegram.svg');
+          top: 3px;
+        }
+
+        .vk:hover::before,
+        .tg:hover::before {
+          background-color: var(--links-hover);
+          transition: background-color 0.3s ease;
+        }
+
+        .vk:hover,
+        .tg:hover {
+          color: var(--links-hover);
+          transition: color 0.3s ease;
+        }
+
+      }
+
 
       .contacts {
         .email, .phone {
@@ -200,9 +211,10 @@
       font-family: 'EkaterinaVelikaya', Arial, sans-serif;
       font-size: 30px;
 
-      .nav {
+      .nav ul {
         display: flex;
         justify-content: space-between;
+        list-style-type: none;
       }
 
       a {
