@@ -1,15 +1,11 @@
 
 .footer {
-  background: url('../../public/img/Roses.png') no-repeat center center / cover;
+  background: url('../../public/img/roses.png') no-repeat center center / cover;
   color: var(--white-color);
   position: relative;
   font-weight: var(--font-light);
-  padding-top: 45px;
-  padding-bottom: 22px;
+  padding: 25px 25px 22px 25px;
 
-  a, .address p {
-    margin-bottom: 16px;
-  }
 
   .address {
     font-style: normal;
@@ -29,17 +25,44 @@
   .content {
     position: relative;
     z-index: 2;
-    padding-left: 25px;
+    padding-left: 15px;
+
+    a {
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: red;
+    }
   }
 
   .menu {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap; /* Добавлено для более гибкой адаптации */
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+
+    .nav {
+      list-style-type: none;
+
+      a {
+        width: max-content;
+      }
+
+      a, li {
+        margin-bottom: 15px;
+      }
+
+
+    }
 
     .nav, address {
       display: flex;
       flex-direction: column;
+    }
+
+    .address p:not(:last-child) {
+      margin-bottom: 16px;
     }
   }
 
@@ -49,20 +72,17 @@
 }
 
 .nav, .address {
-  width: 33%;
-
-  @media screen and (max-width: 624px) {
-    width: 100%;
-  }
+  //width: 33%;
 }
 
-@media screen and (max-width: 624px) {
-  .footer {
-    font-size: var(--font-size-l);
 
+@media screen and (max-width: 624px) {
+
+  .footer {
     .menu {
       .nav, address {
         align-items: center;
+        width: 100%;
       }
     }
   }
