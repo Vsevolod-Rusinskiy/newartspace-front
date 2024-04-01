@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import styles from '../../../styles/footer/footer.module.scss'
+import styles from '@/styles/footer/footer.module.scss'
 
 export const Footer = () => (
   <footer className={` ${styles.footer}`}>
     <div className={`container ${styles.content}`}>
       <div className={styles.menu}>
-        <ul className={styles.nav}>
+        <ul className={`list_reset ${styles.nav}`}>
           <li>
             <Link href='/catalog'>Каталог</Link>
           </li>

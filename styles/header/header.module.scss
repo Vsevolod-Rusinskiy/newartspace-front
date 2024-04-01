@@ -28,7 +28,6 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      align-items: flex-start;
 
       .logo {
         display: flex;
@@ -214,7 +213,6 @@
       .nav ul {
         display: flex;
         justify-content: space-between;
-        list-style-type: none;
       }
 
       a {
@@ -232,10 +230,6 @@
 
   .header .content {
     .top {
-      .translation {
-        display: none;
-      }
-
       .work_time {
         display: none;
       }
