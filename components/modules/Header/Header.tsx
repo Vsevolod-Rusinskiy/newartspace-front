@@ -20,7 +20,7 @@ const Header = () => {
 
   const handleOpenMenu = () => {
     addOverflowHiddenToBody()
-    dispatch(openBurgerMenu())
+    dispatch(openBurgerMenu('eee'))
   }
   return (
     <header className={styles.header}>

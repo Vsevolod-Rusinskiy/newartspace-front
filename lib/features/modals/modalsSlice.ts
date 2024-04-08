@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface IModalState {
   burgerMenu: boolean
@@ -13,7 +12,8 @@ export const modalsSlice = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    openBurgerMenu: (state) => {
+    openBurgerMenu: (state, a) => {
+      console.log(a, 111)
       state.burgerMenu = true
     },
     closeBurgerMenu: (state) => {
