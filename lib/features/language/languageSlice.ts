@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-export enum AllowedLangs {
-  RU = 'ru',
-  EN = 'en',
-}
+import { AllowedLangs } from '@/types/lang'
 
 const initialState = {
   lang: AllowedLangs.RU,

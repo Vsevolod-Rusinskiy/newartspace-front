@@ -1,64 +1,80 @@
+'use client'
+import cn from 'classnames'
 import Link from 'next/link'
+import { useAppSelector } from '@/lib/hooks'
 import styles from '@/styles/footer/footer.module.scss'
+import { useLang } from '@/hooks/useLang'
 
-export const Footer = () => (
-  <footer className={` ${styles.footer}`}>
-    <div className={`container ${styles.content}`}>
-      <div className={styles.menu}>
-        <ul className={`list_reset ${styles.nav}`}>
-          <li>
-            <Link href='/catalog'>Каталог</Link>
-          </li>
-          <li>
-            <Link href='/names'>Имена</Link>
-          </li>
-          <li>
-            <Link href='/about'>О нас</Link>
-          </li>
-          <li>
-            <Link href='/services'>Услуги</Link>
-          </li>
-          <li>
-            <Link href='/another'>Другое</Link>
-          </li>
-        </ul>
-        <ul className={styles.nav}>
-          <li>
-            <Link href='/events'>События</Link>
-          </li>
-          <li>
-            <Link href='/contacts'>Контакты</Link>
-          </li>
-          <li>
-            <Link href='#'>Условия возврата и доставки</Link>
-          </li>
-          <a href='#'>Политика персональных данных</a>
-          <a href='#'>Договор</a>
-        </ul>
-        <address className={styles.address}>
-          <p>ИП Кабанченко Светлана Геннадьевна</p>
-          <p>ИНН 781432217443</p>
+export const Footer = () => {
+  const burgerIsOpen = useAppSelector((state) => state.modals.burgerMenu)
+  const { lang, translations } = useLang()
+
+  return (
+    <footer
+      className={cn(styles.footer, {
+        [styles.hidden]: burgerIsOpen,
+      })}
+    >
+      <div className={`container ${styles.content}`}>
+        <div className={styles.menu}>
+          <ul className={`list_reset ${styles.nav}`}>
+            <li>
+              <Link href='/catalog'>{translations[lang].main_menu.catalog}</Link>
+            </li>
+            <li>
+              <Link href='/names'>{translations[lang].main_menu.names}</Link>
+            </li>
+            <li>
+              <Link href='/about'>{translations[lang].main_menu.about_us}</Link>
+            </li>
+            <li>
+              <Link href='/services'>
+                {translations[lang].main_menu.services}
+              </Link>
+            </li>
+            <li>
+              <Link href='/another'>{translations[lang].main_menu.another}</Link>
+            </li>
+          </ul>
+          <ul className={styles.nav}>
+            <li>
+              <Link href='/events'>{translations[lang].main_menu.events}</Link>
+            </li>
+            <li>
+              <Link href='/contacts'>
+                {translations[lang].main_menu.contacts}
+              </Link>
+            </li>
+            <li>
+              <Link href='#'>{translations[lang].main_menu.return_and_shipping}</Link>
+            </li>
+            <a href='#'>{translations[lang].main_menu.privacy_policy}</a>
+            <a href='#'>{translations[lang].main_menu.agreement}</a>
+          </ul>
+          <address className={styles.address}>
+            <p>{translations[lang].individual.name}</p>
+            <p>{translations[lang].individual.inn}</p>
+            <p>
+              {translations[lang].individual.address1}
+              <br /> {translations[lang].individual.address2}
+              <br /> {translations[lang].individual.address3}
+            </p>
+            <p>
+              <a href='tel:89219326215'>{translations[lang].individual.phone}</a>
+            </p>
+            <p>
+              <a href='mailto:9326215@mail.ru?subject='>
+                E-mail: 9326215@mail.ru
+              </a>
+            </p>
+          </address>
+        </div>
+        <div className={styles.rights}>
           <p>
-            Санкт - Петербург, ул. Ново-Рыбинская,
-            <br /> д. 19-21, БЦ «Квартал», центральный
-            <br /> вход, 2 этаж, пом. 9
+            {translations[lang].individual.copyright}
           </p>
-          <p>
-            <a href='tel:89219326215'>Тел: +7 (921) 932-62-15</a>
-          </p>
-          <p>
-            <a href='mailto:9326215@mail.ru?subject='>
-              E-mail: 9326215@mail.ru
-            </a>
-          </p>
-        </address>
+        </div>
       </div>
-      <div className={styles.rights}>
-        <p>
-          © 2021 – {new Date().getFullYear()} «Новое пространство». Все права
-          защищены и запатентованы
-        </p>
-      </div>
-    </div>
-  </footer>
-)
+    </footer>
+  )
+}

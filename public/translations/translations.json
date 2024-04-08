@@ -1,8 +1,68 @@
 {
   "en": {
+    "header": {
+      "company_name1": "Gallery of young and",
+      "company_name2": "lesser-known artists",
+      "company_name3": "New space",
+      "schedule": "Mon - Fri from 13:00 to 19:00",
+      "by_appointment": "Saturday - by prior agreement",
+      "sub_header": "Gallery of young and lesser-known artists",
+      "main_header": "New space"
+    },
+    "main_menu": {
+      "catalog": "Catalog",
+      "names": "Names",
+      "about_us": "About us",
+      "services": "Services",
+      "another": "Another",
+      "events": "Events",
+      "contacts": "Contacts",
+      "return_and_shipping": "Return and Shipping Policy",
+      "privacy_policy": "Privacy Policy",
+      "agreement": "Agreement"
+    },
+    "individual": {
+      "name": "Svetlana Gennadievna Kabanchenko",
+      "inn": "TIN 781432217443",
+      "address1": "Saint Petersburg, Novo-Rybinskaya St.,",
+      "address2": "19-21, Business Center \"Kvartal\",",
+      "address3": "central entrance, 2nd floor, room 9",
+      "phone": "Phone: +7 (921) 932-62-15",
+      "copyright": "© 2021 – 2024 \"New Space\". All rights reserved and patented"
+    }
 
   },
   "ru": {
-
+    "header": {
+      "company_name1": "Галерея молодых и",
+      "company_name2": "малоизвестных художников",
+      "company_name3": "Новое пространство",
+      "schedule": "Пн - Пт с 13:00 до 19:00",
+      "by_appointment": "Сб - по предварительной договоренности",
+      "sub_header": "Галерея молодых и малоизвестных художников",
+      "main_header": "Новое пространство"
+    },
+    "main_menu": {
+      "catalog": "Каталог",
+      "names": "Имена",
+      "about_us": "О нас",
+      "services": "Услуги",
+      "another": "Другое",
+      "events": "События",
+      "contacts": "Контакты",
+      "return_and_shipping": "Условия возврата и доставки",
+      "privacy_policy": "Политика персональных данных",
+      "agreement": "Договор"
+    },
+    "individual": {
+      "name": "Кабанченко Светлана Геннадьевна",
+      "inn": "ИНН 781432217443",
+      "address1": "Санкт-Петербург, ул. Ново-Рыбинская,",
+      "address2": "д. 19-21, БЦ «Квартал», центральный",
+      "address3": "вход, 2 этаж, пом. 9",
+      "phone": "Тел: +7 (921) 932-62-15",
+      "copyright": "© 2021 – 2024 «Новое пространство». Все права защищены и запатентованы"
+    }
   }
 }
+

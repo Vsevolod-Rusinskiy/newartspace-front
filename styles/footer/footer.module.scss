@@ -6,6 +6,10 @@
   font-weight: var(--font-light);
   padding: 25px 25px 22px 25px;
 
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0s, visibility 0s;
+
 
   .address {
     font-style: normal;
@@ -71,8 +75,12 @@
   }
 }
 
-.nav, .address {
-  //width: 33%;
+
+
+ .hidden {
+   visibility: hidden;
+   opacity: 1;
+   transition: opacity 0s linear 0.6s, visibility 0s linear 0.6s;
 }
 
 

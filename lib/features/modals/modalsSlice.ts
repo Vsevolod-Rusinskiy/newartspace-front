@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-interface IModalState {
-  burgerMenu: boolean
-}
+import { IModalState } from '@/types/modal'
 
 const initialState: IModalState = {
   burgerMenu: false,
@@ -12,8 +9,7 @@ export const modalsSlice = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    openBurgerMenu: (state, a) => {
-      console.log(a, 111)
+    openBurgerMenu: (state) => {
       state.burgerMenu = true
     },
     closeBurgerMenu: (state) => {
