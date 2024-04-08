@@ -2,8 +2,8 @@
 import cn from 'classnames'
 import Link from 'next/link'
 import { useAppSelector } from '@/lib/hooks'
-import styles from '@/styles/footer/footer.module.scss'
 import { useLang } from '@/hooks/useLang'
+import styles from '@/styles/footer/footer.module.scss'
 
 export const Footer = () => {
   const burgerIsOpen = useAppSelector((state) => state.modals.burgerMenu)
@@ -19,7 +19,9 @@ export const Footer = () => {
         <div className={styles.menu}>
           <ul className={`list_reset ${styles.nav}`}>
             <li>
-              <Link href='/catalog'>{translations[lang].main_menu.catalog}</Link>
+              <Link href='/catalog'>
+                {translations[lang].main_menu.catalog}
+              </Link>
             </li>
             <li>
               <Link href='/names'>{translations[lang].main_menu.names}</Link>
@@ -33,7 +35,9 @@ export const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href='/another'>{translations[lang].main_menu.another}</Link>
+              <Link href='/another'>
+                {translations[lang].main_menu.another}
+              </Link>
             </li>
           </ul>
           <ul className={styles.nav}>
@@ -46,7 +50,9 @@ export const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href='#'>{translations[lang].main_menu.return_and_shipping}</Link>
+              <Link href='#'>
+                {translations[lang].main_menu.return_and_shipping}
+              </Link>
             </li>
             <a href='#'>{translations[lang].main_menu.privacy_policy}</a>
             <a href='#'>{translations[lang].main_menu.agreement}</a>
@@ -60,7 +66,9 @@ export const Footer = () => {
               <br /> {translations[lang].individual.address3}
             </p>
             <p>
-              <a href='tel:89219326215'>{translations[lang].individual.phone}</a>
+              <a href='tel:89219326215'>
+                {translations[lang].individual.phone}
+              </a>
             </p>
             <p>
               <a href='mailto:9326215@mail.ru?subject='>
@@ -70,9 +78,7 @@ export const Footer = () => {
           </address>
         </div>
         <div className={styles.rights}>
-          <p>
-            {translations[lang].individual.copyright}
-          </p>
+          <p>{translations[lang].individual.copyright}</p>
         </div>
       </div>
     </footer>

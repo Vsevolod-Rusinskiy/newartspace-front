@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from '@/lib/hooks'
 import { closeBurgerMenu } from '@/lib/features/modals/modalsSlice'
 import { addOverflowHiddenToBody } from '@/lib/utils/common'
 import LangToggler from '@/components/modules/Header/LangToggler'
-import styles from '@/styles/burger-menu/burgerMenu.module.scss'
 import { useLang } from '@/hooks/useLang'
+import styles from '@/styles/burger-menu/burgerMenu.module.scss'
 
 const Menu = () => {
   const burgerIsOpen = useAppSelector((state) => state.modals.burgerMenu)
