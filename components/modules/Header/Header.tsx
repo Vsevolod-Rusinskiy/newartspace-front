@@ -94,32 +94,48 @@ const Header = () => {
           <Menu />
         </div>
         <div className={styles.middle}>
-          <p className={enSubHeaderClass}>{translations[lang].header.sub_header}</p>
-          <p className={enMainHeaderClass}>{translations[lang].header.main_header}</p>
+          <p className={enSubHeaderClass}>
+            {translations[lang].header.sub_header}
+          </p>
+          <p className={enMainHeaderClass}>
+            {translations[lang].header.main_header}
+          </p>
         </div>
         <div className={styles.bottom}>
           <nav className={styles.nav}>
             <ul className={`list_reset`}>
               <li>
-                <Link href='/catalog'>{translations[lang].main_menu.catalog}</Link>
+                <Link href='/catalog'>
+                  {translations[lang].main_menu.catalog}
+                </Link>
               </li>
               <li>
                 <Link href='/names'>{translations[lang].main_menu.names}</Link>
               </li>
               <li>
-                <Link href='/about'>{translations[lang].main_menu.about_us}</Link>
+                <Link href='/about'>
+                  {translations[lang].main_menu.about_us}
+                </Link>
               </li>
               <li>
-                <Link href='/services'>{translations[lang].main_menu.services}</Link>
+                <Link href='/services'>
+                  {translations[lang].main_menu.services}
+                </Link>
               </li>
               <li>
-                <Link href='/another'>{translations[lang].main_menu.another}</Link>
+                <Link href='/another'>
+                  {translations[lang].main_menu.another}
+                </Link>
               </li>
               <li>
-                <Link href='/events'>{translations[lang].main_menu.events}</Link>
+                <Link href='/events'>
+                  {translations[lang].main_menu.events}
+                </Link>
               </li>
               <li>
-                <Link href='/contacts'>{translations[lang].main_menu.contacts}</Link>
+                <Link href='/contacts'>
+                  {translations[lang].main_menu.contacts}
+                </Link>
               </li>
             </ul>
           </nav>

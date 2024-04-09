@@ -28,6 +28,7 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+      margin-bottom: 30px;
 
       .logo {
         display: flex;
@@ -67,6 +68,7 @@
       .social {
         position: relative;
         margin-right: 10px;
+        top: -3px;
 
         .vk::before {
           @include icon-before(25px, 24px, '/img/vk.svg');
@@ -89,7 +91,6 @@
           color: var(--links-hover);
           transition: color 0.3s ease;
         }
-
       }
 
 
@@ -104,15 +105,18 @@
 
         .email {
           padding-left: 35px;
+          margin-bottom: 7px;
         }
 
 
         .email::before {
           @include icon-before(25px, 24px, '/img/email.svg');
+          top: -3px
         }
 
         .phone::before {
           @include icon-before(27px, 25px, '/img/phone.svg');
+          top: -3px
         }
 
         .email:hover::before,
@@ -132,10 +136,12 @@
         p:first-child {
           padding-left: 30px;
           position: relative;
+          margin-bottom: 7px;
         }
 
         p:first-child::before {
           @include icon-before(20px, 24px, '/img/clock.svg');
+          top: -3px;
         }
       }
 
@@ -196,7 +202,7 @@
     .middle {
       flex-basis: 60%;
       text-align: end;
-      margin-bottom: 107px;
+      margin-bottom: 140px;
 
       .en_main_header {
         text-align: center;
@@ -211,7 +217,6 @@
       p:first-child {
         position: relative;
         font-size: 25px;
-        top: 41px;
         right: 92px;
       }
 
@@ -219,7 +224,6 @@
         font-family: 'EkaterinaVelikaya', Arial, sans-serif;
         font-size: 100px;
       }
-
 
 
     }
@@ -258,6 +262,7 @@
         height: 100%;
         align-items: center;
       }
+
       .toggler {
         display: none;
       }
@@ -268,7 +273,7 @@
 
       p:first-child {
         font-size: 20px;
-        top: 30px;
+        top: 3px;
         right: 52px;
       }
 
@@ -316,13 +321,18 @@
 
       p:first-child {
         position: static;
-        margin-bottom: 20px;
+        margin-bottom: 38px;
         text-align: center;
       }
 
       p:last-child {
         font-size: 50px;
         text-align: center;
+
+      }
+
+      .en_main_header {
+        margin-top: 52px;
       }
     }
   }

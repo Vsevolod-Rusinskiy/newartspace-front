@@ -60,7 +60,7 @@ export const Footer = () => {
           <address className={styles.address}>
             <p>{translations[lang].individual.name}</p>
             <p>{translations[lang].individual.inn}</p>
-            <p>
+            <p className={styles.address_city}>
               {translations[lang].individual.address1}
               <br /> {translations[lang].individual.address2}
               <br /> {translations[lang].individual.address3}

@@ -13,6 +13,9 @@
 
   .address {
     font-style: normal;
+    .address_city {
+      line-height: 1.9;
+    }
   }
 
   &::after {
