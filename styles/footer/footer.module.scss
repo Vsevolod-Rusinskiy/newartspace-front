@@ -49,6 +49,10 @@
     flex-wrap: wrap;
     margin-bottom: 15px;
 
+    > ul {
+      margin-right: 15px;
+    }
+
     .nav {
       list-style-type: none;
 
