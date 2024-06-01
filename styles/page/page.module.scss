@@ -1,0 +1,85 @@
+.main {
+  padding: 25px 25px 22px 25px;
+
+  .content {
+    display: flex;
+    width: 100%;
+
+    .painting_list {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+
+      .painting_list_item {
+        flex: 1 1 33.33%;
+        max-width: 33.33%;
+
+        .painting_list_item_img_container {
+          position: relative;
+          width: 100%;
+          height: 400px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 15px;
+
+
+          .painting_list_item_img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+
+          .painting_info_container {
+            color: #dedede;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+
+            .name {
+              font-size: var(--font-line-m);
+              max-width: 300px;
+            }
+
+            .author {
+              margin-bottom: 15px;
+              max-width: 300px;
+            }
+
+            .price, .author {
+              font-size: 26px;
+            }
+
+            .size, .base_materials, .year, .name {
+              font-weight: var(--font-light);
+              margin-bottom: 7px;
+            }
+          }
+
+          .year {
+            margin-bottom: 15px;
+          }
+
+          .price_container_visible {
+            opacity: 1;
+          }
+
+
+        }
+      }
+    }
+  }
+}
