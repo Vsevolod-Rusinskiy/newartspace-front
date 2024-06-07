@@ -23,7 +23,6 @@ const HomePage = () => {
 
   if (loading === 'loading') return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
-
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
@@ -31,6 +30,7 @@ const HomePage = () => {
           {paintings.map((painting) => (
             <PaintingListItem
               key={painting.id}
+              id={painting.id}
               src={painting.paintingUrl}
               alt={painting.alt}
               price={painting.price}
