@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { Painting } from '@/types/paintings'
 
 export const fetchPaintings = createAsyncThunk(
   'paintings/fetchPaintings',
@@ -8,20 +7,13 @@ export const fetchPaintings = createAsyncThunk(
     if (!response.ok) {
       throw new Error('Failed to fetch paintings')
     }
-    const data = await response.json()
-    return data
-  }
+    return await response.json()
+  },
 )
 
-interface PaintingsState {
-  paintings: Painting[]
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-  error: string | null
-}
-
-const initialState: PaintingsState = {
-  paintings: [],
-  loading: 'idle',
+const initialState = {
+  paintings: { data: [], total: 0 },
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed',
   error: null,
 }
 

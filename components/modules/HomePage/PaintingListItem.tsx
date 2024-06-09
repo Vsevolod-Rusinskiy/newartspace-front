@@ -1,9 +1,9 @@
 'use client'
 import { useState } from 'react'
 import cn from 'classnames'
-import styles from '@/styles/page/page.module.scss'
 import Link from 'next/link'
 import { formatNumberWithSpaces } from '@/lib/utils/common'
+import styles from '@/styles/page/page.module.scss'
 
 const PaintingListItem = ({
   id,

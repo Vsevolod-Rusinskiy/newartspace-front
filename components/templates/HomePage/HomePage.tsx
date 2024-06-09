@@ -12,6 +12,8 @@ const HomePage = () => {
     dispatch(fetchPaintings())
   }, [dispatch])
 
+  const paintingArray = Array.isArray(paintings.data) ? paintings.data : []
+
   useEffect(() => {
     if (loading === 'succeeded') {
       console.log('Paintings loaded:', paintings)
@@ -27,7 +29,7 @@ const HomePage = () => {
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <ul className={styles.painting_list}>
-          {paintings.map((painting) => (
+          {paintingArray.map((painting) => (
             <PaintingListItem
               key={painting.id}
               id={painting.id}
