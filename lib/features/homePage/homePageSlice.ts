@@ -8,7 +8,7 @@ export const fetchPaintings = createAsyncThunk(
       throw new Error('Failed to fetch paintings')
     }
     return await response.json()
-  },
+  }
 )
 
 const initialState = {

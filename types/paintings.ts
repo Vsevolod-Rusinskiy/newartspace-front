@@ -1,4 +1,5 @@
-export interface Painting {
+export interface IPainting {
+  id: string
   author: string
   paintingUrl: string
   name: string

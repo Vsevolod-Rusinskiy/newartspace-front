@@ -3,6 +3,7 @@ import { useState } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
 import { formatNumberWithSpaces } from '@/lib/utils/common'
+import { IPaintingListItem } from '@/types/paintingListItem'
 import styles from '@/styles/page/page.module.scss'
 
 const PaintingListItem = ({
@@ -17,7 +18,7 @@ const PaintingListItem = ({
   materials,
   height,
   width,
-}) => {
+}: IPaintingListItem) => {
   const [isHovered, setIsHovered] = useState(false)
 
   return (

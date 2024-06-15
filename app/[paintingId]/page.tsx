@@ -1,5 +1,3 @@
-
-export default function Painting({params}) {
-  console.log(params, 999)
+export default function Painting() {
   return <h1>test</h1>
 }

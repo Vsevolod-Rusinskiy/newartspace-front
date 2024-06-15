@@ -5,9 +5,19 @@ import { fetchPaintings } from '@/lib/features/homePage/homePageSlice'
 import { useEffect } from 'react'
 import styles from '@/styles/page/page.module.scss'
 
+
+// todo any!!!
+interface RootState {
+  paintings: {
+    paintings: any; // Замените на конкретный тип, представляющий массив работ
+    loading: any; // Замените на конкретный тип, представляющий состояние загрузки
+    error: any; // Замените на конкретный тип, представляющий состояние ошибки
+  };
+}
+
 const HomePage = () => {
   const dispatch = useDispatch()
-  const { paintings, loading, error } = useSelector((state) => state.paintings)
+  const { paintings, loading, error } = useSelector((state: RootState) => state.paintings)
   useEffect(() => {
     dispatch(fetchPaintings())
   }, [dispatch])
