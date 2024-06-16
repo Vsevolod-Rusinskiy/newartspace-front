@@ -28,17 +28,8 @@
           align-items: center;
           padding: 15px;
 
-          /* Новый стиль для обертки компонента Image */
-          .painting_list_item_img_wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-          }
 
           .painting_list_item_img {
-            position: absolute; /* Позволяет изображению заполнять контейнер */
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             object-fit: contain;
@@ -63,6 +54,7 @@
 
             .name {
               font-size: var(--font-size-l);
+
             }
 
             .author {
@@ -93,7 +85,6 @@
     }
   }
 }
-
 @media screen and (max-width: 1100px) {
   .main {
     .content {
@@ -101,13 +92,13 @@
         .painting_list_item {
           .painting_list_item_img_container {
             .painting_info_container {
-              .price, .author {
+              .price, .author,  {
                 font-size: 20px;
               }
               .name {
                 font-size: 16px;
               }
-              .size, .base_materials, .year {
+              .size, .base_materials, .year,  {
                 font-size: 14px;
               }
             }

@@ -29,16 +29,13 @@ const PaintingListItem = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className={styles.painting_list_item_img_container}>
-        {/*<img src={src} alt={alt} className={styles.painting_list_item_img} />*/}
-        <div className={styles.painting_list_item_img_wrapper}>
-          <Image
-            src={src}
-            alt={alt}
-            layout='fill'
-            objectFit='contain'
-            className={styles.painting_list_item_img}
-          />
-        </div>
+        <Image
+          src={src}
+          alt={alt}
+          width={100}
+          height={100}
+          className={styles.painting_list_item_img}
+        />
         <Link href={`/${id}`}>
           <div
             className={cn(styles.painting_info_container, {
