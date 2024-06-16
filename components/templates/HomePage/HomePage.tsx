@@ -6,10 +6,9 @@ import { useEffect } from 'react'
 import styles from '@/styles/page/page.module.scss'
 import { IPainting } from '@/types/paintings'
 
-// todo any!!!
 interface RootState {
   paintings: {
-    paintings: { data: IPainting[]; total: number } // Используем IPainting для типизации массива data
+    paintings: { data: IPainting[]; total: number }
     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
     error: string | null
   }
