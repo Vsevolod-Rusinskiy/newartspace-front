@@ -20,6 +20,7 @@ const HomePage = () => {
     (state: RootState) => state.paintings
   )
   useEffect(() => {
+    // todo
     // @ts-expect-error: Temporary ignore until types are fixed
     dispatch(fetchPaintings())
   }, [dispatch])
