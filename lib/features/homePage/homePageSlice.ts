@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { IPainting } from '@/types/paintings'
 
 export const fetchPaintings = createAsyncThunk(
   'paintings/fetchPaintings',
@@ -11,19 +12,26 @@ export const fetchPaintings = createAsyncThunk(
   }
 )
 
-const initialState = {
+interface PaintingsState {
+  paintings: { data: IPainting[]; total: number } // Используем IPainting для типизации массива data
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+  error: string | null | undefined
+}
+
+const initialState: PaintingsState = {
   paintings: { data: [], total: 0 },
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed',
+  loading: 'idle',
   error: null,
 }
 
 export const paintingsSlice = createSlice({
   name: 'paintings',
   initialState,
+  reducers: {}, // Пустой объект редьюсеров
   extraReducers: (builder) => {
     builder
       .addCase(fetchPaintings.pending, (state) => {
-        state.loading = 'loading'
+        state.loading = 'pending'
       })
       .addCase(fetchPaintings.fulfilled, (state, action) => {
         state.loading = 'succeeded'

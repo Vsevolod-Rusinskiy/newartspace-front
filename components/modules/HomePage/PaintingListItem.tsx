@@ -4,6 +4,7 @@ import cn from 'classnames'
 import Link from 'next/link'
 import { formatNumberWithSpaces } from '@/lib/utils/common'
 import { IPaintingListItem } from '@/types/paintingListItem'
+import Image from 'next/image'
 import styles from '@/styles/page/page.module.scss'
 
 const PaintingListItem = ({
@@ -28,7 +29,8 @@ const PaintingListItem = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className={styles.painting_list_item_img_container}>
-        <img src={src} alt={alt} className={styles.painting_list_item_img} />
+        {/*<img src={src} alt={alt} className={styles.painting_list_item_img} />*/}
+        <Image src={src} alt={alt} className={styles.painting_list_item_img} />
         <Link href={`/${id}`}>
           <div
             className={cn(styles.painting_info_container, {
@@ -37,8 +39,12 @@ const PaintingListItem = ({
           >
             <p className={styles.author}>{author}</p>
             <p className={styles.name}>{name}</p>
-            <p className={styles.size}>{height} x {width}</p>
-            <p className={styles.base_materials}>{base}, {materials}</p>
+            <p className={styles.size}>
+              {height} x {width}
+            </p>
+            <p className={styles.base_materials}>
+              {base}, {materials}
+            </p>
             <p className={styles.year}>{yearOfCreation} год</p>
             <p className={styles.price}>{formatNumberWithSpaces(price)} ₽</p>
           </div>

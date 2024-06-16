@@ -4,28 +4,31 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchPaintings } from '@/lib/features/homePage/homePageSlice'
 import { useEffect } from 'react'
 import styles from '@/styles/page/page.module.scss'
-
+import { IPainting } from '@/types/paintings'
 
 // todo any!!!
 interface RootState {
   paintings: {
-    paintings: any; // Замените на конкретный тип, представляющий массив работ
-    loading: any; // Замените на конкретный тип, представляющий состояние загрузки
-    error: any; // Замените на конкретный тип, представляющий состояние ошибки
-  };
+    paintings: { data: IPainting[]; total: number } // Используем IPainting для типизации массива data
+    loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+    error: string | null
+  }
 }
 
 const HomePage = () => {
   const dispatch = useDispatch()
-  const { paintings, loading, error } = useSelector((state: RootState) => state.paintings)
+  const { paintings, loading, error } = useSelector(
+    (state: RootState) => state.paintings
+  )
   useEffect(() => {
+    // @ts-expect-error: Temporary ignore until types are fixed
     dispatch(fetchPaintings())
   }, [dispatch])
 
   const paintingArray = Array.isArray(paintings.data) ? paintings.data : []
 
   useEffect(() => {
-    if (loading === 'succeeded') {
+    if (loading === 'pending') {
       console.log('Paintings loaded:', paintings)
     }
     if (loading === 'failed') {
@@ -33,18 +36,18 @@ const HomePage = () => {
     }
   }, [loading, paintings, error])
 
-  if (loading === 'loading') return <div>Loading...</div>
+  if (loading === 'pending') return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <ul className={styles.painting_list}>
-          {paintingArray.map((painting) => (
+          {paintingArray.map((painting: IPainting) => (
             <PaintingListItem
               key={painting.id}
               id={painting.id}
               src={painting.paintingUrl}
-              alt={painting.alt}
+              alt={painting.name}
               price={painting.price}
               author={painting.author}
               name={painting.name}
