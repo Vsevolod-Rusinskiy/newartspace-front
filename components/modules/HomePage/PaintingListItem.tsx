@@ -24,9 +24,6 @@ const PaintingListItem = ({
   width,
 }: IPaintingListItem) => {
   const [isHovered, setIsHovered] = useState(false)
-
-  const src1 = `${process.env.NEXT_PUBLIC_IMAGE_PROTOCOL}://${process.env.NEXT_PUBLIC_IMAGE_HOST}:${process.env.NEXT_PUBLIC_IMAGE_PORT}`
-
   return (
     <li
       className={styles.painting_list_item}
@@ -35,7 +32,7 @@ const PaintingListItem = ({
     >
       <div className={styles.painting_list_item_img_container}>
         <Image
-          src={src.replace('http://localhost:3000', src1)}
+          src={src}
           alt={alt}
           width={100}
           height={100}
