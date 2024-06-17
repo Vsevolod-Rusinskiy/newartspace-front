@@ -1,11 +1,14 @@
 'use client'
-import { useState } from 'react'
+import dotenv from 'dotenv'
+import Image from 'next/image'
 import cn from 'classnames'
+import { useState } from 'react'
 import Link from 'next/link'
 import { formatNumberWithSpaces } from '@/lib/utils/common'
 import { IPaintingListItem } from '@/types/paintingListItem'
-import Image from 'next/image'
 import styles from '@/styles/page/page.module.scss'
+
+dotenv.config()
 
 const PaintingListItem = ({
   id,
@@ -22,6 +25,8 @@ const PaintingListItem = ({
 }: IPaintingListItem) => {
   const [isHovered, setIsHovered] = useState(false)
 
+  const src1 = `${process.env.NEXT_PUBLIC_IMAGE_PROTOCOL}://${process.env.NEXT_PUBLIC_IMAGE_HOST}:${process.env.NEXT_PUBLIC_IMAGE_PORT}`
+
   return (
     <li
       className={styles.painting_list_item}
@@ -30,7 +35,7 @@ const PaintingListItem = ({
     >
       <div className={styles.painting_list_item_img_container}>
         <Image
-          src={src}
+          src={src.replace('http://localhost:3000', src1)}
           alt={alt}
           width={100}
           height={100}
