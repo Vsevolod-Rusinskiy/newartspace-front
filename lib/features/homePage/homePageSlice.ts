@@ -27,7 +27,7 @@ const initialState: PaintingsState = {
 export const paintingsSlice = createSlice({
   name: 'paintings',
   initialState,
-  reducers: {}, // Пустой объект редьюсеров
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchPaintings.pending, (state) => {
