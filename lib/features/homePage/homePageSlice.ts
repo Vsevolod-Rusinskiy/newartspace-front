@@ -4,7 +4,7 @@ import { IPainting } from '@/types/paintings'
 export const fetchPaintings = createAsyncThunk(
   'paintings/fetchPaintings',
   async () => {
-    const response = await fetch('http://localhost:3000/paintings')
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/paintings`)
     if (!response.ok) {
       throw new Error('Failed to fetch paintings')
     }
@@ -13,7 +13,7 @@ export const fetchPaintings = createAsyncThunk(
 )
 
 interface PaintingsState {
-  paintings: { data: IPainting[]; total: number } // Используем IPainting для типизации массива data
+  paintings: { data: IPainting[]; total: number }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
 }
