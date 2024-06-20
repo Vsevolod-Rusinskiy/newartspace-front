@@ -5,6 +5,10 @@ import { fetchPaintings } from '@/lib/features/homePage/homePageSlice'
 import { useEffect } from 'react'
 import styles from '@/styles/page/page.module.scss'
 import { IPainting } from '@/types/paintings'
+// todo
+console.log(`NEXT_PUBLIC_HOST-homePage)`, process.env.NEXT_PUBLIC_HOST)
+console.log(`NEXT_PUBLIC_PROTOCOL-homePage`, process.env.NEXT_PUBLIC_PROTOCOL)
+console.log(`NEXT_PUBLIC_API_URL-homePage`, process.env.NEXT_PUBLIC_API_URL)
 
 interface RootState {
   paintings: {

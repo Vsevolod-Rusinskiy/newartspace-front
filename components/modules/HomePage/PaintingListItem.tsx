@@ -1,5 +1,4 @@
 'use client'
-import dotenv from 'dotenv'
 import Image from 'next/image'
 import cn from 'classnames'
 import { useState } from 'react'
@@ -7,8 +6,6 @@ import Link from 'next/link'
 import { formatNumberWithSpaces } from '@/lib/utils/common'
 import { IPaintingListItem } from '@/types/paintingListItem'
 import styles from '@/styles/page/page.module.scss'
-
-dotenv.config()
 
 const PaintingListItem = ({
   id,
@@ -37,6 +34,7 @@ const PaintingListItem = ({
           width={100}
           height={100}
           className={styles.painting_list_item_img}
+          unoptimized
         />
         <Link href={`/${id}`}>
           <div

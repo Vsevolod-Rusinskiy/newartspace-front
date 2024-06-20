@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { IPainting } from '@/types/paintings'
+// todo
+console.log(`NEXT_PUBLIC_HOST-slice)`, process.env.NEXT_PUBLIC_HOST)
+console.log(`NEXT_PUBLIC_PROTOCOL-slice`, process.env.NEXT_PUBLIC_PROTOCOL)
+console.log(`NEXT_PUBLIC_API_URL-slice`, process.env.NEXT_PUBLIC_API_URL)
 
+// todo infinite loading... add try catch
 export const fetchPaintings = createAsyncThunk(
   'paintings/fetchPaintings',
   async () => {
