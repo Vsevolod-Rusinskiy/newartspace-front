@@ -2,9 +2,8 @@ node_modules
 npm-debug.log
 yarn-error.log
 
--.env.local
--.env.local
--.env.local
+.env
+.env.local
 .env.production
 .env.test
 .env.docker
