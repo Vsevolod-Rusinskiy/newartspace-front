@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  front:
+    image: newspace-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: front
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env
+    command: ["yarn", "start"]

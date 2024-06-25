@@ -10,7 +10,10 @@
         "prettier/prettier": [
             "error",
             {
-                "endOfLine": "auto"
+              "semi": false,
+              "trailingComma": "es5",
+              "singleQuote": true,
+              "jsxSingleQuote": true
             }
         ],
         "@typescript-eslint/no-unused-vars": "error",
