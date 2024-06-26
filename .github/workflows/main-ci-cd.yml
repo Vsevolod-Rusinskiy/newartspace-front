@@ -48,5 +48,6 @@ jobs:
             git restore .
             git pull origin master
             docker-compose build
-            docker-compose up -d
+
         timeout-minutes: 30
+
