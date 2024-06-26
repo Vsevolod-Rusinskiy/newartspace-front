@@ -42,7 +42,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            set -x
             cd /var/www/newartspace/frontend
             docker-compose down
             git restore .
