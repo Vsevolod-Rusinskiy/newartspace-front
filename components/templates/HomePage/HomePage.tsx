@@ -1,31 +1,28 @@
 'use client'
-import PaintingListItem from '@/components/modules/HomePage/PaintingListItem'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchPaintings } from '@/lib/features/homePage/homePageSlice'
-import { useEffect } from 'react'
+import PaintingListItem from '@/components/modules/HomePage/PaintingListItem'
+import { IPainting, PaintingsRootState } from '@/types/painting'
 import styles from '@/styles/page/page.module.scss'
-import { IPainting } from '@/types/paintings'
-// todo
-console.log(`NEXT_PUBLIC_HOST-homePage)`, process.env.NEXT_PUBLIC_HOST)
-console.log(`NEXT_PUBLIC_PROTOCOL-homePage`, process.env.NEXT_PUBLIC_PROTOCOL)
-console.log(`NEXT_PUBLIC_API_URL-homePage`, process.env.NEXT_PUBLIC_API_URL)
 
-interface RootState {
-  paintings: {
-    paintings: { data: IPainting[]; total: number }
-    loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-    error: string | null
-  }
-}
+console.log(`NEXT_PUBLIC_API_URL`, process.env.NEXT_PUBLIC_API_URL)
+
+// interface RootState {
+//   paintings: {
+//     paintings: { data: IPainting[]; total: number }
+//     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+//     error: string | null | undefined
+//   }
+// }
 
 const HomePage = () => {
   const dispatch = useDispatch()
   const { paintings, loading, error } = useSelector(
-    (state: RootState) => state.paintings
+    (state: PaintingsRootState) => state.paintings
   )
   useEffect(() => {
-    // todo
-    // @ts-expect-error: Temporary ignore until types are fixed
+    // @ts-ignore
     dispatch(fetchPaintings())
   }, [dispatch])
 
@@ -42,6 +39,7 @@ const HomePage = () => {
 
   if (loading === 'pending') return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
+
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
@@ -56,6 +54,7 @@ const HomePage = () => {
               author={painting.author}
               name={painting.name}
               yearOfCreation={painting.yearOfCreation}
+              style={painting.style}
               base={painting.base}
               materials={painting.materials}
               height={painting.height}
