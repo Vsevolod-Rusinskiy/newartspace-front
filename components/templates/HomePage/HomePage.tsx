@@ -8,14 +8,6 @@ import styles from '@/styles/page/page.module.scss'
 
 console.log(`NEXT_PUBLIC_API_URL`, process.env.NEXT_PUBLIC_API_URL)
 
-// interface RootState {
-//   paintings: {
-//     paintings: { data: IPainting[]; total: number }
-//     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-//     error: string | null | undefined
-//   }
-// }
-
 const HomePage = () => {
   const dispatch = useDispatch()
   const { paintings, loading, error } = useSelector(

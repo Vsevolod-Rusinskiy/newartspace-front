@@ -5,10 +5,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export const fetchPaintingById = createAsyncThunk(
   'paintings/fetchPaintingById',
-  async (paintingId, { rejectWithValue }) => {
+  async (paintingCardId, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/paintings/${paintingId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/paintings/${paintingCardId}`
       )
       if (!response.ok) {
         return rejectWithValue('Failed to fetch painting')

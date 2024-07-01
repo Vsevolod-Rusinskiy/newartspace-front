@@ -3,26 +3,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { fetchPaintingById } from '@/lib/features/product/paintingCardItemSlice'
 import { PaintingRootState } from '@/types/painting'
+import styles from '@/styles/paintingCard/paintingCard.module.scss'
 
 interface PaintingCardItemParams {
   params: {
-    paintingId: string
+    paintingCardId: string
   }
 }
 
 const PaintingCardItem = (params: PaintingCardItemParams) => {
-  const { paintingId } = params.params
+  const { paintingCardId } = params.params
   const dispatch = useDispatch()
   const { painting, loading, error } = useSelector(
-    (state: PaintingRootState) => state.painting
+    (state: PaintingRootState) => state.painting,
   )
 
   useEffect(() => {
-    if (paintingId) {
+    if (paintingCardId) {
       // @ts-ignore
-      dispatch(fetchPaintingById(paintingId))
+      dispatch(fetchPaintingById(paintingCardId))
     }
-  }, [dispatch, paintingId])
+  }, [dispatch, paintingCardId])
 
   useEffect(() => {
     if (loading === 'pending') {
@@ -37,10 +38,12 @@ const PaintingCardItem = (params: PaintingCardItemParams) => {
   if (error) return <div>Error: {error}</div>
 
   return (
-    <div>
-      <h1>{painting?.name}</h1>
-      <h1>test</h1>
-    </div>
+    <main className={styles.main}>
+      <article className={`container ${styles.content}`}>
+        <h1>{painting?.name}</h1>
+        <h1>{painting?.paintingUrl}</h1>
+      </article>
+    </main>
   )
 }
 

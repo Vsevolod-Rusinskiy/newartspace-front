@@ -1,7 +1,7 @@
 'use client'
 import cn from 'classnames'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks'
-import stylesBurgerMenu from '@/styles/burger-menu/burgerMenu.module.scss'
+import stylesBurgerMenu from '@/styles/burgerMenu/burgerMenu.module.scss'
 import {
   setEnglishLang,
   setRussianLang,
