@@ -34,7 +34,6 @@ const PaintingListItem = ({
           width={100}
           height={100}
           className={styles.painting_list_item_img}
-          // unoptimized
         />
         <Link href={`/${id}`}>
           <div

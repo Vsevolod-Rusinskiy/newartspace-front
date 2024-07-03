@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { PaintingsState } from '@/types/painting'
 
-// todo infinite loading... add try catch
 export const fetchPaintings = createAsyncThunk(
   'paintings/fetchPaintings',
   async (_, { rejectWithValue }) => {
