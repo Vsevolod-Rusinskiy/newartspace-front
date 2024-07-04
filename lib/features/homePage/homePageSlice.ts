@@ -1,27 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { IPainting } from '@/types/paintings'
-// todo
-console.log(`NEXT_PUBLIC_HOST-slice)`, process.env.NEXT_PUBLIC_HOST)
-console.log(`NEXT_PUBLIC_PROTOCOL-slice`, process.env.NEXT_PUBLIC_PROTOCOL)
-console.log(`NEXT_PUBLIC_API_URL-slice`, process.env.NEXT_PUBLIC_API_URL)
+import { PaintingsState } from '@/types/painting'
 
-// todo infinite loading... add try catch
 export const fetchPaintings = createAsyncThunk(
   'paintings/fetchPaintings',
-  async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/paintings`)
-    if (!response.ok) {
-      throw new Error('Failed to fetch paintings')
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/paintings`
+      )
+      if (!response.ok) {
+        return rejectWithValue('Failed to fetch paintings')
+      }
+      return await response.json()
+    } catch (error) {
+      return rejectWithValue('Failed to load data')
     }
-    return await response.json()
   }
 )
-
-interface PaintingsState {
-  paintings: { data: IPainting[]; total: number }
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-  error: string | null | undefined
-}
 
 const initialState: PaintingsState = {
   paintings: { data: [], total: 0 },
@@ -29,6 +24,7 @@ const initialState: PaintingsState = {
   error: null,
 }
 
+// @ts-ignore
 export const paintingsSlice = createSlice({
   name: 'paintings',
   initialState,

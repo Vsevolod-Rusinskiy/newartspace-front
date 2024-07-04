@@ -1,0 +1,21 @@
+.order_one_click_button {
+  width: 100%;
+  background-color: white;
+  border: 1px solid #D3D3D3;
+  padding: 10px 20px;
+  color: var(--silver-color);
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: #f0f0f0;
+    color: black;
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+}
