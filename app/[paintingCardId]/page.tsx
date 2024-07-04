@@ -2,10 +2,11 @@
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { fetchPaintingById } from '@/lib/features/product/paintingCardItemSlice'
-import { PaintingRootState } from '@/types/painting'
-import styles from '@/styles/paintingCard/paintingCard.module.scss'
+import { fetchPaintingById } from '@/lib/features/painting/paintingCardItemSlice'
+import { IPainting, PaintingRootState } from '@/types/painting'
 import OrderOneClickButton from '@/components/elements/Buttons/OrderOneClickButton'
+import { formatNumberWithSpaces } from '@/lib/utils/common'
+import styles from '@/styles/paintingCard/paintingCard.module.scss'
 
 interface PaintingCardItemParams {
   params: {
@@ -30,7 +31,7 @@ const PaintingCardItem = (params: PaintingCardItemParams) => {
     height,
     width,
     price,
-  } = painting || {}
+  } = painting || ({} as IPainting)
 
   useEffect(() => {
     if (paintingCardId) {
@@ -55,15 +56,15 @@ const PaintingCardItem = (params: PaintingCardItemParams) => {
     <main className={styles.main}>
       <article className={`container ${styles.painting_card_container}`}>
         <section className={`${styles.image_container} ${styles.section}`}>
-          {paintingUrl && (
-            <Image
-              src={paintingUrl}
-              alt={name || 'Painting'}
-              width={100}
-              height={100}
-              className={styles.image}
-            />
-          )}
+          {/*{paintingUrl && (*/}
+          <Image
+            src={paintingUrl}
+            alt={name}
+            width={100}
+            height={100}
+            className={styles.image}
+          />
+          {/* )}*/}
         </section>
         <section className={`${styles.details_container} ${styles.section}`}>
           <header>
@@ -79,7 +80,7 @@ const PaintingCardItem = (params: PaintingCardItemParams) => {
             </p>
           </div>
           <div className={styles.price_container}>
-            <p className={styles.price}>{price} ₽</p>
+            <p className={styles.price}>{formatNumberWithSpaces(price)} ₽</p>
           </div>
           <footer className={styles.actions}>
             <OrderOneClickButton label='ЗАКАЗАТЬ В ОДИН КЛИК' />
