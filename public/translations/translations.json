@@ -29,8 +29,13 @@
       "address3": "central entrance, 2nd floor, room 9",
       "phone": "Phone: +7 (921) 932-62-15",
       "copyright": "© 2021 – 2024 \"New Space\". All rights reserved and patented"
+    },
+    "paintingCartItem": {
+      "author": "Author",
+      "materials": "Materials",
+      "style": "Style",
+      "size": "Size"
     }
-
   },
   "ru": {
     "header": {
@@ -62,6 +67,12 @@
       "address3": "вход, 2 этаж, пом. 9",
       "phone": "Тел: +7 (921) 932-62-15",
       "copyright": "© 2021 – 2024 «Новое пространство». Все права защищены и запатентованы"
+    },
+    "paintingCartItem": {
+      "author": "Автор",
+      "materials": "Материалы",
+      "style": "Стиль",
+      "size": "Размер"
     }
   }
 }

@@ -15,7 +15,7 @@ const PaintingListItem = ({
   name,
   price,
   yearOfCreation,
-  base,
+  style,
   materials,
   height,
   width,
@@ -34,7 +34,6 @@ const PaintingListItem = ({
           width={100}
           height={100}
           className={styles.painting_list_item_img}
-          // unoptimized
         />
         <Link href={`/${id}`}>
           <div
@@ -48,7 +47,7 @@ const PaintingListItem = ({
               {height} x {width}
             </p>
             <p className={styles.base_materials}>
-              {base}, {materials}
+              {style}, {materials}
             </p>
             <p className={styles.year}>{yearOfCreation} год</p>
             <p className={styles.price}>{formatNumberWithSpaces(price)} ₽</p>

@@ -5,7 +5,7 @@ import { closeBurgerMenu } from '@/lib/features/modals/modalsSlice'
 import { addOverflowHiddenToBody } from '@/lib/utils/common'
 import LangToggler from '@/components/modules/Header/LangToggler'
 import { useLang } from '@/hooks/useLang'
-import styles from '@/styles/burger-menu/burgerMenu.module.scss'
+import styles from '@/styles/burgerMenu/burgerMenu.module.scss'
 
 const Menu = () => {
   const burgerIsOpen = useAppSelector((state) => state.modals.burgerMenu)
