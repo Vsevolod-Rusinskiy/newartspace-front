@@ -2,7 +2,7 @@ export interface IPainting {
   id: string
   author: string
   paintingUrl: string
-  name: string
+  title: string
   artType: string
   price: number
   theme: string

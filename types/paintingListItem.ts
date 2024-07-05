@@ -3,7 +3,7 @@ export interface IPaintingListItem {
   src: string
   alt: string
   author: string
-  name: string
+  title: string
   price: number
   yearOfCreation: number
   base: string

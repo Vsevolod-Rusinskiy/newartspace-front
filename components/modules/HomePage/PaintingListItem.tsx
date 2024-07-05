@@ -12,7 +12,7 @@ const PaintingListItem = ({
   src,
   alt,
   author,
-  name,
+  title,
   price,
   yearOfCreation,
   style,
@@ -42,7 +42,7 @@ const PaintingListItem = ({
             })}
           >
             <p className={styles.author}>{author}</p>
-            <p className={styles.name}>{name}</p>
+            <p className={styles.name}>{title}</p>
             <p className={styles.size}>
               {height} x {width}
             </p>
