@@ -23,7 +23,7 @@ const PaintingCardItem = (params: PaintingCardItemParams) => {
 
   const {
     paintingUrl,
-    name,
+    title,
     author,
     materials,
     style,
@@ -59,7 +59,7 @@ const PaintingCardItem = (params: PaintingCardItemParams) => {
           {/*{paintingUrl && (*/}
           <Image
             src={paintingUrl}
-            alt={name}
+            alt={title}
             width={100}
             height={100}
             className={styles.image}
@@ -68,7 +68,7 @@ const PaintingCardItem = (params: PaintingCardItemParams) => {
         </section>
         <section className={`${styles.details_container} ${styles.section}`}>
           <header>
-            <h1 className={styles.title}>{name}</h1>
+            <h1 className={styles.title}>{title}</h1>
           </header>
           <div className={styles.description}>
             <p className={styles.author}>Автор: {author}</p>

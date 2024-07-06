@@ -41,10 +41,10 @@ const HomePage = () => {
               key={painting.id}
               id={painting.id}
               src={painting.paintingUrl}
-              alt={painting.name}
+              alt={painting.title}
               price={painting.price}
               author={painting.author}
-              name={painting.name}
+              title={painting.title}
               yearOfCreation={painting.yearOfCreation}
               style={painting.style}
               base={painting.base}
