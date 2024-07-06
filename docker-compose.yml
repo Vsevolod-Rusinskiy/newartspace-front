@@ -12,3 +12,5 @@ services:
     env_file:
       - .env
     command: ["yarn", "start"]
+    restart: unless-stopped
+
