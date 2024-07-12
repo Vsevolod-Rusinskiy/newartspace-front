@@ -19,24 +19,24 @@ export const Footer = () => {
         <div className={styles.menu}>
           <ul className={`list_reset ${styles.nav}`}>
             <li>
-              <Link href='/catalog'>
-                {translations[lang].main_menu.catalog}
-              </Link>
+              <Link href='/about'>{translations[lang].main_menu.about_us}</Link>
             </li>
             <li>
               <Link href='/names'>{translations[lang].main_menu.names}</Link>
             </li>
             <li>
-              <Link href='/about'>{translations[lang].main_menu.about_us}</Link>
-            </li>
-            <li>
-              <Link href='/services'>
-                {translations[lang].main_menu.services}
+              <Link href='/catalog'>
+                {translations[lang].main_menu.catalog}
               </Link>
             </li>
             <li>
               <Link href='/another'>
                 {translations[lang].main_menu.another}
+              </Link>
+            </li>
+            <li>
+              <Link href='/services'>
+                {translations[lang].main_menu.services}
               </Link>
             </li>
           </ul>
