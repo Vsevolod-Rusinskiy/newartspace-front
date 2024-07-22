@@ -1,4 +1,5 @@
 'use client'
+/* eslint-disable */
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchPaintings } from '@/lib/features/homePage/homePageSlice'
@@ -39,33 +40,32 @@ const HomePage = () => {
         <ul className={styles.painting_list}>
           {isLoading
             ? Array.from({ length: 3 }).map((_, index) => (
-              /* eslint-disable */
-              <li
-                key={index}
-                className={`${styles.painting_list_item} ${styles.skeleton_list_item}`}
-              >
-                <div className={styles.skeleton_container}>
-                  <Skeleton className={styles.skeleton_item} />
-                </div>
-              </li>
-            ))
+                <li
+                  key={index}
+                  className={`${styles.painting_list_item} ${styles.skeleton_list_item}`}
+                >
+                  <div className={styles.skeleton_container}>
+                    <Skeleton className={styles.skeleton_item} />
+                  </div>
+                </li>
+              ))
             : paintingArray.map((painting: IPainting) => (
-              <PaintingListItem
-                key={painting.id}
-                id={painting.id}
-                src={painting.paintingUrl}
-                alt={painting.title}
-                price={painting.price}
-                author={painting.author}
-                title={painting.title}
-                yearOfCreation={painting.yearOfCreation}
-                style={painting.style}
-                base={painting.base}
-                materials={painting.materials}
-                height={painting.height}
-                width={painting.width}
-              />
-            ))}
+                <PaintingListItem
+                  key={painting.id}
+                  id={painting.id}
+                  src={painting.paintingUrl}
+                  alt={painting.title}
+                  price={painting.price}
+                  author={painting.author}
+                  title={painting.title}
+                  yearOfCreation={painting.yearOfCreation}
+                  style={painting.style}
+                  base={painting.base}
+                  materials={painting.materials}
+                  height={painting.height}
+                  width={painting.width}
+                />
+              ))}
         </ul>
       </section>
     </main>
