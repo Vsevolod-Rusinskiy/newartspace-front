@@ -11,6 +11,10 @@ export const fetchPaintingById = createAsyncThunk(
         `${process.env.NEXT_PUBLIC_API_URL}/paintings/${paintingCardId}`
       )
       if (!response.ok) {
+        if (response.status === 404) {
+          console.log('404')
+          return rejectWithValue('Painting not found')
+        }
         return rejectWithValue('Failed to fetch painting')
       }
       return await response.json()

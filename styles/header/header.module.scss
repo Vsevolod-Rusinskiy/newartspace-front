@@ -115,8 +115,9 @@
         }
 
         .phone::before {
-          @include icon-before(27px, 25px, '/img/phone.svg');
-          top: -3px
+          @include icon-before(20px, 20px, '/img/phone.svg');
+          top: 0;
+          left: 4px;
         }
 
         .email:hover::before,
@@ -152,6 +153,7 @@
         align-items: center;
         width: 80px;
         justify-content: space-between;
+        z-index: 1;
 
         .cart svg {
           @include icon-styles(22px, 23px);
@@ -172,13 +174,10 @@
 
       .translation {
         display: flex;
-        height: 100%;
-        align-items: center;
+        align-items: flex-start;
         font-size: 22px;
-
         opacity: 1;
-        position: relative;
-        top: 19px;
+
 
         button {
           color: var(--white-color);
@@ -214,13 +213,20 @@
         left: 130px;
       }
 
-      p:first-child {
+      a {
+        pointer-events: none;
+        cursor: default;
+      }
+
+      a:first-child {
+        display: block;
         position: relative;
         font-size: 25px;
         right: 92px;
       }
 
-      p:last-child {
+      a:last-child {
+        display: block;
         font-family: 'EkaterinaVelikaya', Arial, sans-serif;
         font-size: 100px;
       }
@@ -261,23 +267,23 @@
         display: flex;
         height: 100%;
         align-items: center;
+        position: relative;
+        top: 4px;
       }
 
-      .toggler {
-        display: none;
-      }
+
     }
 
     .middle {
       margin-bottom: 50px;
 
-      p:first-child {
+      a:first-child {
         font-size: 20px;
         top: 3px;
         right: 52px;
       }
 
-      p:last-child {
+      a:last-child {
         font-size: 70px;
       }
     }
@@ -308,10 +314,18 @@
 
       .contacts {
         display: flex;
+
+        .phone {
+          font-size: 20px;
+        }
+
+        .phone::before {
+          top: 4px;
+        }
       }
 
       .contacts a:first-child {
-        margin-right: 15px;
+        display: none;
       }
     }
 
@@ -319,13 +333,18 @@
     .middle {
       margin-bottom: 20px;
 
-      p:first-child {
+      a {
+        pointer-events: auto;
+        cursor: pointer;
+      }
+
+      a:first-child {
         position: static;
         margin-bottom: 38px;
         text-align: center;
       }
 
-      p:last-child {
+      a:last-child {
         font-size: 50px;
         text-align: center;
 
@@ -342,8 +361,18 @@
 
   .header .content {
     .top {
-      .contacts a:first-child {
-        display: none;
+      .contacts  {
+        .phone {
+          visibility: hidden;
+          width: 0;
+          height: 0;
+
+          &::before {
+            visibility: visible;
+            height: 20px;
+            width: 20px;
+          }
+        }
       }
     }
 

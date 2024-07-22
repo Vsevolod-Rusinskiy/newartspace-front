@@ -83,9 +83,7 @@ const Header = () => {
               </Link>
             </div>
           </div>
-          <div className={styles.toggler}>
-            <LangToggler />
-          </div>
+          <LangToggler />
           <div className={styles.hamburger}>
             <button className={`btn_reset`} onClick={handleOpenMenu}>
               <HamburgerSVG />
@@ -94,37 +92,37 @@ const Header = () => {
           <Menu />
         </div>
         <div className={styles.middle}>
-          <p className={enSubHeaderClass}>
+          <Link href='/' className={enSubHeaderClass}>
             {translations[lang].header.sub_header}
-          </p>
-          <p className={enMainHeaderClass}>
+          </Link>
+          <Link href='/' className={enMainHeaderClass}>
             {translations[lang].header.main_header}
-          </p>
+          </Link>
         </div>
         <div className={styles.bottom}>
           <nav className={styles.nav}>
             <ul className={`list_reset`}>
-              <li>
-                <Link href='/catalog'>
-                  {translations[lang].main_menu.catalog}
-                </Link>
-              </li>
-              <li>
-                <Link href='/names'>{translations[lang].main_menu.names}</Link>
-              </li>
               <li>
                 <Link href='/about'>
                   {translations[lang].main_menu.about_us}
                 </Link>
               </li>
               <li>
-                <Link href='/services'>
-                  {translations[lang].main_menu.services}
+                <Link href='/names'>{translations[lang].main_menu.names}</Link>
+              </li>
+              <li>
+                <Link href='/catalog'>
+                  {translations[lang].main_menu.catalog}
                 </Link>
               </li>
               <li>
                 <Link href='/another'>
                   {translations[lang].main_menu.another}
+                </Link>
+              </li>
+              <li>
+                <Link href='/services'>
+                  {translations[lang].main_menu.services}
                 </Link>
               </li>
               <li>

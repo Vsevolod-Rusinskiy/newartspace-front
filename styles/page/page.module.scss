@@ -19,6 +19,23 @@
         min-width: 270px;
         height: 280px;
 
+        .skeleton_container {
+          margin: 15px;
+          height: 100%;
+
+          .skeleton_item {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            background-color: #e0e0e0;
+          }
+
+        }
+
         .painting_list_item_img_container {
           position: relative;
           width: 100%;
@@ -82,6 +99,9 @@
           }
         }
       }
+      .skeleton_list_item {
+        margin-bottom: 30px;
+      }
     }
   }
 }
@@ -105,6 +125,7 @@
           }
         }
       }
+
     }
   }
 }
