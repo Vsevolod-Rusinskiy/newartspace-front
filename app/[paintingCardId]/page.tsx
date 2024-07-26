@@ -57,6 +57,7 @@ const PaintingCardItem = (params: PaintingCardItemParams) => {
               width={100}
               height={100}
               className={styles.image}
+              unoptimized
             />
           )}
         </section>
