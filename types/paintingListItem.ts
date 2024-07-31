@@ -6,7 +6,6 @@ export interface IPaintingListItem {
   title: string
   price: number
   yearOfCreation: number
-  base: string
   style: string
   materials: string
   height: number

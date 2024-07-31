@@ -60,7 +60,6 @@ const HomePage = () => {
                   title={painting.title}
                   yearOfCreation={painting.yearOfCreation}
                   style={painting.style}
-                  base={painting.base}
                   materials={painting.materials}
                   height={painting.height}
                   width={painting.width}
