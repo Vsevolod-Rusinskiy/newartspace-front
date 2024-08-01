@@ -7,7 +7,6 @@ export interface IPainting {
   price: number
   theme: string
   style: string
-  base: string
   materials: string
   height: number
   width: number
