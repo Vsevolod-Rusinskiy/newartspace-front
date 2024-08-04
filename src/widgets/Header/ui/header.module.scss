@@ -1,0 +1,405 @@
+.header {
+  background: url('../../../../public/img/roses.png') no-repeat center center / cover;
+  color: var(--white-color);
+  position: relative;
+  font-weight: var(--font-light);
+  padding: 25px 25px 22px 25px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+    .top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 30px;
+
+      .logo {
+        display: flex;
+
+        img {
+          width: 59px;
+          margin-right: 5px;
+        }
+
+        .gallery {
+          font-size: 15px;
+          line-height: 1.3;
+        }
+      }
+
+      @mixin icon-styles($width, $height) {
+        fill: white;
+        width: $width;
+        height: $height;
+        transition: fill 0.3s ease;
+      }
+
+      // Mixin for icons
+      @mixin icon-before($width, $height, $image-url) {
+        position: absolute;
+        content: '';
+        -webkit-mask: url($image-url) no-repeat 50% 50%;
+        mask: url($image-url) no-repeat 50% 50%;
+        background: var(--white-color);
+        height: $height;
+        width: $width;
+        top: 0;
+        left: 0;
+        transition: background-color 0.3s ease;
+      }
+
+      .social {
+        position: relative;
+        margin-right: 10px;
+        top: -3px;
+
+        .vk::before {
+          @include icon-before(25px, 24px, '/img/vk.svg');
+          top: 27px;
+        }
+
+        .tg::before {
+          @include icon-before(20px, 20px, '/img/telegram.svg');
+          top: 3px;
+        }
+
+        .vk:hover::before,
+        .tg:hover::before {
+          background-color: var(--links-hover);
+          transition: background-color 0.3s ease;
+        }
+
+        .vk:hover,
+        .tg:hover {
+          color: var(--links-hover);
+          transition: color 0.3s ease;
+        }
+      }
+
+
+      .contacts {
+        .email, .phone {
+          position: relative;
+          padding-left: 30px;
+          transition: color 0.3s ease;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .email {
+          padding-left: 35px;
+          margin-bottom: 7px;
+        }
+
+
+        .email::before {
+          @include icon-before(25px, 24px, '/img/email.svg');
+          top: -3px
+        }
+
+        .phone::before {
+          @include icon-before(20px, 20px, '/img/phone.svg');
+          top: 0;
+          left: 4px;
+        }
+
+        .email:hover::before,
+        .phone:hover::before {
+          background-color: var(--links-hover);
+          transition: background-color 0.3s ease;
+        }
+
+        .email:hover,
+        .phone:hover {
+          color: var(--links-hover);
+          transition: color 0.3s ease;
+        }
+      }
+
+      .work_time {
+        p:first-child {
+          padding-left: 30px;
+          position: relative;
+          margin-bottom: 7px;
+        }
+
+        p:first-child::before {
+          @include icon-before(20px, 24px, '/img/clock.svg');
+          top: -3px;
+        }
+      }
+
+
+      .links {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        width: 80px;
+        justify-content: space-between;
+        z-index: 1;
+
+        .cart svg {
+          @include icon-styles(22px, 23px);
+        }
+
+        .user svg {
+          @include icon-styles(22px, 23px);
+        }
+
+        .favorites svg {
+          @include icon-styles(27px, 27px);
+        }
+
+        svg:hover {
+          fill: var(--links-hover);
+        }
+      }
+
+      .translation {
+        display: flex;
+        align-items: flex-start;
+        font-size: 22px;
+        opacity: 1;
+
+
+        button {
+          color: var(--white-color);
+          transition: color 0.3s ease;
+        }
+
+        button:hover {
+          color: var(--links-hover);
+        }
+
+        span {
+          padding: 0 10px;
+        }
+      }
+
+      .hamburger {
+        display: none;
+      }
+    }
+
+    .middle {
+      flex-basis: 60%;
+      text-align: end;
+      margin-bottom: 140px;
+
+      .en_main_header {
+        text-align: center;
+      }
+
+      .en_sub_header {
+        text-align: center;
+        position: relative;
+        left: 130px;
+      }
+
+      a {
+        pointer-events: none;
+        cursor: default;
+      }
+
+      a:first-child {
+        display: block;
+        position: relative;
+        font-size: 25px;
+        right: 92px;
+      }
+
+      a:last-child {
+        display: block;
+        font-family: 'EkaterinaVelikaya', Arial, sans-serif;
+        font-size: 100px;
+      }
+
+
+    }
+
+    .bottom {
+      padding-bottom: 20px;
+      font-family: 'EkaterinaVelikaya', Arial, sans-serif;
+      font-size: 30px;
+
+      .nav ul {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      a {
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: var(--links-hover);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1140px) {
+
+  .header .content {
+    .top {
+      .work_time {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        position: relative;
+        top: 4px;
+      }
+
+
+    }
+
+    .middle {
+      margin-bottom: 50px;
+
+      a:first-child {
+        font-size: 20px;
+        top: 3px;
+        right: 52px;
+      }
+
+      a:last-child {
+        font-size: 70px;
+      }
+    }
+
+    .bottom {
+      .nav {
+        display: none;
+      }
+    }
+  }
+
+
+}
+
+@media screen and (max-width: 770px) {
+
+  .header .content {
+    .top {
+      margin-bottom: 20px;
+
+      .logo {
+        display: none;
+      }
+
+      .social {
+        display: none;
+      }
+
+      .contacts {
+        display: flex;
+
+        .phone {
+          font-size: 20px;
+        }
+
+        .phone::before {
+          top: 4px;
+        }
+      }
+
+      .contacts a:first-child {
+        display: none;
+      }
+    }
+
+
+    .middle {
+      margin-bottom: 20px;
+
+      a {
+        pointer-events: auto;
+        cursor: pointer;
+      }
+
+      a:first-child {
+        position: static;
+        margin-bottom: 38px;
+        text-align: center;
+      }
+
+      a:last-child {
+        font-size: 50px;
+        text-align: center;
+
+      }
+
+      .en_main_header {
+        margin-top: 52px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 590px) {
+
+  .header .content {
+    .top {
+      .contacts  {
+        .phone {
+          visibility: hidden;
+          width: 0;
+          height: 0;
+
+          &::before {
+            visibility: visible;
+            height: 20px;
+            width: 20px;
+          }
+        }
+      }
+    }
+
+    .middle {
+
+      p:first-child {
+        margin-bottom: 40px;
+      }
+
+      p:last-child {
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 380px) {
+
+  .header .content {
+    .top {
+      .contacts a:last-child {
+        display: none;
+      }
+    }
+  }
+}
+
+
+
