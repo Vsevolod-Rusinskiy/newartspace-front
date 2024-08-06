@@ -1,0 +1,33 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+
+  li {
+    display: inline;
+    margin: 0 5px;
+
+    a {
+      padding: 5px 10px;
+      color: var(--primary-color-red);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    &.breakMe {
+      cursor: default;
+    }
+
+    &.previous a,
+    &.next a {
+      font-weight: bold;
+    }
+
+    &.active a {
+      color: var(--primary-color-red);
+      font-weight: bolder;
+      font-size: 22px;
+    }
+  }
+}
