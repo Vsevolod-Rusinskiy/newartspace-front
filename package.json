@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "\"if [ -z \\\"$CI\\\" ]; then husky install; fi\""
+    "prepare": "if [ -z \"$CI\" ]; then husky install; fi"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.2",
