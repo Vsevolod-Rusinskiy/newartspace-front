@@ -10,8 +10,8 @@ WORKDIR /app
 # Копируем package.json и yarn.lock, чтобы установить зависимости
 COPY package.json yarn.lock ./
 
-# Устанавливаем зависимости с использованием Yarn
-RUN yarn install --frozen-lockfile
+# Устанавливаем зависимости с использованием Yarn в режиме production
+RUN yarn install --production --frozen-lockfile
 
 # Копируем остальной исходный код приложения
 COPY . .
