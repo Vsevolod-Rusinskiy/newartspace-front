@@ -29,6 +29,8 @@
         "allowTemplateLiterals": true
       }
     ],
+    "no-param-reassign": "off",
+    "@typescript-eslint/no-param-reassign": "off",
     "no-trailing-spaces": [
       2,
       {

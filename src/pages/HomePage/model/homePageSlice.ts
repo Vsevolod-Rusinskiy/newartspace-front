@@ -14,20 +14,24 @@ interface IPainting {
   width: number
   yearOfCreation: number
   format: string
-  // color: string
+  color: string
 }
 interface PaintingsState {
   paintings: { data: IPainting[]; total: number }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
 }
+interface Pagination {
+  page: number
+  limit: number
+}
 
 export const fetchPaintings = createAsyncThunk(
   'paintings/fetchPaintings',
-  async (_, { rejectWithValue }) => {
+  async ({ page, limit }: Pagination, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/paintings`
+        `${process.env.NEXT_PUBLIC_API_URL}/paintings?page=${page}&limit=${limit}`
       )
       if (!response.ok) {
         return rejectWithValue('Failed to fetch paintings')
