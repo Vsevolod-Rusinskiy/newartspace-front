@@ -28,8 +28,13 @@ RUN apk add --no-cache libc6-compat
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем только собранные файлы из этапа сборки
-COPY --from=builder /app /app
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.env ./
+
+# Копируем package.json и yarn.lock для установки зависимостей
+COPY --from=builder /app/package.json /app/yarn.lock ./
 
 # Устанавливаем только продакшн зависимости
 RUN yarn install --production --frozen-lockfile
