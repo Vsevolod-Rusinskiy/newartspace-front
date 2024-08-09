@@ -30,6 +30,7 @@ jobs:
   deploy:
     needs: prettier-lint-check
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout code
@@ -37,7 +38,6 @@ jobs:
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
-        timeout-minutes: 30
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
