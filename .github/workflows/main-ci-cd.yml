@@ -30,7 +30,6 @@ jobs:
   deploy:
     needs: prettier-lint-check
     runs-on: ubuntu-latest
-    timeout-minutes: 60
 
     steps:
       - name: Checkout code
@@ -42,7 +41,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 30m
+          command_timeout: 120m
           debug: true
           script: |
             cd /var/www/newartspace/frontend
