@@ -10,7 +10,8 @@ WORKDIR /app
 # Копируем package.json и yarn.lock, чтобы установить зависимости
 COPY package.json yarn.lock ./
 
-# Устанавливаем все зависимости
+# Устанавливаем все зависимости без выполнения скриптов
+ENV CI=true
 RUN yarn install --frozen-lockfile
 
 # Копируем остальной исходный код приложения
