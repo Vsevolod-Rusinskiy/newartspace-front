@@ -2,7 +2,7 @@
 FROM node:20.9.0-alpine AS builder
 
 # Установка необходимых системных библиотек для sharp
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat && mkdir /app
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
@@ -24,7 +24,7 @@ RUN yarn build
 FROM node:20.9.0-alpine
 
 # Установка необходимых системных библиотек для sharp
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat && mkdir /app
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
