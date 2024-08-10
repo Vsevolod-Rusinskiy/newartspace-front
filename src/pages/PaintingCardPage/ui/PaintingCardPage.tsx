@@ -6,7 +6,7 @@ import { fetchPaintingById } from '../model/paintingCardItemSlice'
 import OrderOneClickButton from '@/src/shared/ui/buttons/OrderButton'
 import { formatNumberWithSpaces } from '@/src/shared/lib/common'
 import 'react-loading-skeleton/dist/skeleton.css'
-import styles from './PaintingCard.module.scss'
+import styles from './PaintingCardPage.module.scss'
 
 interface PaintingCardItemParams {
   params: {

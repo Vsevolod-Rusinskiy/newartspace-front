@@ -41,7 +41,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 120m
+          command_timeout: 360m
           debug: true
           script: |
             cd /var/www/newartspace/frontend

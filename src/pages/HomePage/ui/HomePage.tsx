@@ -36,7 +36,7 @@ interface PaintingsRootState {
   paintings: PaintingsState
 }
 
-export const Home = () => {
+export const HomePage = () => {
   const dispatch = useDispatch()
   const { paintings, loading, error } = useSelector(
     (state: PaintingsRootState) => state.paintings
