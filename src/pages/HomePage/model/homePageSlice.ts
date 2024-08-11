@@ -43,7 +43,7 @@ export const fetchPaintingsAction = createAsyncThunk(
   }
 )
 
-const initialState: PaintingsState = {
+export const initialState: PaintingsState = {
   paintings: { data: [], total: 0 },
   loading: 'idle',
   error: null,
