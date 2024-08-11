@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
-import { fetchPaintingById } from '../model/paintingCardItemSlice'
+import { fetchPaintingByIdAction } from '../model/paintingCardItemSlice'
 import OrderOneClickButton from '@/src/shared/ui/buttons/OrderButton'
 import { formatNumberWithSpaces } from '@/src/shared/lib/common'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -62,7 +62,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
   useEffect(() => {
     if (paintingCardId) {
       // @ts-ignore
-      dispatch(fetchPaintingById(paintingCardId))
+      dispatch(fetchPaintingByIdAction(paintingCardId))
     }
   }, [dispatch, paintingCardId])
 

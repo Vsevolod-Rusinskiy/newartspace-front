@@ -26,7 +26,7 @@ interface Pagination {
   limit: number
 }
 
-export const fetchPaintings = createAsyncThunk(
+export const fetchPaintingsAction = createAsyncThunk(
   'paintings/fetchPaintings',
   async ({ page, limit }: Pagination, { rejectWithValue }) => {
     try {
@@ -56,14 +56,14 @@ export const paintingsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPaintings.pending, (state) => {
+      .addCase(fetchPaintingsAction.pending, (state) => {
         state.loading = 'pending'
       })
-      .addCase(fetchPaintings.fulfilled, (state, action) => {
+      .addCase(fetchPaintingsAction.fulfilled, (state, action) => {
         state.loading = 'succeeded'
         state.paintings = action.payload
       })
-      .addCase(fetchPaintings.rejected, (state, action) => {
+      .addCase(fetchPaintingsAction.rejected, (state, action) => {
         state.loading = 'failed'
         state.error = action.error.message
       })
