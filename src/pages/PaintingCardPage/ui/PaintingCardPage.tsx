@@ -7,6 +7,8 @@ import OrderOneClickButton from '@/src/shared/ui/buttons/OrderButton'
 import { formatNumberWithSpaces } from '@/src/shared/lib/common'
 import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './PaintingCardPage.module.scss'
+import PageSubTitle from '@/src/shared/ui/PageSubTitle/PageSubTitle'
+import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 
 interface PaintingCardItemParams {
   params: {
@@ -28,6 +30,7 @@ export interface IPainting {
   yearOfCreation: number
   format: string
   color: string
+  description: string
 }
 export interface PaintingState {
   painting: IPainting | null
@@ -57,6 +60,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     height,
     width,
     price,
+    description,
   } = painting || ({} as IPainting)
 
   useEffect(() => {
@@ -89,19 +93,50 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
           </header>
           <div className={styles.description}>
             <p className={styles.author}>
-              {isLoading ? <Skeleton /> : `Автор: ${author}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Автор:</span> {author}
+                </>
+              )}
             </p>
             <p className={styles.materials}>
-              {isLoading ? <Skeleton /> : `Материалы: ${materials}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Материалы:</span> {materials}
+                </>
+              )}
             </p>
             <p className={styles.style}>
-              {isLoading ? <Skeleton /> : `Стиль: ${style}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Стиль:</span> {style}
+                </>
+              )}
             </p>
             <p className={styles.year}>
-              {isLoading ? <Skeleton /> : `Год: ${yearOfCreation}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Год:</span> {yearOfCreation}
+                </>
+              )}
             </p>
             <p className={styles.dimensions}>
-              {isLoading ? <Skeleton /> : `Размер: ${height} x ${width}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Размер:</span> {height} x{' '}
+                  {width}
+                </>
+              )}
             </p>
           </div>
           <div className={styles.price_container}>
@@ -118,6 +153,10 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
               <OrderOneClickButton label='ЗАКАЗАТЬ В ОДИН КЛИК' />
             )}
           </footer>
+        </section>
+        <section className={` ${styles.section}`}>
+          {isLoading ? <Skeleton /> : <PageSubTitle text='Описание картины:' />}
+          {isLoading ? <Skeleton /> : <PageTextBlock text={description} />}
         </section>
       </article>
     </main>
