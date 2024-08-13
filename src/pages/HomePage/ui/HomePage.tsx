@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { fetchPaintings } from '../model/homePageSlice'
+import { fetchPaintingsAction } from '../model/homePageSlice'
 import { PaintingListItem } from './PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './HomePage.module.scss'
@@ -48,7 +48,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     // @ts-ignore
-    dispatch(fetchPaintings({ page, limit }))
+    dispatch(fetchPaintingsAction({ page, limit }))
   }, [dispatch, page])
 
   const handlePageClick = (selectedItem: { selected: number }) => {
