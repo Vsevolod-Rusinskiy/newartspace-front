@@ -1,11 +1,11 @@
 /* eslint-disable */
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 interface IPageTitleProps {
   children: ReactNode
   tag: 'h1' | 'h2' | 'h3'
 }
-const Htag: React.FC<IPageTitleProps> = ({ children, tag }) => {
+const Htag = ({ children, tag }: IPageTitleProps) => {
   switch (tag) {
     case 'h1':
       return <h1>{children}</h1>

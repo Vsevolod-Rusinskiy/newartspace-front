@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './OrderButton.module.scss'
 
 interface IPrimaryButtonProps {
@@ -7,11 +6,11 @@ interface IPrimaryButtonProps {
   disabled?: boolean
 }
 
-const orderButton: React.FC<IPrimaryButtonProps> = ({
+const orderButton = ({
   label,
   onClick,
   disabled = false,
-}) => (
+}: IPrimaryButtonProps) => (
   <button
     className={styles.order_one_click_button}
     onClick={onClick}
