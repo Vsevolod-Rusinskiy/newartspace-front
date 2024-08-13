@@ -3,18 +3,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { fetchPaintingByIdAction } from '../model/paintingCardItemSlice'
-import OrderOneClickButton from '@/src/shared/ui/buttons/OrderButton'
+import OrderOneClickButton from '@/src/shared/ui/buttons/OrderButton/OrderButton'
 import { formatNumberWithSpaces } from '@/src/shared/lib/common'
-import 'react-loading-skeleton/dist/skeleton.css'
-import styles from './PaintingCardPage.module.scss'
 import PageSubTitle from '@/src/shared/ui/PageSubTitle/PageSubTitle'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
+import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import styles from './PaintingCardPage.module.scss'
 
 interface PaintingCardItemParams {
   params: {
     paintingCardId: string
   }
 }
+
 export interface IPainting {
   id: string
   author: string
@@ -32,11 +34,13 @@ export interface IPainting {
   color: string
   description: string
 }
+
 export interface PaintingState {
   painting: IPainting | null
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
 }
+
 export interface PaintingRootState {
   painting: PaintingState
 }
@@ -72,7 +76,11 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
 
   return (
     <main className={styles.main}>
+      <div className={`container`}>
+        <NavigationButton direction='back' label='Назад' />
+      </div>
       <article className={`container ${styles.painting_card_container}`}>
+        <section />
         <section className={`${styles.image_container} ${styles.section}`}>
           {isLoading ? (
             <Skeleton style={{ width: '100%', height: '100%' }} />

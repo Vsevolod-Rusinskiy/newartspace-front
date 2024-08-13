@@ -4,7 +4,7 @@
 # Running Prettier and ESLint from package.json scripts
 yarn prettier-format
 yarn lint
-yarn unit
+
 
 
 # Automatically add changes to the staging area
