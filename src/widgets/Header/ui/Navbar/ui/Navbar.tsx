@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { useAppDispatch, useAppSelector } from '@/src/app/model/hooks'
+import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
 import { addOverflowHiddenToBody } from '@/src/shared/lib/common'
 import { useLang } from '@/src/shared/hooks/useLang'
 import { closeBurgerMenu } from '../model/modalsSlice'

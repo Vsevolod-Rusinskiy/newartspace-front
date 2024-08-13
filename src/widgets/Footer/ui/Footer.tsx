@@ -1,7 +1,7 @@
 'use client'
 import cn from 'classnames'
 import Link from 'next/link'
-import { useAppSelector } from '@/src/app/model/hooks'
+import { useAppSelector } from '@/src/app/model/redux/hooks'
 import { useLang } from '@/src/shared/hooks/useLang'
 import styles from './footer.module.scss'
 

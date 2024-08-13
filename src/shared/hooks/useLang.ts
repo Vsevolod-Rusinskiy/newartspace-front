@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/src/app/model/hooks'
+import { useAppSelector } from '@/src/app/model/redux/hooks'
 import translationsJSON from '@/public/translations/translations.json'
 
 export const useLang = () => {

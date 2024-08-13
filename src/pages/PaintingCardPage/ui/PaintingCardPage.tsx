@@ -2,9 +2,12 @@ import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
-import { fetchPaintingById } from '../model/paintingCardItemSlice'
-import OrderOneClickButton from '@/src/shared/ui/buttons/OrderButton'
+import { fetchPaintingByIdAction } from '../model/paintingCardItemSlice'
+import OrderOneClickButton from '@/src/shared/ui/buttons/OrderButton/OrderButton'
 import { formatNumberWithSpaces } from '@/src/shared/lib/common'
+import PageSubTitle from '@/src/shared/ui/PageSubTitle/PageSubTitle'
+import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
+import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './PaintingCardPage.module.scss'
 
@@ -13,6 +16,7 @@ interface PaintingCardItemParams {
     paintingCardId: string
   }
 }
+
 export interface IPainting {
   id: string
   author: string
@@ -28,12 +32,15 @@ export interface IPainting {
   yearOfCreation: number
   format: string
   color: string
+  description: string
 }
+
 export interface PaintingState {
   painting: IPainting | null
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
 }
+
 export interface PaintingRootState {
   painting: PaintingState
 }
@@ -57,18 +64,23 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     height,
     width,
     price,
+    description,
   } = painting || ({} as IPainting)
 
   useEffect(() => {
     if (paintingCardId) {
       // @ts-ignore
-      dispatch(fetchPaintingById(paintingCardId))
+      dispatch(fetchPaintingByIdAction(paintingCardId))
     }
   }, [dispatch, paintingCardId])
 
   return (
     <main className={styles.main}>
+      <div className={`container`}>
+        <NavigationButton direction='back' label='Назад' />
+      </div>
       <article className={`container ${styles.painting_card_container}`}>
+        <section />
         <section className={`${styles.image_container} ${styles.section}`}>
           {isLoading ? (
             <Skeleton style={{ width: '100%', height: '100%' }} />
@@ -89,19 +101,50 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
           </header>
           <div className={styles.description}>
             <p className={styles.author}>
-              {isLoading ? <Skeleton /> : `Автор: ${author}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Автор:</span> {author}
+                </>
+              )}
             </p>
             <p className={styles.materials}>
-              {isLoading ? <Skeleton /> : `Материалы: ${materials}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Материалы:</span> {materials}
+                </>
+              )}
             </p>
             <p className={styles.style}>
-              {isLoading ? <Skeleton /> : `Стиль: ${style}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Стиль:</span> {style}
+                </>
+              )}
             </p>
             <p className={styles.year}>
-              {isLoading ? <Skeleton /> : `Год: ${yearOfCreation}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Год:</span> {yearOfCreation}
+                </>
+              )}
             </p>
             <p className={styles.dimensions}>
-              {isLoading ? <Skeleton /> : `Размер: ${height} x ${width}`}
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <>
+                  <span className={styles.label}>Размер:</span> {height} x{' '}
+                  {width}
+                </>
+              )}
             </p>
           </div>
           <div className={styles.price_container}>
@@ -118,6 +161,10 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
               <OrderOneClickButton label='ЗАКАЗАТЬ В ОДИН КЛИК' />
             )}
           </footer>
+        </section>
+        <section className={` ${styles.section}`}>
+          {isLoading ? <Skeleton /> : <PageSubTitle text='Описание картины:' />}
+          {isLoading ? <Skeleton /> : <PageTextBlock text={description} />}
         </section>
       </article>
     </main>

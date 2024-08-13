@@ -1,6 +1,6 @@
 'use client'
 import cn from 'classnames'
-import { useAppDispatch } from '@/src/app/model/hooks'
+import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { setEnglishLang, setRussianLang } from '@/src/app/model/languageSlice'
 import styles from '@/src/widgets/Header/ui/header.module.scss'
 

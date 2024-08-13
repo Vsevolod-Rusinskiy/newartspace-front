@@ -25,7 +25,7 @@ interface PaintingState {
   error: string | null | undefined
 }
 
-export const fetchPaintingById = createAsyncThunk(
+export const fetchPaintingByIdAction = createAsyncThunk(
   'paintings/fetchPaintingById',
   async (paintingCardId, { rejectWithValue }) => {
     try {
@@ -59,14 +59,14 @@ export const paintingSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPaintingById.pending, (state) => {
+      .addCase(fetchPaintingByIdAction.pending, (state) => {
         state.loading = 'pending'
       })
-      .addCase(fetchPaintingById.fulfilled, (state, action) => {
+      .addCase(fetchPaintingByIdAction.fulfilled, (state, action) => {
         state.loading = 'succeeded'
         state.painting = action.payload
       })
-      .addCase(fetchPaintingById.rejected, (state, action) => {
+      .addCase(fetchPaintingByIdAction.rejected, (state, action) => {
         state.loading = 'failed'
         state.error = action.error.message
       })

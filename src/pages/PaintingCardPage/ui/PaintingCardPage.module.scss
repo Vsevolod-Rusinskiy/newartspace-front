@@ -10,7 +10,6 @@
       flex: 1 1 auto;
       width: 100%;
       min-width: 270px;
-      //border: solid 1px #c4c5c5;
 
       &.image_container {
         flex: 0 0 60%;
@@ -46,11 +45,43 @@
           .dimensions {
             font-size: var(--font-size-m);
             padding-bottom: 8px;
+
+            .label {
+              font-weight: 300;
+            }
           }
         }
 
         .price_container {
           margin-bottom: 32px;
+        }
+
+        .actions {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .main {
+    .painting_card_container {
+      .section {
+        &.image_container {
+          height: 400px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .main {
+    .painting_card_container {
+      .section {
+        &.image_container {
+          height: 320px;
         }
       }
     }
@@ -73,6 +104,7 @@
         max-width: 100%;
         width: 100%;
       }
+
       .details_container {
         padding-left: 15px;
       }
