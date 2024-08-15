@@ -1,29 +1,33 @@
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
 import styles from './OrderButton.module.scss'
-import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
 
 interface IPrimaryButtonProps
   extends DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  label?: string
   onClick?: () => void
   disabled?: boolean
+  children: ReactNode
 }
 
 const orderButton = ({
-  label,
   onClick,
   disabled = false,
+  children,
   ...props
 }: IPrimaryButtonProps) => (
   <button
-    className={styles.order_one_click_button}
+    className={styles.animated_button}
     onClick={onClick}
     disabled={disabled}
     {...props}
   >
-    {label}
+    <span />
+    <span />
+    <span />
+    <span />
+    {children}
   </button>
 )
 
