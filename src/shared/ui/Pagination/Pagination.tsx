@@ -8,11 +8,7 @@ interface Paginate {
   forcePage: number
 }
 
-export const Paginate: React.FC<Paginate> = ({
-  pageCount,
-  onPageChange,
-  forcePage,
-}) => (
+export const Paginate = ({ pageCount, onPageChange, forcePage }: Paginate) => (
   <ReactPaginate
     previousLabel={forcePage === 0 ? '' : '<'}
     nextLabel={forcePage === pageCount - 1 ? '' : '>'}

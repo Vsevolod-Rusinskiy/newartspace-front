@@ -5,7 +5,7 @@ interface IPageTextBlockProps {
   text: string
 }
 
-const pageTextBlock: React.FC<IPageTextBlockProps> = ({ text }) => (
+const pageTextBlock = ({ text }: IPageTextBlockProps) => (
   <div
     className={styles.page_text_block}
     dangerouslySetInnerHTML={{ __html: text }}

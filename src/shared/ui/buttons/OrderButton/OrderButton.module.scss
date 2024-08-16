@@ -1,20 +1,111 @@
-.order_one_click_button {
+.animated_button {
+  background: linear-gradient(-30deg, #a93531 50%, #2f070e 50%);
+  padding: 20px 40px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
   width: 100%;
-  background-color: white;
-  border: 1px solid #D3D3D3;
-  padding: 10px 20px;
-  color: var(--silver-color);
-  font-size: 16px;
   cursor: pointer;
-  border-radius: 0;
-  transition: background-color 0.3s, color 0.3s;
+  border: none;
 
-  &:hover {
-    background-color: #f0f0f0;
+
+}
+
+.animated_button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #8592ad;
+  opacity: 0;
+  transition: 0.2s opacity ease-in-out;
+}
+
+.animated_button:hover::before {
+  opacity: 0.2;
+}
+
+.animated_button span {
+  position: absolute;
+}
+
+.animated_button span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to left, rgba(8, 20, 43, 0), var(--button-animation-color));
+  animation: animateTop 2s linear infinite;
+}
+
+.animated_button span:nth-child(2) {
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(to top, rgba(8, 20, 43, 0), var(--button-animation-color));
+  animation: animateRight 2s linear -1s infinite;
+}
+
+.animated_button span:nth-child(3) {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, rgba(8, 20, 43, 0), var(--button-animation-color));
+  animation: animateBottom 2s linear infinite;
+}
+
+.animated_button span:nth-child(4) {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(8, 20, 43, 0), var(--button-animation-color));
+  animation: animateLeft 2s linear -1s infinite;
+}
+
+@keyframes animateTop {
+  0% {
+    transform: translateX(100%);
   }
+  100% {
+    transform: translateX(-100%);
+  }
+}
 
-  &:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+@keyframes animateRight {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes animateBottom {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes animateLeft {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
   }
 }

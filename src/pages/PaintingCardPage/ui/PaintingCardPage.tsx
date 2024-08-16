@@ -158,7 +158,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             {isLoading ? (
               <Skeleton />
             ) : (
-              <OrderOneClickButton label='ЗАКАЗАТЬ В ОДИН КЛИК' />
+              <OrderOneClickButton>Заказать в один клик </OrderOneClickButton>
             )}
           </footer>
         </section>
