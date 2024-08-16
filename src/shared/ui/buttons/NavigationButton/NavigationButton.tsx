@@ -1,20 +1,12 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from './NavigationButton.module.scss'
 
-interface INavigationButtonProps
-  extends DetailedHTMLProps<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
+interface INavigationButtonProps {
   label: string
   direction: string
 }
 
-const NavigationButton: React.FC<INavigationButtonProps> = ({
-  label,
-  direction,
-}) => {
+const NavigationButton = ({ label, direction }: INavigationButtonProps) => {
   const router = useRouter()
 
   const handleNavigation = () => {
