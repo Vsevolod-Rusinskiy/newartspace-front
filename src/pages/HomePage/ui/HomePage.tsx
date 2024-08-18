@@ -9,7 +9,7 @@ import { PaintingListItem } from './PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './HomePage.module.scss'
 
-// test flag = true
+// test flag = false
 
 interface IPainting {
   id: string

@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: newspace-front:latest
-          imagePullPolicy: IfNotPresent
+          image: ghcr.io/vsevolod-rusinskiy/newartspace-front:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
@@ -39,3 +39,5 @@ spec:
                 configMapKeyRef:
                   name: frontend-config
                   key: NEXT_PUBLIC_API_URL
+      imagePullSecrets:
+        - name: ghcr-io-secret
