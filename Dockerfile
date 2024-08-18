@@ -32,7 +32,6 @@ WORKDIR /app
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.env ./
 
 # Копируем package.json и yarn.lock для установки зависимостей
 COPY --from=builder /app/package.json /app/yarn.lock ./
