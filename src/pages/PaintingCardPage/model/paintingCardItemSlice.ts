@@ -34,7 +34,6 @@ export const fetchPaintingByIdAction = createAsyncThunk(
       )
       if (!response.ok) {
         if (response.status === 404) {
-          console.log('404')
           return rejectWithValue('Painting not found')
         }
         return rejectWithValue('Failed to fetch painting')
@@ -68,7 +67,7 @@ export const paintingSlice = createSlice({
       })
       .addCase(fetchPaintingByIdAction.rejected, (state, action) => {
         state.loading = 'failed'
-        state.error = action.error.message
+        state.error = action.payload as string
       })
   },
 })

@@ -13,7 +13,6 @@ const NavigationButton = ({ label, direction }: INavigationButtonProps) => {
     if (direction === 'back') {
       router.back()
     } else if (direction === 'forward') {
-      // router.push(router.asPath)
     }
   }
 
