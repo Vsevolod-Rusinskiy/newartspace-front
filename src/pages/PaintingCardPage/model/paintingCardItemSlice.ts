@@ -25,10 +25,6 @@ interface PaintingState {
   error: string | null | undefined
 }
 
-// interface FetchPaintingsResult {
-//   data: IPainting
-// }
-
 export const fetchPaintingByIdAction = createAsyncThunk<IPainting, string>(
   'paintings/fetchPaintingById',
   async (paintingCardId, { rejectWithValue }) => {
