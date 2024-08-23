@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface IPainting {
   id: string
@@ -26,7 +26,15 @@ interface Pagination {
   limit: number
 }
 
-export const fetchPaintingsAction = createAsyncThunk(
+interface FetchPaintingsResult {
+  data: IPainting[]
+  total: number
+}
+
+export const fetchPaintingsAction = createAsyncThunk<
+  FetchPaintingsResult,
+  Pagination
+>(
   'paintings/fetchPaintings',
   async ({ page, limit }: Pagination, { rejectWithValue }) => {
     try {
@@ -49,8 +57,12 @@ export const initialState: PaintingsState = {
   error: null,
 }
 
-// @ts-ignore
-export const paintingsSlice = createSlice({
+export const paintingsSlice = createSlice<
+  PaintingsState,
+  Record<string, never>,
+  string,
+  any // eslint-disable-line @typescript-eslint/no-explicit-any
+>({
   name: 'paintings',
   initialState,
   reducers: {},
@@ -59,13 +71,17 @@ export const paintingsSlice = createSlice({
       .addCase(fetchPaintingsAction.pending, (state) => {
         state.loading = 'pending'
       })
-      .addCase(fetchPaintingsAction.fulfilled, (state, action) => {
-        state.loading = 'succeeded'
-        state.paintings = action.payload
-      })
+      .addCase(
+        fetchPaintingsAction.fulfilled,
+        (state, action: PayloadAction<FetchPaintingsResult>) => {
+          state.loading = 'succeeded'
+          state.paintings = action.payload
+        }
+      )
       .addCase(fetchPaintingsAction.rejected, (state, action) => {
         state.loading = 'failed'
-        state.error = action.error.message
+        state.error =
+          (action.payload as string | undefined) || action.error.message || null
       })
   },
 })

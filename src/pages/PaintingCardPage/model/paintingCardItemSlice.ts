@@ -1,6 +1,6 @@
 'use client'
 
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface IPainting {
   id: string
@@ -25,7 +25,11 @@ interface PaintingState {
   error: string | null | undefined
 }
 
-export const fetchPaintingByIdAction = createAsyncThunk(
+// interface FetchPaintingsResult {
+//   data: IPainting
+// }
+
+export const fetchPaintingByIdAction = createAsyncThunk<IPainting, string>(
   'paintings/fetchPaintingById',
   async (paintingCardId, { rejectWithValue }) => {
     try {
@@ -50,9 +54,13 @@ const initialState: PaintingState = {
   loading: 'idle',
   error: null,
 }
-
 // @ts-ignore
-export const paintingSlice = createSlice({
+export const paintingSlice = createSlice<
+  PaintingState,
+  Record<string, never>,
+  string,
+  any // eslint-disable-line @typescript-eslint/no-explicit-any
+>({
   name: 'painting',
   initialState,
   reducers: {},
@@ -61,13 +69,17 @@ export const paintingSlice = createSlice({
       .addCase(fetchPaintingByIdAction.pending, (state) => {
         state.loading = 'pending'
       })
-      .addCase(fetchPaintingByIdAction.fulfilled, (state, action) => {
-        state.loading = 'succeeded'
-        state.painting = action.payload
-      })
+      .addCase(
+        fetchPaintingByIdAction.fulfilled,
+        (state, action: PayloadAction<IPainting>) => {
+          state.loading = 'succeeded'
+          state.painting = action.payload
+        }
+      )
       .addCase(fetchPaintingByIdAction.rejected, (state, action) => {
         state.loading = 'failed'
-        state.error = action.payload as string
+        state.error =
+          (action.payload as string | undefined) || action.error.message || null
       })
   },
 })
