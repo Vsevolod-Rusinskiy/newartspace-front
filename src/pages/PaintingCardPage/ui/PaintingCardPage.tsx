@@ -1,5 +1,7 @@
 import Image from 'next/image'
-import { useDispatch, useSelector } from 'react-redux'
+import { notFound } from 'next/navigation'
+import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { fetchPaintingByIdAction } from '../model/paintingCardItemSlice'
@@ -47,8 +49,8 @@ export interface PaintingRootState {
 
 export const PaintingCardItem = (params: PaintingCardItemParams) => {
   const { paintingCardId } = params.params
-  const dispatch = useDispatch()
-  const { painting, loading } = useSelector(
+  const dispatch = useAppDispatch()
+  const { painting, loading, error } = useSelector(
     (state: PaintingRootState) => state.painting
   )
 
@@ -68,8 +70,13 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
   } = painting || ({} as IPainting)
 
   useEffect(() => {
+    if (error === 'Painting not found' || isNaN(Number(paintingCardId))) {
+      notFound()
+    }
+  }, [error, paintingCardId])
+
+  useEffect(() => {
     if (paintingCardId) {
-      // @ts-ignore
       dispatch(fetchPaintingByIdAction(paintingCardId))
     }
   }, [dispatch, paintingCardId])

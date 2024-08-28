@@ -1,5 +1,3 @@
-// export const AboutPage = () => <div>Страница в разработке</div>
-
 import React from 'react'
 import '../../temp/styles.css'
 

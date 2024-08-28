@@ -1,15 +1,14 @@
 'use client'
 /* eslint-disable */
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchPaintingsAction } from '../model/homePageSlice'
 import { PaintingListItem } from './PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './HomePage.module.scss'
-
-// test flag = true
 
 interface IPainting {
   id: string
@@ -39,7 +38,7 @@ interface PaintingsRootState {
 }
 
 export const HomePage = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { paintings, loading, error } = useSelector(
     (state: PaintingsRootState) => state.paintings
   )
@@ -49,7 +48,6 @@ export const HomePage = () => {
   const limit = 9
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(fetchPaintingsAction({ page, limit }))
   }, [dispatch, page])
 
