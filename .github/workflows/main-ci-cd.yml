@@ -82,5 +82,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           command_timeout: 360m
           script: |
-            kubectl rollout restart deployment admin
+            kubectl rollout restart deployment frontend
             kubectl get pods -n default
