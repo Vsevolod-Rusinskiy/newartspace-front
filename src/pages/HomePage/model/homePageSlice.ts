@@ -1,4 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { API_BASE_URL } from '@/src/shared/config/apiConfig'
+
+console.log('ApiUrl:', API_BASE_URL)
 
 interface IPainting {
   id: string
@@ -39,7 +42,7 @@ export const fetchPaintingsAction = createAsyncThunk<
   async ({ page, limit }: Pagination, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/paintings?page=${page}&limit=${limit}`
+        `${API_BASE_URL}/paintings?page=${page}&limit=${limit}`
       )
       if (!response.ok) {
         return rejectWithValue('Failed to fetch paintings')

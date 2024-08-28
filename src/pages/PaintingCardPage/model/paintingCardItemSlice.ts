@@ -1,6 +1,7 @@
 'use client'
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
 interface IPainting {
   id: string
@@ -30,7 +31,7 @@ export const fetchPaintingByIdAction = createAsyncThunk<IPainting, string>(
   async (paintingCardId, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/paintings/${paintingCardId}`
+        `${API_BASE_URL}/paintings/${paintingCardId}`
       )
       if (!response.ok) {
         if (response.status === 404) {
