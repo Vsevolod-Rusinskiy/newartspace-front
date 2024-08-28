@@ -1,6 +1,6 @@
-import reducer, { fetchPaintingsAction, initialState } from './homePageSlice'
 import fetchMock from 'jest-fetch-mock'
-import 'dotenv/config'
+import reducer, { fetchPaintingsAction, initialState } from './homePageSlice'
+import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
 const mockPaintingItem = {
   id: '1',
@@ -151,7 +151,7 @@ describe('fetchPaintingsAction API call', () => {
 
     await thunk(dispatch, () => ({}), undefined)
     expect(fetchMock).toHaveBeenCalledWith(
-      `${process.env.NEXT_PUBLIC_API_URL}/paintings?page=1&limit=10`
+      `${API_BASE_URL}/paintings?page=1&limit=10`
     )
   })
 })

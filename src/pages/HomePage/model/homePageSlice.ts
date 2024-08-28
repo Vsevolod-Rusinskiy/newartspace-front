@@ -1,4 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { API_BASE_URL } from '@/src/shared/config/apiConfig'
+
+console.log('ApiUrl:', API_BASE_URL)
 
 interface IPainting {
   id: string
@@ -26,12 +29,20 @@ interface Pagination {
   limit: number
 }
 
-export const fetchPaintingsAction = createAsyncThunk(
+interface FetchPaintingsResult {
+  data: IPainting[]
+  total: number
+}
+
+export const fetchPaintingsAction = createAsyncThunk<
+  FetchPaintingsResult,
+  Pagination
+>(
   'paintings/fetchPaintings',
   async ({ page, limit }: Pagination, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/paintings?page=${page}&limit=${limit}`
+        `${API_BASE_URL}/paintings?page=${page}&limit=${limit}`
       )
       if (!response.ok) {
         return rejectWithValue('Failed to fetch paintings')
@@ -49,8 +60,12 @@ export const initialState: PaintingsState = {
   error: null,
 }
 
-// @ts-ignore
-export const paintingsSlice = createSlice({
+export const paintingsSlice = createSlice<
+  PaintingsState,
+  Record<string, never>,
+  string,
+  any // eslint-disable-line @typescript-eslint/no-explicit-any
+>({
   name: 'paintings',
   initialState,
   reducers: {},
@@ -59,13 +74,17 @@ export const paintingsSlice = createSlice({
       .addCase(fetchPaintingsAction.pending, (state) => {
         state.loading = 'pending'
       })
-      .addCase(fetchPaintingsAction.fulfilled, (state, action) => {
-        state.loading = 'succeeded'
-        state.paintings = action.payload
-      })
+      .addCase(
+        fetchPaintingsAction.fulfilled,
+        (state, action: PayloadAction<FetchPaintingsResult>) => {
+          state.loading = 'succeeded'
+          state.paintings = action.payload
+        }
+      )
       .addCase(fetchPaintingsAction.rejected, (state, action) => {
         state.loading = 'failed'
-        state.error = action.error.message
+        state.error =
+          (action.payload as string | undefined) || action.error.message || null
       })
   },
 })
