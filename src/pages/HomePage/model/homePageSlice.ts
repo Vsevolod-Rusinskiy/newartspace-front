@@ -6,7 +6,7 @@ console.log('ApiUrl:', API_BASE_URL)
 interface IPainting {
   id: string
   author: string
-  paintingUrl: string
+  imgUrl: string
   title: string
   artType: string
   price: number

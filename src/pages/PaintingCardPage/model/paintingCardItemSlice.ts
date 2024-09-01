@@ -6,7 +6,7 @@ import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 interface IPainting {
   id: string
   author: string
-  paintingUrl: string
+  imgUrl: string
   title: string
   artType: string
   price: number

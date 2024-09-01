@@ -5,7 +5,7 @@ import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 const mockPaintingItem = {
   id: '1',
   author: 'Vincent van Gogh',
-  paintingUrl: 'http://example.com/starry-night.jpg',
+  imgUrl: 'http://example.com/starry-night.jpg',
   title: 'Starry Night',
   artType: 'Oil on canvas',
   price: 1000000,
