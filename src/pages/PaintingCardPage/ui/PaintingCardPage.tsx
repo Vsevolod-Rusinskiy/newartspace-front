@@ -22,7 +22,7 @@ interface PaintingCardItemParams {
 export interface IPainting {
   id: string
   author: string
-  paintingUrl: string
+  imgUrl: string
   title: string
   artType: string
   price: number
@@ -57,7 +57,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
   const isLoading = loading === 'idle' || loading === 'pending'
 
   const {
-    paintingUrl,
+    imgUrl,
     title,
     author,
     materials,
@@ -93,7 +93,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             <Skeleton style={{ width: '100%', height: '100%' }} />
           ) : (
             <Image
-              src={paintingUrl}
+              src={imgUrl}
               alt={title}
               width={100}
               height={100}
