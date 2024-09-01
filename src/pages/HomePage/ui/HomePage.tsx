@@ -13,7 +13,7 @@ import styles from './HomePage.module.scss'
 interface IPainting {
   id: string
   author: string
-  paintingUrl: string
+  imgUrl: string
   title: string
   artType: string
   price: number
@@ -94,7 +94,7 @@ export const HomePage = () => {
                 <PaintingListItem
                   key={painting.id}
                   id={painting.id}
-                  src={painting.paintingUrl}
+                  src={painting.imgUrl}
                   alt={painting.title}
                   price={painting.price}
                   author={painting.author}
