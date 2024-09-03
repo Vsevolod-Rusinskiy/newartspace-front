@@ -3,6 +3,7 @@ import { modalsSlice } from '@/src/widgets/Header/ui/Navbar/model/modalsSlice'
 import { languageSlice } from '@/src/app/model/languageSlice'
 import { paintingsSlice } from '@/src/pages/HomePage/model/homePageSlice'
 import { paintingSlice } from '@/src/pages/PaintingCardPage/model/paintingCardItemSlice'
+import { artistsSlice } from '@/src/pages/NamesPage/model/namesPageSlice'
 
 export const makeStore = () =>
   configureStore({
@@ -11,6 +12,7 @@ export const makeStore = () =>
       language: languageSlice.reducer,
       paintings: paintingsSlice.reducer,
       painting: paintingSlice.reducer,
+      artists: artistsSlice.reducer,
     },
   })
 

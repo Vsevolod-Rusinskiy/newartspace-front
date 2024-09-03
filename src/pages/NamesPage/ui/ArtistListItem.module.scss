@@ -1,0 +1,23 @@
+.artist_item {
+  margin: 10px;
+  text-align: center;
+}
+
+.artist_photo {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+.artist_name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.artist_description {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+}
