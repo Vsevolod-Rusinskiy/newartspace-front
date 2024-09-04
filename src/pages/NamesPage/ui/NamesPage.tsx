@@ -1,13 +1,3 @@
-// import styles from '@/src/pages/HomePage/ui/HomePage.module.scss'
-//
-// export const NamesPage = () => (
-//   <main className={styles.main}>
-//     <section className={`container ${styles.content}`}>
-//       <Htag tag='h1'>Имена художников</Htag>
-//       <Alphabet />
-//     </section>
-//   </main>
-// )
 'use client'
 /* eslint-disable */
 import { useEffect, useState } from 'react'
@@ -97,6 +87,7 @@ export const NamesPage = () => {
             : artistArray.map((artist: IArtist) => (
                 <ArtistListItem
                   key={artist.id}
+                  id={artist.id}
                   artistName={artist.artistName}
                   imgUrl={artist.imgUrl}
                 />

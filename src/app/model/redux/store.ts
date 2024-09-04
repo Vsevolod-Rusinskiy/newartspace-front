@@ -4,6 +4,7 @@ import { languageSlice } from '@/src/app/model/languageSlice'
 import { paintingsSlice } from '@/src/pages/HomePage/model/homePageSlice'
 import { paintingSlice } from '@/src/pages/PaintingCardPage/model/paintingCardItemSlice'
 import { artistsSlice } from '@/src/pages/NamesPage/model/namesPageSlice'
+import { artistSlice } from '@/src/pages/ArtistCardPage/model/artistCardItemSlice'
 
 export const makeStore = () =>
   configureStore({
@@ -13,6 +14,7 @@ export const makeStore = () =>
       paintings: paintingsSlice.reducer,
       painting: paintingSlice.reducer,
       artists: artistsSlice.reducer,
+      artist: artistSlice.reducer,
     },
   })
 
