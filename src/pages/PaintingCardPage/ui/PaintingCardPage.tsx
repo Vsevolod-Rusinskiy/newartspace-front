@@ -21,7 +21,9 @@ interface PaintingCardItemParams {
 
 export interface IPainting {
   id: string
-  author: string
+  artist: {
+    artistName: string
+  }
   imgUrl: string
   title: string
   artType: string
@@ -59,7 +61,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
   const {
     imgUrl,
     title,
-    author,
+    artist,
     materials,
     style,
     yearOfCreation,
@@ -80,7 +82,6 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
       dispatch(fetchPaintingByIdAction(paintingCardId))
     }
   }, [dispatch, paintingCardId])
-
   return (
     <main className={styles.main}>
       <div className={`container`}>
@@ -112,7 +113,8 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
                 <Skeleton />
               ) : (
                 <>
-                  <span className={styles.label}>Автор:</span> {author}
+                  <span className={styles.label}>Автор:</span>{' '}
+                  {artist.artistName}
                 </>
               )}
             </p>
