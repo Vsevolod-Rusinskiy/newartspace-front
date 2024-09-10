@@ -12,6 +12,8 @@ import { openBurgerMenu } from './Navbar/model/modalsSlice'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { LangToggler } from './LangToggler/ui/LangToggler'
 import { useLang } from '@/src/shared/hooks/useLang'
+import { menuItems } from '@/src/shared/constants/menuItems'
+
 import styles from './header.module.scss'
 
 export const Header = () => {
@@ -30,6 +32,7 @@ export const Header = () => {
   const enSubHeaderClass = cn({
     [styles.en_sub_header]: lang === 'en',
   })
+
   return (
     <header className={styles.header}>
       <div className={`container ${styles.content}`}>
@@ -102,39 +105,11 @@ export const Header = () => {
         <div className={styles.bottom}>
           <nav className={styles.nav}>
             <ul className={`list_reset`}>
-              <li>
-                <Link href='/about'>
-                  {translations[lang].main_menu.about_us}
-                </Link>
-              </li>
-              <li>
-                <Link href='/names'>{translations[lang].main_menu.names}</Link>
-              </li>
-              <li>
-                <Link href='/catalog'>
-                  {translations[lang].main_menu.catalog}
-                </Link>
-              </li>
-              <li>
-                <Link href='/another'>
-                  {translations[lang].main_menu.another}
-                </Link>
-              </li>
-              <li>
-                <Link href='/services'>
-                  {translations[lang].main_menu.services}
-                </Link>
-              </li>
-              <li>
-                <Link href='/events'>
-                  {translations[lang].main_menu.events}
-                </Link>
-              </li>
-              <li>
-                <Link href='/contacts'>
-                  {translations[lang].main_menu.contacts}
-                </Link>
-              </li>
+              {menuItems(translations, lang).map(({ href, label }, index) => (
+                <li key={index}>
+                  <Link href={href}>{label}</Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>

@@ -9,6 +9,22 @@ export const Footer = () => {
   const burgerIsOpen = useAppSelector((state) => state.modals.burgerMenu)
   const { lang, translations } = useLang()
 
+  const firstMenuItems = [
+    { href: '/about', label: translations[lang].main_menu.about_us },
+    { href: '/names', label: translations[lang].main_menu.names },
+    { href: '/catalog', label: translations[lang].main_menu.catalog },
+    { href: '/another', label: translations[lang].main_menu.another },
+    { href: '/services', label: translations[lang].main_menu.services },
+  ]
+
+  const secondMenuItems = [
+    { href: '/events', label: translations[lang].main_menu.events },
+    { href: '/contacts', label: translations[lang].main_menu.contacts },
+    { href: '#', label: translations[lang].main_menu.return_and_shipping },
+    { href: '#', label: translations[lang].main_menu.privacy_policy },
+    { href: '#', label: translations[lang].main_menu.agreement },
+  ]
+
   return (
     <footer
       className={cn(styles.footer, {
@@ -18,48 +34,18 @@ export const Footer = () => {
       <div className={`container ${styles.content}`}>
         <div className={styles.menu}>
           <ul className={`list_reset ${styles.nav}`}>
-            <li>
-              <Link href='/about'>{translations[lang].main_menu.about_us}</Link>
-            </li>
-            <li>
-              <Link href='/names'>{translations[lang].main_menu.names}</Link>
-            </li>
-            <li>
-              <Link href='/catalog'>
-                {translations[lang].main_menu.catalog}
-              </Link>
-            </li>
-            <li>
-              <Link href='/another'>
-                {translations[lang].main_menu.another}
-              </Link>
-            </li>
-            <li>
-              <Link href='/services'>
-                {translations[lang].main_menu.services}
-              </Link>
-            </li>
+            {firstMenuItems.map(({ href, label }, index) => (
+              <li key={index}>
+                <Link href={href}>{label}</Link>
+              </li>
+            ))}
           </ul>
           <ul className={styles.nav}>
-            <li>
-              <Link href='/events'>{translations[lang].main_menu.events}</Link>
-            </li>
-            <li>
-              <Link href='/contacts'>
-                {translations[lang].main_menu.contacts}
-              </Link>
-            </li>
-            <li>
-              <Link href='src/widgets/Footer#'>
-                {translations[lang].main_menu.return_and_shipping}
-              </Link>
-            </li>
-            <a href='src/widgets/Footer#'>
-              {translations[lang].main_menu.privacy_policy}
-            </a>
-            <a href='src/widgets/Footer#'>
-              {translations[lang].main_menu.agreement}
-            </a>
+            {secondMenuItems.map(({ href, label }, index) => (
+              <li key={index}>
+                <Link href={href}>{label}</Link>
+              </li>
+            ))}
           </ul>
           <address className={styles.address}>
             <p>{translations[lang].individual.name}</p>
@@ -70,14 +56,14 @@ export const Footer = () => {
               <br /> {translations[lang].individual.address3}
             </p>
             <p>
-              <a href='tel:89219326215'>
+              <Link href='tel:89219326215'>
                 {translations[lang].individual.phone}
-              </a>
+              </Link>
             </p>
             <p>
-              <a href='mailto:9326215@mail.ru?subject='>
+              <Link href='mailto:9326215@mail.ru?subject='>
                 E-mail: 9326215@mail.ru
-              </a>
+              </Link>
             </p>
           </address>
         </div>
