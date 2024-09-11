@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { fetchPaintingByIdAction } from '../model/paintingCardItemSlice'
-import OrderOneClickButton from '@/src/shared/ui/buttons/OrderButton/OrderButton'
+import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
 import { formatNumberWithSpaces } from '@/src/shared/lib/common'
 import PageSubTitle from '@/src/shared/ui/PageSubTitle/PageSubTitle'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
@@ -167,7 +167,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             {isLoading ? (
               <Skeleton />
             ) : (
-              <OrderOneClickButton>Заказать в один клик </OrderOneClickButton>
+              <ActionButton>Заказать в один клик </ActionButton>
             )}
           </footer>
         </section>
