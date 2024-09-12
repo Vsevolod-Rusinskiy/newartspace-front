@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styles from './PageTextBlock.module.scss'
 
 interface IPageTextBlockProps {
   text: string
 }
 
-const pageTextBlock = ({ text }: IPageTextBlockProps) => (
-  <div
-    className={styles.page_text_block}
-    dangerouslySetInnerHTML={{ __html: text }}
-  />
+const PageTextBlock = forwardRef<HTMLDivElement, IPageTextBlockProps>(
+  ({ text }, ref) => (
+    <div
+      ref={ref}
+      className={styles.page_text_block}
+      dangerouslySetInnerHTML={{ __html: text }}
+    />
+  )
 )
+PageTextBlock.displayName = 'PageTextBlock'
 
-export default pageTextBlock
+export default PageTextBlock
