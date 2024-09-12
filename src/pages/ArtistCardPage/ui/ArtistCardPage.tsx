@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
@@ -44,17 +44,6 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
 
   const { imgUrl, artistName, artistDescription } = artist || ({} as IArtist)
 
-  const [isDescriptionTooLong, setIsDescriptionTooLong] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const getAmountOfSymbolsInDescription = () => {
-    if (artistDescription.length > 1800) {
-      setIsDescriptionTooLong(true)
-    } else {
-      setIsDescriptionTooLong(false)
-    }
-  }
-
   useEffect(() => {
     if (error === 'Artist not found' || isNaN(Number(artistCardId))) {
       notFound()
@@ -66,16 +55,6 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
       dispatch(fetchArtistByIdAction(artistCardId))
     }
   }, [dispatch, artistCardId])
-
-  useEffect(() => {
-    if (artistDescription) {
-      getAmountOfSymbolsInDescription()
-    }
-  }, [artistDescription])
-
-  const toggleExpand = () => {
-    setIsExpanded(!isExpanded)
-  }
 
   return (
     <main className={styles.main}>
@@ -104,26 +83,11 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
             {isLoading ? (
               <Skeleton />
             ) : (
-              <PageTextBlock
-                text={
-                  isDescriptionTooLong && !isExpanded
-                    ? artistDescription.slice(0, 1800) + '...'
-                    : artistDescription
-                }
-              />
+              <PageTextBlock text={artistDescription} />
             )}
           </div>
           <footer className={styles.actions}>
-            {isLoading ? (
-              <Skeleton />
-            ) : (
-              <ActionButton
-                onClick={toggleExpand}
-                isVisible={isDescriptionTooLong}
-              >
-                {isExpanded ? 'Свернуть' : 'Подробнее'}
-              </ActionButton>
-            )}
+            {isLoading ? <Skeleton /> : <ActionButton>Подробнее</ActionButton>}
           </footer>
         </section>
       </article>
