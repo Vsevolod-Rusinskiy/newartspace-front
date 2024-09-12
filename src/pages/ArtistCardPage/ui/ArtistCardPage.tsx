@@ -54,7 +54,7 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
 
   const handleToggle = () => {
     if (descriptionRef.current) {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         const fullHeight = descriptionRef.current!.scrollHeight
         console.log('Полная высота текста (scrollHeight):', fullHeight)
         console.log('Текущее состояние isExpanded:', isExpanded)
@@ -65,7 +65,7 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
         setMaxHeight(newMaxHeight)
 
         console.log('Установленная maxHeight после изменения:', newMaxHeight)
-      }, 100) // Ждём 100 мс, чтобы контент успел отрендериться
+      })
     }
 
     // Меняем состояние
