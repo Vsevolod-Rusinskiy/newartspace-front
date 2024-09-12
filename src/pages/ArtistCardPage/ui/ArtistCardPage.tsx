@@ -35,7 +35,7 @@ export interface ArtistRootState {
   artist: ArtistState
 }
 
-const MAX_DESCRIPTION_LENGTH = 1000
+const maxDescriptionLength = 1000
 
 export const ArtistCardItem = (params: ArtistPageParams) => {
   const { artistCardId } = params.params
@@ -62,7 +62,7 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
     setIsExpanded(!isExpanded)
   }
   const shouldShowButton =
-    (artistDescription?.length || 0) > MAX_DESCRIPTION_LENGTH
+    (artistDescription?.length || 0) > maxDescriptionLength
 
   useEffect(() => {
     if (error === 'Artist not found' || isNaN(Number(artistCardId))) {
@@ -113,10 +113,9 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
                   ref={descriptionRef}
                   text={
                     isExpanded ||
-                    artistDescription.length <= MAX_DESCRIPTION_LENGTH
+                    artistDescription.length <= maxDescriptionLength
                       ? artistDescription
-                      : artistDescription.slice(0, MAX_DESCRIPTION_LENGTH) +
-                        '...'
+                      : artistDescription.slice(0, maxDescriptionLength) + '...'
                   }
                 />
               </motion.div>
