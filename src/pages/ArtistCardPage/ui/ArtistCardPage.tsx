@@ -44,37 +44,25 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
     (state: ArtistRootState) => state.artist
   )
   const [isExpanded, setIsExpanded] = useState(false)
-  const [maxHeight, setMaxHeight] = useState(400)
+  const [descriptionBlockMaxHeight, setDescriptionBlockMaxHeight] =
+    useState(400)
   const descriptionRef = useRef<HTMLDivElement>(null)
 
   const isLoading = loading === 'idle' || loading === 'pending'
   const { imgUrl, artistName, artistDescription } = artist || ({} as IArtist)
 
-  /**---->>>>>>> */
-
   const handleToggle = () => {
     if (descriptionRef.current) {
       requestAnimationFrame(() => {
         const fullHeight = descriptionRef.current!.scrollHeight
-        console.log('Полная высота текста (scrollHeight):', fullHeight)
-        console.log('Текущее состояние isExpanded:', isExpanded)
-        console.log('Текущая maxHeight перед изменением:', maxHeight)
-
-        // Устанавливаем корректную высоту в зависимости от состояния
         const newMaxHeight = !isExpanded ? fullHeight : 400
-        setMaxHeight(newMaxHeight)
-
-        console.log('Установленная maxHeight после изменения:', newMaxHeight)
+        setDescriptionBlockMaxHeight(newMaxHeight)
       })
     }
-
-    // Меняем состояние
     setIsExpanded(!isExpanded)
-    console.log('Новое состояние isExpanded:', !isExpanded)
   }
   const shouldShowButton =
     (artistDescription?.length || 0) > MAX_DESCRIPTION_LENGTH
-  /** <<<<<<<------ */
 
   useEffect(() => {
     if (error === 'Artist not found' || isNaN(Number(artistCardId))) {
@@ -117,14 +105,15 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
             ) : (
               <motion.div
                 initial={{ maxHeight: 400 }}
-                animate={{ maxHeight: maxHeight }}
+                animate={{ maxHeight: descriptionBlockMaxHeight }}
                 transition={{ duration: 0.5 }}
                 className={styles.description_text}
               >
                 <PageTextBlock
                   ref={descriptionRef}
                   text={
-                    isExpanded
+                    isExpanded ||
+                    artistDescription.length <= MAX_DESCRIPTION_LENGTH
                       ? artistDescription
                       : artistDescription.slice(0, MAX_DESCRIPTION_LENGTH) +
                         '...'

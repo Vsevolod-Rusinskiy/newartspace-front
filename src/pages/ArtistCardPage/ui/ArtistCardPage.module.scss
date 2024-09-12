@@ -42,7 +42,7 @@
         }
 
         .actions {
-          margin-bottom: 15px;
+          margin: 15px 0;
         }
       }
     }
@@ -50,13 +50,8 @@
 }
 .description_text {
   overflow: hidden;
-  //transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
-
-//.expanded {
-//  max-height: 1000px;
-//}
 
 @media screen and (max-width: 1000px) {
   .main {
