@@ -36,18 +36,22 @@
         }
 
         .description {
-          margin-bottom: 32px;
+          //margin-bottom: 32px;
           font-size: 16px;
           line-height: 1.6;
         }
 
         .actions {
-          margin-bottom: 15px;
+          margin: 15px 0;
         }
       }
     }
   }
 }
+.description_text {
+  overflow: hidden;
+}
+
 
 @media screen and (max-width: 1000px) {
   .main {
