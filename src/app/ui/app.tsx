@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Layout from './layouts/Layout'
 import StoreProvider from '@/app/StoreProvider'
+import { ErrorBoundary } from '@/src/shared/lib/bugsnag'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,9 +16,11 @@ export function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <StoreProvider>
-          <Layout>{children}</Layout>
-        </StoreProvider>
+        <ErrorBoundary>
+          <StoreProvider>
+            <Layout>{children}</Layout>
+          </StoreProvider>
+        </ErrorBoundary>
       </body>
     </html>
   )

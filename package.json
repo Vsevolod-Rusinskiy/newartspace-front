@@ -13,6 +13,9 @@
     "unit": "jest --config ./src/shared/config/jest/jest.config.ts"
   },
   "dependencies": {
+    "@bugsnag/browser-performance": "^2.9.1",
+    "@bugsnag/js": "^8.0.0",
+    "@bugsnag/plugin-react": "^8.0.0",
     "@reduxjs/toolkit": "^2.2.2",
     "braces": "^3.0.3",
     "classnames": "^2.5.1",
