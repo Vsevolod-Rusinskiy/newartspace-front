@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
-import styles from './OrderButton.module.scss'
+import styles from './ActionButton.module.scss'
+import cn from 'classnames'
 
 interface IPrimaryButtonProps
   extends DetailedHTMLProps<
@@ -9,16 +10,18 @@ interface IPrimaryButtonProps
   onClick?: () => void
   disabled?: boolean
   children: ReactNode
+  isVisible?: boolean
 }
 
-const orderButton = ({
+export const ActionButton = ({
   onClick,
   disabled = false,
   children,
+  isVisible = true,
   ...props
 }: IPrimaryButtonProps) => (
   <button
-    className={styles.animated_button}
+    className={cn(styles.animated_button, { [styles.hidden]: !isVisible })}
     onClick={onClick}
     disabled={disabled}
     {...props}
@@ -30,5 +33,3 @@ const orderButton = ({
     {children}
   </button>
 )
-
-export default orderButton
