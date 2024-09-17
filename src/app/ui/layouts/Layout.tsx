@@ -1,11 +1,15 @@
 import { Header } from '@/src/widgets/Header'
 import { Footer } from '@/src/widgets/Footer'
+import { Sidebar } from '@/src/widgets/Sidebar'
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <>
-    <Header />
-    {children}
-    <Footer />
+    <div>
+      <Header />
+      {children}
+      <Footer />
+    </div>
+    <Sidebar />
   </>
 )
 
