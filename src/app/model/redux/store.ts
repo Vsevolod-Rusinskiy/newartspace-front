@@ -15,6 +15,7 @@ export const makeStore = () =>
       painting: paintingSlice.reducer,
       artists: artistsSlice.reducer,
       artist: artistSlice.reducer,
+      // filteredProducts
     },
   })
 

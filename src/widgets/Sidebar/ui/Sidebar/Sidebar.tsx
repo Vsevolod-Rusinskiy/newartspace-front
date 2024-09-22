@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { createPortal } from 'react-dom'
 import styles from './Sidebar.module.scss'
+import Htag from '@/src/shared/ui/Htag/Htag'
+import FilterAccordion from '@/src/shared/ui/FilterAccordion/FilterAccordion'
 
 // interface SidebarProps {}
 
@@ -40,7 +42,13 @@ export const Sidebar = () => {
           [styles.collapsed]: collapsed,
         })}
       >
-        <div>Sidebar контент</div>
+        <div>
+          <Htag tag={'h3'}>Фильтры</Htag>
+          <FilterAccordion title={'title'}>
+            {/*// ul -ом я перебираю кастомнюу лишку*/}
+            {/*//*/}
+          </FilterAccordion>
+        </div>
       </div>
     </>,
     portalRef.current as HTMLElement
