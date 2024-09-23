@@ -10,6 +10,8 @@ interface IFilterCheckboxItem {
 //   id?: string
 // }
 
+// todo
+
 const FilterAccordionProps = ({ title }: IFilterCheckboxItem) => (
   <div>{title}</div>
 )

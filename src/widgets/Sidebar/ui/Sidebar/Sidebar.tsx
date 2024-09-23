@@ -2,13 +2,39 @@
 import { useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { createPortal } from 'react-dom'
-import styles from './Sidebar.module.scss'
 import Htag from '@/src/shared/ui/Htag/Htag'
 import FilterAccordion from '@/src/shared/ui/FilterAccordion/FilterAccordion'
-
-// interface SidebarProps {}
+import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { RootState } from '@/src/app/model/redux/store'
+import { useSelector } from 'react-redux'
+import { fetchFiltersAction } from '@/src/widgets/Sidebar/model/sideBarFiltersSlice'
+import styles from './Sidebar.module.scss'
 
 export const Sidebar = () => {
+  const dispatch = useAppDispatch()
+  const { filters, loading, error } = useSelector(
+    (state: RootState) => state.sideBarFilters
+  )
+
+  useEffect(() => {
+    dispatch(fetchFiltersAction())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (loading === 'pending') {
+      console.log('Loading filters...')
+    }
+
+    if (loading === 'succeeded') {
+      console.log(filters, 222)
+      console.log('Filters loaded successfully!')
+    }
+
+    if (loading === 'failed') {
+      console.log('Error loading filters:', error)
+    }
+  }, [loading, error, filters]) // этот useEffect следит за изменениями loading и error
+
   const [collapsed, setCollapsed] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const portalRef = useRef<HTMLElement | null>(null)
@@ -31,7 +57,7 @@ export const Sidebar = () => {
         style={{
           position: 'fixed',
           top: '10px',
-          left: '10px',
+          left: '200px',
           zIndex: 1100,
         }}
       >
@@ -44,10 +70,7 @@ export const Sidebar = () => {
       >
         <div>
           <Htag tag={'h3'}>Фильтры</Htag>
-          <FilterAccordion title={'title'}>
-            {/*// ul -ом я перебираю кастомнюу лишку*/}
-            {/*//*/}
-          </FilterAccordion>
+          <FilterAccordion title={'title'} />
         </div>
       </div>
     </>,

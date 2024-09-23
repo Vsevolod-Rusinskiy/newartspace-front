@@ -10,7 +10,7 @@ import { PaintingListItem } from './PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './HomePage.module.scss'
 
-interface IPainting {
+interface Painting {
   id: string
   author: string
   imgUrl: string
@@ -28,7 +28,7 @@ interface IPainting {
 }
 
 interface PaintingsState {
-  paintings: { data: IPainting[]; total: number }
+  paintings: { data: Painting[]; total: number }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
 }
@@ -90,7 +90,7 @@ export const HomePage = () => {
                   </div>
                 </li>
               ))
-            : paintingArray.map((painting: IPainting) => (
+            : paintingArray.map((painting: Painting) => (
                 <PaintingListItem
                   key={painting.id}
                   id={painting.id}
