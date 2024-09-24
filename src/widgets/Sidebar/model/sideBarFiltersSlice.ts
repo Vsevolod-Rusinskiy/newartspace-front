@@ -1,14 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
+interface FilterItem {
+  id: number
+  priority: number
+  value: string
+}
+
 interface Filters {
-  artTypesList: string[]
-  colorsList: string[]
-  formatsList: string[]
-  materialsList: string[]
-  stylesList: string[]
-  themesList: string[]
-  techniquesList: string[]
+  artTypesList: FilterItem[]
+  colorsList: FilterItem[]
+  formatsList: FilterItem[]
+  materialsList: FilterItem[]
+  stylesList: FilterItem[]
+  themesList: FilterItem[]
+  techniquesList: FilterItem[]
 }
 interface SideBarFiltersState {
   filters: Filters | null
@@ -25,7 +31,6 @@ export const fetchFiltersAction = createAsyncThunk<Filters>(
         return rejectWithValue('Failed to fetch filters')
       }
       const data = await response.json()
-      console.log(data, 111)
       return data.data
     } catch (error) {
       return rejectWithValue('Failed to load filters')

@@ -1,19 +1,35 @@
 // import styles from './FilterAccordion.module.scss'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/src/app/model/redux/store'
 
-interface IFilterCheckboxItem {
-  title: string
+// Определяем интерфейс локально (или импортируем его из слайса)
+interface FilterItem {
+  id: number
+  priority: number
+  value: string
 }
 
-// interface IFilterAccordionProps {
-//   itemsList: IFilterCheckboxItem
-//   checked: boolean
-//   id?: string
-// }
+interface Filters {
+  artTypesList: FilterItem[]
+  colorsList: FilterItem[]
+  formatsList: FilterItem[]
+  // Добавьте другие списки фильтров, которые вам нужны
+}
 
-// todo
+// Интерфейс пропсов
+interface FilterAccordionProps {
+  title: string
+  filterName: keyof Filters // Используем тип Filters
+}
 
-const FilterAccordionProps = ({ title }: IFilterCheckboxItem) => (
-  <div>{title}</div>
-)
+const FilterAccordion = ({ title, filterName }: FilterAccordionProps) => {
+  const { filters } = useSelector((state: RootState) => state.sideBarFilters)
 
-export default FilterAccordionProps
+  const validFilterList =
+    filters && filters[filterName] ? filters[filterName] : []
+
+  console.log(validFilterList, 777)
+  return <li>{title}</li>
+}
+
+export default FilterAccordion

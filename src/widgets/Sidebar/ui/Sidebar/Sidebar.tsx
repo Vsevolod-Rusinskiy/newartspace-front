@@ -33,7 +33,7 @@ export const Sidebar = () => {
     if (loading === 'failed') {
       console.log('Error loading filters:', error)
     }
-  }, [loading, error, filters]) // этот useEffect следит за изменениями loading и error
+  }, [loading, error, filters])
 
   const [collapsed, setCollapsed] = useState(false)
   const [isClient, setIsClient] = useState(false)
@@ -63,16 +63,20 @@ export const Sidebar = () => {
       >
         toggle
       </button>
-      <div
+      <aside
         className={cn(styles.sidebar, {
           [styles.collapsed]: collapsed,
         })}
       >
         <div>
           <Htag tag={'h3'}>Фильтры</Htag>
-          <FilterAccordion title={'title'} />
+          <ul>
+            <FilterAccordion title='Виды искусства' filterName='artTypesList' />
+            <FilterAccordion title='Цвета' filterName='formatsList' />
+            {/*<FilterAccordion title='Форматы' filterItems={validFormatsList} />*/}
+          </ul>
         </div>
-      </div>
+      </aside>
     </>,
     portalRef.current as HTMLElement
   )
