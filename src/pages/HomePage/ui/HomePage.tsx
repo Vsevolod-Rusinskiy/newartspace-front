@@ -6,41 +6,15 @@ import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchPaintingsAction } from '../model/homePageSlice'
+import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from './PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './HomePage.module.scss'
 
-interface Painting {
-  id: string
-  author: string
-  imgUrl: string
-  title: string
-  artType: string
-  price: number
-  theme: string
-  style: string
-  materials: string
-  height: number
-  width: number
-  yearOfCreation: number
-  format: string
-  color: string
-}
-
-interface PaintingsState {
-  paintings: { data: Painting[]; total: number }
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-  error: string | null | undefined
-}
-
-interface PaintingsRootState {
-  paintings: PaintingsState
-}
-
 export const HomePage = () => {
   const dispatch = useAppDispatch()
   const { paintings, loading, error } = useSelector(
-    (state: PaintingsRootState) => state.paintings
+    (state: RootState) => state.paintings
   )
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
@@ -90,7 +64,7 @@ export const HomePage = () => {
                   </div>
                 </li>
               ))
-            : paintingArray.map((painting: Painting) => (
+            : paintingArray.map((painting) => (
                 <PaintingListItem
                   key={painting.id}
                   id={painting.id}

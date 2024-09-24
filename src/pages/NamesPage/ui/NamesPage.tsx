@@ -8,31 +8,32 @@ import { Alphabet } from '@/src/pages/NamesPage/ui/Alphabet'
 import Htag from '@/src/shared/ui/Htag/Htag'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchArtistsAction } from '../model/namesPageSlice'
+import { RootState } from '@/src/app/model/redux/store'
 import { ArtistListItem } from './ArtistListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './NamePage.module.scss'
 
-interface IArtist {
-  id: string
-  artistName: string
-  artistDescription: string
-  imgUrl: string
-}
+// interface IArtist {
+//   id: string
+//   artistName: string
+//   artistDescription: string
+//   imgUrl: string
+// }
 
-interface ArtistsState {
-  artists: { data: IArtist[]; total: number }
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-  error: string | null | undefined
-}
+// interface ArtistsState {
+//   artists: { data: IArtist[]; total: number }
+//   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+//   error: string | null | undefined
+// }
 
-interface ArtistsRootState {
-  artists: ArtistsState
-}
+// interface ArtistsRootState {
+//   artists: ArtistsState
+// }
 
 export const NamesPage = () => {
   const dispatch = useAppDispatch()
   const { artists, loading, error } = useSelector(
-    (state: ArtistsRootState) => state.artists
+    (state: RootState) => state.artists
   )
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
@@ -84,7 +85,7 @@ export const NamesPage = () => {
                   </div>
                 </li>
               ))
-            : artistArray.map((artist: IArtist) => (
+            : artistArray.map((artist) => (
                 <ArtistListItem
                   key={artist.id}
                   id={artist.id}
