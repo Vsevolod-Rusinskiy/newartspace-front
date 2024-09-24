@@ -2,7 +2,6 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'
 
-// Определяем интерфейс локально (или импортируем его из слайса)
 interface FilterItem {
   id: number
   priority: number
@@ -13,7 +12,10 @@ interface Filters {
   artTypesList: FilterItem[]
   colorsList: FilterItem[]
   formatsList: FilterItem[]
-  // Добавьте другие списки фильтров, которые вам нужны
+  materialsList: FilterItem[]
+  stylesList: FilterItem[]
+  themesList: FilterItem[]
+  techniquesList: FilterItem[]
 }
 
 // Интерфейс пропсов
