@@ -1,26 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
-
-interface FilterItem {
-  id: number
-  priority: number
-  value: string
-}
-
-interface Filters {
-  artTypesList: FilterItem[]
-  colorsList: FilterItem[]
-  formatsList: FilterItem[]
-  materialsList: FilterItem[]
-  stylesList: FilterItem[]
-  themesList: FilterItem[]
-  techniquesList: FilterItem[]
-}
-interface SideBarFiltersState {
-  filters: Filters | null
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-  error: string | null | undefined
-}
+import { Filters, SideBarFiltersState } from './types'
 
 export const fetchFiltersAction = createAsyncThunk<Filters>(
   'sideBarFilters/fetchFilters',

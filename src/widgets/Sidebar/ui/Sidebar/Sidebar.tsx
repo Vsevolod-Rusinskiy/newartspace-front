@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { createPortal } from 'react-dom'
 import Htag from '@/src/shared/ui/Htag/Htag'
-import FilterAccordion from '@/src/shared/ui/FilterAccordion/FilterAccordion'
+import FilterAccordion from '@/src/widgets/Sidebar/ui/FilterAccordion/FilterAccordion'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { RootState } from '@/src/app/model/redux/store'
 import { useSelector } from 'react-redux'
@@ -72,7 +72,7 @@ export const Sidebar = () => {
           <Htag tag={'h3'}>Фильтры</Htag>
           <ul>
             <FilterAccordion title='Виды искусства' filterName='artTypesList' />
-            <FilterAccordion title='Цвета' filterName='formatsList' />
+            <FilterAccordion title='Цвета' filterName='colorsList' />
             {/*<FilterAccordion title='Форматы' filterItems={validFormatsList} />*/}
           </ul>
         </div>
