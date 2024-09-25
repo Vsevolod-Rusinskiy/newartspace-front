@@ -13,23 +13,6 @@ import { ArtistListItem } from './ArtistListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './NamePage.module.scss'
 
-// interface IArtist {
-//   id: string
-//   artistName: string
-//   artistDescription: string
-//   imgUrl: string
-// }
-
-// interface ArtistsState {
-//   artists: { data: IArtist[]; total: number }
-//   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-//   error: string | null | undefined
-// }
-
-// interface ArtistsRootState {
-//   artists: ArtistsState
-// }
-
 export const NamesPage = () => {
   const dispatch = useAppDispatch()
   const { artists, loading, error } = useSelector(

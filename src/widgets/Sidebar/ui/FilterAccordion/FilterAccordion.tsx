@@ -1,7 +1,9 @@
-// import styles from './FilterAccordion.module.scss'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'
 import { Filters } from '../../model/types'
+import FilterCheckboxItem from '@/src/widgets/Sidebar/ui/FilterCheckboxItem/FilterCheckboxItem'
+import styles from './FilterAccordion.module.scss'
 
 interface FilterAccordionProps {
   title: string
@@ -10,12 +12,24 @@ interface FilterAccordionProps {
 
 const FilterAccordion = ({ title, filterName }: FilterAccordionProps) => {
   const { filters } = useSelector((state: RootState) => state.sideBarFilters)
+  const [isOpen, setIsOpen] = useState(false)
 
   const validFilterList =
     filters && filters[filterName] ? filters[filterName] : []
 
-  console.log(validFilterList, 777)
-  return <li>{title}</li>
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen)
+  }
+
+  return (
+    <li className={styles.filter_item}>
+      <div className={styles.filter_item_header} onClick={toggleAccordion}>
+        <span className={styles.filter_item_title}>{title}</span>
+        <span className={`${styles.arrow} ${isOpen ? styles.open : ''}`} />
+      </div>
+      {isOpen && <FilterCheckboxItem filterList={validFilterList} />}
+    </li>
+  )
 }
 
 export default FilterAccordion

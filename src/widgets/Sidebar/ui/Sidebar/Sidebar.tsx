@@ -70,10 +70,9 @@ export const Sidebar = () => {
       >
         <div>
           <Htag tag={'h3'}>Фильтры</Htag>
-          <ul>
+          <ul className='filter_list'>
             <FilterAccordion title='Виды искусства' filterName='artTypesList' />
             <FilterAccordion title='Цвета' filterName='colorsList' />
-            {/*<FilterAccordion title='Форматы' filterItems={validFormatsList} />*/}
           </ul>
         </div>
       </aside>

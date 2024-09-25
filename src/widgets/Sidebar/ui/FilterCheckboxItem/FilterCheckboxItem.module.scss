@@ -1,0 +1,26 @@
+.checkbox_label {
+    margin-left: 8px;
+    transform: scale(0.5); // Уменьшение размера квадратиков
+}
+
+.filter_list {
+    list-style-type: none;
+
+    li {
+        margin-top: 10px; 
+        font-weight: 300;
+        letter-spacing: 0.9px;
+
+        font-size: 14px;
+        
+        &:first-child {
+            margin-top: 20px; 
+        }
+    }
+}
+
+.checkbox_small {
+    width: 12px; 
+    position: relative;
+    top: 2px;
+}

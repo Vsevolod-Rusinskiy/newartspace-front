@@ -9,6 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lfix": "next lint --fix",
+    "pfix": "prettier --write '**/*.{js,jsx,ts,tsx}'",
     "install-hooks": "husky install",
     "unit": "jest --config ./src/shared/config/jest/jest.config.ts"
   },

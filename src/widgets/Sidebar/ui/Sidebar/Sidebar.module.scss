@@ -9,7 +9,12 @@
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 
+  .filter_list {
+    list-style-type: none;
+  }
+
   &.collapsed {
     transform: translateX(0);
   }
+
 }

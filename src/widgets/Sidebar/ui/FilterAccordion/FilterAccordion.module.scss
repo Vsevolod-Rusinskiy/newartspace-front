@@ -1,0 +1,70 @@
+  .filter_item {
+    position: relative;
+    padding: 15px;
+    /* Добавляем внутренние отступы */
+  }
+
+  .filter_item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ccc;
+    /* Цвет верхней линии */
+  }
+
+  .filter_item:last-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ccc;
+    /* Цвет нижней линии */
+  }
+
+  .filter_item_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    .filter_item_title {
+      letter-spacing: 1px;
+    }
+  }
+
+  .arrow {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  .arrow::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background-color: var(--silver-color);
+    top: 0;
+    left: 4px;
+  }
+
+  .arrow::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background-color: var(--silver-color);
+    top: 4px;
+    left: 0;
+  }
+
+  .arrow.open {
+    transform: rotate(45deg);
+  }
