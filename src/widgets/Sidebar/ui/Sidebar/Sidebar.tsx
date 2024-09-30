@@ -7,7 +7,7 @@ import FilterAccordion from '@/src/widgets/Sidebar/ui/FilterAccordion/FilterAcco
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { RootState } from '@/src/app/model/redux/store'
 import { useSelector } from 'react-redux'
-import { fetchFiltersAction } from '@/src/widgets/Sidebar/model/sideBarFiltersSlice'
+import { fetchFiltersAction } from '../../model/sideBarFiltersSlice'
 import styles from './Sidebar.module.scss'
 
 export const Sidebar = () => {
@@ -71,8 +71,21 @@ export const Sidebar = () => {
         <div>
           <Htag tag={'h3'}>Фильтры</Htag>
           <ul className='filter_list'>
-            <FilterAccordion title='Виды искусства' filterName='artTypesList' />
-            <FilterAccordion title='Цвета' filterName='colorsList' />
+            <FilterAccordion
+              title='Виды искусства'
+              filterName='artTypesList'
+              filterType='checkbox'
+            />
+            <FilterAccordion
+              title='Цвета'
+              filterName='colorsList'
+              filterType='checkbox'
+            />
+            <FilterAccordion
+              title='Цены'
+              filterName='priceList'
+              filterType='radio'
+            />
           </ul>
         </div>
       </aside>

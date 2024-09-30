@@ -2,7 +2,7 @@
 
 export interface FilterItem {
   id: number
-  priority: number
+  priority?: number
   value: string
 }
 
@@ -14,6 +14,7 @@ export interface Filters {
   stylesList: FilterItem[]
   themesList: FilterItem[]
   techniquesList: FilterItem[]
+  priceList: FilterItem[]
 }
 
 export interface SideBarFiltersState {
