@@ -6,6 +6,9 @@ import Htag from '@/src/shared/ui/Htag/Htag'
 import FilterAccordion from '@/src/widgets/Sidebar/ui/FilterAccordion/FilterAccordion'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { fetchFiltersAction } from '../../model/sideBarFiltersSlice'
+import { actionResetFilters } from '../../model/sideBarFiltersSlice'
+import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
+
 import styles from './Sidebar.module.scss'
 
 export const Sidebar = () => {
@@ -28,6 +31,10 @@ export const Sidebar = () => {
 
   const onToggle = () => {
     setCollapsed((prev) => !prev)
+  }
+
+  const handleResetFilters = () => {
+    dispatch(actionResetFilters()) // Вызовите action без аргументов
   }
 
   return createPortal(
@@ -92,6 +99,7 @@ export const Sidebar = () => {
               filterType='checkbox'
             />
           </ul>
+          <ActionButton onClick={handleResetFilters}>Показать</ActionButton>
         </div>
       </aside>
     </>,

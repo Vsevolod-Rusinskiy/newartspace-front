@@ -11,7 +11,15 @@ export const fetchFiltersAction = createAsyncThunk<Filters>(
         return rejectWithValue('Failed to fetch filters')
       }
       const data = await response.json()
-      return data.data
+      const updatedData = Object.keys(data.data).reduce((acc, key) => {
+        acc[key] = data.data[key].map((item) => ({
+          ...item,
+          checked: false,
+        }))
+        return acc
+      }, {})
+      console.log(updatedData)
+      return updatedData
     } catch (error) {
       return rejectWithValue('Failed to load filters')
     }
@@ -32,7 +40,19 @@ export const sideBarFiltersSlice = createSlice<
 >({
   name: 'sideBarFilters',
   initialState,
-  reducers: {},
+  reducers: {
+    actionResetFilters: (state) => {
+      console.log('Current state:', state.filters)
+      if (state.filters) {
+        state.filters = Object.values(state.filters)
+          .flat()
+          .map((filter) => ({
+            ...filter,
+            checked: false,
+          }))
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchFiltersAction.pending, (state) => {
@@ -52,5 +72,5 @@ export const sideBarFiltersSlice = createSlice<
       })
   },
 })
-
+export const { actionResetFilters } = sideBarFiltersSlice.actions
 export default sideBarFiltersSlice.reducer
