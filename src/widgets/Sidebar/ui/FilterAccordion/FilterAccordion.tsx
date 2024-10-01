@@ -4,6 +4,7 @@ import { RootState } from '@/src/app/model/redux/store'
 import { Filters } from '../../model/types'
 import FilterCheckboxItem from '../FilterCheckboxItem/FilterCheckboxItem'
 import FilterRadioItem from '../FilterRadioItem/FilterRadioItem'
+import cn from 'classnames'
 import styles from './FilterAccordion.module.scss'
 
 interface FilterAccordionProps {
@@ -50,11 +51,11 @@ const FilterAccordion = ({
     <li className={styles.filter_item}>
       <div className={styles.filter_item_header} onClick={toggleAccordion}>
         <span className={styles.filter_item_title}>{title}</span>
-        <span className={`${styles.arrow} ${isOpen ? styles.open : ''}`} />
+        <span className={cn(styles.arrow, { [styles.open]: isOpen })} />
       </div>
       <div
         ref={contentRef}
-        className={`${styles.filter_item_content} ${isOpen ? styles.open : ''}`}
+        className={cn(styles.filter_item_content, { [styles.open]: isOpen })}
       >
         {filterType === 'checkbox' ? (
           <FilterCheckboxItem filterList={validFilterList} />
