@@ -13,8 +13,8 @@ export interface Filters {
   materialsList: FilterItem[]
   stylesList: FilterItem[]
   themesList: FilterItem[]
-  techniquesList: FilterItem[]
   priceList: FilterItem[]
+  sizeList: FilterItem[]
 }
 
 export interface SideBarFiltersState {

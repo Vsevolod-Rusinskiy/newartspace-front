@@ -9,19 +9,9 @@ import styles from './FilterAccordion.module.scss'
 
 interface FilterAccordionProps {
   title: string
-  filterName: keyof Filters | 'priceList'
-  filterType: 'checkbox' | 'radio' // Добавляем тип фильтра
+  filterName: keyof Filters
+  filterType: 'checkbox' | 'radio'
 }
-
-const priceList = [
-  { id: 1, value: 'до 10 000 руб.' },
-  { id: 2, value: '10 000 - 50 000 руб.' },
-  { id: 3, value: '50 000 - 100 000 руб.' },
-  { id: 4, value: '100 000 - 150 000 руб.' },
-  { id: 5, value: '150 000 - 250 000 руб.' },
-  { id: 6, value: '250 000 - 300 000 руб.' },
-  { id: 7, value: 'свыше 300 000 руб.' },
-]
 
 const FilterAccordion = ({
   title,
@@ -60,7 +50,7 @@ const FilterAccordion = ({
         {filterType === 'checkbox' ? (
           <FilterCheckboxItem filterList={validFilterList} />
         ) : (
-          <FilterRadioItem filterList={priceList} />
+          <FilterRadioItem filterList={validFilterList} />
         )}
       </div>
     </li>

@@ -5,35 +5,15 @@ import { createPortal } from 'react-dom'
 import Htag from '@/src/shared/ui/Htag/Htag'
 import FilterAccordion from '@/src/widgets/Sidebar/ui/FilterAccordion/FilterAccordion'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
-import { RootState } from '@/src/app/model/redux/store'
-import { useSelector } from 'react-redux'
 import { fetchFiltersAction } from '../../model/sideBarFiltersSlice'
 import styles from './Sidebar.module.scss'
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch()
-  const { filters, loading, error } = useSelector(
-    (state: RootState) => state.sideBarFilters
-  )
 
   useEffect(() => {
     dispatch(fetchFiltersAction())
   }, [dispatch])
-
-  useEffect(() => {
-    if (loading === 'pending') {
-      console.log('Loading filters...')
-    }
-
-    if (loading === 'succeeded') {
-      console.log(filters, 222)
-      console.log('Filters loaded successfully!')
-    }
-
-    if (loading === 'failed') {
-      console.log('Error loading filters:', error)
-    }
-  }, [loading, error, filters])
 
   const [collapsed, setCollapsed] = useState(false)
   const [isClient, setIsClient] = useState(false)
@@ -72,8 +52,28 @@ export const Sidebar = () => {
           <Htag tag={'h3'}>Фильтры</Htag>
           <ul className='filter_list'>
             <FilterAccordion
+              title='Цены'
+              filterName='priceList'
+              filterType='radio'
+            />
+            <FilterAccordion
               title='Виды искусства'
               filterName='artTypesList'
+              filterType='checkbox'
+            />
+            <FilterAccordion
+              title='Стили'
+              filterName='stylesList'
+              filterType='checkbox'
+            />
+            <FilterAccordion
+              title='Материалы'
+              filterName='materialsList'
+              filterType='checkbox'
+            />
+            <FilterAccordion
+              title='Размеры'
+              filterName='sizeList'
               filterType='checkbox'
             />
             <FilterAccordion
@@ -82,9 +82,14 @@ export const Sidebar = () => {
               filterType='checkbox'
             />
             <FilterAccordion
-              title='Цены'
-              filterName='priceList'
-              filterType='radio'
+              title='Тематика'
+              filterName='themesList'
+              filterType='checkbox'
+            />
+            <FilterAccordion
+              title='Форматы'
+              filterName='formatsList'
+              filterType='checkbox'
             />
           </ul>
         </div>
