@@ -8,8 +8,9 @@ import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { fetchFiltersAction } from '../../model/sideBarFiltersSlice'
 import { actionResetFilters } from '../../model/sideBarFiltersSlice'
 import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
-
+import { RootState } from '@/src/app/model/redux/store'
 import styles from './Sidebar.module.scss'
+import { useSelector } from 'react-redux'
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch()
@@ -21,6 +22,10 @@ export const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const portalRef = useRef<HTMLElement | null>(null)
+
+  const filters = useSelector(
+    (state: RootState) => state.sideBarFilters.filters
+  )
 
   useEffect(() => {
     setIsClient(true)
@@ -34,6 +39,7 @@ export const Sidebar = () => {
   }
 
   const handleResetFilters = () => {
+    console.log(filters)
     dispatch(actionResetFilters()) // Вызовите action без аргументов
   }
 

@@ -4,6 +4,7 @@ export interface FilterItem {
   id: number
   priority?: number
   value: string
+  isChecked: boolean
 }
 
 export interface Filters {
