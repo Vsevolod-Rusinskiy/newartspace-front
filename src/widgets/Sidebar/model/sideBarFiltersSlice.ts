@@ -2,24 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { Filters, SideBarFiltersState } from './types'
 
-// interface FilterItem {
-//   id: number
-//   value: string
-//   priority: number
-//   isChecked: boolean
-// }
-
-// interface Filters {
-//   artTypesList: FilterItem[]
-//   colorsList: FilterItem[]
-//   formatsList: FilterItem[]
-//   materialsList: FilterItem[]
-//   priceList: FilterItem[]
-//   sizeList: FilterItem[]
-//   stylesList: FilterItem[]
-//   themesList: FilterItem[]
-// }
-
 const resetIsChecked = (filters: Filters) => {
   Object.keys(filters).forEach((key) => {
     filters[key as keyof Filters].forEach((item) => {

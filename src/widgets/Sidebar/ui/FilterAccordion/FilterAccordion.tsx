@@ -53,7 +53,10 @@ const FilterAccordion = ({
             filterName={filterName}
           />
         ) : (
-          <FilterRadioItem filterList={validFilterList} />
+          <FilterRadioItem
+            filterList={validFilterList}
+            filterName={filterName}
+          />
         )}
       </div>
     </li>
