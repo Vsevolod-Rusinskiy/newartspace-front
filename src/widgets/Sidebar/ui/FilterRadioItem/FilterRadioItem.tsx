@@ -12,7 +12,7 @@ const FilterRadioItem = ({ filterList, filterName }: FilterRadioItemProps) => {
   const dispatch = useAppDispatch()
 
   const handleCheck = (id: number, filterName: string) => {
-    dispatch(actionCheckFilterItem({ id, filterName }))
+    dispatch(actionCheckFilterItem({ id, filterName, isRadioButton: true }))
   }
 
   return (

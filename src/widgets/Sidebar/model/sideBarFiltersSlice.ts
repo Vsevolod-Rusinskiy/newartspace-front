@@ -44,13 +44,22 @@ const sideBarFiltersSlice = createSlice({
     },
     actionCheckFilterItem(
       state: SideBarFiltersState,
-      action: PayloadAction<{ id: number; filterName: string }>
+      action: PayloadAction<{
+        id: number
+        filterName: string
+        isRadioButton: boolean
+      }>
     ) {
-      const { id, filterName } = action.payload
+      const { id, filterName, isRadioButton } = action.payload
 
       if (state.filters) {
         const filterArray = state.filters[filterName as keyof Filters]
         if (filterArray) {
+          if (isRadioButton) {
+            filterArray.forEach((item) => {
+              item.isChecked = false
+            })
+          }
           const filterItem = filterArray.find((item) => item.id === id)
           if (filterItem) {
             filterItem.isChecked = !filterItem.isChecked
