@@ -48,7 +48,10 @@ const FilterAccordion = ({
         className={cn(styles.filter_item_content, { [styles.open]: isOpen })}
       >
         {filterType === 'checkbox' ? (
-          <FilterCheckboxItem filterList={validFilterList} />
+          <FilterCheckboxItem
+            filterList={validFilterList}
+            filterName={filterName}
+          />
         ) : (
           <FilterRadioItem filterList={validFilterList} />
         )}

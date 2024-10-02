@@ -61,6 +61,23 @@ const sideBarFiltersSlice = createSlice({
         resetIsChecked(state.filters)
       }
     },
+    actionCheckFilterItem(
+      state: SideBarFiltersState,
+      action: PayloadAction<{ id: number; filterName: string }>
+    ) {
+      const { id, filterName } = action.payload
+      console.log('actionCheckFilterItem called with:', { id, filterName })
+
+      if (state.filters) {
+        const filterArray = state.filters[filterName as keyof Filters]
+        if (filterArray) {
+          const filterItem = filterArray.find((item) => item.id === id)
+          if (filterItem) {
+            filterItem.isChecked = !filterItem.isChecked
+          }
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -82,5 +99,6 @@ const sideBarFiltersSlice = createSlice({
   },
 })
 
-export const { actionResetFilters } = sideBarFiltersSlice.actions
+export const { actionResetFilters, actionCheckFilterItem } =
+  sideBarFiltersSlice.actions
 export default sideBarFiltersSlice.reducer
