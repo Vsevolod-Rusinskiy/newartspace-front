@@ -4,14 +4,19 @@ import cn from 'classnames'
 import { createPortal } from 'react-dom'
 import Htag from '@/src/shared/ui/Htag/Htag'
 import FilterAccordion from '@/src/widgets/Sidebar/ui/FilterAccordion/FilterAccordion'
-import { useAppDispatch } from '@/src/app/model/redux/hooks'
-import { fetchFiltersAction } from '../../model/sideBarFiltersSlice'
-import { actionResetFilters } from '../../model/sideBarFiltersSlice'
+import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
+import {
+  fetchFiltersAction,
+  actionResetFilters,
+} from '../../model/sideBarFiltersSlice'
 import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
+import { selectSelectedFilters } from '../../model/selectors'
+import { sendSelectedFilters } from '../../api/sendSelectedFilters'
 import styles from './Sidebar.module.scss'
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch()
+  const selectedFilters = useAppSelector(selectSelectedFilters)
 
   useEffect(() => {
     dispatch(fetchFiltersAction())
@@ -34,6 +39,15 @@ export const Sidebar = () => {
 
   const handleResetFilters = () => {
     dispatch(actionResetFilters())
+  }
+
+  const handleShowFilters = async () => {
+    try {
+      const response = await sendSelectedFilters(selectedFilters)
+      console.log('Filters sent successfully:', response)
+    } catch (error) {
+      console.error('Error sending filters:', error)
+    }
   }
 
   return createPortal(
@@ -99,6 +113,7 @@ export const Sidebar = () => {
             />
           </ul>
           <ActionButton onClick={handleResetFilters}>Сбросить</ActionButton>
+          <ActionButton onClick={handleShowFilters}>Показать</ActionButton>
         </div>
       </aside>
     </>,
