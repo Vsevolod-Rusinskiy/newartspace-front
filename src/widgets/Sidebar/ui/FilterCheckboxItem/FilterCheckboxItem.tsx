@@ -14,7 +14,6 @@ const FilterCheckboxItem = ({
 }: FilterCheckboxItemProps) => {
   const dispatch = useAppDispatch()
   const handleCheck = (id: number, filterName: string) => {
-    console.log('handleCheck called with:', { id, filterName })
     dispatch(actionCheckFilterItem({ id, filterName }))
   }
   return (

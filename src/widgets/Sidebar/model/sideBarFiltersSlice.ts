@@ -56,7 +56,6 @@ const sideBarFiltersSlice = createSlice({
   initialState,
   reducers: {
     actionResetFilters(state: SideBarFiltersState) {
-      console.log('Current state:', state.filters)
       if (state.filters) {
         resetIsChecked(state.filters)
       }
@@ -66,7 +65,6 @@ const sideBarFiltersSlice = createSlice({
       action: PayloadAction<{ id: number; filterName: string }>
     ) {
       const { id, filterName } = action.payload
-      console.log('actionCheckFilterItem called with:', { id, filterName })
 
       if (state.filters) {
         const filterArray = state.filters[filterName as keyof Filters]
