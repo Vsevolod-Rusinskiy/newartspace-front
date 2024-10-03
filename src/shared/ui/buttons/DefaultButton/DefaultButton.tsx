@@ -1,8 +1,8 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
-import styles from './ActionButton.module.scss'
+import styles from './DefaultButton.module.scss'
 import cn from 'classnames'
 
-interface IPrimaryButtonProps
+interface DefaultButtonProps
   extends DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
@@ -13,26 +13,22 @@ interface IPrimaryButtonProps
   isVisible?: boolean
 }
 
-export const ActionButton = ({
+export const DefaultButton = ({
   onClick,
   disabled = false,
   children,
   isVisible = true,
   className,
   ...props
-}: IPrimaryButtonProps) => (
+}: DefaultButtonProps) => (
   <button
-    className={cn(styles.animated_button, className, {
+    className={cn(styles.default_button, className, {
       [styles.hidden]: !isVisible,
     })}
     onClick={onClick}
     disabled={disabled}
     {...props}
   >
-    <span />
-    <span />
-    <span />
-    <span />
     {children}
   </button>
 )

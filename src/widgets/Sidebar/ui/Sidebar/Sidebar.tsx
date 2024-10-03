@@ -9,7 +9,7 @@ import {
   fetchFiltersAction,
   actionResetFilters,
 } from '../../model/sideBarFiltersSlice'
-import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
+import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { selectSelectedFilters } from '../../model/selectors'
 import { sendSelectedFilters } from '../../api/sendSelectedFilters'
 import styles from './Sidebar.module.scss'
@@ -113,15 +113,18 @@ export const Sidebar = () => {
             />
           </ul>
           <div className={styles.button_container}>
-            <ActionButton
+            <DefaultButton
               onClick={handleResetFilters}
               className={styles.button}
             >
               Сбросить
-            </ActionButton>
-            <ActionButton onClick={handleShowFilters} className={styles.button}>
+            </DefaultButton>
+            <DefaultButton
+              onClick={handleShowFilters}
+              className={styles.button}
+            >
               Показать
-            </ActionButton>
+            </DefaultButton>
           </div>
         </div>
       </aside>

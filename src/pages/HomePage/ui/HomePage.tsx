@@ -10,7 +10,7 @@ import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from './PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
-import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
+import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import styles from './HomePage.module.scss'
 
 export const HomePage = () => {
@@ -55,11 +55,15 @@ export const HomePage = () => {
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <div className={styles.content_header}>
-          <ActionButton className={styles.filter_button}>Фильтры</ActionButton>
+          <DefaultButton className={styles.filter_button}>
+            Фильтры
+          </DefaultButton>
           <Htag tag='h1' className={styles.catalog_title}>
             Каталог
           </Htag>
-          <ActionButton className={styles.sort_button}>Сортировка</ActionButton>
+          <DefaultButton className={styles.sort_button}>
+            Сортировка
+          </DefaultButton>
         </div>
 
         <ul className={styles.painting_list}>
