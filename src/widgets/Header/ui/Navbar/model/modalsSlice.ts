@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface IModalState {
+export interface ModalState {
   burgerMenu: boolean
 }
 
-const initialState: IModalState = {
+const initialState: ModalState = {
   burgerMenu: false,
 }
 

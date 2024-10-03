@@ -9,6 +9,8 @@ import { fetchPaintingsAction } from '../model/homePageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from './PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
+import { Htag } from '@/src/shared/ui/Htag/Htag'
+import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
 import styles from './HomePage.module.scss'
 
 export const HomePage = () => {
@@ -52,6 +54,14 @@ export const HomePage = () => {
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
+        <div className={styles.content_header}>
+          <ActionButton className={styles.filter_button}>Фильтры</ActionButton>
+          <Htag tag='h1' className={styles.catalog_title}>
+            Каталог
+          </Htag>
+          <ActionButton className={styles.sort_button}>Сортировка</ActionButton>
+        </div>
+
         <ul className={styles.painting_list}>
           {isLoading || isDelaying
             ? Array.from({ length: 3 }).map((_, index) => (

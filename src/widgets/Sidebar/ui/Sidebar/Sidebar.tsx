@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { createPortal } from 'react-dom'
-import Htag from '@/src/shared/ui/Htag/Htag'
+import { Htag } from '@/src/shared/ui/Htag/Htag'
 import FilterAccordion from '@/src/widgets/Sidebar/ui/FilterAccordion/FilterAccordion'
 import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
 import {

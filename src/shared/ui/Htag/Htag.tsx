@@ -8,10 +8,10 @@ interface IPageTitleProps {
   className?: string
   tag: 'h1' | 'h2' | 'h3'
 }
-const Htag = ({ children, tag }: IPageTitleProps) => {
+export const Htag = ({ children, tag }: IPageTitleProps) => {
   switch (tag) {
     case 'h1':
-      return <h1 className={styles.page_title}>{children}</h1>
+      return <h1 className={`${styles.page_title} ${styles.h1}`}>{children}</h1>
     case 'h2':
       return <h2 className={styles.page_title}>{children}</h2>
     case 'h3':
@@ -20,5 +20,3 @@ const Htag = ({ children, tag }: IPageTitleProps) => {
       return <></>
   }
 }
-
-export default Htag
