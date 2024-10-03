@@ -1,5 +1,3 @@
-// widgets/Sidebar/model/types.ts
-
 export interface FilterItem {
   id: number
   priority?: number

@@ -70,7 +70,7 @@ export const Sidebar = () => {
       >
         <div>
           <Htag tag={'h3'}>Фильтры</Htag>
-          <ul className='filter_list'>
+          <ul className={styles.filter_list}>
             <FilterAccordion
               title='Цены'
               filterName='priceList'
@@ -112,8 +112,17 @@ export const Sidebar = () => {
               filterType='checkbox'
             />
           </ul>
-          <ActionButton onClick={handleResetFilters}>Сбросить</ActionButton>
-          <ActionButton onClick={handleShowFilters}>Показать</ActionButton>
+          <div className={styles.button_container}>
+            <ActionButton
+              onClick={handleResetFilters}
+              className={styles.button}
+            >
+              Сбросить
+            </ActionButton>
+            <ActionButton onClick={handleShowFilters} className={styles.button}>
+              Показать
+            </ActionButton>
+          </div>
         </div>
       </aside>
     </>,

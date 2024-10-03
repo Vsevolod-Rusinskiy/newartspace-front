@@ -18,10 +18,13 @@ export const ActionButton = ({
   disabled = false,
   children,
   isVisible = true,
+  className, // Добавляем className
   ...props
 }: IPrimaryButtonProps) => (
   <button
-    className={cn(styles.animated_button, { [styles.hidden]: !isVisible })}
+    className={cn(styles.animated_button, className, {
+      [styles.hidden]: !isVisible,
+    })}
     onClick={onClick}
     disabled={disabled}
     {...props}
