@@ -11,6 +11,7 @@ import { PaintingListItem } from './PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
 
 export const HomePage = () => {
@@ -55,7 +56,10 @@ export const HomePage = () => {
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <div className={styles.content_header}>
-          <DefaultButton className={styles.filter_button}>
+          <DefaultButton
+            onClick={() => dispatch(actionToggleSideBar())}
+            className={styles.filter_button}
+          >
             Фильтры
           </DefaultButton>
           <Htag tag='h1' className={styles.catalog_title}>

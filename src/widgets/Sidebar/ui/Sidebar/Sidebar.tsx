@@ -13,6 +13,7 @@ import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButt
 import { selectSelectedFilters } from '../../model/selectors'
 import { sendSelectedFilters } from '../../api/sendSelectedFilters'
 import styles from './Sidebar.module.scss'
+import { actionToggleSideBar } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch()
@@ -22,9 +23,10 @@ export const Sidebar = () => {
     dispatch(fetchFiltersAction())
   }, [dispatch])
 
-  const [collapsed, setCollapsed] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const portalRef = useRef<HTMLElement | null>(null)
+
+  const isOpen = useAppSelector((state) => state.sideBarVisibility.isOpen)
 
   useEffect(() => {
     setIsClient(true)
@@ -34,7 +36,7 @@ export const Sidebar = () => {
   if (!isClient || !portalRef.current) return null
 
   const onToggle = () => {
-    setCollapsed((prev) => !prev)
+    dispatch(actionToggleSideBar())
   }
 
   const handleResetFilters = () => {
@@ -52,22 +54,12 @@ export const Sidebar = () => {
 
   return createPortal(
     <>
-      <button
-        onClick={onToggle}
-        style={{
-          position: 'fixed',
-          top: '10px',
-          left: '200px',
-          zIndex: 1100,
-        }}
-      >
-        toggle
-      </button>
       <aside
         className={cn(styles.sidebar, {
-          [styles.collapsed]: collapsed,
+          [styles.collapsed]: !isOpen,
         })}
       >
+        <button onClick={onToggle} className={styles.close_button} />
         <div>
           <Htag tag={'h3'}>Фильтры</Htag>
           <ul className={styles.filter_list}>
