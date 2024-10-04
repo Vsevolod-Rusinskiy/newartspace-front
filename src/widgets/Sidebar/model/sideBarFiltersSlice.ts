@@ -33,7 +33,7 @@ export const initialState: SideBarFiltersState = {
   error: null,
 }
 
-const sideBarFiltersSlice = createSlice({
+export const sideBarFiltersSlice = createSlice({
   name: 'sideBarFilters',
   initialState,
   reducers: {
@@ -90,4 +90,3 @@ const sideBarFiltersSlice = createSlice({
 
 export const { actionResetFilters, actionCheckFilterItem } =
   sideBarFiltersSlice.actions
-export default sideBarFiltersSlice.reducer

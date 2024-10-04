@@ -23,4 +23,3 @@ export const burgerMenuModalSlice = createSlice({
 
 export const { actionOpenBurgerMenu, actionCloseBurgerMenu } =
   burgerMenuModalSlice.actions
-export default burgerMenuModalSlice.reducer

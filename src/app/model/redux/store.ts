@@ -5,7 +5,8 @@ import { paintingsSlice } from '@/src/pages/HomePage/model/homePageSlice'
 import { paintingSlice } from '@/src/pages/PaintingCardPage/model/paintingCardItemSlice'
 import { artistsSlice } from '@/src/pages/NamesPage/model/namesPageSlice'
 import { artistSlice } from '@/src/pages/ArtistCardPage/model/artistCardItemSlice'
-import sideBarFiltersSlice from '@/src/widgets/Sidebar/model/sideBarFiltersSlice'
+import { sideBarFiltersSlice } from '@/src/widgets/Sidebar/model/sideBarFiltersSlice'
+import { sideBarVisibilitySlice } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
 
 export const makeStore = () =>
   configureStore({
@@ -16,7 +17,8 @@ export const makeStore = () =>
       painting: paintingSlice.reducer,
       artists: artistsSlice.reducer,
       artist: artistSlice.reducer,
-      sideBarFilters: sideBarFiltersSlice,
+      sideBarFilters: sideBarFiltersSlice.reducer,
+      sideBarVisibility: sideBarVisibilitySlice.reducer,
     },
   })
 
