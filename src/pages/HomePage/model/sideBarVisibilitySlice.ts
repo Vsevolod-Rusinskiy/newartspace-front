@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface SideBarVisibilityState {
-  isOpen: boolean
+  isClosed: boolean
 }
 
 const initialState: SideBarVisibilityState = {
-  isOpen: false,
+  isClosed: false,
 }
 
 export const sideBarVisibilitySlice = createSlice({
@@ -13,13 +13,13 @@ export const sideBarVisibilitySlice = createSlice({
   initialState,
   reducers: {
     actionToggleSideBar(state) {
-      state.isOpen = !state.isOpen
+      state.isClosed = !state.isClosed
     },
     actionOpenSideBar(state) {
-      state.isOpen = true
+      state.isClosed = false
     },
     actionCloseSideBar(state) {
-      state.isOpen = false
+      state.isClosed = true
     },
   },
 })

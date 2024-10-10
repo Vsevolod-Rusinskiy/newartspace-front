@@ -14,7 +14,7 @@ const FilterCheckboxItem = ({
 }: FilterCheckboxItemProps) => {
   const dispatch = useAppDispatch()
   const handleCheck = (id: number, filterName: string) => {
-    dispatch(actionCheckFilterItem({ id, filterName }))
+    dispatch(actionCheckFilterItem({ id, filterName, isRadioButton: false }))
   }
   return (
     <ul className={styles.filter_list}>

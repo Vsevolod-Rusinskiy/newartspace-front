@@ -19,7 +19,20 @@ export const fetchFiltersAction = createAsyncThunk<Filters>(
         return rejectWithValue('Failed to fetch filters')
       }
       const data = await response.json()
-      console.log(data)
+
+      /* объединяем два массива в один и сортируем по значению
+      объединить массивы (чем рисуют и на чем рисуют) это пожелание клиента
+      */
+
+      data.data.materialsList = [
+        ...data.data.materialsList,
+        ...data.data.techniquesList,
+      ]
+      data.data.materialsList.sort(
+        (a: { value: string }, b: { value: string }) =>
+          a.value.localeCompare(b.value)
+      )
+
       return data.data
     } catch (error) {
       return rejectWithValue('Failed to load filters')

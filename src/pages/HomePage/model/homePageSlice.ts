@@ -3,7 +3,7 @@ import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
 console.log('ApiUrl:', API_BASE_URL)
 
-interface IPainting {
+interface Painting {
   id: string
   author: string
   imgUrl: string
@@ -20,7 +20,7 @@ interface IPainting {
   color: string
 }
 interface PaintingsState {
-  paintings: { data: IPainting[]; total: number }
+  paintings: { data: Painting[]; total: number }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
 }
@@ -30,7 +30,7 @@ interface Pagination {
 }
 
 interface FetchPaintingsResult {
-  data: IPainting[]
+  data: Painting[]
   total: number
 }
 

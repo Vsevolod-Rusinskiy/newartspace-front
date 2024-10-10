@@ -19,7 +19,6 @@ export const selectSelectedFilters = createSelector(
       }
     })
 
-    console.log(selectedFilters, 111)
     return selectedFilters
   }
 )

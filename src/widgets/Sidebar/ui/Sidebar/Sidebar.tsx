@@ -26,7 +26,7 @@ export const Sidebar = () => {
   const [isClient, setIsClient] = useState(false)
   const portalRef = useRef<HTMLElement | null>(null)
 
-  const isOpen = useAppSelector((state) => state.sideBarVisibility.isOpen)
+  const isClosed = useAppSelector((state) => state.sideBarVisibility.isClosed)
 
   useEffect(() => {
     setIsClient(true)
@@ -56,7 +56,7 @@ export const Sidebar = () => {
     <>
       <aside
         className={cn(styles.sidebar, {
-          [styles.collapsed]: !isOpen,
+          [styles.collapsed]: isClosed,
         })}
       >
         <button onClick={onToggle} className={styles.close_button} />
