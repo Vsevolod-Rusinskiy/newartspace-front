@@ -1,12 +1,11 @@
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
 export const sendSelectedFilters = async (selectedFilters: {
-  [key: string]: number[]
+  [key: string]: string[]
 }) => {
   try {
     const params = new URLSearchParams()
 
-    // Преобразуем объект фильтров в JSON-строку
     params.append('filters', JSON.stringify(selectedFilters))
 
     const queryString = params.toString()

@@ -14,6 +14,7 @@ import { selectSelectedFilters } from '../../model/selectors'
 import { sendSelectedFilters } from '../../api/sendSelectedFilters'
 import styles from './Sidebar.module.scss'
 import { actionToggleSideBar } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
+import { updateHomePageData } from '@/src/pages/HomePage/model/homePageSlice'
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch()
@@ -47,6 +48,8 @@ export const Sidebar = () => {
     try {
       const response = await sendSelectedFilters(selectedFilters)
       console.log('Filters sent successfully:', response)
+      dispatch(updateHomePageData(response.data))
+      dispatch(actionToggleSideBar())
     } catch (error) {
       console.error('Error sending filters:', error)
     }
