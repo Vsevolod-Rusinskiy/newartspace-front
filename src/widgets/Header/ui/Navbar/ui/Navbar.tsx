@@ -4,16 +4,18 @@ import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
 import { addOverflowHiddenToBody } from '@/src/shared/lib/common'
 import { menuItems } from '@/src/shared/constants/menuItems'
 import { useLang } from '@/src/shared/hooks/useLang'
-import { closeBurgerMenu } from '../model/modalsSlice'
+import { actionCloseBurgerMenu } from '../model/burgerMenuModalSlice'
 import styles from './Navbar.module.scss'
 
 export const Navbar = () => {
-  const burgerIsOpen = useAppSelector((state) => state.modals.burgerMenu)
+  const burgerIsOpen = useAppSelector(
+    (state) => state.burgerMenuModal.burgerMenu
+  )
   const dispatch = useAppDispatch()
 
   const handleCloseMenu = () => {
     addOverflowHiddenToBody()
-    dispatch(closeBurgerMenu())
+    dispatch(actionCloseBurgerMenu())
   }
   const { lang, translations } = useLang()
   return (

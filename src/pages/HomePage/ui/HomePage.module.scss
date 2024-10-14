@@ -6,6 +6,36 @@
     flex-direction: column;
     width: 100%;
 
+    .content_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+
+      .filter_button,
+      .sort_button {
+        width: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 14px;
+        height: 40px;
+        color: var(--text-color);
+        letter-spacing: 1.2px;
+      }
+
+      .sort_button {
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+
+      .catalog_title {
+        flex-grow: 1;
+        text-align: center;
+      }
+    }
+
     .painting_list {
       display: flex;
 
@@ -35,7 +65,6 @@
             padding: 15px;
             background-color: #e0e0e0;
           }
-
         }
 
         .painting_list_item_img_container {
@@ -46,7 +75,6 @@
           justify-content: center;
           align-items: center;
           padding: 15px;
-
 
           .painting_list_item_img {
             width: 100%;
@@ -73,21 +101,24 @@
 
             .name {
               font-size: var(--font-size-l);
-
             }
 
             .author {
               margin-bottom: 15px;
             }
 
-            .price, .author {
+            .price,
+            .author {
               font-size: 26px;
             }
             .price {
               color: var(--links-hover);
             }
 
-            .size, .base_materials, .year, .name {
+            .size,
+            .base_materials,
+            .year,
+            .name {
               font-weight: var(--font-light);
               margin-bottom: 7px;
             }
@@ -105,7 +136,6 @@
         margin-bottom: 30px;
       }
     }
-
   }
 }
 
@@ -116,13 +146,16 @@
         .painting_list_item {
           .painting_list_item_img_container {
             .painting_info_container {
-              .price, .author,  {
+              .price,
+              .author {
                 font-size: 20px;
               }
               .name {
                 font-size: 16px;
               }
-              .size, .base_materials, .year,  {
+              .size,
+              .base_materials,
+              .year {
                 font-size: 14px;
               }
             }
@@ -140,5 +173,32 @@
         justify-content: center;
       }
     }
+  }
+}
+
+@media (max-width: 550px) {
+  .content_header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .catalog_title {
+      order: 1;
+      margin-bottom: 0px;
+    }
+  }
+
+  .filter_button {
+    order: 2;
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .sort_button {
+    order: 3;
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
   }
 }

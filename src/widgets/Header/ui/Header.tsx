@@ -8,7 +8,7 @@ import FavoritesSVG from '@/src/shared/ui/svgIcons/FavoritesSVG'
 import HamburgerSVG from '@/src/shared/ui/svgIcons/HamburgerSVG'
 import { addOverflowHiddenToBody } from '@/src/shared/lib/common'
 import { Navbar } from './Navbar/ui/Navbar'
-import { openBurgerMenu } from './Navbar/model/modalsSlice'
+import { actionOpenBurgerMenu } from './Navbar/model/burgerMenuModalSlice'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { LangToggler } from './LangToggler/ui/LangToggler'
 import { useLang } from '@/src/shared/hooks/useLang'
@@ -21,7 +21,7 @@ export const Header = () => {
 
   const handleOpenMenu = () => {
     addOverflowHiddenToBody()
-    dispatch(openBurgerMenu())
+    dispatch(actionOpenBurgerMenu())
   }
   const { lang, translations } = useLang()
 

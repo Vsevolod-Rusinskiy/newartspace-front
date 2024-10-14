@@ -6,41 +6,18 @@ import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchPaintingsAction } from '../model/homePageSlice'
+import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from './PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
+import { Htag } from '@/src/shared/ui/Htag/Htag'
+import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
-
-interface IPainting {
-  id: string
-  author: string
-  imgUrl: string
-  title: string
-  artType: string
-  price: number
-  theme: string
-  style: string
-  materials: string
-  height: number
-  width: number
-  yearOfCreation: number
-  format: string
-  color: string
-}
-
-interface PaintingsState {
-  paintings: { data: IPainting[]; total: number }
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-  error: string | null | undefined
-}
-
-interface PaintingsRootState {
-  paintings: PaintingsState
-}
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
   const { paintings, loading, error } = useSelector(
-    (state: PaintingsRootState) => state.paintings
+    (state: RootState) => state.paintings
   )
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
@@ -78,6 +55,21 @@ export const HomePage = () => {
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
+        <div className={styles.content_header}>
+          <DefaultButton
+            onClick={() => dispatch(actionToggleSideBar())}
+            className={styles.filter_button}
+          >
+            Фильтры
+          </DefaultButton>
+          <Htag tag='h1' className={styles.catalog_title}>
+            Каталог
+          </Htag>
+          <DefaultButton className={styles.sort_button}>
+            Сортировка
+          </DefaultButton>
+        </div>
+
         <ul className={styles.painting_list}>
           {isLoading || isDelaying
             ? Array.from({ length: 3 }).map((_, index) => (
@@ -90,7 +82,7 @@ export const HomePage = () => {
                   </div>
                 </li>
               ))
-            : paintingArray.map((painting: IPainting) => (
+            : paintingArray.map((painting) => (
                 <PaintingListItem
                   key={painting.id}
                   id={painting.id}
