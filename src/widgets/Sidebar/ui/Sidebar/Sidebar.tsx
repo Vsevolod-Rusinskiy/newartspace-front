@@ -13,7 +13,10 @@ import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButt
 import { selectSelectedFilters } from '../../model/selectors'
 import { sendSelectedFilters } from '../../api/sendSelectedFilters'
 import styles from './Sidebar.module.scss'
-import { actionToggleSideBar } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
+import {
+  actionOpenSideBar,
+  actionToggleSideBar,
+} from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
 import { updateHomePageData } from '@/src/pages/HomePage/model/homePageSlice'
 
 export const Sidebar = () => {
@@ -26,6 +29,7 @@ export const Sidebar = () => {
 
   const [isClient, setIsClient] = useState(false)
   const portalRef = useRef<HTMLElement | null>(null)
+  const sidebarRef = useRef<HTMLDivElement | null>(null)
 
   const isClosed = useAppSelector((state) => state.sideBarVisibility.isClosed)
 
@@ -33,6 +37,22 @@ export const Sidebar = () => {
     setIsClient(true)
     portalRef.current = document.body
   }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        dispatch(actionOpenSideBar())
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [dispatch])
 
   if (!isClient || !portalRef.current) return null
 
@@ -58,6 +78,7 @@ export const Sidebar = () => {
   return createPortal(
     <>
       <aside
+        ref={sidebarRef}
         className={cn(styles.sidebar, {
           [styles.collapsed]: isClosed,
         })}
