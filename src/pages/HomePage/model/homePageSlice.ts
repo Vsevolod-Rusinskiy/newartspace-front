@@ -3,7 +3,7 @@ import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
 console.log('ApiUrl:', API_BASE_URL)
 
-interface IPainting {
+interface Painting {
   id: string
   author: string
   imgUrl: string
@@ -19,18 +19,20 @@ interface IPainting {
   format: string
   color: string
 }
+
 interface PaintingsState {
-  paintings: { data: IPainting[]; total: number }
+  paintings: { data: Painting[]; total: number }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
 }
+
 interface Pagination {
   page: number
   limit: number
 }
 
 interface FetchPaintingsResult {
-  data: IPainting[]
+  data: Painting[]
   total: number
 }
 
@@ -60,15 +62,18 @@ export const initialState: PaintingsState = {
   error: null,
 }
 
-export const paintingsSlice = createSlice<
-  PaintingsState,
-  Record<string, never>,
-  string,
-  any // eslint-disable-line @typescript-eslint/no-explicit-any
->({
+export const paintingsSlice = createSlice({
   name: 'paintings',
   initialState,
-  reducers: {},
+  reducers: {
+    updateHomePageData: (
+      state: PaintingsState,
+      action: PayloadAction<Painting[]>
+    ) => {
+      state.paintings.data = action.payload
+      state.paintings.total = action.payload.length
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPaintingsAction.pending, (state) => {
@@ -88,5 +93,7 @@ export const paintingsSlice = createSlice<
       })
   },
 })
+
+export const { updateHomePageData } = paintingsSlice.actions
 
 export default paintingsSlice.reducer

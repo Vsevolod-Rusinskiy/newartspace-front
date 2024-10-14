@@ -6,7 +6,9 @@ import { useLang } from '@/src/shared/hooks/useLang'
 import styles from './footer.module.scss'
 
 export const Footer = () => {
-  const burgerIsOpen = useAppSelector((state) => state.modals.burgerMenu)
+  const burgerIsOpen = useAppSelector(
+    (state) => state.burgerMenuModal.burgerMenu
+  )
   const { lang, translations } = useLang()
 
   const firstMenuItems = [
