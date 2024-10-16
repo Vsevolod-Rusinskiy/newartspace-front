@@ -21,7 +21,11 @@ export const NamesPage = () => {
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
 
-  const limit = 9
+  const limit = 3
+
+  useEffect(() => {
+    console.log(artists) // Выводим данные о художниках в консоль
+  }, [artists])
 
   useEffect(() => {
     dispatch(fetchArtistsAction({ page, limit }))
