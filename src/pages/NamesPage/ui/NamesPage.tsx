@@ -62,7 +62,7 @@ export const NamesPage = () => {
       <section className={`container ${styles.content}`}>
         <Htag tag='h1'>Имена художников</Htag>
         <Alphabet />
-        <ul className={styles.artists_list}>
+        {/* <ul className={styles.artists_list}>
           {isLoading || isDelaying
             ? Array.from({ length: 3 }).map((_, index) => (
                 <li
@@ -82,14 +82,15 @@ export const NamesPage = () => {
                   imgUrl={artist.imgUrl}
                 />
               ))}
-        </ul>
+        </ul> */}
+
         {artists.data.length > 0 && (
           <ul className={styles.slider_container}>
             {artistArray.map((artist) => (
-              <li key={generateUniqueId()} className={styles.slider_item}>
+              <div key={generateUniqueId()} className={styles.slider_item}>
                 <h3>{artist.artistName}</h3>
                 <Slider paintings={artist.paintings} />
-              </li>
+              </div>
             ))}
           </ul>
         )}

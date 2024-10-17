@@ -15,16 +15,16 @@ interface PaintingSliderProps {
 
 export const Slider = ({ paintings }: PaintingSliderProps) => {
   const items = paintings.map((painting) => (
-    <div key={painting.id} className='slider-item'>
+    <li key={painting.id} className='slider-item'>
       <Image
         src={painting.imgUrl}
         alt={painting.title}
-        width={100}
-        height={100}
+        width={200}
+        height={200}
         unoptimized
       />
       <h4>{painting.title}</h4>
-    </div>
+    </li>
   ))
 
   return (
