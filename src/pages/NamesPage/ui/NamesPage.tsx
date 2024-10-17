@@ -12,6 +12,8 @@ import { RootState } from '@/src/app/model/redux/store'
 import { ArtistListItem } from './ArtistListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './NamePage.module.scss'
+import { Slider } from '@/src/shared/ui/Slider/Slider'
+import { generateUniqueId } from '@/src/shared/utils/generateUniqueId'
 
 export const NamesPage = () => {
   const dispatch = useAppDispatch()
@@ -24,7 +26,7 @@ export const NamesPage = () => {
   const limit = 3
 
   useEffect(() => {
-    console.log(artists) // Выводим данные о художниках в консоль
+    console.log(artists)
   }, [artists])
 
   useEffect(() => {
@@ -81,6 +83,16 @@ export const NamesPage = () => {
                 />
               ))}
         </ul>
+        {artists.data.length > 0 && (
+          <ul className={styles.slider_container}>
+            {artistArray.map((artist) => (
+              <li key={generateUniqueId()} className={styles.slider_item}>
+                <h3>{artist.artistName}</h3>
+                <Slider paintings={artist.paintings} />
+              </li>
+            ))}
+          </ul>
+        )}
         {artists.data.length > 0 && (
           <Paginate
             pageCount={Math.ceil(artists.total / limit)}

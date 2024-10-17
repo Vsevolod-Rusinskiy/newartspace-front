@@ -6,6 +6,7 @@ interface IArtist {
   artistName: string
   artistDescription: string
   imgUrl: string
+  paintings: []
 }
 
 interface ArtistsState {

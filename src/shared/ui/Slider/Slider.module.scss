@@ -1,0 +1,11 @@
+.slider-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+.slider-item img {
+  max-width: 300px;
+  height: auto;
+}
