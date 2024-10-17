@@ -14,6 +14,7 @@ import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './NamePage.module.scss'
 import { Slider } from '@/src/shared/ui/Slider/Slider'
 import { generateUniqueId } from '@/src/shared/utils/generateUniqueId'
+import Link from 'next/link'
 
 export const NamesPage = () => {
   const dispatch = useAppDispatch()
@@ -23,7 +24,7 @@ export const NamesPage = () => {
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
 
-  const limit = 3
+  const limit = 4
 
   useEffect(() => {
     console.log(artists)
@@ -62,38 +63,24 @@ export const NamesPage = () => {
       <section className={`container ${styles.content}`}>
         <Htag tag='h1'>Имена художников</Htag>
         <Alphabet />
-        {/* <ul className={styles.artists_list}>
+        <ul className={styles.slider_container}>
           {isLoading || isDelaying
-            ? Array.from({ length: 3 }).map((_, index) => (
-                <li
-                  key={index}
-                  className={`${styles.artist_list_item} ${styles.skeleton_list_item}`}
-                >
-                  <div className={styles.skeleton_container}>
+            ? Array.from({ length: 4 }).map((_, index) => (
+                <li key={index} className={styles.skeleton_container}>
+                  <div className={styles.skeleton_list_item}>
                     <Skeleton className={styles.skeleton_item} />
                   </div>
                 </li>
               ))
             : artistArray.map((artist) => (
-                <ArtistListItem
-                  key={artist.id}
-                  id={artist.id}
-                  artistName={artist.artistName}
-                  imgUrl={artist.imgUrl}
-                />
+                <li className={styles.slider_item}>
+                  <Link href={`/names/${artist.id}`} key={generateUniqueId()}>
+                    <Htag tag='h3'>{artist.artistName}</Htag>
+                    <Slider paintings={artist.paintings} />
+                  </Link>
+                </li>
               ))}
-        </ul> */}
-
-        {artists.data.length > 0 && (
-          <ul className={styles.slider_container}>
-            {artistArray.map((artist) => (
-              <div key={generateUniqueId()} className={styles.slider_item}>
-                <h3>{artist.artistName}</h3>
-                <Slider paintings={artist.paintings} />
-              </div>
-            ))}
-          </ul>
-        )}
+        </ul>
         {artists.data.length > 0 && (
           <Paginate
             pageCount={Math.ceil(artists.total / limit)}

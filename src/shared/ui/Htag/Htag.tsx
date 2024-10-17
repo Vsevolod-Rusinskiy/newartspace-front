@@ -6,7 +6,7 @@ import styles from './Htag.module.scss'
 interface IPageTitleProps {
   children: ReactNode
   className?: string
-  tag: 'h1' | 'h2' | 'h3'
+  tag: 'h1' | 'h2' | 'h3' | 'h4'
 }
 export const Htag = ({ children, tag }: IPageTitleProps) => {
   switch (tag) {
@@ -16,6 +16,8 @@ export const Htag = ({ children, tag }: IPageTitleProps) => {
       return <h2 className={styles.page_title}>{children}</h2>
     case 'h3':
       return <h3 className={`${styles.page_title} ${styles.h3}`}>{children}</h3>
+    case 'h4':
+      return <h4 className={`${styles.page_title} ${styles.h4}`}>{children}</h4>
     default:
       return <></>
   }

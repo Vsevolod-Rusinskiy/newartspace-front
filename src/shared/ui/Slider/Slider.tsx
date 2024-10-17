@@ -1,8 +1,9 @@
 import React from 'react'
 import AliceCarousel from 'react-alice-carousel'
-import 'react-alice-carousel/lib/alice-carousel.css'
 import Image from 'next/image'
-
+import { Htag } from '../Htag/Htag'
+import 'react-alice-carousel/lib/alice-carousel.css'
+import styles from './Slider.module.scss'
 interface Painting {
   id: number
   imgUrl: string
@@ -15,16 +16,17 @@ interface PaintingSliderProps {
 
 export const Slider = ({ paintings }: PaintingSliderProps) => {
   const items = paintings.map((painting) => (
-    <li key={painting.id} className='slider-item'>
+    <div key={painting.id} className={styles.slider_item}>
       <Image
         src={painting.imgUrl}
         alt={painting.title}
         width={200}
         height={200}
+        className={styles.slider_item_img}
         unoptimized
       />
-      <h4>{painting.title}</h4>
-    </li>
+      <Htag tag='h4'>{painting.title}</Htag>
+    </div>
   ))
 
   return (
@@ -35,6 +37,8 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
       autoPlayInterval={3000}
       infinite
       disableButtonsControls
+      disableDotsControls
+      autoPlayStrategy='default'
     />
   )
 }

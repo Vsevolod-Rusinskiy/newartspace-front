@@ -1,9 +1,9 @@
-// .slider-item {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   // width: 300px;
-// }
+.slider_item {
+  .slider_item_img {
+    object-fit: cover;
+    // object-fit: contain;
+  }
+}
 
 // .slider-item img {
 //   // max-width: 300px;
