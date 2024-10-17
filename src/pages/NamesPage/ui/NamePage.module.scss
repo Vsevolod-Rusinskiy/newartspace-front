@@ -16,12 +16,16 @@
       .slider_item {
         flex: 1 1 20%;
         max-width: 200px;
-      }
 
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: translateY(-5px);
+        }
+      }
       .skeleton_container {
         margin-bottom: 30px;
 
-        // .skeleton_container {
         .skeleton_list_item {
           margin: 15px;
           height: 100%;
