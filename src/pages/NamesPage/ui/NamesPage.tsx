@@ -24,7 +24,7 @@ export const NamesPage = () => {
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
 
-  const limit = 4
+  const limit = 8
 
   useEffect(() => {
     console.log(artists)
