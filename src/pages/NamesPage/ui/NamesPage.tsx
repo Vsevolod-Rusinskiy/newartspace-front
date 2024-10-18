@@ -60,7 +60,6 @@ export const NamesPage = () => {
 
   const handleLetterClick = (letter: string) => {
     dispatch(fetchArtistsAction({ page: 1, limit, letter }))
-    console.log(letter)
   }
 
   return (
