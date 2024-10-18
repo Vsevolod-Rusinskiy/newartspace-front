@@ -58,11 +58,16 @@ export const NamesPage = () => {
 
   if (error) return <div>Error: {error}</div>
 
+  const handleLetterClick = (letter: string) => {
+    dispatch(fetchArtistsAction({ page: 1, limit, letter }))
+    console.log(letter)
+  }
+
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <Htag tag='h1'>Имена художников</Htag>
-        <Alphabet />
+        <Alphabet onLetterClick={handleLetterClick} />
         <ul className={styles.slider_container}>
           {isLoading || isDelaying
             ? Array.from({ length: 4 }).map((_, index) => (
