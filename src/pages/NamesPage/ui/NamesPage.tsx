@@ -67,24 +67,27 @@ export const NamesPage = () => {
       <section className={`container ${styles.content}`}>
         <Htag tag='h1'>Имена художников</Htag>
         <Alphabet onLetterClick={handleLetterClick} />
-        <ul className={styles.slider_container}>
-          {isLoading || isDelaying
-            ? Array.from({ length: 4 }).map((_, index) => (
-                <li key={index} className={styles.skeleton_container}>
-                  <div className={styles.skeleton_list_item}>
-                    <Skeleton className={styles.skeleton_item} />
-                  </div>
-                </li>
-              ))
-            : artistArray.map((artist) => (
-                <li className={styles.slider_item}>
-                  <Link href={`/names/${artist.id}`} key={generateUniqueId()}>
-                    <Htag tag='h3'>{artist.artistName}</Htag>
-                    <Slider paintings={artist.paintings} />
-                  </Link>
-                </li>
-              ))}
-        </ul>
+        <div className={styles.slider_container}>
+          <ul className={styles.slider_list}>
+            {isLoading || isDelaying
+              ? Array.from({ length: 4 }).map((_, index) => (
+                  <li key={index} className={styles.skeleton_container}>
+                    <div className={styles.skeleton_list_item}>
+                      <Skeleton className={styles.skeleton_item} />
+                    </div>
+                  </li>
+                ))
+              : artistArray.map((artist) => (
+                  <li className={styles.slider_item}>
+                    <Link href={`/names/${artist.id}`} key={generateUniqueId()}>
+                      <Htag tag='h3'>{artist.artistName}</Htag>
+                      <Slider paintings={artist.paintings} />
+                    </Link>
+                  </li>
+                ))}
+          </ul>
+        </div>
+
         {artists.data.length > 0 && (
           <Paginate
             pageCount={Math.ceil(artists.total / limit)}
