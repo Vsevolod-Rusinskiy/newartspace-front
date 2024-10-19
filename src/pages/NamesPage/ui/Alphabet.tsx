@@ -53,18 +53,30 @@ const englishAlphabet = [
   'Z',
 ]
 
-export const Alphabet = () => (
+interface AlphabetProps {
+  onLetterClick: (letter: string) => void
+}
+
+export const Alphabet = ({ onLetterClick }: AlphabetProps) => (
   <div className={styles.alphabet_container}>
     <div className={styles.alphabet_line}>
       {russianAlphabet.map((letter, index) => (
-        <span key={index} className={styles.letter}>
+        <span
+          key={index}
+          className={styles.letter}
+          onClick={() => onLetterClick(letter)}
+        >
           {letter}
         </span>
       ))}
     </div>
     <div className={styles.alphabet_line}>
       {englishAlphabet.map((letter, index) => (
-        <span key={index} className={styles.letter}>
+        <span
+          key={index}
+          className={styles.letter}
+          onClick={() => onLetterClick(letter)}
+        >
           {letter}
         </span>
       ))}

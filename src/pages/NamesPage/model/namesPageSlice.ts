@@ -6,6 +6,7 @@ interface IArtist {
   artistName: string
   artistDescription: string
   imgUrl: string
+  paintings: []
 }
 
 interface ArtistsState {
@@ -17,6 +18,7 @@ interface ArtistsState {
 interface Pagination {
   page: number
   limit: number
+  letter?: string // Добавлено поле для буквы
 }
 
 interface FetchArtistsResult {
@@ -29,10 +31,10 @@ export const fetchArtistsAction = createAsyncThunk<
   Pagination
 >(
   'artists/fetchArtists',
-  async ({ page, limit }: Pagination, { rejectWithValue }) => {
+  async ({ page, limit, letter }: Pagination, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/artists?page=${page}&limit=${limit}`
+        `${API_BASE_URL}/artists?page=${page}&limit=${limit}${letter ? `&letter=${letter}` : ''}`
       )
       if (!response.ok) {
         return rejectWithValue('Failed to fetch artists')
