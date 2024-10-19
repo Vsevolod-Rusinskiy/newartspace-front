@@ -7,7 +7,6 @@ export const selectSelectedFilters = createSelector(
   [selectFiltersState],
   (filters) => {
     if (!filters) return {}
-    console.log(filters, 'filters!!!!')
     const selectedFilters: { [key: string]: string[] } = {}
 
     Object.keys(filters).forEach((key) => {
@@ -18,7 +17,6 @@ export const selectSelectedFilters = createSelector(
         selectedFilters[key] = selectedItems
       }
     })
-    console.log(selectedFilters, 'selectedFilters!!!!')
     return selectedFilters
   }
 )

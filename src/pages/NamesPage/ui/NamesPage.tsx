@@ -12,6 +12,9 @@ import { RootState } from '@/src/app/model/redux/store'
 import { ArtistListItem } from './ArtistListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './NamePage.module.scss'
+import { Slider } from '@/src/shared/ui/Slider/Slider'
+import { generateUniqueId } from '@/src/shared/utils/generateUniqueId'
+import Link from 'next/link'
 
 export const NamesPage = () => {
   const dispatch = useAppDispatch()
@@ -21,7 +24,11 @@ export const NamesPage = () => {
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
 
-  const limit = 9
+  const limit = 8
+
+  useEffect(() => {
+    console.log(artists)
+  }, [artists])
 
   useEffect(() => {
     dispatch(fetchArtistsAction({ page, limit }))
@@ -51,30 +58,31 @@ export const NamesPage = () => {
 
   if (error) return <div>Error: {error}</div>
 
+  const handleLetterClick = (letter: string) => {
+    dispatch(fetchArtistsAction({ page: 1, limit, letter }))
+  }
+
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <Htag tag='h1'>Имена художников</Htag>
-        <Alphabet />
-        <ul className={styles.artists_list}>
+        <Alphabet onLetterClick={handleLetterClick} />
+        <ul className={styles.slider_container}>
           {isLoading || isDelaying
-            ? Array.from({ length: 3 }).map((_, index) => (
-                <li
-                  key={index}
-                  className={`${styles.artist_list_item} ${styles.skeleton_list_item}`}
-                >
-                  <div className={styles.skeleton_container}>
+            ? Array.from({ length: 4 }).map((_, index) => (
+                <li key={index} className={styles.skeleton_container}>
+                  <div className={styles.skeleton_list_item}>
                     <Skeleton className={styles.skeleton_item} />
                   </div>
                 </li>
               ))
             : artistArray.map((artist) => (
-                <ArtistListItem
-                  key={artist.id}
-                  id={artist.id}
-                  artistName={artist.artistName}
-                  imgUrl={artist.imgUrl}
-                />
+                <li className={styles.slider_item}>
+                  <Link href={`/names/${artist.id}`} key={generateUniqueId()}>
+                    <Htag tag='h3'>{artist.artistName}</Htag>
+                    <Slider paintings={artist.paintings} />
+                  </Link>
+                </li>
               ))}
         </ul>
         {artists.data.length > 0 && (
