@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { motion } from 'framer-motion'
-
+import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { fetchArtistByIdAction } from '../model/artistCardItemSlice'
 import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
@@ -78,6 +78,9 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
 
   return (
     <main className={styles.main}>
+      <div className={`container`}>
+        <NavigationButton direction='back' label='Назад' />
+      </div>
       <article className={`container ${styles.artist_card_container}`}>
         <section className={`${styles.image_container} ${styles.section}`}>
           {isLoading ? (

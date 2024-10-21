@@ -78,8 +78,8 @@ export const NamesPage = () => {
                   </li>
                 ))
               : artistArray.map((artist) => (
-                  <li className={styles.slider_item}>
-                    <Link href={`/names/${artist.id}`} key={generateUniqueId()}>
+                  <li className={styles.slider_item} key={generateUniqueId()}>
+                    <Link href={`/names/${artist.id}`}>
                       <Htag tag='h3'>{artist.artistName}</Htag>
                       <Slider paintings={artist.paintings} />
                     </Link>
