@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AliceCarousel from 'react-alice-carousel'
 import Image from 'next/image'
-import { Htag } from '../Htag/Htag'
+import { formatNumberWithSpaces } from '@/src/shared/lib/common'
+import cn from 'classnames'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './Slider.module.scss'
 interface Painting {
   id: number
   imgUrl: string
   title: string
+  author: string
+  height: number
+  width: number
+  style: string
+  materials: string
+  yearOfCreation: number
+  price: number
 }
 
 interface PaintingSliderProps {
@@ -15,8 +23,14 @@ interface PaintingSliderProps {
 }
 
 export const Slider = ({ paintings }: PaintingSliderProps) => {
-  const items = paintings.map((painting) => (
-    <div key={painting.id} className={styles.slider_item}>
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const items = paintings.map((painting, index) => (
+    <div
+      key={painting.id}
+      className={styles.slider_item}
+      onMouseEnter={() => setHoveredIndex(index)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
       <Image
         src={painting.imgUrl}
         alt={painting.title}
@@ -25,7 +39,23 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
         className={styles.slider_item_img}
         unoptimized
       />
-      <Htag tag='h4'>{painting.title}</Htag>
+      <div
+        className={cn(styles.painting_info_container, {
+          [styles.visible]: hoveredIndex === index,
+        })}
+      >
+        <p className={styles.title}>{painting.title}</p>
+        <p className={styles.size}>
+          {painting.height} x {painting.width}
+        </p>
+        <p className={styles.base_materials}>
+          {painting.style}, {painting.materials}
+        </p>
+        <p className={styles.year}>{painting.yearOfCreation} год</p>
+        <p className={styles.price}>
+          {formatNumberWithSpaces(painting.price)} ₽
+        </p>
+      </div>
     </div>
   ))
 

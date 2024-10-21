@@ -21,6 +21,7 @@ export const NamesPage = () => {
   const { artists, loading, error } = useSelector(
     (state: RootState) => state.artists
   )
+
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
 
