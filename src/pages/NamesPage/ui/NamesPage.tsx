@@ -28,10 +28,6 @@ export const NamesPage = () => {
   const limit = 8
 
   useEffect(() => {
-    console.log(artists)
-  }, [artists])
-
-  useEffect(() => {
     dispatch(fetchArtistsAction({ page, limit }))
   }, [dispatch, page])
 

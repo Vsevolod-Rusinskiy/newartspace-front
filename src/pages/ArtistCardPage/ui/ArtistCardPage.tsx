@@ -160,15 +160,22 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
       </article>
       <section className={`container ${styles.content}`}>
         <div className={styles.content_header}>
-          <div className={styles.separator} />
-          <Htag tag='h1' className={styles.catalog_title}>
-            Еще работы художника
-          </Htag>
-          <div className={styles.separator} />
+          {isLoading ? (
+            <Skeleton
+              className={`${styles.catalog_title} ${styles.skeleton_catalog_title}`}
+            />
+          ) : (
+            <>
+              <div className={styles.separator}></div>
+              <Htag tag='h1' className={styles.catalog_title}>
+                Еще работы художника
+              </Htag>
+              <div className={styles.separator}></div>
+            </>
+          )}
         </div>
 
         <ul className={styles.painting_list}>
-          {/* {isLoading || isDelaying */}
           {isLoading
             ? Array.from({ length: 3 }).map((_, index) => (
                 <li key={index} className={` ${styles.skeleton_list_item}`}>

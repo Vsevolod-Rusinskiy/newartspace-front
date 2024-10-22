@@ -60,8 +60,24 @@
       align-items: center;
       justify-content: center;
 
+      .skeleton_separator {
+        background-color: #e0e0e0;
+        height: 10px;
+        flex-grow: 1;
+        margin: 0 10px;
+        position: relative;
+        top: 50px;
+      }
+
+      .skeleton_catalog_title {
+        height: 32px;
+        background-color: #e0e0e0;
+        animation: pulse 1.5s infinite;
+        width: 150px;
+      }
+
       .separator {
-        background-color: rgb(195, 195, 195);
+        background-color: var(--separator-color);
         height: 2px;
         flex-grow: 1;
         margin: 0 10px;
