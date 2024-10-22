@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { useSelector } from 'react-redux'
@@ -10,7 +11,26 @@ import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { fetchArtistByIdAction } from '../model/artistCardItemSlice'
 import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
+import { Htag } from '@/src/shared/ui/Htag/Htag'
+import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
 import styles from './ArtistCardPage.module.scss'
+
+interface Painting {
+  id: string
+  author: string
+  imgUrl: string
+  title: string
+  artType: string
+  price: number
+  theme: string
+  style: string
+  materials: string
+  height: number
+  width: number
+  yearOfCreation: number
+  format: string
+  color: string
+}
 
 interface ArtistPageParams {
   params: {
@@ -23,6 +43,7 @@ export interface IArtist {
   artistName: string
   artistDescription: string
   imgUrl: string
+  paintings: Painting[]
 }
 
 export interface ArtistState {
@@ -137,6 +158,50 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
           </footer>
         </section>
       </article>
+      <section className={`container ${styles.content}`}>
+        <div className={styles.content_header}>
+          <div className={styles.separator} />
+          <Htag tag='h1' className={styles.catalog_title}>
+            Еще работы художника
+          </Htag>
+          <div className={styles.separator} />
+        </div>
+
+        <ul className={styles.painting_list}>
+          {/* {isLoading || isDelaying */}
+          {isLoading
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <li key={index} className={` ${styles.skeleton_list_item}`}>
+                  <div className={styles.skeleton_container}>
+                    <Skeleton className={styles.skeleton_item} />
+                  </div>
+                </li>
+              ))
+            : artist?.paintings.map((painting) => (
+                <PaintingListItem
+                  key={painting.id}
+                  id={painting.id}
+                  src={painting.imgUrl}
+                  alt={painting.title}
+                  price={painting.price}
+                  author={painting.author}
+                  title={painting.title}
+                  yearOfCreation={painting.yearOfCreation}
+                  style={painting.style}
+                  materials={painting.materials}
+                  height={painting.height}
+                  width={painting.width}
+                />
+              ))}
+        </ul>
+        {/* {paintings.data.length > 0 && (
+          <Paginate
+            pageCount={Math.ceil(paintings.total / limit)}
+            onPageChange={handlePageClick}
+            forcePage={page - 1}
+          />
+        )} */}
+      </section>
     </main>
   )
 }

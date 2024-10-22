@@ -46,12 +46,12 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
       >
         <p className={styles.title}>{painting.title}</p>
         <p className={styles.size}>
-          {painting.height} x {painting.width}
+          {painting.height} x {painting.width} см
         </p>
         <p className={styles.base_materials}>
           {painting.style}, {painting.materials}
         </p>
-        <p className={styles.year}>{painting.yearOfCreation} год</p>
+        {/* <p className={styles.year}>{painting.yearOfCreation} год</p> */}
         <p className={styles.price}>
           {formatNumberWithSpaces(painting.price)} ₽
         </p>
