@@ -9,7 +9,6 @@ import { Htag } from '@/src/shared/ui/Htag/Htag'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchArtistsAction } from '../model/namesPageSlice'
 import { RootState } from '@/src/app/model/redux/store'
-import { ArtistListItem } from './ArtistListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './NamePage.module.scss'
 import { Slider } from '@/src/shared/ui/Slider/Slider'
@@ -30,8 +29,6 @@ export const NamesPage = () => {
   useEffect(() => {
     dispatch(fetchArtistsAction({ page, limit }))
   }, [dispatch, page])
-
-  //!!!
 
   const handlePageClick = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1)
