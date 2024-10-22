@@ -9,7 +9,6 @@ import { Htag } from '@/src/shared/ui/Htag/Htag'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchArtistsAction } from '../model/namesPageSlice'
 import { RootState } from '@/src/app/model/redux/store'
-import { ArtistListItem } from './ArtistListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './NamePage.module.scss'
 import { Slider } from '@/src/shared/ui/Slider/Slider'
@@ -21,14 +20,11 @@ export const NamesPage = () => {
   const { artists, loading, error } = useSelector(
     (state: RootState) => state.artists
   )
+
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
 
   const limit = 8
-
-  useEffect(() => {
-    console.log(artists)
-  }, [artists])
 
   useEffect(() => {
     dispatch(fetchArtistsAction({ page, limit }))
@@ -78,8 +74,8 @@ export const NamesPage = () => {
                   </li>
                 ))
               : artistArray.map((artist) => (
-                  <li className={styles.slider_item}>
-                    <Link href={`/names/${artist.id}`} key={generateUniqueId()}>
+                  <li className={styles.slider_item} key={generateUniqueId()}>
+                    <Link href={`/names/${artist.id}`}>
                       <Htag tag='h3'>{artist.artistName}</Htag>
                       <Slider paintings={artist.paintings} />
                     </Link>

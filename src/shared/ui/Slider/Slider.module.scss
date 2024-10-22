@@ -1,5 +1,57 @@
 .slider_item {
+  position: relative;
+
   .slider_item_img {
     object-fit: cover;
+  }
+
+  .painting_info_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #dedede;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    overflow: hidden;
+
+    .title {
+      font-size: var(--font-size-m);
+    }
+
+    .price {
+      color: var(--links-hover);
+    }
+
+    .size,
+    .base_materials,
+    .year,
+    .title {
+      font-weight: var(--font-light);
+      margin-bottom: 5px;
+    }
+
+    .year {
+      margin-bottom: 7px;
+    }
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(-5px);
+    }
+  }
+
+  &:hover .painting_info_container {
+    opacity: 1;
+    transform: translateY(-5px);
   }
 }

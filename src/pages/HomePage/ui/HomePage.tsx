@@ -7,7 +7,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchPaintingsAction } from '../model/homePageSlice'
 import { RootState } from '@/src/app/model/redux/store'
-import { PaintingListItem } from './PaintingListItem'
+import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
@@ -73,10 +73,7 @@ export const HomePage = () => {
         <ul className={styles.painting_list}>
           {isLoading || isDelaying
             ? Array.from({ length: 3 }).map((_, index) => (
-                <li
-                  key={index}
-                  className={`${styles.painting_list_item} ${styles.skeleton_list_item}`}
-                >
+                <li key={index} className={` ${styles.skeleton_list_item}`}>
                   <div className={styles.skeleton_container}>
                     <Skeleton className={styles.skeleton_item} />
                   </div>

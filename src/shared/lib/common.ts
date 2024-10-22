@@ -17,7 +17,7 @@ export const getWindowWidth = () => {
 }
 
 export function formatNumberWithSpaces(number?: number): string {
-  if (number === undefined) {
+  if (number === undefined || number === null) {
     return 'Цена не указана'
   }
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
