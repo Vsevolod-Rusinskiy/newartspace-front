@@ -114,7 +114,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
               ) : (
                 <>
                   <span className={styles.label}>Автор:</span>{' '}
-                  {artist.artistName}
+                  {artist?.artistName}
                 </>
               )}
             </p>

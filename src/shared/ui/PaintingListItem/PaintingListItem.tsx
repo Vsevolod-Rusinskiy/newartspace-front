@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import cn from 'classnames'
 import { formatNumberWithSpaces } from '@/src/shared/lib/common'
-import styles from './HomePage.module.scss'
+import styles from './PaintingListItem.module.scss'
 
 export interface IPaintingListItem {
   id: string

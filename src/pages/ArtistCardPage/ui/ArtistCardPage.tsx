@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { useSelector } from 'react-redux'
@@ -5,12 +6,33 @@ import { useEffect, useRef, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { motion } from 'framer-motion'
-
+import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { fetchArtistByIdAction } from '../model/artistCardItemSlice'
 import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
+import { Htag } from '@/src/shared/ui/Htag/Htag'
+import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
+import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './ArtistCardPage.module.scss'
+import 'react-alice-carousel/lib/alice-carousel.css'
+
+interface Painting {
+  id: string
+  author: string
+  imgUrl: string
+  title: string
+  artType: string
+  price: number
+  theme: string
+  style: string
+  materials: string
+  height: number
+  width: number
+  yearOfCreation: number
+  format: string
+  color: string
+}
 
 interface ArtistPageParams {
   params: {
@@ -23,6 +45,7 @@ export interface IArtist {
   artistName: string
   artistDescription: string
   imgUrl: string
+  paintings: Painting[]
 }
 
 export interface ArtistState {
@@ -36,6 +59,7 @@ export interface ArtistRootState {
 }
 
 const maxDescriptionLength = 1000
+const limit = 3
 
 export const ArtistCardItem = (params: ArtistPageParams) => {
   const { artistCardId } = params.params
@@ -47,6 +71,7 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
   const [descriptionBlockMaxHeight, setDescriptionBlockMaxHeight] =
     useState(400)
   const descriptionRef = useRef<HTMLDivElement>(null)
+  const [page, setPage] = useState(1)
 
   const isLoading = loading === 'idle' || loading === 'pending'
   const { imgUrl, artistName, artistDescription } = artist || ({} as IArtist)
@@ -76,8 +101,19 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
     }
   }, [dispatch, artistCardId])
 
+  const handlePageClick = (selectedItem: { selected: number }) => {
+    setPage(selectedItem.selected + 1)
+  }
+
+  const startIndex = (page - 1) * limit
+  const endIndex = startIndex + limit
+  const currentPaintings = artist?.paintings.slice(startIndex, endIndex) || []
+
   return (
     <main className={styles.main}>
+      <div className={`container`}>
+        <NavigationButton direction='back' label='Назад' />
+      </div>
       <article className={`container ${styles.artist_card_container}`}>
         <section className={`${styles.image_container} ${styles.section}`}>
           {isLoading ? (
@@ -134,6 +170,57 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
           </footer>
         </section>
       </article>
+      <section className={`container ${styles.content}`}>
+        <div className={styles.content_header}>
+          {isLoading ? (
+            <Skeleton
+              className={`${styles.catalog_title} ${styles.skeleton_catalog_title}`}
+            />
+          ) : (
+            <>
+              <div className={styles.separator}></div>
+              <Htag tag='h1' className={styles.catalog_title}>
+                Еще работы художника
+              </Htag>
+              <div className={styles.separator}></div>
+            </>
+          )}
+        </div>
+
+        <ul className={styles.painting_list}>
+          {isLoading
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <li key={index} className={` ${styles.skeleton_list_item}`}>
+                  <div className={styles.skeleton_container}>
+                    <Skeleton className={styles.skeleton_item} />
+                  </div>
+                </li>
+              ))
+            : currentPaintings.map((painting) => (
+                <PaintingListItem
+                  key={painting.id}
+                  id={painting.id}
+                  src={painting.imgUrl}
+                  alt={painting.title}
+                  price={painting.price}
+                  author={painting.author}
+                  title={painting.title}
+                  yearOfCreation={painting.yearOfCreation}
+                  style={painting.style}
+                  materials={painting.materials}
+                  height={painting.height}
+                  width={painting.width}
+                />
+              ))}
+        </ul>
+        {artist && artist.paintings && artist.paintings.length > 0 && (
+          <Paginate
+            pageCount={Math.ceil(artist.paintings.length / limit)}
+            onPageChange={handlePageClick}
+            forcePage={page - 1}
+          />
+        )}
+      </section>
     </main>
   )
 }

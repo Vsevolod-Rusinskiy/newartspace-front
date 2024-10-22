@@ -6,6 +6,7 @@
     flex-wrap: wrap;
     width: 100%;
     align-items: flex-start;
+    margin-bottom: 30px;
 
     .section {
       flex: 1 1 auto;
@@ -47,18 +48,86 @@
       }
     }
   }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .content_header {
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .skeleton_separator {
+        background-color: #e0e0e0;
+        height: 10px;
+        flex-grow: 1;
+        margin: 0 10px;
+        position: relative;
+        top: 50px;
+      }
+
+      .skeleton_catalog_title {
+        height: 32px;
+        background-color: #e0e0e0;
+        animation: pulse 1.5s infinite;
+        width: 150px;
+      }
+
+      .separator {
+        background-color: var(--separator-color);
+        height: 2px;
+        flex-grow: 1;
+        margin: 0 10px;
+        position: relative;
+        top: 4px;
+      }
+    }
+
+    .painting_list {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      justify-content: center;
+
+      .skeleton_container {
+        margin: 15px;
+        height: 200px;
+        width: 200px;
+
+        .skeleton_item {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 15px;
+          background-color: #e0e0e0;
+        }
+      }
+      .skeleton_list_item {
+        margin-bottom: 30px;
+      }
+    }
+  }
 }
 .description_text {
   overflow: hidden;
 }
-
 
 @media screen and (max-width: 1000px) {
   .main {
     .artist_card_container {
       flex-direction: column;
 
-      .image_container, .details_container {
+      .image_container,
+      .details_container {
         flex: 1 1 auto;
         width: 100%;
       }
