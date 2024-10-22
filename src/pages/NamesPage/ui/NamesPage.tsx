@@ -31,6 +31,8 @@ export const NamesPage = () => {
     dispatch(fetchArtistsAction({ page, limit }))
   }, [dispatch, page])
 
+  //!!!
+
   const handlePageClick = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1)
   }

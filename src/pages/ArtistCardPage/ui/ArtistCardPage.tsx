@@ -13,7 +13,9 @@ import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
+import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import styles from './ArtistCardPage.module.scss'
+import 'react-alice-carousel/lib/alice-carousel.css'
 
 interface Painting {
   id: string
@@ -57,6 +59,7 @@ export interface ArtistRootState {
 }
 
 const maxDescriptionLength = 1000
+const limit = 3
 
 export const ArtistCardItem = (params: ArtistPageParams) => {
   const { artistCardId } = params.params
@@ -68,6 +71,7 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
   const [descriptionBlockMaxHeight, setDescriptionBlockMaxHeight] =
     useState(400)
   const descriptionRef = useRef<HTMLDivElement>(null)
+  const [page, setPage] = useState(1)
 
   const isLoading = loading === 'idle' || loading === 'pending'
   const { imgUrl, artistName, artistDescription } = artist || ({} as IArtist)
@@ -96,6 +100,14 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
       dispatch(fetchArtistByIdAction(artistCardId))
     }
   }, [dispatch, artistCardId])
+
+  const handlePageClick = (selectedItem: { selected: number }) => {
+    setPage(selectedItem.selected + 1)
+  }
+
+  const startIndex = (page - 1) * limit
+  const endIndex = startIndex + limit
+  const currentPaintings = artist?.paintings.slice(startIndex, endIndex) || []
 
   return (
     <main className={styles.main}>
@@ -184,7 +196,7 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
                   </div>
                 </li>
               ))
-            : artist?.paintings.map((painting) => (
+            : currentPaintings.map((painting) => (
                 <PaintingListItem
                   key={painting.id}
                   id={painting.id}
@@ -201,13 +213,13 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
                 />
               ))}
         </ul>
-        {/* {paintings.data.length > 0 && (
+        {artist && artist.paintings && artist.paintings.length > 0 && (
           <Paginate
-            pageCount={Math.ceil(paintings.total / limit)}
+            pageCount={Math.ceil(artist.paintings.length / limit)}
             onPageChange={handlePageClick}
             forcePage={page - 1}
           />
-        )} */}
+        )}
       </section>
     </main>
   )
