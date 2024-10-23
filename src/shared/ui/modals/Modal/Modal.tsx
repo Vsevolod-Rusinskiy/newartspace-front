@@ -6,8 +6,8 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import styles from './Modal.module.scss'
 import cn from 'classnames'
+import styles from './Modal.module.scss'
 
 interface ModalProps {
   className?: string
@@ -23,6 +23,8 @@ export const Modal = (props: ModalProps) => {
 
   const [isClosing, setIsClosing] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const [isClient, setIsClient] = useState(false)
+  const portalRef = useRef<HTMLElement | null>(null)
 
   const closeHandler = useCallback(() => {
     if (onClose) {
@@ -34,7 +36,6 @@ export const Modal = (props: ModalProps) => {
     }
   }, [onClose])
 
-  // Новые ссылки!!!
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -59,14 +60,20 @@ export const Modal = (props: ModalProps) => {
     }
   }, [isOpen, onKeyDown])
 
-  const mods: Record<string, boolean> = {
+  useEffect(() => {
+    setIsClient(true)
+    portalRef.current = document.body
+  }, [])
+
+  const mods = {
     [styles.opened]: isOpen,
     [styles.isClosing]: isClosing,
   }
 
+  if (!isClient || !portalRef.current) return null
+
   return (
-    // <Portal>
-    <div>
+    <>
       <div className={cn(styles.Modal, mods)}>
         <div className={styles.overlay} onClick={closeHandler}>
           <div className={styles.content} onClick={onContentClick}>
@@ -74,7 +81,6 @@ export const Modal = (props: ModalProps) => {
           </div>
         </div>
       </div>
-    </div>
-    // </Portal>
+    </>
   )
 }
