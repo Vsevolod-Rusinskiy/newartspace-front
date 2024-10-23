@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import cn from 'classnames'
 import { createPortal } from 'react-dom'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
@@ -32,6 +32,24 @@ export const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement | null>(null)
 
   const isClosed = useAppSelector((state) => state.sideBarVisibility.isClosed)
+
+  const onKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        dispatch(actionOpenSideBar())
+      }
+    },
+    [dispatch]
+  )
+
+  useEffect(() => {
+    if (isClosed) {
+      window.addEventListener('keydown', onKeyDown)
+    }
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [isClosed])
 
   useEffect(() => {
     setIsClient(true)
