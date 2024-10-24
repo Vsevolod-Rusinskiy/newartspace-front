@@ -7,7 +7,13 @@ import styles from './Modal.module.scss'
 
 const ANIMATION_DELAY = 300
 
-export const Modal = () => {
+interface ModalProps {
+  children: React.ReactNode
+}
+
+export const Modal = ({ children }: ModalProps) => {
+  console.log(3333)
+
   const [isClosing, setIsClosing] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>()
   const [isClient, setIsClient] = useState(false)
@@ -67,13 +73,7 @@ export const Modal = () => {
       <div className={cn(styles.Modal, mods)}>
         <div className={styles.overlay} onClick={closeHandler}>
           <div className={styles.content} onClick={onContentClick}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since the 1500s, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum
+            {children}
           </div>
         </div>
       </div>
