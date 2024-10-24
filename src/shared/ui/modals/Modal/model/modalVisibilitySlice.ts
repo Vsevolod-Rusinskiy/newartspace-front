@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface ModalVisibilityState {
-  isClosed: boolean
+  isOpened: boolean
 }
 
 const initialState: ModalVisibilityState = {
-  isClosed: true,
+  isOpened: false,
 }
 
 export const modalVisibilitySlice = createSlice({
@@ -13,13 +13,13 @@ export const modalVisibilitySlice = createSlice({
   initialState,
   reducers: {
     actionToggleModal(state) {
-      state.isClosed = !state.isClosed
+      state.isOpened = !state.isOpened
     },
     actionOpenModal(state) {
-      state.isClosed = false
+      state.isOpened = true
     },
     actionCloseModal(state) {
-      state.isClosed = true
+      state.isOpened = false
     },
   },
 })

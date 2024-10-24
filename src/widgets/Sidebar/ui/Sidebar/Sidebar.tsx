@@ -49,7 +49,7 @@ export const Sidebar = () => {
     return () => {
       window.removeEventListener('keydown', onKeyDown)
     }
-  }, [isClosed])
+  }, [isClosed, onKeyDown])
 
   useEffect(() => {
     setIsClient(true)

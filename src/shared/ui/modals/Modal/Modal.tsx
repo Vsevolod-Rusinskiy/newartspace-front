@@ -1,40 +1,30 @@
 'use client'
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
+import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
+import { actionCloseModal } from './model/modalVisibilitySlice'
 import styles from './Modal.module.scss'
-
-interface ModalProps {
-  className?: string
-  children?: ReactNode
-  isOpen?: boolean
-  onClose?: () => void
-}
 
 const ANIMATION_DELAY = 300
 
-export const Modal = (props: ModalProps) => {
-  const { children, isOpen, onClose } = props
-
+export const Modal = () => {
   const [isClosing, setIsClosing] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>()
   const [isClient, setIsClient] = useState(false)
   const portalRef = useRef<HTMLElement | null>(null)
+  const dispatch = useAppDispatch()
+
+  const isOpen = useAppSelector((state) => state.modalVisibility.isOpened)
 
   const closeHandler = useCallback(() => {
-    if (onClose) {
+    if (isOpen) {
       setIsClosing(true)
       timerRef.current = setTimeout(() => {
-        onClose()
+        dispatch(actionCloseModal())
         setIsClosing(false)
       }, ANIMATION_DELAY)
     }
-  }, [onClose])
+  }, [isOpen, dispatch])
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -77,7 +67,13 @@ export const Modal = (props: ModalProps) => {
       <div className={cn(styles.Modal, mods)}>
         <div className={styles.overlay} onClick={closeHandler}>
           <div className={styles.content} onClick={onContentClick}>
-            {children}
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industrys standard dummy text
+            ever since the 1500s, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum
           </div>
         </div>
       </div>
