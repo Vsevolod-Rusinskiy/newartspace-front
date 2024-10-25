@@ -9,6 +9,12 @@
     font-size: 14px;
     padding: 10px 20px;
   }
+
+  .error_message {
+    color: red;
+    margin-top: 20px;
+    text-align: center;
+  }
 }
 
 .form_title {
@@ -63,21 +69,6 @@
   cursor: pointer;
 }
 
-// .form_button {
-//   padding: 10px;
-//   background-color: #000;
-//   color: #fff;
-//   border: none;
-//   border-radius: 4px;
-//   cursor: pointer;
-//   font-weight: bold;
-// }
-
 .form_button:hover {
   background-color: #444;
 }
-
-// .form_container .custom_button {
-//   font-size: 14px;
-//   padding: 10px 20px;
-// }

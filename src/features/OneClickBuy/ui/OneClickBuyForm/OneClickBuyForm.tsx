@@ -6,6 +6,19 @@ import { useAppSelector } from '@/src/app/model/redux/hooks'
 import './OneClickBuyForm.scss'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { useMutation } from 'react-query'
+import axios from 'axios'
+
+type FormData = {
+  name: string
+  phone: string
+  email: string
+}
+
+const submitForm = async (formData: FormData) => {
+  const response = await axios.post('/api/submit', formData)
+  return response.data
+}
 
 export const OneClickBuyForm = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -14,6 +27,17 @@ export const OneClickBuyForm = () => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+
+  const mutation = useMutation(submitForm, {
+    onSuccess: () => {
+      console.log('Заявка отправлена успешно!')
+    },
+    onError: (error: unknown) => {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Неизвестная ошибка'
+      console.error('Ошибка: ' + errorMessage)
+    },
+  })
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -36,8 +60,7 @@ export const OneClickBuyForm = () => {
       phone,
       email,
     }
-    console.log('Отправляем данные на сервер', formData)
-    // Здесь добавьте код для отправки formData на сервер
+    mutation.mutate(formData)
   }
 
   return (
@@ -81,9 +104,18 @@ export const OneClickBuyForm = () => {
           </Link>
         </span>
       </div>
-      <ActionButton className='custom_button' type='submit'>
-        Заказать в один клик
+      <ActionButton
+        className='custom_button'
+        type='submit'
+        disabled={mutation.isLoading}
+      >
+        {mutation.isLoading ? 'Отправка...' : 'Заказать в один клик'}
       </ActionButton>
+      {mutation.isError && (
+        <p className='error_message'>
+          Ошибка: {(mutation.error as Error).message}
+        </p>
+      )}
     </form>
   )
 }
