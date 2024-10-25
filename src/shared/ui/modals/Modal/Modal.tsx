@@ -12,8 +12,6 @@ interface ModalProps {
 }
 
 export const Modal = ({ children }: ModalProps) => {
-  console.log(3333)
-
   const [isClosing, setIsClosing] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>()
   const [isClient, setIsClient] = useState(false)
