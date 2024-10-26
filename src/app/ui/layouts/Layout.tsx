@@ -1,6 +1,7 @@
 import { Header } from '@/src/widgets/Header'
 import { Footer } from '@/src/widgets/Footer'
 import { Sidebar } from '@/src/widgets/Sidebar'
+import { OneClickBuyModal } from '@/src/features/OneClickBuy/ui/OneClickBuyModal/OneClickBuyModal'
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -10,6 +11,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
       <Footer />
     </div>
     <Sidebar />
+    <OneClickBuyModal />
   </>
 )
 

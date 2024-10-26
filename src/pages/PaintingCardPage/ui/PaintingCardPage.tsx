@@ -10,6 +10,7 @@ import { formatNumberWithSpaces } from '@/src/shared/lib/common'
 import PageSubTitle from '@/src/shared/ui/PageSubTitle/PageSubTitle'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
+import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
 import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './PaintingCardPage.module.scss'
 
@@ -167,7 +168,9 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             {isLoading ? (
               <Skeleton />
             ) : (
-              <ActionButton>Заказать в один клик </ActionButton>
+              <ActionButton onClick={() => dispatch(actionOpenModal())}>
+                Заказать в один клик
+              </ActionButton>
             )}
           </footer>
         </section>
