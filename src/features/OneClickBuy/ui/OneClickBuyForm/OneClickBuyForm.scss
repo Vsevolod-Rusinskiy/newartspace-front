@@ -22,6 +22,7 @@
   margin-bottom: 20px;
   text-align: center;
   font-weight: normal;
+  max-width: 300px;
 }
 
 .form_input {
@@ -37,10 +38,6 @@
 
 .email_input {
   margin-top: 15px;
-}
-
-.phone_input {
-  color: var(--silver-color);
 }
 
 .form_input:focus {
