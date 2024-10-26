@@ -7,7 +7,7 @@ import { artistsSlice } from '@/src/pages/NamesPage/model/namesPageSlice'
 import { artistSlice } from '@/src/pages/ArtistCardPage/model/artistCardItemSlice'
 import { sideBarFiltersSlice } from '@/src/widgets/Sidebar/model/sideBarFiltersSlice'
 import { sideBarVisibilitySlice } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
-
+import { modalVisibilitySlice } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
 export const makeStore = () =>
   configureStore({
     reducer: {
@@ -19,6 +19,7 @@ export const makeStore = () =>
       artist: artistSlice.reducer,
       sideBarFilters: sideBarFiltersSlice.reducer,
       sideBarVisibility: sideBarVisibilitySlice.reducer,
+      modalVisibility: modalVisibilitySlice.reducer,
     },
   })
 

@@ -18,7 +18,7 @@ interface ArtistsState {
 interface Pagination {
   page: number
   limit: number
-  letter?: string // Добавлено поле для буквы
+  letter?: string
 }
 
 interface FetchArtistsResult {
