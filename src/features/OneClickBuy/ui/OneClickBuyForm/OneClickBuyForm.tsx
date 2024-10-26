@@ -8,6 +8,7 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useMutation } from 'react-query'
 import axios from 'axios'
+import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
 type FormData = {
   name: string
@@ -16,7 +17,8 @@ type FormData = {
 }
 
 const submitForm = async (formData: FormData) => {
-  const response = await axios.post('/api/submit', formData)
+  const response = await axios.post(`${API_BASE_URL}/one-click-order`, formData)
+  console.log(response, 1111)
   return response.data
 }
 
@@ -27,10 +29,11 @@ export const OneClickBuyForm = () => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
 
   const mutation = useMutation(submitForm, {
     onSuccess: () => {
-      console.log('Заявка отправлена успешно!')
+      setSuccessMessage('Мы приняли заявку и свяжемся с Вами в ближайшее время')
     },
     onError: (error: unknown) => {
       const errorMessage =
@@ -65,7 +68,12 @@ export const OneClickBuyForm = () => {
 
   return (
     <form className='form_container' onSubmit={handleSubmit}>
-      <span className='form_title'>Быстрый заказ</span>
+      <span
+        className='form_title'
+        style={{ color: successMessage ? 'green' : 'silver' }}
+      >
+        {successMessage || 'Быстрый заказ'}
+      </span>
       <input
         ref={inputRef}
         className='form_input'
