@@ -70,10 +70,10 @@ export const HomePage = () => {
           </DefaultButton>
         </div>
         <div className={styles.button_container}>
-          <DefaultButton className={`shadow_button button_shine`}>
+          <DefaultButton className={`shadow_button wide_button`}>
             <span>Классика </span>
           </DefaultButton>
-          <DefaultButton className={`shadow_button button_shine`}>
+          <DefaultButton className={`shadow_button wide_button`}>
             <span>Современность</span>
           </DefaultButton>
         </div>
