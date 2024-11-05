@@ -38,7 +38,7 @@
 
     .button_container {
       display: flex;
-      gap: 10px;
+      gap: 30px;
       justify-content: space-between;
       margin: 15px 0;
     }
@@ -109,5 +109,15 @@
     width: 100%;
     margin-top: 10px;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .main {
+    .content {
+      .button_container {
+        flex-direction: column;
+      }
+    }
   }
 }
