@@ -79,6 +79,11 @@
   font-size: 50px;
   width: 450px;
   height: 500px;
+  transition: transform 0.3s ease;
+}
+
+.wide_button:hover {
+  transform: translateY(-5px);
 }
 
 .wide_button::after {
