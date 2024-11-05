@@ -16,9 +16,22 @@ export const getWindowWidth = () => {
   return { windowWidth }
 }
 
-export function formatNumberWithSpaces(number?: number): string {
+export const formatNumberWithSpaces = (number?: number): string => {
   if (number === undefined || number === null) {
     return 'Цена не указана'
   }
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+}
+
+export const getClassNames = (
+  className: string | undefined,
+  styles: Record<string, string>
+) => {
+  if (className) {
+    return className
+      .split(' ')
+      .map((cls) => styles[cls] || cls)
+      .join(' ')
+  }
+  return ''
 }

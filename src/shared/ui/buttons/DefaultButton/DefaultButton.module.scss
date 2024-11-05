@@ -13,3 +13,89 @@
   background-color: #e0e0e0;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+.shadow_button {
+  float: left;
+  width: 40%;
+  padding: 1em 1em 1em;
+  margin: 2em 10px 4em;
+  background: #f2f2f3;
+  -webkit-box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(0, 0, 0, 0.1) inset;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+.shadow_button span {
+  color: red;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shadow_button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 1;
+  z-index: 1;
+}
+
+.shadow_button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: rotate(30deg);
+  animation: shine 2s infinite;
+  opacity: 1;
+  z-index: 0;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%) rotate(30deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(100%) rotate(30deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%) rotate(30deg);
+  }
+}
+
+.button_curved {
+  border: 2px solid #f2f2f2;
+}
+
+.shadow_button:hover {
+  background-color: #f0f0f0;
+}

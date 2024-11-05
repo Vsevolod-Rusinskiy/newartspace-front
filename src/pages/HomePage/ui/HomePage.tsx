@@ -69,6 +69,11 @@ export const HomePage = () => {
             Сортировка
           </DefaultButton>
         </div>
+        <div className={styles.button_container}>
+          <DefaultButton className={`shadow_button button_curved`}>
+            <span>КУПИТЬ В ОДИН КЛИК</span>
+          </DefaultButton>
+        </div>
 
         <ul className={styles.painting_list}>
           {isLoading || isDelaying
