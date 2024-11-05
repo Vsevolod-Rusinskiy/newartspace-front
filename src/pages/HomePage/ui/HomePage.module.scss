@@ -36,6 +36,12 @@
       }
     }
 
+    .button_container {
+      display: flex;
+      gap: 10px;
+      justify-content: space-around;
+    }
+
     .painting_list {
       display: flex;
       flex-wrap: wrap;

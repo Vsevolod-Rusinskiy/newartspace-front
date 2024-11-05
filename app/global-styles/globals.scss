@@ -1,13 +1,11 @@
-@import "variables";
-@import "normalize";
+@import 'variables';
+@import 'normalize';
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-
 
 html,
 body {
@@ -18,7 +16,7 @@ body {
 }
 
 .container {
-  max-width: 1700px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 15px;
 }
@@ -27,7 +25,6 @@ a {
   text-decoration: none;
   color: inherit;
 }
-
 
 @font-face {
   font-family: 'EkaterinaVelikaya';
@@ -40,8 +37,9 @@ a {
 
 @font-face {
   font-family: 'Oswald';
-  src: url('../../public/fonts/Oswald-Regular.woff2') format('woff2'),
-  url('../../public/fonts/Oswald-Regular.woff') format('woff');
+  src:
+    url('../../public/fonts/Oswald-Regular.woff2') format('woff2'),
+    url('../../public/fonts/Oswald-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -49,8 +47,11 @@ a {
 
 @font-face {
   font-family: 'Oswald';
-  src: url('../../public/fonts/../../public/fonts/Oswald-Light.woff2') format('woff2'),
-  url('../../public/fonts/../../public/fonts/Oswald-Light.woff') format('woff');
+  src:
+    url('../../public/fonts/../../public/fonts/Oswald-Light.woff2')
+      format('woff2'),
+    url('../../public/fonts/../../public/fonts/Oswald-Light.woff')
+      format('woff');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -58,8 +59,11 @@ a {
 
 @font-face {
   font-family: 'Oswald';
-  src: url('../../public/fonts/../../public/fonts/Oswald-ExtraLight.woff2') format('woff2'),
-  url('../../public/fonts/../../public/fonts/Oswald-ExtraLight.woff') format('woff');
+  src:
+    url('../../public/fonts/../../public/fonts/Oswald-ExtraLight.woff2')
+      format('woff2'),
+    url('../../public/fonts/../../public/fonts/Oswald-ExtraLight.woff')
+      format('woff');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
@@ -67,14 +71,13 @@ a {
 
 @font-face {
   font-family: 'Oswald';
-  src: url('../../public/fonts/Oswald-Medium.woff2') format('woff2'),
-  url('../../public/fonts/Oswald-Medium.woff') format('woff');
+  src:
+    url('../../public/fonts/Oswald-Medium.woff2') format('woff2'),
+    url('../../public/fonts/Oswald-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
-
-
 
 input,
 button,
