@@ -24,11 +24,13 @@ interface PaintingsState {
   paintings: { data: Painting[]; total: number }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
+  artStyle: string
 }
 
 interface Pagination {
   page: number
   limit: number
+  artStyle: string
 }
 
 interface FetchPaintingsResult {
@@ -41,10 +43,10 @@ export const fetchPaintingsAction = createAsyncThunk<
   Pagination
 >(
   'paintings/fetchPaintings',
-  async ({ page, limit }: Pagination, { rejectWithValue }) => {
+  async ({ page, limit, artStyle }: Pagination, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/paintings?page=${page}&limit=${limit}`
+        `${API_BASE_URL}/paintings?page=${page}&limit=${limit}&artStyle=${artStyle}`
       )
       if (!response.ok) {
         return rejectWithValue('Failed to fetch paintings')
@@ -60,6 +62,7 @@ export const initialState: PaintingsState = {
   paintings: { data: [], total: 0 },
   loading: 'idle',
   error: null,
+  artStyle: 'Классика',
 }
 
 export const paintingsSlice = createSlice({
@@ -72,6 +75,9 @@ export const paintingsSlice = createSlice({
     ) => {
       state.paintings.data = action.payload
       state.paintings.total = action.payload.length
+    },
+    setArtStyle: (state, action: PayloadAction<string>) => {
+      state.artStyle = action.payload
     },
   },
   extraReducers: (builder) => {
@@ -94,6 +100,6 @@ export const paintingsSlice = createSlice({
   },
 })
 
-export const { updateHomePageData } = paintingsSlice.actions
+export const { updateHomePageData, setArtStyle } = paintingsSlice.actions
 
 export default paintingsSlice.reducer

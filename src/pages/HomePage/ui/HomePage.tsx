@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { fetchPaintingsAction } from '../model/homePageSlice'
+import { fetchPaintingsAction, setArtStyle } from '../model/homePageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
@@ -16,7 +16,7 @@ import styles from './HomePage.module.scss'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
-  const { paintings, loading, error } = useSelector(
+  const { paintings, loading, error, artStyle } = useSelector(
     (state: RootState) => state.paintings
   )
   const [page, setPage] = useState(1)
@@ -25,8 +25,8 @@ export const HomePage = () => {
   const limit = 9
 
   useEffect(() => {
-    dispatch(fetchPaintingsAction({ page, limit }))
-  }, [dispatch, page])
+    dispatch(fetchPaintingsAction({ page, limit, artStyle: 'Классика' }))
+  }, [dispatch, page, artStyle])
 
   const handlePageClick = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1)
@@ -50,6 +50,11 @@ export const HomePage = () => {
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
+  const handleArtStyleChange = (style: string) => {
+    dispatch(setArtStyle(style))
+    dispatch(fetchPaintingsAction({ page: 1, limit, artStyle: style }))
+  }
+
   if (error) return <div>Error: {error}</div>
 
   return (
@@ -70,10 +75,16 @@ export const HomePage = () => {
           </DefaultButton>
         </div>
         <div className={styles.button_container}>
-          <DefaultButton className={`shadow_button wide_button`}>
-            <span>Классика </span>
+          <DefaultButton
+            className={`shadow_button wide_button`}
+            onClick={() => handleArtStyleChange('Классика')}
+          >
+            <span>Классика</span>
           </DefaultButton>
-          <DefaultButton className={`shadow_button wide_button`}>
+          <DefaultButton
+            className={`shadow_button wide_button`}
+            onClick={() => handleArtStyleChange('Современность')}
+          >
             <span>Современность</span>
           </DefaultButton>
         </div>
