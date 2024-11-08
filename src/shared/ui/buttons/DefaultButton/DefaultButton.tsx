@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
 import styles from './DefaultButton.module.scss'
 import cn from 'classnames'
+import { getClassNames } from '@/src/shared/lib/common'
 
 interface DefaultButtonProps
   extends DetailedHTMLProps<
@@ -22,7 +23,7 @@ export const DefaultButton = ({
   ...props
 }: DefaultButtonProps) => (
   <button
-    className={cn(styles.default_button, className, {
+    className={cn(styles.default_button, getClassNames(className, styles), {
       [styles.hidden]: !isVisible,
     })}
     onClick={onClick}
