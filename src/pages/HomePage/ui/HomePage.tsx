@@ -13,6 +13,7 @@ import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
+import cn from 'classnames'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -77,19 +78,25 @@ export const HomePage = () => {
           <Htag tag='h1' className={styles.catalog_title}>
             Каталог
           </Htag>
-          <DefaultButton className={styles.sort_button}>
+          <DefaultButton className={styles.sort_button} disabled>
             Сортировка
           </DefaultButton>
         </div>
         <div className={styles.button_container}>
           <DefaultButton
-            className={`shadow_button wide_button ${selectedArtStyle ? 'shrink' : ''}`}
+            className={cn('shadow_button', 'wide_button', {
+              active: selectedArtStyle === 'Классика',
+              shrink: selectedArtStyle,
+            })}
             onClick={() => handleArtStyleChange('Классика')}
           >
             <span>Классика</span>
           </DefaultButton>
           <DefaultButton
-            className={`shadow_button wide_button ${selectedArtStyle ? 'shrink' : ''}`}
+            className={cn('shadow_button', 'wide_button', {
+              active: selectedArtStyle === 'Современность',
+              shrink: selectedArtStyle,
+            })}
             onClick={() => handleArtStyleChange('Современность')}
           >
             <span>Современность</span>
@@ -100,7 +107,7 @@ export const HomePage = () => {
           <ul className={styles.painting_list}>
             {isLoading || isDelaying
               ? Array.from({ length: 3 }).map((_, index) => (
-                  <li key={index} className={` ${styles.skeleton_list_item}`}>
+                  <li key={index} className={`${styles.skeleton_list_item}`}>
                     <div className={styles.skeleton_container}>
                       <Skeleton className={styles.skeleton_item} />
                     </div>
