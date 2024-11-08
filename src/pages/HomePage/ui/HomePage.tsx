@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { fetchPaintingsAction } from '../model/homePageSlice'
+import { fetchPaintingsAction, setArtStyle } from '../model/homePageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
@@ -13,23 +13,30 @@ import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
+import cn from 'classnames'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
-  const { paintings, loading, error } = useSelector(
+  const { paintings, loading, error, artStyle } = useSelector(
     (state: RootState) => state.paintings
   )
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
+  const [selectedArtStyle, setSelectedArtStyle] = useState<string | null>(null)
 
   const limit = 9
 
-  useEffect(() => {
-    dispatch(fetchPaintingsAction({ page, limit }))
-  }, [dispatch, page])
-
   const handlePageClick = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1)
+    if (selectedArtStyle) {
+      dispatch(
+        fetchPaintingsAction({
+          page: selectedItem.selected + 1,
+          limit,
+          artStyle: selectedArtStyle,
+        })
+      )
+    }
   }
 
   const paintingArray = Array.isArray(paintings.data) ? paintings.data : []
@@ -50,6 +57,12 @@ export const HomePage = () => {
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
+  const handleArtStyleChange = (style: string) => {
+    dispatch(setArtStyle(style))
+    dispatch(fetchPaintingsAction({ page: 1, limit, artStyle: style }))
+    setSelectedArtStyle(style)
+  }
+
   if (error) return <div>Error: {error}</div>
 
   return (
@@ -65,37 +78,59 @@ export const HomePage = () => {
           <Htag tag='h1' className={styles.catalog_title}>
             Каталог
           </Htag>
-          <DefaultButton className={styles.sort_button}>
+          <DefaultButton className={styles.sort_button} disabled>
             Сортировка
           </DefaultButton>
         </div>
+        <div className={styles.button_container}>
+          <DefaultButton
+            className={cn('shadow_button', 'wide_button', {
+              active: selectedArtStyle === 'Классика',
+              shrink: selectedArtStyle,
+            })}
+            onClick={() => handleArtStyleChange('Классика')}
+          >
+            <span>Классика</span>
+          </DefaultButton>
+          <DefaultButton
+            className={cn('shadow_button', 'wide_button', {
+              active: selectedArtStyle === 'Современность',
+              shrink: selectedArtStyle,
+            })}
+            onClick={() => handleArtStyleChange('Современность')}
+          >
+            <span>Современность</span>
+          </DefaultButton>
+        </div>
 
-        <ul className={styles.painting_list}>
-          {isLoading || isDelaying
-            ? Array.from({ length: 3 }).map((_, index) => (
-                <li key={index} className={` ${styles.skeleton_list_item}`}>
-                  <div className={styles.skeleton_container}>
-                    <Skeleton className={styles.skeleton_item} />
-                  </div>
-                </li>
-              ))
-            : paintingArray.map((painting) => (
-                <PaintingListItem
-                  key={painting.id}
-                  id={painting.id}
-                  src={painting.imgUrl}
-                  alt={painting.title}
-                  price={painting.price}
-                  author={painting.author}
-                  title={painting.title}
-                  yearOfCreation={painting.yearOfCreation}
-                  style={painting.style}
-                  materials={painting.materials}
-                  height={painting.height}
-                  width={painting.width}
-                />
-              ))}
-        </ul>
+        {selectedArtStyle && (
+          <ul className={styles.painting_list}>
+            {isLoading || isDelaying
+              ? Array.from({ length: 3 }).map((_, index) => (
+                  <li key={index} className={`${styles.skeleton_list_item}`}>
+                    <div className={styles.skeleton_container}>
+                      <Skeleton className={styles.skeleton_item} />
+                    </div>
+                  </li>
+                ))
+              : paintingArray.map((painting) => (
+                  <PaintingListItem
+                    key={painting.id}
+                    id={painting.id}
+                    src={painting.imgUrl}
+                    alt={painting.title}
+                    price={painting.price}
+                    author={painting.author}
+                    title={painting.title}
+                    yearOfCreation={painting.yearOfCreation}
+                    style={painting.style}
+                    materials={painting.materials}
+                    height={painting.height}
+                    width={painting.width}
+                  />
+                ))}
+          </ul>
+        )}
         {paintings.data.length > 0 && (
           <Paginate
             pageCount={Math.ceil(paintings.total / limit)}
