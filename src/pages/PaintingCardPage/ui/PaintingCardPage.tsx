@@ -13,31 +13,19 @@ import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/Navigatio
 import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
 import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './PaintingCardPage.module.scss'
+import { IPainting as BaseIPainting } from '../types/PaintingCardPage.type'
 
 interface PaintingCardItemParams {
   params: {
     paintingCardId: string
   }
 }
+export interface IArtist {
+  artistName: string
+}
 
-export interface IPainting {
-  id: string
-  artist: {
-    artistName: string
-  }
-  imgUrl: string
-  title: string
-  artType: string
-  price: number
-  theme: string
-  style: string
-  materials: string
-  height: number
-  width: number
-  yearOfCreation: number
-  format: string
-  color: string
-  description: string
+export interface IPainting extends BaseIPainting {
+  artist: IArtist
 }
 
 export interface PaintingState {
@@ -69,6 +57,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     height,
     width,
     price,
+    techniques,
     description,
   } = painting || ({} as IPainting)
 
@@ -83,6 +72,8 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
       dispatch(fetchPaintingByIdAction(paintingCardId))
     }
   }, [dispatch, paintingCardId])
+
+  console.log(painting, 8888)
   return (
     <main className={styles.main}>
       <div className={`container`}>
@@ -124,7 +115,8 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
                 <Skeleton />
               ) : (
                 <>
-                  <span className={styles.label}>Материалы:</span> {materials}
+                  <span className={styles.label}>Материалы:</span> {materials},{' '}
+                  {techniques}
                 </>
               )}
             </p>
