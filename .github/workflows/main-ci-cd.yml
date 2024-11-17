@@ -102,5 +102,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           command_timeout: 360m
           script: |
+
+            echo "Switching to application directory..."
+            cd /var/www/newartspace/frontend
+
             echo "Running the application container..."
             docker run --env-file .env -d --name front --restart unless-stopped -p 3001:3000 ghcr.io/vsevolod-rusinskiy/newartspace-front:latest
