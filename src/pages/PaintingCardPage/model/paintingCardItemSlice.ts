@@ -2,23 +2,7 @@
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
-
-interface IPainting {
-  id: string
-  author: string
-  imgUrl: string
-  title: string
-  artType: string
-  price: number
-  theme: string
-  style: string
-  materials: string
-  height: number
-  width: number
-  yearOfCreation: number
-  format: string
-  color: string
-}
+import { IPainting } from '../types/PaintingCardPage.type'
 
 interface PaintingState {
   painting: IPainting | null
