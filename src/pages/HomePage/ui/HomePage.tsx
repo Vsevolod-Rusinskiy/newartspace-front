@@ -90,7 +90,7 @@ export const HomePage = () => {
             })}
             onClick={() => handleArtStyleChange('Классика')}
           >
-            <span>Классика</span>
+            <span>Традиции</span>
           </DefaultButton>
           <DefaultButton
             className={cn('shadow_button', 'wide_button', {
