@@ -78,21 +78,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           command_timeout: 360m
           script: |
-            if [ $(docker ps -q -f name=front) ]; then
-              echo "Stopping existing container..."
-              docker stop front
-              while [ $(docker ps -q -f name=front) ]; do
-                sleep 1
-              done
-            fi
-
-            if [ $(docker ps -aq -f status=exited -f name=front) ]; then
-              echo "Removing existing container..."
-              docker rm front
-              while [ $(docker ps -aq -f name=front) ]; do
-                sleep 1
-              done
-            fi
+            echo "Stopping and removing old container..."
+            docker rm -f front || true
+            docker image prune -f
 
       - name: Run new container
         uses: appleboy/ssh-action@master
@@ -107,4 +95,16 @@ jobs:
             cd /var/www/newartspace/frontend
 
             echo "Running the application container..."
-            docker run --env-file .env -d --name front --restart unless-stopped -p 3001:3000 ghcr.io/vsevolod-rusinskiy/newartspace-front:latest
+            docker run --pull always --env-file .env -d --name front --restart unless-stopped -p 3001:3000 ghcr.io/vsevolod-rusinskiy/newartspace-front:latest
+
+      - name: Check container status
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Checking container status..."
+            docker ps -f name=front
+            echo "Fetching container logs..."
+            docker logs front
