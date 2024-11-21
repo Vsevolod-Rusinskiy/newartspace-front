@@ -9,7 +9,6 @@ export const sendSelectedFilters = async (selectedFilters: {
     params.append('filters', JSON.stringify(selectedFilters))
 
     const queryString = params.toString()
-    console.log(queryString, 111)
 
     const response = await fetch(`${API_BASE_URL}/paintings?${queryString}`, {
       method: 'GET',

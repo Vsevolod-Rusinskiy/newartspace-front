@@ -5,14 +5,14 @@ export interface IPainting {
   title: string
   artType: string
   price: number
-  theme: string
   style: string
-  materials: string
+  theme: string
+  material: string
+  technique: string
   height: number
   width: number
   yearOfCreation: number
   format: string
   color: string
-  techniques: string
   description: string
 }

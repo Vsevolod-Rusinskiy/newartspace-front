@@ -17,7 +17,7 @@ import cn from 'classnames'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
-  const { paintings, loading, error, artStyle } = useSelector(
+  const { paintings, loading, error } = useSelector(
     (state: RootState) => state.paintings
   )
   const [page, setPage] = useState(1)
@@ -40,7 +40,6 @@ export const HomePage = () => {
   }
 
   const paintingArray = Array.isArray(paintings.data) ? paintings.data : []
-
   useEffect(() => {
     if (loading === 'succeeded') {
       const timer = setTimeout(() => {
@@ -124,7 +123,8 @@ export const HomePage = () => {
                     title={painting.title}
                     yearOfCreation={painting.yearOfCreation}
                     style={painting.style}
-                    materials={painting.materials}
+                    material={painting.material}
+                    technique={painting.technique}
                     height={painting.height}
                     width={painting.width}
                   />

@@ -51,13 +51,13 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     imgUrl,
     title,
     artist,
-    materials,
     style,
+    material,
+    technique,
     yearOfCreation,
     height,
     width,
     price,
-    techniques,
     description,
   } = painting || ({} as IPainting)
 
@@ -73,7 +73,6 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     }
   }, [dispatch, paintingCardId])
 
-  console.log(painting, 8888)
   return (
     <main className={styles.main}>
       <div className={`container`}>
@@ -115,8 +114,8 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
                 <Skeleton />
               ) : (
                 <>
-                  <span className={styles.label}>Материалы:</span> {materials},{' '}
-                  {techniques}
+                  <span className={styles.label}>Материалы:</span> {material},{' '}
+                  {technique}
                 </>
               )}
             </p>
