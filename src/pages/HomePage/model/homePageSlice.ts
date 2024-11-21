@@ -12,7 +12,8 @@ interface Painting {
   price: number
   theme: string
   style: string
-  materials: string
+  material: string
+  technique: string
   height: number
   width: number
   yearOfCreation: number

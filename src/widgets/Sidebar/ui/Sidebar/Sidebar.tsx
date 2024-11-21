@@ -85,7 +85,6 @@ export const Sidebar = () => {
   const handleShowFilters = async () => {
     try {
       const response = await sendSelectedFilters(selectedFilters)
-      console.log('Filters sent successfully:', response)
       dispatch(updateHomePageData(response.data))
       dispatch(actionToggleSideBar())
     } catch (error) {

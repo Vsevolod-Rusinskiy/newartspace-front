@@ -26,7 +26,8 @@ interface Painting {
   price: number
   theme: string
   style: string
-  materials: string
+  material: string
+  technique: string
   height: number
   width: number
   yearOfCreation: number
@@ -207,7 +208,8 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
                   title={painting.title}
                   yearOfCreation={painting.yearOfCreation}
                   style={painting.style}
-                  materials={painting.materials}
+                  material={painting.material}
+                  technique={painting.technique}
                   height={painting.height}
                   width={painting.width}
                 />

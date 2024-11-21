@@ -15,7 +15,8 @@ export interface IPaintingListItem {
   price: number
   yearOfCreation: number
   style: string
-  materials: string
+  material: string
+  technique: string
   height: number
   width: number
 }
@@ -28,8 +29,8 @@ export const PaintingListItem = ({
   title,
   price,
   yearOfCreation,
-  style,
-  materials,
+  material,
+  technique,
   height,
   width,
 }: IPaintingListItem) => {
@@ -61,7 +62,7 @@ export const PaintingListItem = ({
               {height} x {width}
             </p>
             <p className={styles.base_materials}>
-              {style}, {materials}
+              {material}, {technique}
             </p>
             <p className={styles.year}>{yearOfCreation} год</p>
             <p className={styles.price}>{formatNumberWithSpaces(price)} ₽</p>

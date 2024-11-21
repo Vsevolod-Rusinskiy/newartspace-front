@@ -12,8 +12,8 @@ interface Painting {
   author: string
   height: number
   width: number
-  style: string
-  materials: string
+  material: string
+  technique: string
   yearOfCreation: number
   price: number
 }
@@ -49,7 +49,7 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
           {painting.height} x {painting.width} см
         </p>
         <p className={styles.base_materials}>
-          {painting.style}, {painting.materials}
+          {painting.material}, {painting.technique}
         </p>
         {/* <p className={styles.year}>{painting.yearOfCreation} год</p> */}
         <p className={styles.price}>
