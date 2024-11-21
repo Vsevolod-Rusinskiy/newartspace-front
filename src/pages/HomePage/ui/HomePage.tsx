@@ -40,7 +40,6 @@ export const HomePage = () => {
   }
 
   const paintingArray = Array.isArray(paintings.data) ? paintings.data : []
-
   useEffect(() => {
     if (loading === 'succeeded') {
       const timer = setTimeout(() => {

@@ -73,7 +73,6 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     }
   }, [dispatch, paintingCardId])
 
-  console.log(painting, 8888)
   return (
     <main className={styles.main}>
       <div className={`container`}>

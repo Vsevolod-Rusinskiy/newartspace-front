@@ -33,7 +33,6 @@ export const fetchFiltersAction = createAsyncThunk<Filters>(
           a.value.localeCompare(b.value)
       )
 
-      // console.log(data.data, 9999)
       return data.data
     } catch (error) {
       return rejectWithValue('Failed to load filters')
