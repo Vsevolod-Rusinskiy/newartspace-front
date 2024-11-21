@@ -17,12 +17,14 @@ import cn from 'classnames'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
-  const { paintings, loading, error } = useSelector(
+  const { paintings, loading, error, artStyle } = useSelector(
     (state: RootState) => state.paintings
   )
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
-  const [selectedArtStyle, setSelectedArtStyle] = useState<string | null>(null)
+  const [selectedArtStyle, setSelectedArtStyle] = useState<string | null>(
+    artStyle
+  )
 
   const limit = 9
 
@@ -85,7 +87,7 @@ export const HomePage = () => {
           <DefaultButton
             className={cn('shadow_button', 'wide_button', {
               active: selectedArtStyle === 'Классика',
-              shrink: selectedArtStyle,
+              shrink: selectedArtStyle || artStyle !== null,
             })}
             onClick={() => handleArtStyleChange('Классика')}
           >
@@ -94,7 +96,7 @@ export const HomePage = () => {
           <DefaultButton
             className={cn('shadow_button', 'wide_button', {
               active: selectedArtStyle === 'Современность',
-              shrink: selectedArtStyle,
+              shrink: selectedArtStyle || artStyle !== null,
             })}
             onClick={() => handleArtStyleChange('Современность')}
           >
