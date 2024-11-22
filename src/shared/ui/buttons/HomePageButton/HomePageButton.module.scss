@@ -33,7 +33,6 @@
   box-shadow:
     0 1px 4px rgba(0, 0, 0, 0.3),
     0 0 40px rgba(0, 0, 0, 0.1) inset;
-  // transition: transform 0.3s ease;
 }
 
 .shadow_button span {
@@ -75,8 +74,6 @@
 
 .shadow_button:hover {
   background-color: #f0f0f0;
-  // transform: translateY(-5px);
-  // transition: transform 0.3s ease;
 }
 
 .wide_button {
@@ -103,7 +100,7 @@
 }
 
 .wide_button:hover {
-  // transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .wide_button::after {

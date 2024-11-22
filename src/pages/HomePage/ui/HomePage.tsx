@@ -10,6 +10,7 @@ import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
+import { HomePageButton } from '@/src/shared/ui/buttons/HomePageButton/HomePageButton'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
@@ -84,7 +85,7 @@ export const HomePage = () => {
           </DefaultButton>
         </div>
         <div className={styles.button_container}>
-          <DefaultButton
+          <HomePageButton
             className={cn('shadow_button', 'wide_button', {
               active: selectedArtStyle === 'Классика',
               shrink: selectedArtStyle || artStyle !== null,
@@ -92,8 +93,8 @@ export const HomePage = () => {
             onClick={() => handleArtStyleChange('Классика')}
           >
             <span>Традиции</span>
-          </DefaultButton>
-          <DefaultButton
+          </HomePageButton>
+          <HomePageButton
             className={cn('shadow_button', 'wide_button', {
               active: selectedArtStyle === 'Современность',
               shrink: selectedArtStyle || artStyle !== null,
@@ -101,7 +102,7 @@ export const HomePage = () => {
             onClick={() => handleArtStyleChange('Современность')}
           >
             <span>Современность</span>
-          </DefaultButton>
+          </HomePageButton>
         </div>
 
         {selectedArtStyle && (

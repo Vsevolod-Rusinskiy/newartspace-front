@@ -160,12 +160,20 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             {isLoading ? (
               <Skeleton />
             ) : (
-              <DefaultButton
-                className={cn('shadow_button', {})}
-                onClick={() => dispatch(actionOpenModal())}
-              >
-                Купить
-              </DefaultButton>
+              <>
+                <DefaultButton
+                  className={cn('shadow_button', {})}
+                  onClick={() => dispatch(actionOpenModal())}
+                >
+                  КУПИТЬ В ОДИН КЛИК
+                </DefaultButton>
+                <DefaultButton
+                  className={cn('shadow_button', {})}
+                  onClick={() => dispatch(actionOpenModal())}
+                >
+                  КУПИТЬ В ОДИН КЛИК
+                </DefaultButton>
+              </>
             )}
           </footer>
         </section>
