@@ -31,7 +31,8 @@
           font-weight: var(--font-regular);
         }
 
-        .title, .price {
+        .title,
+        .price {
           font-size: 40px;
         }
 
@@ -99,7 +100,8 @@
         min-width: 270px;
       }
 
-      .image_container, .details_container {
+      .image_container,
+      .details_container {
         flex: 1 1 auto;
         max-width: 100%;
         width: 100%;
