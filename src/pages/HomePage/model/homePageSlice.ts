@@ -25,13 +25,13 @@ interface PaintingsState {
   paintings: { data: Painting[]; total: number }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
-  artStyle: string
+  artStyle: string | null
 }
 
 interface Pagination {
   page: number
   limit: number
-  artStyle: string
+  artStyle: string | null
 }
 
 interface FetchPaintingsResult {
@@ -63,7 +63,7 @@ export const initialState: PaintingsState = {
   paintings: { data: [], total: 0 },
   loading: 'idle',
   error: null,
-  artStyle: 'Классика',
+  artStyle: null,
 }
 
 export const paintingsSlice = createSlice({
