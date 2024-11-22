@@ -15,6 +15,8 @@
 }
 
 .shadow_button {
+  color: var(--silver-color);
+  position: relative;
   padding: 15px 0;
   background: #f2f2f3;
   border: 2px solid #f2f2f2;
@@ -22,6 +24,7 @@
   overflow: hidden;
   position: relative;
   text-align: center;
+  transition: transform 0.3s ease;
   -webkit-box-shadow:
     0 1px 4px rgba(0, 0, 0, 0.3),
     0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -36,7 +39,7 @@
 .shadow_button span {
   color: red;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,11 +53,6 @@
   left: 50%;
   width: 200px;
   height: 200px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0) 70%
-  );
   transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 1;
@@ -77,6 +75,8 @@
 
 .shadow_button:hover {
   background-color: #f0f0f0;
+  transform: translateY(-5px); // Плавное поднятие кнопки
+  transition: transform 0.3s ease;
 }
 
 .wide_button {
@@ -103,7 +103,7 @@
 }
 
 .wide_button:hover {
-  transform: translateY(-5px);
+  // transform: translateY(-5px);
 }
 
 .wide_button::after {
