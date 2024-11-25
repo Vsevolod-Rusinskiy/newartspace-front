@@ -89,15 +89,8 @@
   .main {
     .content {
       .content_header {
-        // flex-direction: column;
-        // justify-content: center;
-        // align-items: center;
-
         .catalog_title h1 {
-          // order: 1;
           margin-bottom: 0px;
-          // color: red;
-          // font-size: 24px;
         }
 
         .filter_button,
@@ -107,16 +100,6 @@
           width: 100px;
           height: 30px;
           margin-top: 0;
-        }
-
-        .filter_button {
-          // order: 2;
-          // width: 100%;
-        }
-
-        .sort_button {
-          // order: 3;
-          // width: 100%;
         }
       }
     }
