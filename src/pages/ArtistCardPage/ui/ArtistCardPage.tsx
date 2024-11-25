@@ -14,9 +14,10 @@ import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
-import styles from './ArtistCardPage.module.scss'
+import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import cn from 'classnames'
 import 'react-alice-carousel/lib/alice-carousel.css'
-
+import styles from './ArtistCardPage.module.scss'
 interface Painting {
   id: string
   author: string
@@ -73,6 +74,7 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
     useState(400)
   const descriptionRef = useRef<HTMLDivElement>(null)
   const [page, setPage] = useState(1)
+  const titleRef = useRef<HTMLHeadingElement>(null)
 
   const isLoading = loading === 'idle' || loading === 'pending'
   const { imgUrl, artistName, artistDescription } = artist || ({} as IArtist)
@@ -86,6 +88,10 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
       })
     }
     setIsExpanded(!isExpanded)
+
+    if (isExpanded) {
+      titleRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
   }
   const shouldShowButton =
     (artistDescription?.length || 0) > maxDescriptionLength
@@ -132,7 +138,7 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
         </section>
         <section className={`${styles.details_container} ${styles.section}`}>
           <header>
-            <h1 className={styles.title}>
+            <h1 ref={titleRef} className={styles.title}>
               {isLoading ? <Skeleton /> : artistName}
             </h1>
           </header>
@@ -163,9 +169,12 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
               <Skeleton />
             ) : (
               shouldShowButton && (
-                <ActionButton onClick={handleToggle}>
-                  {isExpanded ? 'Свернуть' : 'Подробнее'}
-                </ActionButton>
+                <DefaultButton
+                  className={cn('action_button', {})}
+                  onClick={handleToggle}
+                >
+                  {isExpanded ? 'СВЕРНУТЬ' : 'ПОДРОБНЕЕ . . .'}
+                </DefaultButton>
               )
             )}
           </footer>
