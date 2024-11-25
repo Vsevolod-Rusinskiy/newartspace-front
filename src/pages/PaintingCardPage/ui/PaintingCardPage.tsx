@@ -5,15 +5,16 @@ import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { fetchPaintingByIdAction } from '../model/paintingCardItemSlice'
-import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
 import { formatNumberWithSpaces } from '@/src/shared/lib/common'
 import PageSubTitle from '@/src/shared/ui/PageSubTitle/PageSubTitle'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
+import { IPainting as BaseIPainting } from '../types/PaintingCardPage.type'
+import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import cn from 'classnames'
 import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './PaintingCardPage.module.scss'
-import { IPainting as BaseIPainting } from '../types/PaintingCardPage.type'
 
 interface PaintingCardItemParams {
   params: {
@@ -159,9 +160,12 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             {isLoading ? (
               <Skeleton />
             ) : (
-              <ActionButton onClick={() => dispatch(actionOpenModal())}>
-                Заказать в один клик
-              </ActionButton>
+              <DefaultButton
+                className={cn('action_button', {})}
+                onClick={() => dispatch(actionOpenModal())}
+              >
+                КУПИТЬ В ОДИН КЛИК
+              </DefaultButton>
             )}
           </footer>
         </section>

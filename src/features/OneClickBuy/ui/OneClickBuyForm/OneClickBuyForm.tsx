@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import { ActionButton } from '@/src/shared/ui/buttons/ActionButton/ActionButton'
 import { useRef, useEffect, useState } from 'react'
 import { useAppSelector } from '@/src/app/model/redux/hooks'
 import './OneClickBuyForm.scss'
@@ -9,7 +8,8 @@ import 'react-phone-input-2/lib/style.css'
 import { useMutation } from 'react-query'
 import axios from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
-
+import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import cn from 'classnames'
 type FormData = {
   name: string
   phone: string
@@ -111,13 +111,13 @@ export const OneClickBuyForm = () => {
           </Link>
         </span>
       </div>
-      <ActionButton
-        className='custom_button'
+      <DefaultButton
+        className={cn('action_button', {})}
         type='submit'
         disabled={mutation.isLoading}
       >
-        {mutation.isLoading ? 'Отправка...' : 'Заказать в один клик'}
-      </ActionButton>
+        {mutation.isLoading ? 'Отправка...' : 'Купить в один клик'}
+      </DefaultButton>
       {mutation.isError && (
         <p className='error_message'>
           Ошибка: {(mutation.error as Error).message}
