@@ -166,7 +166,14 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             {isLoading ? (
               <Skeleton />
             ) : (
-              painting && <Price size='large' painting={painting} />
+              painting && (
+                <Price
+                  size='large'
+                  priceType={painting.priceType}
+                  discount={painting.discount}
+                  price={painting.price}
+                />
+              )
             )}
           </div>
           <footer className={styles.actions}>

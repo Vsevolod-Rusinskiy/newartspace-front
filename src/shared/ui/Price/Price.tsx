@@ -16,7 +16,9 @@ interface IPriceProps
   onClick?: () => void
   href?: string
   size?: 'small' | 'medium' | 'large'
-  painting?: IPainting
+  priceType?: string
+  discount?: number
+  price?: number
 }
 export const Price = ({
   children,
@@ -24,10 +26,12 @@ export const Price = ({
   onClick,
   href,
   size = 'medium',
-  painting,
+  priceType,
+  discount,
+  price,
   ...props
 }: IPriceProps) => {
-  switch (painting?.priceType) {
+  switch (priceType) {
     case 'Специальное предложение':
       return (
         <>
@@ -38,10 +42,10 @@ export const Price = ({
             })}
             {...props}
           >
-            {formatNumberWithSpaces(painting?.price)} ₽
+            {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={styles.prise_description}>
-            Спецпредложение +{painting.discount}% на карту
+            Спецпредложение +{discount}% на карту
           </span>
         </>
       )
@@ -60,7 +64,7 @@ export const Price = ({
             )}
             {...props}
           >
-            {formatNumberWithSpaces(painting?.price)} ₽
+            {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={styles.prise_description}>Возможна репродукция</span>
         </>
@@ -75,7 +79,7 @@ export const Price = ({
             })}
             {...props}
           >
-            {formatNumberWithSpaces(painting?.price)} ₽
+            {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={styles.prise_description}>Оригинал куплен</span>
         </>
@@ -95,7 +99,7 @@ export const Price = ({
             )}
             {...props}
           >
-            {formatNumberWithSpaces(painting?.price)} ₽
+            {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={styles.prise_description}>Оригинал на выставке</span>
         </>
@@ -110,7 +114,7 @@ export const Price = ({
             })}
             {...props}
           >
-            {formatNumberWithSpaces(painting?.price)} ₽
+            {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={styles.prise_description}>
             Оригинал забронирован
@@ -146,7 +150,7 @@ export const Price = ({
           })}
           {...props}
         >
-          {formatNumberWithSpaces(painting?.price)} ₽
+          {formatNumberWithSpaces(price)} ₽
         </span>
       )
   }

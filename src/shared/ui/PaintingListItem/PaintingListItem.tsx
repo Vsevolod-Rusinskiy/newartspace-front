@@ -19,6 +19,8 @@ export interface IPaintingListItem {
   technique: string
   height: number
   width: number
+  priceType: string
+  discount: number
 }
 
 export const PaintingListItem = ({
@@ -32,6 +34,9 @@ export const PaintingListItem = ({
   technique,
   height,
   width,
+  priceType,
+  discount,
+  price,
 }: IPaintingListItem) => {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -65,7 +70,7 @@ export const PaintingListItem = ({
               {material}, {technique}
             </p>
             <p className={styles.year}>{yearOfCreation} год</p>
-            <Price />
+            <Price priceType={priceType} discount={discount} price={price} />
           </div>
         </Link>
       </div>
