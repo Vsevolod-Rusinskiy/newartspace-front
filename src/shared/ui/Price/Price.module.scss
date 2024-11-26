@@ -14,9 +14,6 @@
   font-size: 40px;
 }
 
-.special_offer {
-}
-
 .common_color {
   color: rgb(200, 200, 200);
 }
@@ -31,9 +28,6 @@
 
 .original_reserved {
   @extend .common_color;
-}
-
-.original_on_exhibition {
 }
 
 .original_not_for_sale {
