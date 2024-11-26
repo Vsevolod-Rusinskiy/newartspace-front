@@ -68,7 +68,10 @@ export const OneClickBuyForm = () => {
 
   let buttonLabel = 'КУПИТЬ В ОДИН КЛИК'
 
-  if (painting?.priceType === 'Оригинал не продаётся') {
+  if (
+    painting?.priceType === 'Оригинал не продаётся' ||
+    painting?.priceType === 'Возможна репродукция'
+  ) {
     buttonLabel = 'ЗАКАЗАТЬ РЕПРОДУКЦИЮ'
   }
 

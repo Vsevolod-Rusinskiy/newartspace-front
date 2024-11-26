@@ -1,10 +1,11 @@
 /* eslint-disable */
 import { ReactNode, DetailedHTMLProps, ButtonHTMLAttributes } from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/src/app/model/redux/store'
+// import { useSelector } from 'react-redux'
+// import { RootState } from '@/src/app/model/redux/store'
 import cn from 'classnames'
 import styles from './Price.module.scss'
 import { formatNumberWithSpaces } from '../../lib/common'
+import { IPainting } from '@/src/pages/PaintingCardPage/types/PaintingCardPage.type'
 
 interface IPriceProps
   extends DetailedHTMLProps<
@@ -15,6 +16,7 @@ interface IPriceProps
   onClick?: () => void
   href?: string
   size?: 'small' | 'medium' | 'large'
+  painting?: IPainting
 }
 export const Price = ({
   children,
@@ -22,10 +24,9 @@ export const Price = ({
   onClick,
   href,
   size = 'medium',
+  painting,
   ...props
 }: IPriceProps) => {
-  const { painting } = useSelector((state: RootState) => state.painting)
-  console.log(painting, 'в кнопке')
   switch (painting?.priceType) {
     case 'Специальное предложение':
       return (
@@ -137,6 +138,16 @@ export const Price = ({
         </>
       )
     default:
-      return <span className={cn(styles.price, className)}>{children}</span>
+      return (
+        <span
+          className={cn(styles.price, className, {
+            [styles.small]: size === 'small',
+            [styles.large]: size === 'large',
+          })}
+          {...props}
+        >
+          {formatNumberWithSpaces(painting?.price)} ₽
+        </span>
+      )
   }
 }

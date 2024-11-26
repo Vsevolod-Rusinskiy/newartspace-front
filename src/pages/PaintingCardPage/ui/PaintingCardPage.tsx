@@ -30,7 +30,7 @@ export interface IPainting extends BaseIPainting {
 }
 
 export interface PaintingState {
-  painting: IPainting | null
+  painting: IPainting | null | undefined
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
 }
@@ -73,14 +73,17 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     }
   }, [dispatch, paintingCardId])
 
+  /** Price type buttons */
   const isButtonDisabled =
-    painting?.priceType === 'Возможна репродукция' ||
     painting?.priceType === 'Оригинал куплен' ||
     painting?.priceType === 'Оригинал забронирован'
 
   let buttonLabel = 'КУПИТЬ В ОДИН КЛИК'
 
-  if (painting?.priceType === 'Оригинал не продаётся') {
+  if (
+    painting?.priceType === 'Оригинал не продаётся' ||
+    painting?.priceType === 'Возможна репродукция'
+  ) {
     buttonLabel = 'ЗАКАЗАТЬ РЕПРОДУКЦИЮ'
   }
 
@@ -160,7 +163,11 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             </p>
           </div>
           <div className={styles.price_container}>
-            {isLoading ? <Skeleton /> : <Price size='large' />}
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              painting && <Price size='large' painting={painting} />
+            )}
           </div>
           <footer className={styles.actions}>
             {isLoading ? (
