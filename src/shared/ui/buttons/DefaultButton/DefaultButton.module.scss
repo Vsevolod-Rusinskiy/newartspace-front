@@ -3,6 +3,11 @@
   border: solid 1px silver;
   cursor: pointer;
   background-color: #fff;
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }
 
 .default_button:hover {

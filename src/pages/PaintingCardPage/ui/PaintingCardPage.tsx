@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { fetchPaintingByIdAction } from '../model/paintingCardItemSlice'
-import { formatNumberWithSpaces } from '@/src/shared/lib/common'
 import PageSubTitle from '@/src/shared/ui/PageSubTitle/PageSubTitle'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
@@ -13,6 +12,7 @@ import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibil
 import { IPainting as BaseIPainting } from '../types/PaintingCardPage.type'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import cn from 'classnames'
+import { Price } from '@/src/shared/ui/Price/Price'
 import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './PaintingCardPage.module.scss'
 
@@ -58,7 +58,6 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     yearOfCreation,
     height,
     width,
-    price,
     description,
   } = painting || ({} as IPainting)
 
@@ -73,6 +72,17 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
       dispatch(fetchPaintingByIdAction(paintingCardId))
     }
   }, [dispatch, paintingCardId])
+
+  const isButtonDisabled =
+    painting?.priceType === 'Возможна репродукция' ||
+    painting?.priceType === 'Оригинал куплен' ||
+    painting?.priceType === 'Оригинал забронирован'
+
+  let buttonLabel = 'КУПИТЬ В ОДИН КЛИК'
+
+  if (painting?.priceType === 'Оригинал не продаётся') {
+    buttonLabel = 'ЗАКАЗАТЬ РЕПРОДУКЦИЮ'
+  }
 
   return (
     <main className={styles.main}>
@@ -150,11 +160,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             </p>
           </div>
           <div className={styles.price_container}>
-            {isLoading ? (
-              <Skeleton />
-            ) : (
-              <p className={styles.price}>{formatNumberWithSpaces(price)} ₽</p>
-            )}
+            {isLoading ? <Skeleton /> : <Price size='large' />}
           </div>
           <footer className={styles.actions}>
             {isLoading ? (
@@ -163,8 +169,9 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
               <DefaultButton
                 className={cn('action_button', {})}
                 onClick={() => dispatch(actionOpenModal())}
+                disabled={isButtonDisabled}
               >
-                КУПИТЬ В ОДИН КЛИК
+                {buttonLabel}
               </DefaultButton>
             )}
           </footer>
