@@ -4,7 +4,9 @@ export interface IPainting {
   imgUrl: string
   title: string
   artType: string
+  priceType: string
   price: number
+  discount: number
   style: string
   theme: string
   material: string

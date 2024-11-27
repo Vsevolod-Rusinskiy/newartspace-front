@@ -1,0 +1,42 @@
+.price {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.prise_description {
+  color: red;
+}
+
+.small {
+  font-size: 26px;
+}
+
+.large {
+  font-size: 40px;
+}
+
+.common_color {
+  color: rgb(200, 200, 200);
+}
+
+.original_purchased {
+  @extend .common_color;
+}
+
+.reproduction_possible {
+  @extend .common_color;
+}
+
+.original_reserved {
+  @extend .common_color;
+}
+
+.original_not_for_sale {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .large {
+    font-size: 32px;
+  }
+}

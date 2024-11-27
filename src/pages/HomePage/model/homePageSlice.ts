@@ -19,6 +19,8 @@ interface Painting {
   yearOfCreation: number
   format: string
   color: string
+  priceType: string
+  discount: number
 }
 
 interface PaintingsState {

@@ -31,8 +31,7 @@
           font-weight: var(--font-regular);
         }
 
-        .title,
-        .price {
+        .title {
           font-size: 40px;
         }
 
@@ -54,6 +53,9 @@
         }
 
         .price_container {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
           margin-bottom: 32px;
         }
 
