@@ -34,6 +34,8 @@ interface Painting {
   yearOfCreation: number
   format: string
   color: string
+  priceType: string
+  discount: number
 }
 
 interface ArtistPageParams {
@@ -221,6 +223,8 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
                   technique={painting.technique}
                   height={painting.height}
                   width={painting.width}
+                  priceType={painting.priceType}
+                  discount={painting.discount}
                 />
               ))}
         </ul>

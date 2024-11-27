@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import AliceCarousel from 'react-alice-carousel'
 import Image from 'next/image'
-import { formatNumberWithSpaces } from '@/src/shared/lib/common'
 import cn from 'classnames'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './Slider.module.scss'
+import { Price } from '../Price/Price'
 interface Painting {
   id: number
   imgUrl: string
@@ -16,6 +16,8 @@ interface Painting {
   technique: string
   yearOfCreation: number
   price: number
+  priceType: string
+  discount: number
 }
 
 interface PaintingSliderProps {
@@ -52,9 +54,11 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
           {painting.material}, {painting.technique}
         </p>
         {/* <p className={styles.year}>{painting.yearOfCreation} год</p> */}
-        <p className={styles.price}>
-          {formatNumberWithSpaces(painting.price)} ₽
-        </p>
+        <Price
+          priceType={painting.priceType}
+          discount={painting.discount}
+          price={painting.price}
+        />
       </div>
     </div>
   ))

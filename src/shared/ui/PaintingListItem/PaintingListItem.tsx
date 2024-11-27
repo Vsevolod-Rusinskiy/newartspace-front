@@ -3,8 +3,8 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import cn from 'classnames'
-import { formatNumberWithSpaces } from '@/src/shared/lib/common'
 import styles from './PaintingListItem.module.scss'
+import { Price } from '../Price/Price'
 
 export interface IPaintingListItem {
   id: string
@@ -19,6 +19,8 @@ export interface IPaintingListItem {
   technique: string
   height: number
   width: number
+  priceType: string
+  discount: number
 }
 
 export const PaintingListItem = ({
@@ -27,14 +29,17 @@ export const PaintingListItem = ({
   alt,
   author,
   title,
-  price,
   yearOfCreation,
   material,
   technique,
   height,
   width,
+  priceType,
+  discount,
+  price,
 }: IPaintingListItem) => {
   const [isHovered, setIsHovered] = useState(false)
+
   return (
     <li
       className={styles.painting_list_item}
@@ -65,7 +70,7 @@ export const PaintingListItem = ({
               {material}, {technique}
             </p>
             <p className={styles.year}>{yearOfCreation} год</p>
-            <p className={styles.price}>{formatNumberWithSpaces(price)} ₽</p>
+            <Price priceType={priceType} discount={discount} price={price} />
           </div>
         </Link>
       </div>

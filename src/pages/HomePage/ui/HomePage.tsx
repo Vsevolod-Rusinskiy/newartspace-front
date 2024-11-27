@@ -130,6 +130,8 @@ export const HomePage = () => {
                     technique={painting.technique}
                     height={painting.height}
                     width={painting.width}
+                    priceType={painting.priceType}
+                    discount={painting.discount}
                   />
                 ))}
           </ul>
