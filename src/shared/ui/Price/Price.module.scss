@@ -27,8 +27,9 @@
   @extend .common_color;
 }
 
-.original_reserved {
-  // @extend .common_color;
+.descount_old {
+  @extend .common_color;
+  text-decoration: line-through;
 }
 
 .original_not_for_sale {

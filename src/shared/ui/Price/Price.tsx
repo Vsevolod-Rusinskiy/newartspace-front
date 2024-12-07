@@ -135,6 +135,33 @@ export const Price = ({
           </span>
         </>
       )}
+      {price && discount && priceType === 'Скидка' && (
+        <>
+          <span
+            className={cn(styles.descount_old, styles.price, className, {
+              [styles.small]: size === 'small',
+              [styles.large]: size === 'large',
+            })}
+            {...props}
+          >
+            {formatNumberWithSpaces(price)} ₽
+          </span>
+          <span
+            className={cn(styles.price, {
+              [styles.small]: size === 'small',
+              [styles.large]: size === 'large',
+            })}
+          >
+            {formatNumberWithSpaces(
+              Math.round(price - price * (discount / 100))
+            )}{' '}
+            ₽
+          </span>
+          <span className={cn(styles.prise_description, styles.price)}>
+            СКИДКА {discount}%
+          </span>
+        </>
+      )}
       {!priceType && <span>Загрузка...</span>}
     </>
   )
