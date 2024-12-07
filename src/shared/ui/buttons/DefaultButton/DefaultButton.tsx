@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
-import styles from './DefaultButton.module.scss'
 import cn from 'classnames'
 import { getClassNames } from '@/src/shared/lib/common'
+import styles from './DefaultButton.module.scss'
 
 interface DefaultButtonProps
   extends DetailedHTMLProps<

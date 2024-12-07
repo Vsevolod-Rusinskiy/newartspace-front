@@ -1,11 +1,8 @@
 /* eslint-disable */
 import { ReactNode, DetailedHTMLProps, ButtonHTMLAttributes } from 'react'
-// import { useSelector } from 'react-redux'
-// import { RootState } from '@/src/app/model/redux/store'
 import cn from 'classnames'
 import styles from './Price.module.scss'
 import { formatNumberWithSpaces } from '../../lib/common'
-import { IPainting } from '@/src/pages/PaintingCardPage/types/PaintingCardPage.type'
 
 interface IPriceProps
   extends DetailedHTMLProps<
@@ -31,9 +28,9 @@ export const Price = ({
   price,
   ...props
 }: IPriceProps) => {
-  switch (priceType) {
-    case 'Специальное предложение':
-      return (
+  return (
+    <>
+      {priceType === 'Специальное предложение' && (
         <>
           <span
             className={cn(styles.special_offer, styles.price, className, {
@@ -45,12 +42,11 @@ export const Price = ({
             {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={styles.prise_description}>
-            Спецпредложение +{discount}% на карту
+            СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ {discount}% ОТ ЦЕНЫ НА КАРТУ
           </span>
         </>
-      )
-    case 'Возможна репродукция':
-      return (
+      )}
+      {priceType === 'Возможна репродукция' && (
         <>
           <span
             className={cn(
@@ -66,11 +62,12 @@ export const Price = ({
           >
             {formatNumberWithSpaces(price)} ₽
           </span>
-          <span className={styles.prise_description}>Возможна репродукция</span>
+          <span className={cn(styles.prise_description, styles.price)}>
+            ВОЗМОЖНА РЕПРОДУКЦИЯ
+          </span>
         </>
-      )
-    case 'Оригинал куплен':
-      return (
+      )}
+      {priceType === 'Оригинал куплен' && (
         <>
           <span
             className={cn(styles.original_purchased, styles.price, className, {
@@ -81,11 +78,10 @@ export const Price = ({
           >
             {formatNumberWithSpaces(price)} ₽
           </span>
-          <span className={styles.prise_description}>Оригинал куплен</span>
+          <span className={styles.prise_description}>ОРИГИНАЛ КУПЛЕН</span>
         </>
-      )
-    case 'Оригинал на выставке':
-      return (
+      )}
+      {priceType === 'Оригинал на выставке' && (
         <>
           <span
             className={cn(
@@ -101,11 +97,10 @@ export const Price = ({
           >
             {formatNumberWithSpaces(price)} ₽
           </span>
-          <span className={styles.prise_description}>Оригинал на выставке</span>
+          <span className={styles.prise_description}>ОРИГИНАЛ НА ВЫСТАВКЕ</span>
         </>
-      )
-    case 'Оригинал забронирован':
-      return (
+      )}
+      {priceType === 'Оригинал забронирован' && (
         <>
           <span
             className={cn(styles.original_reserved, styles.price, className, {
@@ -117,12 +112,11 @@ export const Price = ({
             {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={styles.prise_description}>
-            Оригинал забронирован
+            ОРИГИНАЛ ЗАБРОНИРОВАН
           </span>
         </>
-      )
-    case 'Оригинал не продаётся':
-      return (
+      )}
+      {priceType === 'Оригинал не продаётся' && (
         <>
           <span
             className={cn(
@@ -137,21 +131,38 @@ export const Price = ({
             {...props}
           ></span>
           <span className={styles.prise_description}>
-            Оригинал не продаётся
+            ОРИГИНАЛ НЕ ПРОДАЁТСЯ
           </span>
         </>
-      )
-    default:
-      return (
-        <span
-          className={cn(styles.price, className, {
-            [styles.small]: size === 'small',
-            [styles.large]: size === 'large',
-          })}
-          {...props}
-        >
-          {formatNumberWithSpaces(price)} ₽
-        </span>
-      )
-  }
+      )}
+      {price && discount && priceType === 'Скидка' && (
+        <>
+          <span
+            className={cn(styles.descount_old, styles.price, className, {
+              [styles.small]: size === 'small',
+              [styles.large]: size === 'large',
+            })}
+            {...props}
+          >
+            {formatNumberWithSpaces(price)} ₽
+          </span>
+          <span
+            className={cn(styles.price, {
+              [styles.small]: size === 'small',
+              [styles.large]: size === 'large',
+            })}
+          >
+            {formatNumberWithSpaces(
+              Math.round(price - price * (discount / 100))
+            )}{' '}
+            ₽
+          </span>
+          <span className={cn(styles.prise_description, styles.price)}>
+            СКИДКА {discount}%
+          </span>
+        </>
+      )}
+      {!priceType && <span>Загрузка...</span>}
+    </>
+  )
 }
