@@ -29,7 +29,9 @@ export const OneClickBuyForm = () => {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
-  const { painting } = useAppSelector((state) => state.painting)
+  const buttonLabel = useAppSelector(
+    (state) => state.modalVisibility.buttonLabel
+  )
 
   const mutation = useMutation(submitForm, {
     onSuccess: () => {
@@ -64,15 +66,6 @@ export const OneClickBuyForm = () => {
       email,
     }
     mutation.mutate(formData)
-  }
-
-  let buttonLabel = 'КУПИТЬ В ОДИН КЛИК'
-
-  if (
-    painting?.priceType === 'Оригинал не продаётся' ||
-    painting?.priceType === 'Возможна репродукция'
-  ) {
-    buttonLabel = 'ЗАКАЗАТЬ РЕПРОДУКЦИЮ'
   }
 
   return (
