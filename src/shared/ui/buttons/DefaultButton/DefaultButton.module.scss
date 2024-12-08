@@ -4,6 +4,7 @@
   cursor: pointer;
   background-color: #fff;
   letter-spacing: 0.9px;
+  margin-bottom: 10px;
 
   &.disabled {
     cursor: not-allowed;
@@ -102,4 +103,8 @@
     opacity: 0;
     transform: translateX(100%) rotate(30deg);
   }
+}
+
+.hidden {
+  display: none;
 }
