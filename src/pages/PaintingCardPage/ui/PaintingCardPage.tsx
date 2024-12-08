@@ -74,18 +74,11 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
   }, [dispatch, paintingCardId])
 
   /** Price type buttons */
-  const isButtonDisabled =
+  const isButtonVisible =
     painting?.priceType === 'Оригинал куплен' ||
-    painting?.priceType === 'Оригинал забронирован'
-
-  let buttonLabel = 'КУПИТЬ В ОДИН КЛИК'
-
-  if (
+    painting?.priceType === 'Оригинал забронирован' ||
     painting?.priceType === 'Оригинал не продаётся' ||
     painting?.priceType === 'Возможна репродукция'
-  ) {
-    buttonLabel = 'ЗАКАЗАТЬ РЕПРОДУКЦИЮ'
-  }
 
   return (
     <main className={styles.main}>
@@ -180,13 +173,27 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
             {isLoading ? (
               <Skeleton />
             ) : (
-              <DefaultButton
-                className={cn('action_button', {})}
-                onClick={() => dispatch(actionOpenModal())}
-                disabled={isButtonDisabled}
-              >
-                {buttonLabel}
-              </DefaultButton>
+              <>
+                <DefaultButton
+                  className={cn('action_button', {})}
+                  onClick={() =>
+                    dispatch(actionOpenModal('КУПИТЬ В ОДИН КЛИК'))
+                  }
+                  isVisible={!isButtonVisible}
+                >
+                  КУПИТЬ В ОДИН КЛИК
+                </DefaultButton>
+                {painting?.isReproducible && (
+                  <DefaultButton
+                    className={cn('action_button', {})}
+                    onClick={() =>
+                      dispatch(actionOpenModal('ЗАКАЗАТЬ РЕПРОДУКЦИЮ'))
+                    }
+                  >
+                    ЗАКАЗАТЬ РЕПРОДУКЦИЮ
+                  </DefaultButton>
+                )}
+              </>
             )}
           </footer>
         </section>

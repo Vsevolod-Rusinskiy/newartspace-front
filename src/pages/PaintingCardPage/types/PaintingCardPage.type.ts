@@ -17,4 +17,5 @@ export interface IPainting {
   format: string
   color: string
   description: string
+  isReproducible: boolean
 }

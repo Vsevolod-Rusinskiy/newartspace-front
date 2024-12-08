@@ -1,11 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface ModalVisibilityState {
   isOpened: boolean
+  buttonLabel: string
 }
 
 const initialState: ModalVisibilityState = {
   isOpened: false,
+  buttonLabel: 'КУПИТЬ В ОДИН КЛИК',
 }
 
 export const modalVisibilitySlice = createSlice({
@@ -15,8 +17,9 @@ export const modalVisibilitySlice = createSlice({
     actionToggleModal(state) {
       state.isOpened = !state.isOpened
     },
-    actionOpenModal(state) {
+    actionOpenModal(state, action: PayloadAction<string>) {
       state.isOpened = true
+      state.buttonLabel = action.payload
     },
     actionCloseModal(state) {
       state.isOpened = false
