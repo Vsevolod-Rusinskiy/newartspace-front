@@ -73,7 +73,6 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     }
   }, [dispatch, paintingCardId])
 
-  console.log(painting)
   /** Price type buttons */
   const isButtonVisible =
     painting?.priceType === 'Оригинал куплен' ||
