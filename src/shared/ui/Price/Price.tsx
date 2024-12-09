@@ -167,7 +167,11 @@ export const Price = ({
             </span>
           </>
         )}
-      {!priceType && <span>Загрузка...</span>}
+      {!priceType && (
+        <span className={cn(styles.price)}>
+          {formatNumberWithSpaces(price)} ₽
+        </span>
+      )}
     </>
   )
 }
