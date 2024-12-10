@@ -20,19 +20,31 @@ export const EventListItem = ({
   imgUrl,
 }: IEventListItem) => {
   const maxDescriptionLength = 210
+  const isVideo = imgUrl.endsWith('.mp4')
 
   return (
     <li className={styles.event_item}>
       <h2 className={styles.event_title}>{title}</h2>
       <p className={styles.event_date}>{formatDateForRussia(date)}</p>
-      <Image
-        src={imgUrl}
-        alt={title}
-        className={styles.event_img}
-        width={100}
-        height={100}
-        unoptimized
-      />
+      {isVideo ? (
+        <video
+          className={styles.event_img}
+          controls
+          poster={imgUrl.replace('.mp4', '.png')}
+        >
+          <source src={imgUrl} type='video/mp4' />
+          Ваш браузер не поддерживает видео.
+        </video>
+      ) : (
+        <Image
+          src={imgUrl}
+          alt={title}
+          className={styles.event_img}
+          width={100}
+          height={100}
+          unoptimized
+        />
+      )}
       <PageTextBlock
         text={
           content.length > maxDescriptionLength

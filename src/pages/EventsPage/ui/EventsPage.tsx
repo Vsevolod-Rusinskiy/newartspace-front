@@ -26,6 +26,7 @@ export const EventsPage = () => {
     setPage(selectedItem.selected + 1)
   }
   console.log(events, 11111)
+
   useEffect(() => {
     dispatch(fetchEventsAction({ page, limit }))
   }, [dispatch, page])
