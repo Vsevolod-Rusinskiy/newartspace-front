@@ -27,10 +27,20 @@ const initialState: EventsState = {
   error: null,
 }
 
+interface Pagination {
+  page: number
+  limit: number
+}
+
+interface FetchEventsResult {
+  data: Event[]
+  total: number
+}
+
 // Асинхронный экшен для получения событий
 export const fetchEventsAction = createAsyncThunk<
-  { data: Event[]; total: number },
-  { page: number; limit: number }
+  FetchEventsResult,
+  Pagination
 >('events/fetchEvents', async ({ page, limit }, { rejectWithValue }) => {
   try {
     const response = await fetch(
@@ -57,7 +67,7 @@ export const eventsSlice = createSlice({
       })
       .addCase(
         fetchEventsAction.fulfilled,
-        (state, action: PayloadAction<{ data: Event[]; total: number }>) => {
+        (state, action: PayloadAction<FetchEventsResult>) => {
           state.loading = 'succeeded'
           state.events.data = action.payload.data
           state.events.total = action.payload.total
