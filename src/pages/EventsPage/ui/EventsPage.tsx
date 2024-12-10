@@ -64,6 +64,7 @@ export const EventsPage = () => {
                 <EventListItem
                   key={event.id}
                   id={event.id}
+                  imgUrl={event.imgUrl}
                   title={event.title}
                   date={event.date}
                   content={event.content}
