@@ -13,40 +13,37 @@ interface Event {
 }
 
 interface EventsState {
-  events: Event[]
+  events: {
+    data: Event[]
+    total: number
+  }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null
 }
 
 const initialState: EventsState = {
-  events: [],
+  events: { data: [], total: 0 },
   loading: 'idle',
   error: null,
 }
 
 // Асинхронный экшен для получения событий
 export const fetchEventsAction = createAsyncThunk<
-  Event[],
+  { data: Event[]; total: number },
   { page: number; limit: number }
->(
-  'events/fetchEvents',
-  async (
-    { page, limit }: { page: number; limit: number },
-    { rejectWithValue }
-  ) => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/events?page=${page}&limit=${limit}`
-      )
-      if (!response.ok) {
-        throw new Error('Failed to fetch events')
-      }
-      return await response.json()
-    } catch (error) {
-      return rejectWithValue('Failed to load data')
+>('events/fetchEvents', async ({ page, limit }, { rejectWithValue }) => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/events?page=${page}&limit=${limit}`
+    )
+    if (!response.ok) {
+      throw new Error('Failed to fetch events')
     }
+    return await response.json()
+  } catch (error) {
+    return rejectWithValue('Failed to load data')
   }
-)
+})
 
 // Слайс для работы с событиями
 export const eventsSlice = createSlice({
@@ -60,9 +57,10 @@ export const eventsSlice = createSlice({
       })
       .addCase(
         fetchEventsAction.fulfilled,
-        (state, action: PayloadAction<Event[]>) => {
+        (state, action: PayloadAction<{ data: Event[]; total: number }>) => {
           state.loading = 'succeeded'
-          state.events = action.payload
+          state.events.data = action.payload.data
+          state.events.total = action.payload.total
         }
       )
       .addCase(fetchEventsAction.rejected, (state, action) => {

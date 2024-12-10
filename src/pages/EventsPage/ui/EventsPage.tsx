@@ -11,7 +11,7 @@ import { RootState } from '@/src/app/model/redux/store'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import styles from './EventsPage.module.scss'
-import { log } from 'console'
+import { EventListItem } from './EventListItem'
 
 export const EventsPage = () => {
   const dispatch = useAppDispatch()
@@ -19,6 +19,7 @@ export const EventsPage = () => {
     (state: RootState) => state.events
   )
   const [page, setPage] = useState(1)
+  const [isDelaying, setIsDelaying] = useState(true)
   const limit = 9
 
   const handlePageClick = (selectedItem: { selected: number }) => {
@@ -31,32 +32,47 @@ export const EventsPage = () => {
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
+  useEffect(() => {
+    if (loading === 'succeeded') {
+      const timer = setTimeout(() => {
+        setIsDelaying(false)
+      }, 300)
+      return () => clearTimeout(timer)
+    } else if (loading === 'pending') {
+      setIsDelaying(true)
+    }
+  }, [loading])
+
   if (error) return <div>Error: {error}</div>
+
+  const eventArray = Array.isArray(events.data) ? events.data : []
 
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <Htag tag='h1'>События</Htag>
-        {/* <ul className={styles.event_list}>
-          {isLoading
+        <ul className={styles.event_list}>
+          {isLoading || isDelaying
             ? Array.from({ length: 3 }).map((_, index) => (
-                <li key={index} className={`${styles.skeleton_list_item}`}>
+                <li key={index} className={styles.skeleton_list_item}>
                   <div className={styles.skeleton_container}>
                     <Skeleton className={styles.skeleton_item} />
                   </div>
                 </li>
               ))
-            : events.map((event) => (
-                <li key={event.id} className={styles.event_item}>
-                  <h2 className={styles.event_title}>{event.title}</h2>
-                  <p className={styles.event_date}>{event.date}</p>
-                  <p className={styles.event_content}>{event.content}</p>
-                </li>
+            : eventArray.map((event) => (
+                <EventListItem
+                  key={event.id}
+                  id={event.id}
+                  title={event.title}
+                  date={event.date}
+                  content={event.content}
+                />
               ))}
-        </ul> */}
-        {events.length > 0 && (
+        </ul>
+        {events.data.length > 0 && (
           <Paginate
-            pageCount={Math.ceil(events.length / limit)}
+            pageCount={Math.ceil(events.total / limit)}
             onPageChange={handlePageClick}
             forcePage={page - 1}
           />
