@@ -6,17 +6,24 @@
     flex-direction: column;
     width: 100%;
 
+    .title_container {
+      margin-bottom: 15px;
+    }
+
     .event_list {
       display: flex;
       gap: 15px;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: center;
       list-style: none;
 
       .skeleton_list_item {
         list-style: none;
         flex: 0 1 calc(33.333% - 20px);
         height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .skeleton_container {
