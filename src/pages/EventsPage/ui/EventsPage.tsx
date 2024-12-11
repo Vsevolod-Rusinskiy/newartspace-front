@@ -54,7 +54,7 @@ export const EventsPage = () => {
         <Htag tag='h1'>События</Htag>
         <ul className={styles.event_list}>
           {isLoading || isDelaying
-            ? Array.from({ length: 3 }).map((_, index) => (
+            ? Array.from({ length: 2 }).map((_, index) => (
                 <li key={index} className={styles.skeleton_list_item}>
                   <div className={styles.skeleton_container}>
                     <Skeleton className={styles.skeleton_item} />
