@@ -51,7 +51,9 @@ export const EventsPage = () => {
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
-        <Htag tag='h1'>События</Htag>
+        <div className={styles.title_container}>
+          <Htag tag='h1'>События</Htag>
+        </div>
         <ul className={styles.event_list}>
           {isLoading || isDelaying
             ? Array.from({ length: 2 }).map((_, index) => (
