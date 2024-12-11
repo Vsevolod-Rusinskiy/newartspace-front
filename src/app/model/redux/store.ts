@@ -8,6 +8,8 @@ import { artistSlice } from '@/src/pages/ArtistCardPage/model/artistCardItemSlic
 import { sideBarFiltersSlice } from '@/src/widgets/Sidebar/model/sideBarFiltersSlice'
 import { sideBarVisibilitySlice } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
 import { modalVisibilitySlice } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
+import { eventsSlice } from '@/src/pages/EventsPage/model/eventsPageSlice'
+
 export const makeStore = () =>
   configureStore({
     reducer: {
@@ -20,6 +22,7 @@ export const makeStore = () =>
       sideBarFilters: sideBarFiltersSlice.reducer,
       sideBarVisibility: sideBarVisibilitySlice.reducer,
       modalVisibility: modalVisibilitySlice.reducer,
+      events: eventsSlice.reducer,
     },
   })
 

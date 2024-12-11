@@ -118,7 +118,7 @@ export const Price = ({
           </span>
         </>
       )}
-      {priceType === 'Оригинал не продаётся' && (
+      {priceType === 'Оригинал не продаётся' && price !== 0 && (
         <>
           <span
             className={cn(

@@ -1,0 +1,34 @@
+.main {
+  padding: 25px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .event_list {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      list-style: none;
+
+      .skeleton_list_item {
+        list-style: none;
+        flex: 0 1 calc(33.333% - 20px);
+        height: 300px;
+      }
+
+      .skeleton_container {
+        height: 300px;
+        background-color: #e0e0e0;
+        width: 100%;
+
+        .skeleton_item {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

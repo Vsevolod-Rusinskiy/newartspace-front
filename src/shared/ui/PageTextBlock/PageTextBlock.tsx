@@ -1,15 +1,17 @@
 import React, { forwardRef } from 'react'
+import cn from 'classnames'
 import styles from './PageTextBlock.module.scss'
 
 interface IPageTextBlockProps {
   text: string
+  className?: string
 }
 
 const PageTextBlock = forwardRef<HTMLDivElement, IPageTextBlockProps>(
-  ({ text }, ref) => (
+  ({ text, className }, ref) => (
     <div
       ref={ref}
-      className={styles.page_text_block}
+      className={cn(styles.page_text_block, className)}
       dangerouslySetInnerHTML={{ __html: text }}
     />
   )
