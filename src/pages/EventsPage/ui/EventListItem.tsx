@@ -20,7 +20,6 @@ export const EventListItem = ({
   content,
   imgUrl,
 }: IEventListItem) => {
-  const maxDescriptionLength = 210
   const isVideo = imgUrl.endsWith('.mp4')
 
   return (
@@ -51,14 +50,7 @@ export const EventListItem = ({
           </Link>
         </>
       )}
-      <PageTextBlock
-        text={
-          content.length > maxDescriptionLength
-            ? content.slice(0, maxDescriptionLength) + '. . .'
-            : content
-        }
-        className={styles.event_content}
-      />
+      <PageTextBlock text={content} className={cn(styles.event_content)} />
       <Link href={`/events/${id}`}>
         <DefaultButton className={cn('action_button', styles.event_button)}>
           ПОДРОБНЕЕ . . .
