@@ -10,10 +10,10 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchArtistsAction } from '../model/namesPageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
-import styles from './NamePage.module.scss'
 import { Slider } from '@/src/shared/ui/Slider/Slider'
 import { generateUniqueId } from '@/src/shared/utils/generateUniqueId'
 import Link from 'next/link'
+import styles from './NamePage.module.scss'
 
 export const NamesPage = () => {
   const dispatch = useAppDispatch()

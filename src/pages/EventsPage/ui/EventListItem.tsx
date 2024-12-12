@@ -2,9 +2,9 @@ import { formatDateForRussia } from '@/src/shared/lib/common'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import cn from 'classnames'
-import styles from './EventListItem.module.scss'
 import Image from 'next/image'
-
+import Link from 'next/link'
+import styles from './EventListItem.module.scss'
 interface IEventListItem {
   id: number
   title: string
@@ -14,6 +14,7 @@ interface IEventListItem {
 }
 
 export const EventListItem = ({
+  id,
   title,
   date,
   content,
@@ -28,7 +29,7 @@ export const EventListItem = ({
       <p className={styles.event_date}>{formatDateForRussia(date)}</p>
       {isVideo ? (
         <video
-          className={styles.event_img}
+          className={cn(styles.event_img, styles.event_video)}
           src={imgUrl}
           controls
           crossOrigin='anonymous'
@@ -37,14 +38,18 @@ export const EventListItem = ({
           preload='auto'
         />
       ) : (
-        <Image
-          src={imgUrl}
-          alt={title}
-          className={styles.event_img}
-          width={100}
-          height={100}
-          unoptimized
-        />
+        <>
+          <Link href={`/events/${id}`}>
+            <Image
+              src={imgUrl}
+              alt={title}
+              className={styles.event_img}
+              width={100}
+              height={100}
+              unoptimized
+            />
+          </Link>
+        </>
       )}
       <PageTextBlock
         text={
@@ -54,9 +59,11 @@ export const EventListItem = ({
         }
         className={styles.event_content}
       />
-      <DefaultButton className={cn('action_button', styles.event_button)}>
-        ПОДРОБНЕЕ . . .
-      </DefaultButton>
+      <Link href={`/events/${id}`}>
+        <DefaultButton className={cn('action_button', styles.event_button)}>
+          ПОДРОБНЕЕ . . .
+        </DefaultButton>
+      </Link>
     </li>
   )
 }

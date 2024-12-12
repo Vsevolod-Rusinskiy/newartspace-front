@@ -3,7 +3,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
-interface IEvent {
+export interface IEvent {
   id: string
   title: string
   content: string

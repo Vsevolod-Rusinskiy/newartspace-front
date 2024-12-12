@@ -10,7 +10,7 @@
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-  cursor: pointer;
+  // cursor: pointer;
 
   &:hover {
     transform: translateY(-5px);
@@ -23,6 +23,10 @@
     border-radius: 5px;
     margin-bottom: 10px;
     object-fit: cover;
+  }
+
+  .event_video {
+    cursor: pointer;
   }
 }
 
