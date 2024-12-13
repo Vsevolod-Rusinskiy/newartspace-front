@@ -10,6 +10,8 @@ import { sideBarVisibilitySlice } from '@/src/pages/HomePage/model/sideBarVisibi
 import { modalVisibilitySlice } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
 import { eventsSlice } from '@/src/pages/EventsPage/model/eventsPageSlice'
 import { eventSlice } from '@/src/pages/EventCardPage/model/EventCardPageSlice'
+import { activeMenuSlice } from '@/src/app/model/activeMenuSlice'
+
 export const makeStore = () =>
   configureStore({
     reducer: {
@@ -24,6 +26,7 @@ export const makeStore = () =>
       modalVisibility: modalVisibilitySlice.reducer,
       events: eventsSlice.reducer,
       event: eventSlice.reducer,
+      activeMenu: activeMenuSlice.reducer,
     },
   })
 
