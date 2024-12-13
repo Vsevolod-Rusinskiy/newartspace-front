@@ -4,12 +4,12 @@ import { languageSlice } from '@/src/app/model/languageSlice'
 import { paintingsSlice } from '@/src/pages/HomePage/model/homePageSlice'
 import { paintingSlice } from '@/src/pages/PaintingCardPage/model/paintingCardItemSlice'
 import { artistsSlice } from '@/src/pages/NamesPage/model/namesPageSlice'
-import { artistSlice } from '@/src/pages/ArtistCardPage/model/artistCardItemSlice'
+import { artistSlice } from '@/src/pages/ArtistCardPage/model/artistCardPageSlice'
 import { sideBarFiltersSlice } from '@/src/widgets/Sidebar/model/sideBarFiltersSlice'
 import { sideBarVisibilitySlice } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
 import { modalVisibilitySlice } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
 import { eventsSlice } from '@/src/pages/EventsPage/model/eventsPageSlice'
-
+import { eventSlice } from '@/src/pages/EventCardPage/model/EventCardPageSlice'
 export const makeStore = () =>
   configureStore({
     reducer: {
@@ -23,6 +23,7 @@ export const makeStore = () =>
       sideBarVisibility: sideBarVisibilitySlice.reducer,
       modalVisibility: modalVisibilitySlice.reducer,
       events: eventsSlice.reducer,
+      event: eventSlice.reducer,
     },
   })
 
