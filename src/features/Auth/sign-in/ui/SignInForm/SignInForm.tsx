@@ -9,11 +9,10 @@ import axios from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import cn from 'classnames'
-import './SignInForm.module.scss'
+import styles from './SignInForm.module.scss'
 
 type FormData = {
   name: string
-  phone: string
   email: string
   password: string
 }
@@ -25,6 +24,10 @@ const submitForm = async (formData: FormData) => {
   )
   return response.data
 }
+
+const headerType = true
+
+const currentAuthTitle = headerType ? 'Войти' : 'Регистрация'
 
 export const SignInForm = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -62,13 +65,12 @@ export const SignInForm = () => {
       alert('Пожалуйста, согласитесь с политикой конфиденциальности')
       return
     }
-    if (!phone) {
-      alert('Пожалуйста, введите номер телефона')
-      return
-    }
+    // if (!phone) {
+    //   alert('Пожалуйста, введите номер телефона')
+    //   return
+    // }
     const formData = {
       name,
-      phone,
       email,
       password,
     }
@@ -76,31 +78,24 @@ export const SignInForm = () => {
   }
 
   return (
-    <form className='form_container' onSubmit={handleSubmit}>
+    <form className={styles.signin_form_container} onSubmit={handleSubmit}>
       <span
-        className='form_title'
-        style={{ color: successMessage ? 'green' : 'silver' }}
+        className={styles.signin_form_title}
+        // style={{ color: successMessage ? 'green' : 'inherit' }}
       >
-        {successMessage || 'Быстрый заказ'}
+        {successMessage || currentAuthTitle}
       </span>
       <input
         ref={inputRef}
-        className='form_input'
+        className={styles.signin_form_input}
         type='text'
         placeholder='Имя*'
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
       />
-      {/* <PhoneInput
-        inputClass='form_input phone_input'
-        country={'ru'}
-        value={phone}
-        onChange={(phone) => setPhone(phone)}
-        placeholder='Телефон*'
-      /> */}
       <input
-        className='form_input email_input'
+        className={styles.signin_form_input}
         type='email'
         placeholder='Почта*'
         value={email}
@@ -108,7 +103,7 @@ export const SignInForm = () => {
         required
       />
       <input
-        className='form_input password_input'
+        className={styles.signin_form_input}
         type='password'
         placeholder='Пароль*'
         value={password}
@@ -117,16 +112,16 @@ export const SignInForm = () => {
         autoComplete='current-password'
       />
 
-      <div className='form_checkbox_container'>
+      <div className={styles.form_checkbox_container}>
         <input
-          className='form_checkbox'
+          className={styles.form_checkbox}
           type='checkbox'
           onChange={(e) => setIsChecked(e.target.checked)}
           required
         />
         <span>
           Я согласен{' '}
-          <Link href='#' className='form_link'>
+          <Link href='#' className={styles.form_link}>
             с политикой конфиденциальности
           </Link>
         </span>
@@ -139,7 +134,7 @@ export const SignInForm = () => {
         {mutation.isLoading ? 'Отправка...' : buttonLabel}
       </DefaultButton>
       {mutation.isError && (
-        <p className='error_message'>
+        <p className={styles.error_message}>
           Ошибка: {(mutation.error as Error).message}
         </p>
       )}

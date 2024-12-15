@@ -2,14 +2,15 @@
 import Link from 'next/link'
 import { useRef, useEffect, useState } from 'react'
 import { useAppSelector } from '@/src/app/model/redux/hooks'
-import './OneClickBuyForm.scss'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useMutation } from 'react-query'
 import axios from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import styles from './OneClickBuyForm.module.scss'
 import cn from 'classnames'
+
 type FormData = {
   name: string
   phone: string
@@ -69,16 +70,13 @@ export const OneClickBuyForm = () => {
   }
 
   return (
-    <form className='form_container' onSubmit={handleSubmit}>
-      <span
-        className='form_title'
-        style={{ color: successMessage ? 'green' : 'silver' }}
-      >
+    <form className={styles.form_container} onSubmit={handleSubmit}>
+      <span className={styles.form_title}>
         {successMessage || 'Быстрый заказ'}
       </span>
       <input
         ref={inputRef}
-        className='form_input'
+        className={styles.form_input}
         type='text'
         placeholder='Имя*'
         value={name}
@@ -86,43 +84,44 @@ export const OneClickBuyForm = () => {
         required
       />
       <PhoneInput
-        inputClass='form_input phone_input'
+        inputClass={styles.form_input}
         country={'ru'}
         value={phone}
         onChange={(phone) => setPhone(phone)}
         placeholder='Телефон*'
+        style={{ width: '100%' }}
       />
       <input
-        className='form_input email_input'
+        className={cn(styles.form_input, styles.email_input)}
         type='email'
         placeholder='Почта*'
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
       />
-      <div className='form_checkbox_container'>
+      <div className={styles.form_checkbox_container}>
         <input
-          className='form_checkbox'
+          className={styles.form_checkbox}
           type='checkbox'
           onChange={(e) => setIsChecked(e.target.checked)}
           required
         />
         <span>
           Я согласен{' '}
-          <Link href='#' className='form_link'>
+          <Link href='#' className={styles.form_link}>
             с политикой конфиденциальности
           </Link>
         </span>
       </div>
       <DefaultButton
-        className={cn('action_button', {})}
+        className='action_button'
         type='submit'
         disabled={mutation.isLoading}
       >
         {mutation.isLoading ? 'Отправка...' : buttonLabel}
       </DefaultButton>
       {mutation.isError && (
-        <p className='error_message'>
+        <p className={styles.error_message}>
           Ошибка: {(mutation.error as Error).message}
         </p>
       )}

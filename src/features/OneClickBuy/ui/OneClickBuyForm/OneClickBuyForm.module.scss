@@ -27,6 +27,7 @@
   text-align: center;
   font-weight: normal;
   max-width: 300px;
+  color: var(--silver-color);
 }
 
 .form_input {
@@ -59,7 +60,7 @@
     text-decoration: underline;
 
     &:hover {
-      color: #007bff;
+      color: var(--links-hover);
       transition: color 0.5s ease;
     }
   }

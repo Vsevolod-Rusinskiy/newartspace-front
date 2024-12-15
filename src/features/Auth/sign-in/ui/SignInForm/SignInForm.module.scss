@@ -1,35 +1,21 @@
-.form_container {
+.signin_form_container {
   display: flex;
   flex-direction: column;
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
-
-  .custom_button {
-    font-size: 14px;
-    padding: 10px 20px;
-  }
-
-  .error_message {
-    color: red;
-    margin-top: 20px;
-    text-align: center;
-  }
-
-  .phone_input {
-    width: 100% !important;
-  }
 }
 
-.form_title {
+.signin_form_title {
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
   font-weight: normal;
   max-width: 300px;
+  color: var(--silver-color);
 }
 
-.form_input {
+.signin_form_input {
   padding: 11px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
@@ -40,14 +26,8 @@
   color: var(--silver-color);
 }
 
-.email_input {
-  margin-top: 15px;
-}
-
-.form_input:focus {
-  border-color: transparent;
+.signin_form_input:focus {
   outline: none;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .form_checkbox_container {
@@ -59,7 +39,7 @@
     text-decoration: underline;
 
     &:hover {
-      color: #007bff;
+      color: var(--links-hover);
       transition: color 0.5s ease;
     }
   }
@@ -70,6 +50,8 @@
   cursor: pointer;
 }
 
-.form_button:hover {
-  background-color: #444;
+.error_message {
+  color: red;
+  margin-top: 20px;
+  text-align: center;
 }
