@@ -74,3 +74,11 @@
 .form_button:hover {
   background-color: #444;
 }
+
+@media (max-width: 508px) {
+  .form_container {
+    .form_title {
+      font-size: 16px;
+    }
+  }
+}

@@ -84,12 +84,11 @@ export const OneClickBuyForm = () => {
         required
       />
       <PhoneInput
-        inputClass={styles.form_input}
+        inputClass={cn(styles.form_input, styles.phone_input)}
         country={'ru'}
         value={phone}
         onChange={(phone) => setPhone(phone)}
         placeholder='Телефон*'
-        style={{ width: '100%' }}
       />
       <input
         className={cn(styles.form_input, styles.email_input)}
