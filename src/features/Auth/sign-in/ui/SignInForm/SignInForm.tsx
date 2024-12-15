@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useRef, useEffect, useState } from 'react'
-import { useAppSelector } from '@/src/app/model/redux/hooks'
+// import { useAppSelector } from '@/src/app/model/redux/hooks'
 // import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useMutation } from 'react-query'
@@ -25,11 +25,17 @@ const submitForm = async (formData: FormData) => {
   return response.data
 }
 
-const headerType = true
+// const headerType = true
 
-const currentAuthTitle = headerType ? 'Войти' : 'Регистрация'
+// const currentAuthTitle = headerType ? 'Войти' : 'Регистрация'
 
-export const SignInForm = () => {
+type SignInFormProps = {
+  type: 'login' | 'register'
+}
+
+export const SignInForm = ({ type }: SignInFormProps) => {
+  const currentAuthTitle = type === 'login' ? 'Войти' : 'Регистрация'
+
   const inputRef = useRef<HTMLInputElement>(null)
   const [isChecked, setIsChecked] = useState(false)
 
@@ -40,9 +46,9 @@ export const SignInForm = () => {
 
   const [successMessage, setSuccessMessage] = useState('')
 
-  const buttonLabel = useAppSelector(
-    (state) => state.modalVisibility.buttonLabel
-  )
+  // const buttonLabel = useAppSelector(
+  //   (state) => state.modalVisibility.buttonLabel
+  // )
 
   const mutation = useMutation(submitForm, {
     onSuccess: () => {
@@ -65,10 +71,7 @@ export const SignInForm = () => {
       alert('Пожалуйста, согласитесь с политикой конфиденциальности')
       return
     }
-    // if (!phone) {
-    //   alert('Пожалуйста, введите номер телефона')
-    //   return
-    // }
+
     const formData = {
       name,
       email,
@@ -79,10 +82,7 @@ export const SignInForm = () => {
 
   return (
     <form className={styles.signin_form_container} onSubmit={handleSubmit}>
-      <span
-        className={styles.signin_form_title}
-        // style={{ color: successMessage ? 'green' : 'inherit' }}
-      >
+      <span className={styles.signin_form_title}>
         {successMessage || currentAuthTitle}
       </span>
       <input
@@ -131,12 +131,27 @@ export const SignInForm = () => {
         type='submit'
         disabled={mutation.isLoading}
       >
-        {mutation.isLoading ? 'Отправка...' : buttonLabel}
+        {mutation.isLoading ? 'Отправка...' : currentAuthTitle.toUpperCase()}
       </DefaultButton>
       {mutation.isError && (
         <p className={styles.error_message}>
           Ошибка: {(mutation.error as Error).message}
         </p>
+      )}
+      {type === 'login' ? (
+        <div className={styles.question_text_container}>
+          <span className={styles.question_text}>Еще нет аккаунта?</span>
+          <Link href={'/registration'} className={styles.form_link}>
+            Зарегистрироваться
+          </Link>
+        </div>
+      ) : (
+        <div className={styles.question_text_container}>
+          <span className={styles.question_text}>Уже есть аккаунт?</span>
+          <Link href={'/auth'} className={styles.form_link}>
+            Войти
+          </Link>
+        </div>
       )}
     </form>
   )

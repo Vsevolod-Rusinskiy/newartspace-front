@@ -4,6 +4,7 @@
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
+  letter-spacing: 0.7px;
 }
 
 .signin_form_title {
@@ -30,21 +31,30 @@
   outline: none;
 }
 
+.question_text_container {
+  text-align: center;
+  .question_text {
+    margin-right: 10px;
+
+    .form_link {
+      color: aqua;
+    }
+  }
+}
 .form_checkbox_container {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
-
-  .form_link {
-    text-decoration: underline;
-
-    &:hover {
-      color: var(--links-hover);
-      transition: color 0.5s ease;
-    }
-  }
 }
 
+.form_link {
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--links-hover);
+    transition: color 0.5s ease;
+  }
+}
 .form_checkbox {
   margin-right: 10px;
   cursor: pointer;
