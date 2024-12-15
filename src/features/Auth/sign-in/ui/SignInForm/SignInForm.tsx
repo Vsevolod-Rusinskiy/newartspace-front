@@ -34,7 +34,9 @@ type SignInFormProps = {
 }
 
 export const SignInForm = ({ type }: SignInFormProps) => {
-  const currentAuthTitle = type === 'login' ? 'Войти' : 'Регистрация'
+  const [formType, setFormType] = useState<'login' | 'register'>(type)
+
+  const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
 
   const inputRef = useRef<HTMLInputElement>(null)
   const [isChecked, setIsChecked] = useState(false)
@@ -85,15 +87,16 @@ export const SignInForm = ({ type }: SignInFormProps) => {
       <span className={styles.signin_form_title}>
         {successMessage || currentAuthTitle}
       </span>
-      <input
-        ref={inputRef}
-        className={styles.signin_form_input}
-        type='text'
-        placeholder='Имя*'
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
+      {formType === 'register' && (
+        <input
+          className={styles.signin_form_input}
+          type='text'
+          placeholder='Имя*'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      )}
       <input
         className={styles.signin_form_input}
         type='email'
@@ -138,21 +141,31 @@ export const SignInForm = ({ type }: SignInFormProps) => {
           Ошибка: {(mutation.error as Error).message}
         </p>
       )}
-      {type === 'login' ? (
-        <div className={styles.question_text_container}>
-          <span className={styles.question_text}>Еще нет аккаунта?</span>
-          <Link href={'/registration'} className={styles.form_link}>
-            Зарегистрироваться
-          </Link>
-        </div>
-      ) : (
-        <div className={styles.question_text_container}>
-          <span className={styles.question_text}>Уже есть аккаунт?</span>
-          <Link href={'/auth'} className={styles.form_link}>
-            Войти
-          </Link>
-        </div>
-      )}
+      <div className={styles.question_text_container}>
+        {formType === 'login' ? (
+          <>
+            <span className={styles.question_text}>Еще нет аккаунта?</span>
+            <Link
+              href='#'
+              className={styles.form_link}
+              onClick={() => setFormType('register')}
+            >
+              Зарегистрироваться
+            </Link>
+          </>
+        ) : (
+          <>
+            <span className={styles.question_text}>Уже есть аккаунт?</span>
+            <Link
+              href='#'
+              className={styles.form_link}
+              onClick={() => setFormType('login')}
+            >
+              Войти
+            </Link>
+          </>
+        )}
+      </div>
     </form>
   )
 }
