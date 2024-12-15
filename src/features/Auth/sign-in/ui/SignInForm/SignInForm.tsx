@@ -25,16 +25,8 @@ const submitForm = async (formData: FormData) => {
   return response.data
 }
 
-// const headerType = true
-
-// const currentAuthTitle = headerType ? 'Войти' : 'Регистрация'
-
-type SignInFormProps = {
-  type: 'login' | 'register'
-}
-
-export const SignInForm = ({ type }: SignInFormProps) => {
-  const [formType, setFormType] = useState<'login' | 'register'>(type)
+export const SignInForm = () => {
+  const [formType, setFormType] = useState<'login' | 'register'>('login')
 
   const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
 
@@ -42,15 +34,10 @@ export const SignInForm = ({ type }: SignInFormProps) => {
   const [isChecked, setIsChecked] = useState(false)
 
   const [name, setName] = useState('')
-  // const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const [successMessage, setSuccessMessage] = useState('')
-
-  // const buttonLabel = useAppSelector(
-  //   (state) => state.modalVisibility.buttonLabel
-  // )
 
   const mutation = useMutation(submitForm, {
     onSuccess: () => {
