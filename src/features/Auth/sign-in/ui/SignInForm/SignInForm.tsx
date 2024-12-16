@@ -16,18 +16,18 @@ type ApiFormData = {
   email: string
 }
 
-const submitForm = async (formData: ApiFormData) => {
+const submitForm = async (
+  formData: ApiFormData,
+  formType: 'login' | 'register'
+) => {
   console.log('formData', formData)
-  const response = await axios.post(
-    `${API_BASE_URL}/auth/registration`,
-    formData
-  )
+  const endpoint = formType === 'login' ? '/auth/login' : '/auth/registration'
+  const response = await axios.post(`${API_BASE_URL}${endpoint}`, formData)
   console.log('response', response)
   return response.data
 }
 
 export const SignInForm = () => {
-  // const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
   const formType = useAppSelector((state) => state.auth.formType)
   const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
@@ -38,18 +38,26 @@ export const SignInForm = () => {
   const [password, setPassword] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
 
-  const mutation = useMutation(submitForm, {
-    onSuccess: (response) => {
-      setSuccessMessage('Регистрация прошла успешно')
-      console.log('response', response)
-      dispatch(login(response.name))
-    },
-    onError: (error: unknown) => {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Неизвестная ошибка'
-      console.error('Ошибка: ' + errorMessage)
-    },
-  })
+  const mutation = useMutation(
+    (data: { formData: ApiFormData; formType: 'login' | 'register' }) =>
+      submitForm(data.formData, data.formType),
+    {
+      onSuccess: (response) => {
+        const message =
+          formType === 'register'
+            ? 'Регистрация прошла успешно'
+            : 'Вход выполнен успешно'
+        setSuccessMessage(message)
+        console.log('response', response)
+        dispatch(login(response.name))
+      },
+      onError: (error: unknown) => {
+        const errorMessage =
+          error instanceof Error ? error.message : 'Неизвестная ошибка'
+        console.error('Ошибка: ' + errorMessage)
+      },
+    }
+  )
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -67,7 +75,7 @@ export const SignInForm = () => {
       userPassword: password,
       email,
     }
-    mutation.mutate(formData)
+    mutation.mutate({ formData, formType })
 
     setName('')
     setEmail('')
