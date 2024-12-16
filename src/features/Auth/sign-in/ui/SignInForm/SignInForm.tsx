@@ -31,11 +31,9 @@ const submitForm = async (formData: ApiFormData) => {
 }
 
 export const SignInForm = () => {
-  // const [formType, setFormType] = useState<'login' | 'register'>('login')
-  const formType = useSelector((state: RootState) =>
-    state.auth.isLoggedIn ? 'login' : 'register'
-  )
-  const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
+  const [formType, setFormType] = useState<'login' | 'register'>('register')
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+  const currentAuthTitle = isLoggedIn ? 'Войти' : 'Регистрация'
   const inputRef = useRef<HTMLInputElement>(null)
   const [isChecked, setIsChecked] = useState(false)
   const [name, setName] = useState('')
