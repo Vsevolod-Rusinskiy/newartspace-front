@@ -1,18 +1,14 @@
 'use client'
 import Link from 'next/link'
 import { useRef, useEffect, useState } from 'react'
-// import { useAppSelector } from '@/src/app/model/redux/hooks'
-// import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
 import { useMutation } from 'react-query'
 import axios from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import cn from 'classnames'
 import styles from './SignInForm.module.scss'
-import { login } from '@/src/app/model/auth/authSlice'
 import { useAppSelector, useAppDispatch } from '@/src/app/model/redux/hooks'
-import { setFormType } from '@/src/app/model/auth/authSlice'
+import { login, setFormType } from '../../model/auth/authSlice'
 
 type ApiFormData = {
   userName?: string
@@ -84,6 +80,7 @@ export const SignInForm = () => {
     setName('')
     setEmail('')
     setPassword('')
+    setSuccessMessage('')
   }
 
   return (

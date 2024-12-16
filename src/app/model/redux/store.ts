@@ -11,7 +11,7 @@ import { modalVisibilitySlice } from '@/src/shared/ui/modals/Modal/model/modalVi
 import { eventsSlice } from '@/src/pages/EventsPage/model/eventsPageSlice'
 import { eventSlice } from '@/src/pages/EventCardPage/model/EventCardPageSlice'
 import { activeMenuSlice } from '@/src/app/model/activeMenuSlice'
-import { authSlice } from '../auth/authSlice'
+import { authSlice } from '@/src/features/Auth/sign-in/model/auth/authSlice'
 
 export const makeStore = () =>
   configureStore({
