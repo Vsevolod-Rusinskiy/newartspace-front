@@ -9,7 +9,7 @@ import cn from 'classnames'
 import styles from './SignInForm.module.scss'
 import { useAppSelector, useAppDispatch } from '@/src/app/model/redux/hooks'
 import { login, setFormType } from '../../model/auth/authSlice'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 type ApiFormData = {
   userName?: string
@@ -29,7 +29,7 @@ const submitForm = async (
 }
 
 export const SignInForm = () => {
-  // const router = useRouter()
+  const router = useRouter()
   const dispatch = useAppDispatch()
   const formType = useAppSelector((state) => state.auth.formType)
   const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
@@ -59,7 +59,7 @@ export const SignInForm = () => {
         dispatch(login(response.name))
 
         // Перенаправление на страницу профиля
-        // router.push('/profile')
+        router.push('/')
       },
       onError: (error: unknown) => {
         const errorMessage =
