@@ -11,8 +11,8 @@ import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButt
 import cn from 'classnames'
 import styles from './SignInForm.module.scss'
 import { login } from '@/src/app/model/auth/authSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@/src/app/model/redux/store'
+import { useDispatch } from 'react-redux'
+// import { RootState } from '@/src/app/model/redux/store'
 
 type ApiFormData = {
   userName?: string
@@ -31,9 +31,9 @@ const submitForm = async (formData: ApiFormData) => {
 }
 
 export const SignInForm = () => {
+  // const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
   const [formType, setFormType] = useState<'login' | 'register'>('register')
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
-  const currentAuthTitle = isLoggedIn ? 'Войти' : 'Регистрация'
+  const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
   const inputRef = useRef<HTMLInputElement>(null)
   const [isChecked, setIsChecked] = useState(false)
   const [name, setName] = useState('')
@@ -150,7 +150,12 @@ export const SignInForm = () => {
             <Link
               href='#'
               className={styles.form_link}
-              onClick={() => setFormType('register')}
+              onClick={() => {
+                setFormType('register')
+                setName('')
+                setEmail('')
+                setPassword('')
+              }}
             >
               Зарегистрироваться
             </Link>
@@ -161,7 +166,12 @@ export const SignInForm = () => {
             <Link
               href='#'
               className={styles.form_link}
-              onClick={() => setFormType('login')}
+              onClick={() => {
+                setFormType('login')
+                setName('')
+                setEmail('')
+                setPassword('')
+              }}
             >
               Войти
             </Link>
