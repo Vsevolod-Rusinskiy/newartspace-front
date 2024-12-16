@@ -11,8 +11,8 @@ import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButt
 import cn from 'classnames'
 import styles from './SignInForm.module.scss'
 import { login } from '@/src/app/model/auth/authSlice'
-import { useDispatch } from 'react-redux'
-// import { RootState } from '@/src/app/model/redux/store'
+import { useAppSelector, useAppDispatch } from '@/src/app/model/redux/hooks'
+import { setFormType } from '@/src/app/model/auth/authSlice'
 
 type ApiFormData = {
   userName?: string
@@ -32,7 +32,8 @@ const submitForm = async (formData: ApiFormData) => {
 
 export const SignInForm = () => {
   // const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
-  const [formType, setFormType] = useState<'login' | 'register'>('register')
+  const dispatch = useAppDispatch()
+  const formType = useAppSelector((state) => state.auth.formType)
   const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
   const inputRef = useRef<HTMLInputElement>(null)
   const [isChecked, setIsChecked] = useState(false)
@@ -40,7 +41,6 @@ export const SignInForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
-  const dispatch = useDispatch()
 
   const mutation = useMutation(submitForm, {
     onSuccess: (response) => {
@@ -77,6 +77,13 @@ export const SignInForm = () => {
     setEmail('')
     setPassword('')
     setIsChecked(false)
+  }
+
+  const handleFormTypeChange = (type: 'login' | 'register') => {
+    dispatch(setFormType(type))
+    setName('')
+    setEmail('')
+    setPassword('')
   }
 
   return (
@@ -150,12 +157,7 @@ export const SignInForm = () => {
             <Link
               href='#'
               className={styles.form_link}
-              onClick={() => {
-                setFormType('register')
-                setName('')
-                setEmail('')
-                setPassword('')
-              }}
+              onClick={() => handleFormTypeChange('register')}
             >
               Зарегистрироваться
             </Link>
@@ -166,12 +168,7 @@ export const SignInForm = () => {
             <Link
               href='#'
               className={styles.form_link}
-              onClick={() => {
-                setFormType('login')
-                setName('')
-                setEmail('')
-                setPassword('')
-              }}
+              onClick={() => handleFormTypeChange('login')}
             >
               Войти
             </Link>
