@@ -9,6 +9,7 @@ import cn from 'classnames'
 import styles from './SignInForm.module.scss'
 import { useAppSelector, useAppDispatch } from '@/src/app/model/redux/hooks'
 import { login, setFormType } from '../../model/auth/authSlice'
+// import { useRouter } from 'next/router'
 
 type ApiFormData = {
   userName?: string
@@ -20,14 +21,15 @@ const submitForm = async (
   formData: ApiFormData,
   formType: 'login' | 'register'
 ) => {
-  console.log('formData', formData)
+  console.log('sending formData', formData, 111)
   const endpoint = formType === 'login' ? '/auth/login' : '/auth/registration'
   const response = await axios.post(`${API_BASE_URL}${endpoint}`, formData)
-  console.log('response', response)
+  console.log('response from ', endpoint, response, 222)
   return response.data
 }
 
 export const SignInForm = () => {
+  // const router = useRouter()
   const dispatch = useAppDispatch()
   const formType = useAppSelector((state) => state.auth.formType)
   const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
@@ -48,8 +50,16 @@ export const SignInForm = () => {
             ? 'Регистрация прошла успешно'
             : 'Вход выполнен успешно'
         setSuccessMessage(message)
-        console.log('response', response)
+        console.log('success response useMutation', response, 333)
+
+        // Сохранение токенов в локальное хранилище
+        localStorage.setItem('accessToken', response.accessToken)
+        localStorage.setItem('refreshToken', response.refreshToken)
+
         dispatch(login(response.name))
+
+        // Перенаправление на страницу профиля
+        // router.push('/profile')
       },
       onError: (error: unknown) => {
         const errorMessage =
