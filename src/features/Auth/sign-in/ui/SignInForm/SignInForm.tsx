@@ -10,38 +10,45 @@ import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import cn from 'classnames'
 import styles from './SignInForm.module.scss'
+import { login } from '@/src/app/model/auth/authSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/src/app/model/redux/store'
 
-type FormData = {
-  name: string
+type ApiFormData = {
+  userName?: string
+  userPassword: string
   email: string
-  password: string
 }
 
-const submitForm = async (formData: FormData) => {
+const submitForm = async (formData: ApiFormData) => {
+  console.log('formData', formData)
   const response = await axios.post(
-    `${API_BASE_URL}/one-click-order111`,
+    `${API_BASE_URL}/auth/registration`,
     formData
   )
+  console.log('response', response)
   return response.data
 }
 
 export const SignInForm = () => {
-  const [formType, setFormType] = useState<'login' | 'register'>('login')
-
+  // const [formType, setFormType] = useState<'login' | 'register'>('login')
+  const formType = useSelector((state: RootState) =>
+    state.auth.isLoggedIn ? 'login' : 'register'
+  )
   const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
-
   const inputRef = useRef<HTMLInputElement>(null)
   const [isChecked, setIsChecked] = useState(false)
-
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const [successMessage, setSuccessMessage] = useState('')
+  const dispatch = useDispatch()
 
   const mutation = useMutation(submitForm, {
-    onSuccess: () => {
-      setSuccessMessage('Мы приняли заявку и свяжемся с Вами в ближайшее время')
+    onSuccess: (response) => {
+      setSuccessMessage('Регистрация прошла успешно')
+      console.log('response', response)
+      dispatch(login(response.name))
     },
     onError: (error: unknown) => {
       const errorMessage =
@@ -62,11 +69,16 @@ export const SignInForm = () => {
     }
 
     const formData = {
-      name,
+      userName: name,
+      userPassword: password,
       email,
-      password,
     }
     mutation.mutate(formData)
+
+    setName('')
+    setEmail('')
+    setPassword('')
+    setIsChecked(false)
   }
 
   return (
@@ -82,6 +94,7 @@ export const SignInForm = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          autoComplete='username'
         />
       )}
       <input
@@ -91,6 +104,7 @@ export const SignInForm = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
+        autoComplete='email'
       />
       <input
         className={styles.signin_form_input}
@@ -106,6 +120,7 @@ export const SignInForm = () => {
         <input
           className={styles.form_checkbox}
           type='checkbox'
+          checked={isChecked}
           onChange={(e) => setIsChecked(e.target.checked)}
           required
         />
@@ -121,7 +136,9 @@ export const SignInForm = () => {
         type='submit'
         disabled={mutation.isLoading}
       >
-        {mutation.isLoading ? 'Отправка...' : currentAuthTitle.toUpperCase()}
+        {mutation.isLoading
+          ? 'Отправка данных...'
+          : currentAuthTitle.toUpperCase()}
       </DefaultButton>
       {mutation.isError && (
         <p className={styles.error_message}>
