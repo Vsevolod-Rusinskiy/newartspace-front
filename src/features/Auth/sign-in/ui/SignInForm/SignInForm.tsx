@@ -32,6 +32,7 @@ export const SignInForm = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const formType = useAppSelector((state) => state.auth.formType)
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
   const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
   const inputRef = useRef<HTMLInputElement>(null)
   const [isChecked, setIsChecked] = useState(false)
@@ -39,6 +40,12 @@ export const SignInForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+
+  console.log('Текущее состояние authState:', {
+    isLoggedIn,
+    formType,
+    userName: useAppSelector((state) => state.auth.userName),
+  })
 
   const mutation = useMutation(
     (data: { formData: ApiFormData; formType: 'login' | 'register' }) =>
@@ -52,14 +59,22 @@ export const SignInForm = () => {
         setSuccessMessage(message)
         console.log('success response useMutation', response, 333)
 
-        // Сохранение токенов в локальное хранилище
-        localStorage.setItem('accessToken', response.accessToken)
-        localStorage.setItem('refreshToken', response.refreshToken)
+        localStorage.setItem('auth', JSON.stringify(response))
 
-        dispatch(login(response.name))
+        console.log('responseData', response)
+        dispatch(login({ userName: response.userName }))
 
-        // Перенаправление на страницу профиля
-        router.push('/')
+        // Изменение типа формы на 'login' после успешной регистрации с задержкой
+        if (formType === 'register') {
+          setTimeout(() => {
+            handleFormTypeChange('login')
+          }, 2000)
+        }
+
+        // Перенаправление на страницу профиля только при успешном входе
+        if (formType === 'login') {
+          router.push('/')
+        }
       },
       onError: (error: unknown) => {
         const errorMessage =

@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface AuthState {
   isLoggedIn: boolean
-  user: { name: string } | null
+  userName: string | null
   formType: 'login' | 'register'
 }
 
 const initialState: AuthState = {
   isLoggedIn: false,
-  user: null,
+  userName: null,
   formType: 'register',
 }
 
@@ -16,13 +16,14 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login(state, action: PayloadAction<{ name: string }>) {
+    login(state, action: PayloadAction<{ userName: string }>) {
+      console.log('Login action payload:', action.payload)
       state.isLoggedIn = true
-      state.user = action.payload
+      state.userName = action.payload.userName
     },
     logout(state) {
       state.isLoggedIn = false
-      state.user = null
+      state.userName = null
     },
     setFormType(state, action: PayloadAction<'login' | 'register'>) {
       state.formType = action.payload
