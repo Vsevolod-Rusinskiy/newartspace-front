@@ -24,6 +24,7 @@ export const authSlice = createSlice({
     logout(state) {
       state.isLoggedIn = false
       state.userName = null
+      state.formType = 'register'
     },
     setFormType(state, action: PayloadAction<'login' | 'register'>) {
       state.formType = action.payload

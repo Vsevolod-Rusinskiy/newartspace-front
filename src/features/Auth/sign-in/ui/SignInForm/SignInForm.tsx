@@ -59,7 +59,10 @@ export const SignInForm = () => {
         setSuccessMessage(message)
         console.log('success response useMutation', response, 333)
 
-        localStorage.setItem('auth', JSON.stringify(response))
+        // Запись в localStorage только при успешном логине
+        if (formType === 'login') {
+          localStorage.setItem('auth', JSON.stringify(response))
+        }
 
         console.log('responseData', response)
         dispatch(login({ userName: response.userName }))

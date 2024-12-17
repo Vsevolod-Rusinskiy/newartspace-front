@@ -22,12 +22,8 @@ export const Navbar = () => {
   const { lang, translations } = useLang()
 
   const handleMenuClick = (href: string) => {
-    console.log('Menu clicked:', href) // Логируем нажатый пункт меню
     dispatch(setActiveMenu(href))
-    console.log('Dispatching setActiveMenu with:', href) // Логируем, что мы вызываем dispatch
   }
-
-  console.log('Active menu:', activeMenu) // Логируем текущее активное меню
 
   return (
     <nav className={`${styles.nav_menu} ${burgerIsOpen ? styles.open : ''}`}>
