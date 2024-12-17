@@ -15,6 +15,7 @@ export const ProfilePage = () => {
 
   const handleGetUserDate = async () => {
     try {
+      console.log(authData.accessToken, 111)
       const response = await axios.get(`${API_BASE_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${authData.accessToken}`,

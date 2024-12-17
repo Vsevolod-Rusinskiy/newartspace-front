@@ -76,7 +76,7 @@ export const SignInForm = () => {
 
         // Перенаправление на страницу профиля только при успешном входе
         if (formType === 'login') {
-          router.push('/')
+          router.push('/profile')
         }
       },
       onError: (error: unknown) => {

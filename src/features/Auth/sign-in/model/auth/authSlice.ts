@@ -16,10 +16,10 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login(state, action: PayloadAction<{ userName: string }>) {
+    login(state, action: PayloadAction<{ userName?: string }>) {
       console.log('Login action payload:', action.payload)
       state.isLoggedIn = true
-      state.userName = action.payload.userName
+      state.userName = action.payload.userName || null
     },
     logout(state) {
       state.isLoggedIn = false
