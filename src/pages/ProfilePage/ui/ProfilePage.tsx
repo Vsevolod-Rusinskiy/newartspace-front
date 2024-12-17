@@ -4,6 +4,7 @@ import { useGetAuthDataFromLS } from '@/src/shared/hooks/useGetAuthDataFromLS'
 import '../../temp/styles.css'
 import axios from 'axios'
 import { useEffect } from 'react'
+import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
 export const ProfilePage = () => {
   const authData = useGetAuthDataFromLS()
@@ -14,7 +15,7 @@ export const ProfilePage = () => {
 
   const handleGetUserDate = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/profile', {
+      const response = await axios.get(`${API_BASE_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${authData.accessToken}`,
         },
