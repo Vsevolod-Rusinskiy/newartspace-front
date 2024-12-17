@@ -22,11 +22,13 @@ export const authSlice = createSlice({
       state.userName = action.payload.userName || null
     },
     logout(state) {
+      console.log('Logout action')
       state.isLoggedIn = false
       state.userName = null
       state.formType = 'register'
     },
     setFormType(state, action: PayloadAction<'login' | 'register'>) {
+      console.log('Set form type action payload:', action.payload)
       state.formType = action.payload
     },
   },
