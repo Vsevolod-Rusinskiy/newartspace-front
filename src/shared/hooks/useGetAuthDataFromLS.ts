@@ -1,18 +1,18 @@
-import { useRemoveUser } from './useRemoveUser'
+import { useRemoveUserDataFromLSAndState } from './useRemoveUserDataFromLSAndState'
 
 export const useGetAuthDataFromLS = () => {
-  const removeUser = useRemoveUser()
+  const removeUserDataFromLSAndState = useRemoveUserDataFromLSAndState()
 
   try {
     const lSData = JSON.parse(localStorage.getItem('auth') as string)
 
     if (!lSData) {
-      removeUser()
+      removeUserDataFromLSAndState()
       return
     }
 
     return lSData
   } catch (error) {
-    removeUser()
+    removeUserDataFromLSAndState()
   }
 }
