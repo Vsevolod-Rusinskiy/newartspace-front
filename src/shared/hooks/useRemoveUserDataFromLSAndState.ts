@@ -5,7 +5,9 @@ export const useRemoveUserDataFromLSAndState = () => {
   const dispatch = useAppDispatch()
 
   const removeUserDataFromLSAndState = () => {
-    localStorage.removeItem('auth')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth')
+    }
     dispatch(logout())
   }
 
