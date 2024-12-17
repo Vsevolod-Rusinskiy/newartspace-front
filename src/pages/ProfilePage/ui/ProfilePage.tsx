@@ -15,13 +15,13 @@ export const ProfilePage = () => {
 
   const handleGetUserDate = async () => {
     try {
-      console.log(authData.accessToken, 111)
+      console.log(authData.accessToken)
       const response = await axios.get(`${API_BASE_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${authData.accessToken}`,
         },
       })
-      console.log(response)
+      console.log(response, 666)
     } catch (error) {
       console.error('Ошибка при получении данных пользователя:', error)
     }
