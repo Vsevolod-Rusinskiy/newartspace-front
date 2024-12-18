@@ -3,50 +3,55 @@
 import { useGetAuthDataFromLS } from '@/src/shared/hooks/useGetAuthDataFromLS'
 import '../../temp/styles.css'
 import axios from 'axios'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { useRemoveUserDataFromLSAndState } from '@/src/shared/hooks/useRemoveUserDataFromLSAndState'
-
+import { AxiosError } from 'axios'
+import instance from '@/src/shared/config/axios/instatnce'
 export const ProfilePage = () => {
-  const authData = useGetAuthDataFromLS()
+  const authDataFromLS = useGetAuthDataFromLS()
   const removeUserData = useRemoveUserDataFromLSAndState()
+  const [userData, setUserData] = useState(null)
+
   useEffect(() => {
-    handleGetUserDate()
+    handleGetUserData()
   }, [])
 
-  const handleGetUserDate = async () => {
+  const handleGetUserData = async () => {
     try {
-      console.log(authData.accessToken, 'accessToken')
-      const response = await axios.get(`${API_BASE_URL}/profile`, {
+      const response = await instance.get(`/profile`, {
         headers: {
-          Authorization: `Bearer ${authData.accessToken}`,
+          Authorization: `Bearer ${authDataFromLS.accessToken}`,
         },
       })
-      console.log(response, 666)
+      // console.log(response, 666)
+      setUserData(response.data)
     } catch (error) {
       console.error('Ошибка при получении данных пользователя:', error)
+      const errorData = error as AxiosError
+      console.log(errorData.response?.data.message, 666)
+      // запрос на фреш
       refreshToken()
     }
   }
 
   const refreshToken = async () => {
-    console.log(999999)
-    console.log(authData.refreshToken, 8888)
-    if (!authData.refreshToken) {
+    // console.log(999999)
+    // console.log(authDataFromLS.refreshToken, 8888)
+    if (!authDataFromLS.refreshToken) {
       return
     }
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/refresh`, {
-        refreshToken: authData.refreshToken, // TODO: эксесс или рефреш?
+        refreshToken: authDataFromLS.refreshToken, // TODO: эксесс или рефреш?
       })
       console.log(response, 'refreshToken', 666)
 
       if (response.status === 200) {
         localStorage.setItem(
-          'authData',
+          'auth',
           JSON.stringify({
-            ...authData,
-            userName: response.data.userName,
+            ...response.data,
           })
         )
         return response.data.accessToken
@@ -61,7 +66,10 @@ export const ProfilePage = () => {
   return (
     <div className='outerContainer'>
       <div className='innerContainer'>
-        Страница личного кабинета в разработке . . .
+        <p>Страница личного кабинета в разработке . . .</p>
+        <div className='userDataContainer'>
+          {userData && JSON.stringify(userData, null, 2)}
+        </div>
       </div>
     </div>
   )

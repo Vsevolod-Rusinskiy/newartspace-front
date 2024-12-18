@@ -11,4 +11,12 @@
   height: 300px;
   width: 100%;
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.userDataContainer {
+  margin-top: 20px;
 }
