@@ -3,7 +3,7 @@
 import '../../temp/styles.css'
 import { useEffect, useState } from 'react'
 import { getAuthDataFromLS } from '@/src/shared/lib/common'
-import createAxiosInstance from '@/src/shared/config/axios/axiosInstatnce'
+import axiosInstance from '@/src/shared/config/axios/axiosInstatnce'
 export const ProfilePage = () => {
   const [userData, setUserData] = useState(null)
 
@@ -13,7 +13,7 @@ export const ProfilePage = () => {
 
   const handleGetUserData = async () => {
     try {
-      const response = await createAxiosInstance().get(`/profile`, {
+      const response = await axiosInstance.get(`/profile`, {
         headers: {
           Authorization: `Bearer ${getAuthDataFromLS('auth').accessToken}`,
         },
