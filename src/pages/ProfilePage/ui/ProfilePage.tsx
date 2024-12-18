@@ -1,13 +1,17 @@
 'use client'
 
-import { useGetAuthDataFromLS } from '@/src/shared/hooks/useGetAuthDataFromLS'
 import '../../temp/styles.css'
 import { useEffect, useState } from 'react'
-import { useRemoveUserDataFromLSAndState } from '@/src/shared/hooks/useRemoveUserDataFromLSAndState'
-import axiosInstance from '@/src/shared/config/axios/axiosInstatnce'
+import createAxiosInstance from '@/src/shared/config/axios/axiosInstatnce'
+import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import {
+  removeUserDataFromLS,
+  getAuthDataFromLS,
+} from '@/src/shared/lib/common'
+
 export const ProfilePage = () => {
-  const authDataFromLS = useGetAuthDataFromLS()
-  const removeUserData = useRemoveUserDataFromLSAndState()
+  const dispatch = useAppDispatch()
+  const axiosInstance = createAxiosInstance(dispatch)
   const [userData, setUserData] = useState(null)
 
   useEffect(() => {
@@ -18,7 +22,7 @@ export const ProfilePage = () => {
     try {
       const response = await axiosInstance.get(`/profile`, {
         headers: {
-          Authorization: `Bearer ${authDataFromLS.accessToken}`,
+          Authorization: `Bearer ${getAuthDataFromLS('auth').accessToken}`,
         },
       })
       // console.log(response, 666)
@@ -35,12 +39,12 @@ export const ProfilePage = () => {
   const refreshToken = async () => {
     // console.log(999999)
     // console.log(authDataFromLS.refreshToken, 8888)
-    if (!authDataFromLS.refreshToken) {
+    if (!getAuthDataFromLS('auth').refreshToken) {
       return
     }
     try {
       const response = await axiosInstance.post(`/auth/refresh`, {
-        refreshToken: authDataFromLS.refreshToken, // TODO: эксесс или рефреш?
+        refreshToken: getAuthDataFromLS('auth').refreshToken, // TODO: эксесс или рефреш?
       })
       console.log(response, 'refreshToken', 7777)
 
@@ -55,7 +59,7 @@ export const ProfilePage = () => {
 
         return response.data.accessToken
       } else {
-        removeUserData()
+        removeUserDataFromLS('auth')
       }
     } catch (error) {
       console.error('Ошибка при обновлении токена:', error)
