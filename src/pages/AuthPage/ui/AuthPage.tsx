@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './AuthPage.module.scss'
-import { SignInForm } from '@/src/features/Auth/sign-in/ui/SignInForm/SignInForm'
+import { SignInForm } from '@/src/features/Auth'
 
 export const AuthPage = () => {
   return (

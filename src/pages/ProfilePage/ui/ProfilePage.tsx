@@ -2,10 +2,19 @@
 
 import '../../temp/styles.css'
 import { useEffect, useState } from 'react'
-import { getAuthDataFromLS } from '@/src/shared/lib/common'
+import {
+  getAuthDataFromLS,
+  removeUserDataFromLS,
+} from '@/src/shared/lib/common'
 import axiosInstance from '@/src/shared/config/axios/axiosInstatnce'
+import { useRouter } from 'next/navigation'
+import { logout } from '@/src/features/Auth/sign-in/model/auth/authSlice'
+import { useDispatch } from 'react-redux'
+
 export const ProfilePage = () => {
   const [userData, setUserData] = useState(null)
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     handleGetUserData()
@@ -22,8 +31,16 @@ export const ProfilePage = () => {
       setUserData(response.data)
     } catch (error) {
       // перехватываем ошибку в интерсептере axios
+      router.push('/auth')
       console.error('Ошибка при получении данных пользователя:', error)
     }
+  }
+
+  const handleLogout = () => {
+    // Логика выхода из кабинета
+    removeUserDataFromLS('auth')
+    dispatch(logout())
+    router.push('/auth')
   }
 
   return (
@@ -33,6 +50,9 @@ export const ProfilePage = () => {
         <div className='userDataContainer'>
           {userData && JSON.stringify(userData, null, 2)}
         </div>
+        <button className='logoutButton' onClick={handleLogout}>
+          Выйти
+        </button>
       </div>
     </div>
   )

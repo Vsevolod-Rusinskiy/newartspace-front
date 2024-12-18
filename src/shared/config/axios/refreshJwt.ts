@@ -23,8 +23,6 @@ export const refreshJwt = async () => {
           ...response.data,
         })
       )
-      // console.log('токен обновлен', response.data.accessToken, 666)
-      // Сравниваем старый токен с новым
       if (oldToken.accessToken !== response.data.accessToken) {
         console.log('Токены отличаются, обновление прошло успешно')
       } else {
