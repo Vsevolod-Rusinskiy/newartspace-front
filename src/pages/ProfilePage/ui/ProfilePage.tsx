@@ -2,12 +2,9 @@
 
 import { useGetAuthDataFromLS } from '@/src/shared/hooks/useGetAuthDataFromLS'
 import '../../temp/styles.css'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { useRemoveUserDataFromLSAndState } from '@/src/shared/hooks/useRemoveUserDataFromLSAndState'
-import { AxiosError } from 'axios'
-import instance from '@/src/shared/config/axios/instatnce'
+import axiosInstance from '@/src/shared/config/axios/axiosInstatnce'
 export const ProfilePage = () => {
   const authDataFromLS = useGetAuthDataFromLS()
   const removeUserData = useRemoveUserDataFromLSAndState()
@@ -19,7 +16,7 @@ export const ProfilePage = () => {
 
   const handleGetUserData = async () => {
     try {
-      const response = await instance.get(`/profile`, {
+      const response = await axiosInstance.get(`/profile`, {
         headers: {
           Authorization: `Bearer ${authDataFromLS.accessToken}`,
         },
@@ -28,8 +25,8 @@ export const ProfilePage = () => {
       setUserData(response.data)
     } catch (error) {
       console.error('Ошибка при получении данных пользователя:', error)
-      const errorData = error as AxiosError
-      console.log(errorData.response?.data.message, 666)
+      // const errorData = error as AxiosError
+      // console.log(errorData, 666)
       // запрос на фреш
       refreshToken()
     }
@@ -42,10 +39,10 @@ export const ProfilePage = () => {
       return
     }
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/refresh`, {
+      const response = await axiosInstance.post(`/auth/refresh`, {
         refreshToken: authDataFromLS.refreshToken, // TODO: эксесс или рефреш?
       })
-      console.log(response, 'refreshToken', 666)
+      console.log(response, 'refreshToken', 7777)
 
       if (response.status === 200) {
         localStorage.setItem(
@@ -54,6 +51,8 @@ export const ProfilePage = () => {
             ...response.data,
           })
         )
+        console.log('этокен обновлен', response.data.accessToken, 666)
+
         return response.data.accessToken
       } else {
         removeUserData()
