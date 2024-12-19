@@ -21,10 +21,8 @@ const submitForm = async (
   formData: ApiFormData,
   formType: 'login' | 'register'
 ) => {
-  console.log('sending formData', formData, 111)
   const endpoint = formType === 'login' ? '/auth/login' : '/auth/registration'
   const response = await axios.post(`${API_BASE_URL}${endpoint}`, formData)
-  console.log('response from ', endpoint, response, 222)
   return response.data
 }
 
@@ -32,7 +30,6 @@ export const SignInForm = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const formType = useAppSelector((state) => state.auth.formType)
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
   const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
   const inputRef = useRef<HTMLInputElement>(null)
   const [isChecked, setIsChecked] = useState(false)
@@ -40,12 +37,6 @@ export const SignInForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
-
-  console.log('Текущее состояние authState:', {
-    isLoggedIn,
-    formType,
-    userName: useAppSelector((state) => state.auth.userName),
-  })
 
   const mutation = useMutation(
     (data: { formData: ApiFormData; formType: 'login' | 'register' }) =>
@@ -57,14 +48,11 @@ export const SignInForm = () => {
             ? 'Регистрация прошла успешно'
             : 'Вход выполнен успешно'
         setSuccessMessage(message)
-        console.log('success response useMutation', response, 333)
-
         // Запись в localStorage только при успешном логине
         if (formType === 'login') {
           localStorage.setItem('auth', JSON.stringify(response))
         }
 
-        console.log('responseData', response)
         dispatch(login({ userName: response.userName }))
 
         // Изменение типа формы на 'login' после успешной регистрации с задержкой

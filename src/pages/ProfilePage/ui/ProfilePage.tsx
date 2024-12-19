@@ -28,7 +28,6 @@ export const ProfilePage = () => {
           Authorization: `Bearer ${getAuthDataFromLS('auth').accessToken}`,
         },
       })
-      console.log(response, 111, 'данные получены')
       setUserData(response.data)
     } catch (error) {
       // перехватываем ошибку в интерсептере axios

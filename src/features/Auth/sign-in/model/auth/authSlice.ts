@@ -9,7 +9,7 @@ interface AuthState {
 const initialState: AuthState = {
   isLoggedIn: false,
   userName: null,
-  formType: 'register',
+  formType: 'login',
 }
 
 export const authSlice = createSlice({
@@ -17,18 +17,15 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login(state, action: PayloadAction<{ userName?: string }>) {
-      console.log('Login action payload:', action.payload)
       state.isLoggedIn = true
       state.userName = action.payload.userName || null
     },
     logout(state) {
-      console.log('Logout action')
       state.isLoggedIn = false
       state.userName = null
-      state.formType = 'register'
+      state.formType = 'login'
     },
     setFormType(state, action: PayloadAction<'login' | 'register'>) {
-      console.log('Set form type action payload:', action.payload)
       state.formType = action.payload
     },
   },
