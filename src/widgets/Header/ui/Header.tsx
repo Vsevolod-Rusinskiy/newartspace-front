@@ -82,7 +82,7 @@ export const Header = () => {
               </Link>
             </div>
             <div className={styles.user}>
-              <Link href='/auth'>
+              <Link href='/profile'>
                 <UserSVG />
               </Link>
             </div>

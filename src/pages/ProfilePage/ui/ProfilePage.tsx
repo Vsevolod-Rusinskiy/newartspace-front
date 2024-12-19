@@ -10,7 +10,8 @@ import axiosInstance from '@/src/shared/config/axios/axiosInstatnce'
 import { useRouter } from 'next/navigation'
 import { logout } from '@/src/features/Auth/sign-in/model/auth/authSlice'
 import { useDispatch } from 'react-redux'
-
+import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import cn from 'classnames'
 export const ProfilePage = () => {
   const [userData, setUserData] = useState(null)
   const router = useRouter()
@@ -50,9 +51,12 @@ export const ProfilePage = () => {
         <div className='userDataContainer'>
           {userData && JSON.stringify(userData, null, 2)}
         </div>
-        <button className='logoutButton' onClick={handleLogout}>
-          Выйти
-        </button>
+        <DefaultButton
+          className={cn('action_button', {})}
+          onClick={handleLogout}
+        >
+          ВЫЙТИ
+        </DefaultButton>
       </div>
     </div>
   )
