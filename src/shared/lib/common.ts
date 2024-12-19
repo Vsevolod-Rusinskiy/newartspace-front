@@ -44,3 +44,26 @@ export const formatDateForRussia = (dateString: string): string => {
     day: 'numeric',
   })
 }
+
+export const removeUserDataFromLS = (key: string) => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(key)
+  }
+}
+
+export const getAuthDataFromLS = (key: string) => {
+  try {
+    if (typeof window !== 'undefined') {
+      const lSData = JSON.parse(localStorage.getItem(key) as string)
+
+      if (!lSData) {
+        removeUserDataFromLS(key)
+        return
+      }
+
+      return lSData
+    }
+  } catch (error) {
+    removeUserDataFromLS(key)
+  }
+}

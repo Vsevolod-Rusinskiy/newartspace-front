@@ -108,3 +108,9 @@
 .hidden {
   display: none;
 }
+
+@media (max-width: 500px) {
+  .default_button {
+    font-size: 12px;
+  }
+}

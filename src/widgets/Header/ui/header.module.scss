@@ -1,12 +1,13 @@
 .header {
-  background: url('../../../../public/img/roses.png') no-repeat center center / cover;
+  background: url('../../../../public/img/roses.png') no-repeat center center /
+    cover;
   color: var(--white-color);
   position: relative;
   font-weight: var(--font-light);
   padding: 25px 25px 22px 25px;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
@@ -22,7 +23,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
 
     .top {
       display: flex;
@@ -93,9 +93,9 @@
         }
       }
 
-
       .contacts {
-        .email, .phone {
+        .email,
+        .phone {
           position: relative;
           padding-left: 30px;
           transition: color 0.3s ease;
@@ -108,10 +108,9 @@
           margin-bottom: 7px;
         }
 
-
         .email::before {
           @include icon-before(25px, 24px, '/img/email.svg');
-          top: -3px
+          top: -3px;
         }
 
         .phone::before {
@@ -146,7 +145,6 @@
         }
       }
 
-
       .links {
         height: 100%;
         display: flex;
@@ -177,7 +175,6 @@
         align-items: flex-start;
         font-size: 22px;
         opacity: 1;
-
 
         button {
           color: var(--white-color);
@@ -230,8 +227,6 @@
         font-family: 'EkaterinaVelikaya', Arial, sans-serif;
         font-size: 100px;
       }
-
-
     }
 
     .bottom {
@@ -249,14 +244,13 @@
       }
 
       a:hover {
-        color: var(--links-hover);
+        text-decoration: underline;
       }
     }
   }
 }
 
 @media screen and (max-width: 1140px) {
-
   .header .content {
     .top {
       .work_time {
@@ -270,8 +264,6 @@
         position: relative;
         top: 4px;
       }
-
-
     }
 
     .middle {
@@ -294,12 +286,9 @@
       }
     }
   }
-
-
 }
 
 @media screen and (max-width: 770px) {
-
   .header .content {
     .top {
       margin-bottom: 20px;
@@ -329,7 +318,6 @@
       }
     }
 
-
     .middle {
       margin-bottom: 20px;
 
@@ -347,7 +335,6 @@
       a:last-child {
         font-size: 50px;
         text-align: center;
-
       }
 
       .en_main_header {
@@ -358,10 +345,9 @@
 }
 
 @media screen and (max-width: 590px) {
-
   .header .content {
     .top {
-      .contacts  {
+      .contacts {
         .phone {
           visibility: hidden;
           width: 0;
@@ -377,7 +363,6 @@
     }
 
     .middle {
-
       p:first-child {
         margin-bottom: 40px;
       }
@@ -391,7 +376,6 @@
 }
 
 @media screen and (max-width: 380px) {
-
   .header .content {
     .top {
       .contacts a:last-child {
@@ -401,5 +385,8 @@
   }
 }
 
-
-
+.active {
+  font-weight: bold;
+  // color: var(--primary-color-red);
+  text-decoration: underline;
+}

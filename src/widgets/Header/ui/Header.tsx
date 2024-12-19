@@ -9,15 +9,21 @@ import HamburgerSVG from '@/src/shared/ui/svgIcons/HamburgerSVG'
 import { addOverflowHiddenToBody } from '@/src/shared/lib/common'
 import { Navbar } from './Navbar/ui/Navbar'
 import { actionOpenBurgerMenu } from './Navbar/model/burgerMenuModalSlice'
-import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
 import { LangToggler } from './LangToggler/ui/LangToggler'
 import { useLang } from '@/src/shared/hooks/useLang'
 import { menuItems } from '@/src/shared/constants/menuItems'
-
+import { setActiveMenu } from '@/src/app/model/activeMenuSlice'
 import styles from './header.module.scss'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
+
+  const activeMenu = useAppSelector((state) => state.activeMenu.activeMenu)
+
+  const handleMenuClick = (href: string) => {
+    dispatch(setActiveMenu(href))
+  }
 
   const handleOpenMenu = () => {
     addOverflowHiddenToBody()
@@ -76,7 +82,7 @@ export const Header = () => {
               </Link>
             </div>
             <div className={styles.user}>
-              <Link href='/'>
+              <Link href='/profile'>
                 <UserSVG />
               </Link>
             </div>
@@ -106,8 +112,13 @@ export const Header = () => {
           <nav className={styles.nav}>
             <ul className={`list_reset`}>
               {menuItems(translations, lang).map(({ href, label }, index) => (
-                <li key={index}>
-                  <Link href={href}>{label}</Link>
+                <li
+                  key={index}
+                  className={activeMenu === href ? styles.active : ''}
+                >
+                  <Link href={href} onClick={() => handleMenuClick(href)}>
+                    {label}
+                  </Link>
                 </li>
               ))}
             </ul>
