@@ -49,8 +49,8 @@ export const SignInForm = () => {
           setShowSuccessMessage(true)
           setTimeout(() => {
             router.push('/')
-            handleFormTypeChange('login')
             setShowSuccessMessage(false)
+            // handleFormTypeChange('login')
           }, 10000)
         } else {
           localStorage.setItem('auth', JSON.stringify(response))
