@@ -11,6 +11,7 @@ import { useAppSelector, useAppDispatch } from '@/src/app/model/redux/hooks'
 import { login, setFormType } from '../../model/auth/authSlice'
 import { useRouter } from 'next/navigation'
 import { SuccessMessage } from '../SuccessMessage/SuccessMessage'
+import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
 
 type ApiFormData = {
   userName?: string
@@ -153,9 +154,7 @@ export const SignInForm = () => {
             type='submit'
             disabled={mutation.isLoading}
           >
-            {mutation.isLoading
-              ? 'Отправка данных...'
-              : currentAuthTitle.toUpperCase()}
+            {mutation.isLoading ? <Spinner /> : currentAuthTitle.toUpperCase()}
           </DefaultButton>
           {mutation.isError && (
             <p className={styles.error_message}>
