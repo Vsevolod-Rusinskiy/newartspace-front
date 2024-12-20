@@ -16,16 +16,17 @@
 }
 
 .nav_menu::-webkit-scrollbar-track {
-  background-color: #101828;
+  background-color: var(--white-color);
 }
 
 .nav_menu::-webkit-scrollbar-thumb {
-  background-color: #9466ff;
+  background-color: var(--primary-color-red);
+
   border-radius: 3px;
 }
 
 .nav_menu::-webkit-scrollbar-thumb:hover {
-  background-color: #70f;
+  background-color: var(--primary-color-red);
 }
 
 .nav_menu:before {
@@ -45,7 +46,7 @@
 }
 
 .nav_menu:before {
-  background-color: #101828;
+  background-color: var(--white-color);
 }
 
 .nav_menu.open {
@@ -68,7 +69,8 @@
 }
 
 .nav_menu_close::before {
-  background-color: #e8e9ea;
+  background-color: var(--primary-color-red);
+
   content: '';
   height: 100%;
   width: 100%;
@@ -114,6 +116,8 @@
 }
 
 .nav_menu_list {
+  color: var(--primary-color-red);
+  font-size: 32px;
   text-align: center;
   list-style-type: none;
   margin-bottom: 20px;
