@@ -87,21 +87,21 @@ export const HomePage = () => {
         <div className={styles.button_container}>
           <HomePageButton
             className={cn('shadow_button', 'wide_button', {
-              active: selectedArtStyle === 'Классика',
-              shrink: selectedArtStyle || artStyle !== null,
-            })}
-            onClick={() => handleArtStyleChange('Классика')}
-          >
-            <span>Традиции</span>
-          </HomePageButton>
-          <HomePageButton
-            className={cn('shadow_button', 'wide_button', {
               active: selectedArtStyle === 'Современность',
               shrink: selectedArtStyle || artStyle !== null,
             })}
             onClick={() => handleArtStyleChange('Современность')}
           >
             <span>Современность</span>
+          </HomePageButton>
+          <HomePageButton
+            className={cn('shadow_button', 'wide_button', {
+              active: selectedArtStyle === 'Классика',
+              shrink: selectedArtStyle || artStyle !== null,
+            })}
+            onClick={() => handleArtStyleChange('Классика')}
+          >
+            <span>Традиции</span>
           </HomePageButton>
         </div>
 
