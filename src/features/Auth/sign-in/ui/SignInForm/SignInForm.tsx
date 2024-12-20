@@ -10,6 +10,7 @@ import styles from './SignInForm.module.scss'
 import { useAppSelector, useAppDispatch } from '@/src/app/model/redux/hooks'
 import { login, setFormType } from '../../model/auth/authSlice'
 import { useRouter } from 'next/navigation'
+import { SuccessMessage } from '../SuccessMessage/SuccessMessage'
 
 type ApiFormData = {
   userName?: string
@@ -36,34 +37,23 @@ export const SignInForm = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [successMessage, setSuccessMessage] = useState('')
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   const mutation = useMutation(
     (data: { formData: ApiFormData; formType: 'login' | 'register' }) =>
       submitForm(data.formData, data.formType),
     {
       onSuccess: (response) => {
-        const message =
-          formType === 'register'
-            ? 'Регистрация прошла успешно'
-            : 'Вход выполнен успешно'
-        setSuccessMessage(message)
-        // Запись в localStorage только при успешном логине
-        if (formType === 'login') {
-          localStorage.setItem('auth', JSON.stringify(response))
-        }
-
-        dispatch(login({ userName: response.userName }))
-
-        // Изменение типа формы на 'login' после успешной регистрации с задержкой
         if (formType === 'register') {
+          setShowSuccessMessage(true)
           setTimeout(() => {
+            router.push('/')
             handleFormTypeChange('login')
-          }, 2000)
-        }
-
-        // Перенаправление на страницу профиля только при успешном входе
-        if (formType === 'login') {
+            setShowSuccessMessage(false)
+          }, 10000)
+        } else {
+          localStorage.setItem('auth', JSON.stringify(response))
+          dispatch(login({ userName: response.userName }))
           router.push('/profile')
         }
       },
@@ -104,98 +94,101 @@ export const SignInForm = () => {
     setName('')
     setEmail('')
     setPassword('')
-    setSuccessMessage('')
   }
 
   return (
-    <form className={styles.signin_form_container} onSubmit={handleSubmit}>
-      <span className={styles.signin_form_title}>
-        {successMessage || currentAuthTitle}
-      </span>
-      {formType === 'register' && (
-        <input
-          className={styles.signin_form_input}
-          type='text'
-          placeholder='Имя*'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          autoComplete='username'
-        />
-      )}
-      <input
-        className={styles.signin_form_input}
-        type='email'
-        placeholder='Почта*'
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        autoComplete='email'
-      />
-      <input
-        className={styles.signin_form_input}
-        type='password'
-        placeholder='Пароль*'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        autoComplete='current-password'
-      />
+    <>
+      {showSuccessMessage && formType === 'register' ? (
+        <SuccessMessage />
+      ) : (
+        <form className={styles.signin_form_container} onSubmit={handleSubmit}>
+          <span className={styles.signin_form_title}>{currentAuthTitle}</span>
+          {formType === 'register' && (
+            <input
+              className={styles.signin_form_input}
+              type='text'
+              placeholder='Имя*'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              autoComplete='username'
+            />
+          )}
+          <input
+            className={styles.signin_form_input}
+            type='email'
+            placeholder='Почта*'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete='email'
+          />
+          <input
+            className={styles.signin_form_input}
+            type='password'
+            placeholder='Пароль*'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            autoComplete='current-password'
+          />
 
-      <div className={styles.form_checkbox_container}>
-        <input
-          className={styles.form_checkbox}
-          type='checkbox'
-          checked={isChecked}
-          onChange={(e) => setIsChecked(e.target.checked)}
-          required
-        />
-        <span>
-          Я согласен{' '}
-          <Link href='#' className={styles.form_link}>
-            с политикой конфиденциальности
-          </Link>
-        </span>
-      </div>
-      <DefaultButton
-        className={cn('action_button', {})}
-        type='submit'
-        disabled={mutation.isLoading}
-      >
-        {mutation.isLoading
-          ? 'Отправка данных...'
-          : currentAuthTitle.toUpperCase()}
-      </DefaultButton>
-      {mutation.isError && (
-        <p className={styles.error_message}>
-          Ошибка: {(mutation.error as Error).message}
-        </p>
+          <div className={styles.form_checkbox_container}>
+            <input
+              className={styles.form_checkbox}
+              type='checkbox'
+              checked={isChecked}
+              onChange={(e) => setIsChecked(e.target.checked)}
+              required
+            />
+            <span>
+              Я согласен{' '}
+              <Link href='#' className={styles.form_link}>
+                с политикой конфиденциальности
+              </Link>
+            </span>
+          </div>
+          <DefaultButton
+            className={cn('action_button', {})}
+            type='submit'
+            disabled={mutation.isLoading}
+          >
+            {mutation.isLoading
+              ? 'Отправка данных...'
+              : currentAuthTitle.toUpperCase()}
+          </DefaultButton>
+          {mutation.isError && (
+            <p className={styles.error_message}>
+              Ошибка: {(mutation.error as Error).message}
+            </p>
+          )}
+          <div className={styles.question_text_container}>
+            {formType === 'login' ? (
+              <>
+                <span className={styles.question_text}>Еще нет аккаунта?</span>
+                <Link
+                  href='#'
+                  className={styles.form_link}
+                  onClick={() => handleFormTypeChange('register')}
+                >
+                  Зарегистрироваться
+                </Link>
+              </>
+            ) : (
+              <>
+                <span className={styles.question_text}>Уже есть аккаунт?</span>
+                <Link
+                  href='#'
+                  className={styles.form_link}
+                  onClick={() => handleFormTypeChange('login')}
+                >
+                  Войти
+                </Link>
+              </>
+            )}
+          </div>
+        </form>
       )}
-      <div className={styles.question_text_container}>
-        {formType === 'login' ? (
-          <>
-            <span className={styles.question_text}>Еще нет аккаунта?</span>
-            <Link
-              href='#'
-              className={styles.form_link}
-              onClick={() => handleFormTypeChange('register')}
-            >
-              Зарегистрироваться
-            </Link>
-          </>
-        ) : (
-          <>
-            <span className={styles.question_text}>Уже есть аккаунт?</span>
-            <Link
-              href='#'
-              className={styles.form_link}
-              onClick={() => handleFormTypeChange('login')}
-            >
-              Войти
-            </Link>
-          </>
-        )}
-      </div>
-    </form>
+    </>
   )
 }
