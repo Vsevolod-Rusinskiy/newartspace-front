@@ -1,11 +1,14 @@
 'use client'
 /* eslint-disable */
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import axios from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
+import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { setFormType } from '@/src/features/Auth/sign-in/model/auth/authSlice'
+import cn from 'classnames'
 import '../../temp/styles.css'
 import styles from './VerifyEmailPage.module.scss'
 
@@ -14,9 +17,11 @@ export const VerifyEmailPage = () => {
   const [isSuccess, setIsSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
+  const verificationAttempted = useRef(false)
   const searchParams = useSearchParams()
   const router = useRouter()
   const token = searchParams.get('token')
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (!token) {
@@ -26,6 +31,9 @@ export const VerifyEmailPage = () => {
     }
 
     const verifyEmail = async () => {
+      if (verificationAttempted.current) return
+      verificationAttempted.current = true
+
       setIsLoading(true)
 
       try {
@@ -36,9 +44,6 @@ export const VerifyEmailPage = () => {
         if (response.data.message === 'Email verified successfully') {
           setIsSuccess(true)
           setVerificationStatus('Email успешно подтвержден!')
-          setTimeout(() => {
-            router.push('/auth')
-          }, 3000)
         }
       } catch (error) {
         setIsError(true)
@@ -65,13 +70,14 @@ export const VerifyEmailPage = () => {
   }, [token, router])
 
   const handleAuthRedirect = () => {
+    dispatch(setFormType('register'))
     router.push('/auth')
   }
 
   return (
     <div className='outerContainer'>
       <div className={styles.verify_email_container}>
-        <h2 className={styles.verify_email_title}>Верификация Email</h2>
+        <h2 className={styles.verify_email_title}>Подтверждение email</h2>
 
         {isLoading ? (
           <div className={styles.spinner_container}>
@@ -86,15 +92,32 @@ export const VerifyEmailPage = () => {
                 ${isError ? styles.error : ''}
               `}
             >
-              {verificationStatus}
+              {verificationStatus.split('\n').map((text, index) => (
+                <span key={index}>
+                  {text}
+                  <br />
+                </span>
+              ))}
             </p>
 
             {isError && (
               <DefaultButton
-                className={styles.auth_button}
+                className={cn('action_button', {})}
                 onClick={handleAuthRedirect}
               >
-                Перейти к авторизации
+                ПЕРЕЙТИ К РЕГИСТРАЦИИ
+              </DefaultButton>
+            )}
+
+            {isSuccess && (
+              <DefaultButton
+                className={cn('action_button', {})}
+                onClick={() => {
+                  dispatch(setFormType('login'))
+                  router.push('/auth')
+                }}
+              >
+                ВОЙТИ
               </DefaultButton>
             )}
           </>
