@@ -21,7 +21,7 @@ export const VerifyEmailPage = () => {
   const verificationAttempted = useRef(false)
   const searchParams = useSearchParams()
   const router = useRouter()
-  const token = searchParams.get('token')
+  const token = searchParams?.get('token')
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -96,12 +96,7 @@ export const VerifyEmailPage = () => {
                 ${isError ? styles.error : ''}
               `}
             >
-              {verificationStatus.split('\n').map((text, index) => (
-                <span key={index}>
-                  {text}
-                  <br />
-                </span>
-              ))}
+              {verificationStatus}
             </p>
 
             {isError && (
