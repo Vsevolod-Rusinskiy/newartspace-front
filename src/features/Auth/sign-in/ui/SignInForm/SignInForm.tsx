@@ -47,15 +47,10 @@ export const SignInForm = () => {
       onSuccess: (response) => {
         if (formType === 'register') {
           setShowSuccessMessage(true)
-          setTimeout(() => {
-            router.push('/')
-            setShowSuccessMessage(false)
-            // handleFormTypeChange('login')
-          }, 10000)
         } else {
           localStorage.setItem('auth', JSON.stringify(response))
           dispatch(login({ userName: response.userName }))
-          router.push('/profile')
+          router.push('/')
         }
       },
       onError: (error: unknown) => {
