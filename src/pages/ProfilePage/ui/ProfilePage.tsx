@@ -21,7 +21,6 @@ export const ProfilePage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  // Проверка авторизации до первого рендера
   useEffect(() => {
     const authData = getAuthDataFromLS('auth')
     if (!authData?.accessToken) {
@@ -31,7 +30,6 @@ export const ProfilePage = () => {
     setIsAuthenticated(true)
   }, [])
 
-  // Загрузка данных пользователя только после проверки авторизации
   useEffect(() => {
     const fetchUserData = async () => {
       if (!isAuthenticated) return
