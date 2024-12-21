@@ -57,7 +57,7 @@ export const VerifyEmailPage = () => {
               )
               break
             default:
-              setVerificationStatus('Ошибка верификации email')
+              setVerificationStatus('Ошибка проверки email')
           }
         } else {
           setVerificationStatus('Произошла неизвестная ошибка')
@@ -70,18 +70,10 @@ export const VerifyEmailPage = () => {
     verifyEmail()
   }, [token, router])
 
-  const handleAuthRedirect = () => {
+  const handleRedirect = (formType: 'register' | 'login') => {
     setIsNavigating(true)
     setTimeout(() => {
-      dispatch(setFormType('register'))
-      router.push('/auth')
-    }, 500)
-  }
-
-  const handleLoginRedirect = () => {
-    setIsNavigating(true)
-    setTimeout(() => {
-      dispatch(setFormType('login'))
+      dispatch(setFormType(formType))
       router.push('/auth')
     }, 500)
   }
@@ -115,7 +107,7 @@ export const VerifyEmailPage = () => {
             {isError && (
               <DefaultButton
                 className={cn('action_button', {})}
-                onClick={handleAuthRedirect}
+                onClick={() => handleRedirect('register')}
               >
                 ПЕРЕЙТИ К РЕГИСТРАЦИИ
               </DefaultButton>
@@ -124,7 +116,7 @@ export const VerifyEmailPage = () => {
             {isSuccess && (
               <DefaultButton
                 className={cn('action_button', {})}
-                onClick={handleLoginRedirect}
+                onClick={() => handleRedirect('login')}
               >
                 ВОЙТИ
               </DefaultButton>
