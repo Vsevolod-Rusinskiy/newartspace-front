@@ -17,6 +17,7 @@ export const VerifyEmailPage = () => {
   const [isSuccess, setIsSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
+  const [isNavigating, setIsNavigating] = useState(false)
   const verificationAttempted = useRef(false)
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -70,8 +71,19 @@ export const VerifyEmailPage = () => {
   }, [token, router])
 
   const handleAuthRedirect = () => {
-    dispatch(setFormType('register'))
-    router.push('/auth')
+    setIsNavigating(true)
+    setTimeout(() => {
+      dispatch(setFormType('register'))
+      router.push('/auth')
+    }, 500)
+  }
+
+  const handleLoginRedirect = () => {
+    setIsNavigating(true)
+    setTimeout(() => {
+      dispatch(setFormType('login'))
+      router.push('/auth')
+    }, 500)
   }
 
   return (
@@ -79,7 +91,7 @@ export const VerifyEmailPage = () => {
       <div className={styles.verify_email_container}>
         <h2 className={styles.verify_email_title}>Подтверждение email</h2>
 
-        {isLoading ? (
+        {isLoading || isNavigating ? (
           <div className={styles.spinner_container}>
             <Spinner />
           </div>
@@ -112,10 +124,7 @@ export const VerifyEmailPage = () => {
             {isSuccess && (
               <DefaultButton
                 className={cn('action_button', {})}
-                onClick={() => {
-                  dispatch(setFormType('login'))
-                  router.push('/auth')
-                }}
+                onClick={handleLoginRedirect}
               >
                 ВОЙТИ
               </DefaultButton>
