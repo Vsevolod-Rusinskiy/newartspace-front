@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
 import cn from 'classnames'
+import Link from 'next/link'
 import '../../temp/styles.css'
 import styles from './ForgotPasswordPage.module.scss'
 
@@ -16,19 +16,20 @@ export const ForgotPasswordPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [email, setEmail] = useState('')
-  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
 
     try {
+      /* eslint-disable indent */
       const response = await axios.post(
         `${API_BASE_URL}/auth/forgot-password`,
         {
           email,
         }
       )
+      /* eslint-enable indent */
 
       if (response.data.message === 'Reset password email sent') {
         setIsSuccess(true)
@@ -48,17 +49,12 @@ export const ForgotPasswordPage = () => {
           default:
             setResetStatus('Ошибка при отправке инструкций')
         }
-        /* eslint-disable indent */
       } else {
         setResetStatus('Произошла неизвестная ошибка')
       }
     } finally {
       setIsLoading(false)
     }
-  }
-
-  const handleBackToLogin = () => {
-    router.push('/auth')
   }
 
   return (
@@ -75,12 +71,13 @@ export const ForgotPasswordPage = () => {
             {!isSuccess ? (
               <form className={styles.form_container} onSubmit={handleSubmit}>
                 <input
-                  className={styles.form_input}
+                  className={styles.signin_form_input}
                   type='email'
                   placeholder='Введите ваш email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  autoComplete='email'
                 />
                 <DefaultButton
                   className={cn('action_button', {})}
@@ -88,6 +85,9 @@ export const ForgotPasswordPage = () => {
                 >
                   ОТПРАВИТЬ
                 </DefaultButton>
+                <Link href='/auth' className={styles.form_link}>
+                  Вернуться к входу
+                </Link>
               </form>
             ) : null}
 
@@ -100,13 +100,6 @@ export const ForgotPasswordPage = () => {
             >
               {resetStatus}
             </p>
-
-            <DefaultButton
-              className={cn('action_button', {})}
-              onClick={handleBackToLogin}
-            >
-              ВЕРНУТЬСЯ К ВХОДУ
-            </DefaultButton>
           </>
         )}
       </div>
