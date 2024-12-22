@@ -95,6 +95,7 @@ export const SignInForm = () => {
     setName('')
     setEmail('')
     setPassword('')
+    mutation.reset()
   }
 
   return (
