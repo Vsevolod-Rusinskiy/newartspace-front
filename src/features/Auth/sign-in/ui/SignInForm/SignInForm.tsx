@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useRef, useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import cn from 'classnames'
@@ -17,6 +17,11 @@ type ApiFormData = {
   userName?: string
   userPassword: string
   email: string
+}
+
+interface ServerError {
+  message: string
+  statusCode?: number
 }
 
 const submitForm = async (
@@ -53,10 +58,10 @@ export const SignInForm = () => {
           router.push('/')
         }
       },
-      onError: (error: unknown) => {
+      onError: (error: AxiosError<ServerError>) => {
         const errorMessage =
-          error instanceof Error ? error.message : 'Неизвестная ошибка'
-        console.error('Ошибка: ' + errorMessage)
+          error.response?.data?.message || 'Неизвестная ошибка'
+        console.error('Ошибка:', errorMessage)
       },
     }
   )
@@ -153,7 +158,8 @@ export const SignInForm = () => {
           </DefaultButton>
           {mutation.isError && (
             <p className={styles.error_message}>
-              Ошибка: {(mutation.error as Error).message}
+              {(mutation.error as AxiosError<ServerError>).response?.data
+                ?.message || 'Произошла ошибка при отправке формы'}
             </p>
           )}
           <div className={styles.question_text_container}>
