@@ -1,8 +1,7 @@
 'use client'
-/* eslint-disable */
 
-import { useEffect, useState } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
@@ -41,6 +40,7 @@ export const ForgotPasswordPage = () => {
       setIsError(true)
       if (axios.isAxiosError(error)) {
         const errorMessage = error.response?.data?.message
+        /* eslint-disable indent */
         switch (errorMessage) {
           case 'User not found':
             setResetStatus('Пользователь с таким email не найден')
@@ -48,6 +48,7 @@ export const ForgotPasswordPage = () => {
           default:
             setResetStatus('Ошибка при отправке инструкций')
         }
+        /* eslint-disable indent */
       } else {
         setResetStatus('Произошла неизвестная ошибка')
       }
