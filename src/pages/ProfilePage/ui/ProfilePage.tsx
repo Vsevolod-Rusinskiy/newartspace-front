@@ -11,36 +11,63 @@ import { useRouter } from 'next/navigation'
 import { logout } from '@/src/features/Auth/sign-in/model/auth/authSlice'
 import { useDispatch } from 'react-redux'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
 import cn from 'classnames'
+
 export const ProfilePage = () => {
   const [userData, setUserData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const router = useRouter()
   const dispatch = useDispatch()
 
   useEffect(() => {
-    handleGetUserData()
+    const authData = getAuthDataFromLS('auth')
+    if (!authData?.accessToken) {
+      router.push('/auth')
+      return
+    }
+    setIsAuthenticated(true)
   }, [])
 
-  const handleGetUserData = async () => {
-    try {
-      const response = await axiosInstance.get(`/profile`, {
-        headers: {
-          Authorization: `Bearer ${getAuthDataFromLS('auth').accessToken}`,
-        },
-      })
-      setUserData(response.data)
-    } catch (error) {
-      // перехватываем ошибку в интерсептере axios
-      router.push('/auth')
-      console.error('Ошибка при получении данных пользователя:', error)
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!isAuthenticated) return
+
+      try {
+        const authData = getAuthDataFromLS('auth')
+        const response = await axiosInstance.get(`/profile`, {
+          headers: {
+            Authorization: `Bearer ${authData.accessToken}`,
+          },
+        })
+        setUserData(response.data)
+      } catch (error) {
+        router.push('/auth')
+        console.error('Ошибка при получении данных пользователя:', error)
+      } finally {
+        setIsLoading(false)
+      }
     }
-  }
+
+    fetchUserData()
+  }, [isAuthenticated, router])
 
   const handleLogout = () => {
-    // Логика выхода из кабинета
     removeUserDataFromLS('auth')
     dispatch(logout())
     router.push('/auth')
+  }
+
+  // Показываем спиннер до проверки авторизации и загрузки данных
+  if (!isAuthenticated || isLoading) {
+    return (
+      <div className='outerContainer'>
+        <div className='innerContainer'>
+          <Spinner />
+        </div>
+      </div>
+    )
   }
 
   return (
