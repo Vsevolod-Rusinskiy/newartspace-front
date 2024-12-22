@@ -31,7 +31,10 @@ export const ForgotPasswordPage = () => {
       )
       /* eslint-enable indent */
 
-      if (response.data.message === 'Reset password email sent') {
+      if (
+        response.data.message ===
+        'Password reset instructions sent to your email'
+      ) {
         setIsSuccess(true)
         setResetStatus(
           'Инструкции по восстановлению пароля отправлены на вашу почту'
@@ -43,8 +46,11 @@ export const ForgotPasswordPage = () => {
         const errorMessage = error.response?.data?.message
         /* eslint-disable indent */
         switch (errorMessage) {
-          case 'User not found':
+          case 'User with this email not found':
             setResetStatus('Пользователь с таким email не найден')
+            break
+          case 'Invalid or expired reset token':
+            setResetStatus('Неверный или устаревший токен сброса пароля')
             break
           default:
             setResetStatus('Ошибка при отправке инструкций')
