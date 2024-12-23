@@ -21,6 +21,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     } else {
       dispatch(login({ userName: authData.userName }))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
