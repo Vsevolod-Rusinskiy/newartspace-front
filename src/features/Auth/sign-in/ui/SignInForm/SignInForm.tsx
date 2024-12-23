@@ -134,7 +134,12 @@ export const SignInForm = () => {
             required
             autoComplete='current-password'
           />
-
+          <Link
+            href='/forgot-password'
+            className={cn(styles.form_link, styles.forgot_password_link)}
+          >
+            Забыли пароль?
+          </Link>
           <div className={styles.form_checkbox_container}>
             <input
               className={styles.form_checkbox}
