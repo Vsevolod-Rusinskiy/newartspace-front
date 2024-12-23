@@ -28,6 +28,7 @@ export const ProfilePage = () => {
       return
     }
     setIsAuthenticated(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
