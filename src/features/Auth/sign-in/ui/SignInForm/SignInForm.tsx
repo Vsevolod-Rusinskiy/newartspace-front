@@ -5,13 +5,13 @@ import { useMutation } from 'react-query'
 import axios, { AxiosError } from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
-import cn from 'classnames'
-import styles from './SignInForm.module.scss'
 import { useAppSelector, useAppDispatch } from '@/src/app/model/redux/hooks'
 import { login, setFormType } from '../../model/auth/authSlice'
 import { useRouter } from 'next/navigation'
 import { SuccessMessage } from '../SuccessMessage/SuccessMessage'
 import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
+import cn from 'classnames'
+import styles from './SignInForm.module.scss'
 
 type ApiFormData = {
   userName?: string
@@ -44,12 +44,14 @@ export const SignInForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const mutation = useMutation(
     (data: { formData: ApiFormData; formType: 'login' | 'register' }) =>
       submitForm(data.formData, data.formType),
     {
       onSuccess: (response) => {
+        console.log('Форма успешно отправлена')
         if (formType === 'register') {
           setShowSuccessMessage(true)
         } else {
@@ -57,11 +59,14 @@ export const SignInForm = () => {
           dispatch(login({ userName: response.userName }))
           router.push('/')
         }
+        setIsSubmitting(false)
       },
       onError: (error: AxiosError<ServerError>) => {
+        console.log('Произошла ошибка при отправке формы')
         const errorMessage =
           error.response?.data?.message || 'Неизвестная ошибка'
         console.error('Ошибка:', errorMessage)
+        setIsSubmitting(false)
       },
     }
   )
@@ -72,10 +77,13 @@ export const SignInForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
     if (!isChecked) {
       alert('Пожалуйста, согласитесь с политикой конфиденциальности')
       return
     }
+
+    setIsSubmitting(true)
 
     const formData = {
       userName: name,
@@ -83,11 +91,6 @@ export const SignInForm = () => {
       email,
     }
     mutation.mutate({ formData, formType })
-
-    setName('')
-    setEmail('')
-    setPassword('')
-    setIsChecked(false)
   }
 
   const handleFormTypeChange = (type: 'login' | 'register') => {
@@ -158,7 +161,7 @@ export const SignInForm = () => {
           <DefaultButton
             className={cn('action_button', {})}
             type='submit'
-            disabled={mutation.isLoading}
+            disabled={mutation.isLoading || isSubmitting}
           >
             {mutation.isLoading ? <Spinner /> : currentAuthTitle.toUpperCase()}
           </DefaultButton>
