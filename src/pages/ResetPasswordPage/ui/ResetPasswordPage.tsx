@@ -100,6 +100,7 @@ export const ResetPasswordPage = () => {
                 <DefaultButton
                   className={cn('action_button', {})}
                   type='submit'
+                  disabled={isLoading}
                 >
                   СОХРАНИТЬ
                 </DefaultButton>
