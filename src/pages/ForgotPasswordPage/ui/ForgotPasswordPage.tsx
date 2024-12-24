@@ -88,6 +88,7 @@ export const ForgotPasswordPage = () => {
                 <DefaultButton
                   className={cn('action_button', {})}
                   type='submit'
+                  disabled={isLoading}
                 >
                   ОТПРАВИТЬ
                 </DefaultButton>
