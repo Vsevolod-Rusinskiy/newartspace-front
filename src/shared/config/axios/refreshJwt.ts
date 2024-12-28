@@ -4,7 +4,6 @@ import axiosInstance from './axiosInstatnce'
 
 export const refreshJwt = async () => {
   if (!getAuthDataFromLS('auth').refreshToken) {
-    // todo  если нет рефреш токена, то выходим и что делать дальше?
     return
   }
   try {
@@ -21,12 +20,6 @@ export const refreshJwt = async () => {
           ...response.data,
         })
       )
-      // if (oldToken.accessToken !== response.data.accessToken) {
-      //   console.log('Токены отличаются, обновление прошло успешно')
-      // } else {
-      //   console.log('Токены одинаковые, обновление не произошло')
-      // }
-
       return response.data.accessToken
     } else {
       removeUserDataFromLS('auth')

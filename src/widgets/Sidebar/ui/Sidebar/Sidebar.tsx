@@ -58,9 +58,11 @@ export const Sidebar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      const filterButton = document.querySelector('.filter_button')
       if (
         sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
+        !sidebarRef.current.contains(event.target as Node) &&
+        !filterButton?.contains(event.target as Node)
       ) {
         dispatch(actionOpenSideBar())
       }

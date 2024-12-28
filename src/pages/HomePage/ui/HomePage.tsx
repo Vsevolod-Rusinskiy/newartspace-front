@@ -12,7 +12,11 @@ import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { HomePageButton } from '@/src/shared/ui/buttons/HomePageButton/HomePageButton'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
-import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
+import {
+  actionCloseSideBar,
+  actionOpenSideBar,
+  actionToggleSideBar,
+} from '../model/sideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
 import cn from 'classnames'
 
@@ -72,8 +76,10 @@ export const HomePage = () => {
       <section className={`container ${styles.content}`}>
         <div className={styles.content_header}>
           <DefaultButton
-            onClick={() => dispatch(actionToggleSideBar())}
-            className={styles.filter_button}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              dispatch(actionToggleSideBar())
+            }}
+            className={cn(styles.filter_button, 'filter_button')}
           >
             Фильтры
           </DefaultButton>
