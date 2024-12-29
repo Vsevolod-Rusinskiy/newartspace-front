@@ -17,6 +17,7 @@ import {
   actionOpenSideBar,
   actionToggleSideBar,
 } from '../model/sideBarVisibilitySlice'
+import { actionToggleSortSideBar } from '@/src/widgets/SortSidebar/model/sortSideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
 import cn from 'classnames'
 import { selectSelectedFilters } from '@/src/widgets/Sidebar/model/selectors'
@@ -87,7 +88,10 @@ export const HomePage = () => {
           <Htag tag='h1' className={styles.catalog_title}>
             Каталог
           </Htag>
-          <DefaultButton className={styles.sort_button} disabled>
+          <DefaultButton
+            onClick={() => dispatch(actionToggleSortSideBar())}
+            className={cn(styles.sort_button, 'sort_button')}
+          >
             Сортировка
           </DefaultButton>
         </div>

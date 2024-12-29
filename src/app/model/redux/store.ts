@@ -12,6 +12,7 @@ import { eventsSlice } from '@/src/pages/EventsPage/model/eventsPageSlice'
 import { eventSlice } from '@/src/pages/EventCardPage/model/EventCardPageSlice'
 import { activeMenuSlice } from '@/src/app/model/activeMenuSlice'
 import { authSlice } from '@/src/features/Auth/sign-in/model/auth/authSlice'
+import sortSideBarVisibilityReducer from '@/src/widgets/SortSidebar/model/sortSideBarVisibilitySlice'
 
 export const makeStore = () =>
   configureStore({
@@ -29,6 +30,7 @@ export const makeStore = () =>
       event: eventSlice.reducer,
       activeMenu: activeMenuSlice.reducer,
       auth: authSlice.reducer,
+      sortSideBarVisibility: sortSideBarVisibilityReducer,
     },
   })
 
