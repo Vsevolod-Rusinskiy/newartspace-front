@@ -19,6 +19,7 @@ import {
 } from '../model/sideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
 import cn from 'classnames'
+import { selectSelectedFilters } from '@/src/widgets/Sidebar/model/selectors'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -33,17 +34,17 @@ export const HomePage = () => {
 
   const limit = 9
 
+  const selectedFilters = useSelector(selectSelectedFilters)
+
   const handlePageClick = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected + 1)
-    if (selectedArtStyle) {
-      dispatch(
-        fetchPaintingsAction({
-          page: selectedItem.selected + 1,
-          limit,
-          artStyle: selectedArtStyle,
-        })
-      )
-    }
+    dispatch(
+      fetchPaintingsAction({
+        page: selectedItem.selected + 1,
+        limit,
+        artStyle,
+        filters: selectedFilters,
+      })
+    )
   }
 
   const paintingArray = Array.isArray(paintings.data) ? paintings.data : []

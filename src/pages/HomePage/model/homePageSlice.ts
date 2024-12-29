@@ -34,6 +34,7 @@ interface Pagination {
   page: number
   limit: number
   artStyle: string | null
+  filters?: { [key: string]: string[] }
 }
 
 interface FetchPaintingsResult {
@@ -46,15 +47,25 @@ export const fetchPaintingsAction = createAsyncThunk<
   Pagination
 >(
   'paintings/fetchPaintings',
-  async ({ page, limit, artStyle }: Pagination, { rejectWithValue }) => {
+  async (
+    { page, limit, artStyle, filters }: Pagination,
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/paintings?page=${page}&limit=${limit}&artStyle=${artStyle}`
-      )
+      const params = new URLSearchParams()
+      params.append('page', page.toString())
+      params.append('limit', limit.toString())
+      if (artStyle) params.append('artStyle', artStyle)
+      if (filters) params.append('filters', JSON.stringify(filters))
+
+      const queryString = params.toString()
+
+      const response = await fetch(`${API_BASE_URL}/paintings?${queryString}`)
       if (!response.ok) {
         return rejectWithValue('Failed to fetch paintings')
       }
-      return await response.json()
+      const data = await response.json()
+      return data
     } catch (error) {
       return rejectWithValue('Failed to load data')
     }
