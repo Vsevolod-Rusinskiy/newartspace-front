@@ -9,6 +9,8 @@ import {
   actionOpenSortSideBar,
   actionToggleSortSideBar,
 } from '../../model/sortSideBarVisibilitySlice'
+import { SortSpan } from '../SortSpan/SortSpan'
+import { setSortType, SortType } from '../../model/sortSlice'
 
 export const SortSidebar = () => {
   const dispatch = useAppDispatch()
@@ -19,6 +21,7 @@ export const SortSidebar = () => {
   const isClosed = useAppSelector(
     (state) => state.sortSideBarVisibility.isClosed
   )
+  const currentSortType = useAppSelector((state) => state.sort.sortType)
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -67,6 +70,11 @@ export const SortSidebar = () => {
     dispatch(actionToggleSortSideBar())
   }
 
+  const handleSortChange = (type: SortType) => {
+    dispatch(setSortType(type))
+    dispatch(actionToggleSortSideBar())
+  }
+
   return createPortal(
     <>
       <aside
@@ -78,7 +86,23 @@ export const SortSidebar = () => {
         <button onClick={onToggle} className={styles.close_button} />
         <div>
           <Htag tag={'h3'}>Сортировка</Htag>
-          {/* Здесь будет контент для сортировки */}
+          <div className={styles.sort_list}>
+            <SortSpan
+              text='Сначала дорогие'
+              isActive={currentSortType === 'expensive'}
+              onClick={() => handleSortChange('expensive')}
+            />
+            <SortSpan
+              text='Сначала недорогие'
+              isActive={currentSortType === 'cheap'}
+              onClick={() => handleSortChange('cheap')}
+            />
+            <SortSpan
+              text='Сначала новые'
+              isActive={currentSortType === 'new'}
+              onClick={() => handleSortChange('new')}
+            />
+          </div>
         </div>
       </aside>
     </>,

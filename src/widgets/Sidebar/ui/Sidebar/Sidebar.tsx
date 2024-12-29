@@ -12,12 +12,12 @@ import {
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { selectSelectedFilters } from '../../model/selectors'
 import { sendSelectedFilters } from '../../api/sendSelectedFilters'
-import styles from './Sidebar.module.scss'
 import {
   actionOpenSideBar,
   actionToggleSideBar,
 } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
 import { updateHomePageData } from '@/src/pages/HomePage/model/homePageSlice'
+import styles from './Sidebar.module.scss'
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch()

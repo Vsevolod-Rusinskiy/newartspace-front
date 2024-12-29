@@ -1,0 +1,24 @@
+.sort_span {
+  display: block;
+  padding: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  letter-spacing: 1.2px;
+  transition: all 0.3s ease;
+  position: relative;
+  border-bottom: 1px solid #eee;
+
+  &.active {
+    font-weight: 500;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 3px;
+      background-color: var(--text-color);
+    }
+  }
+}

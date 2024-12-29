@@ -1,6 +1,5 @@
 /* eslint-disable */
 import { ReactNode } from 'react'
-import cn from 'classnames'
 import styles from './Htag.module.scss'
 
 interface IPageTitleProps {
