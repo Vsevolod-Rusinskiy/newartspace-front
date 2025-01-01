@@ -5,7 +5,7 @@ interface SortSideBarVisibilityState {
 }
 
 const initialState: SortSideBarVisibilityState = {
-  isClosed: true,
+  isClosed: false,
 }
 
 const sortSideBarVisibilitySlice = createSlice({

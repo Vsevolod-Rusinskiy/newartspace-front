@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
+import { SortParams } from '@/src/widgets/SortSidebar/model/types'
 
 console.log('ApiUrl:', API_BASE_URL)
 
@@ -35,6 +36,7 @@ interface Pagination {
   limit: number
   artStyle: string | null
   filters?: { [key: string]: string[] }
+  sort?: SortParams
 }
 
 interface FetchPaintingsResult {
@@ -48,25 +50,37 @@ export const fetchPaintingsAction = createAsyncThunk<
 >(
   'paintings/fetchPaintings',
   async (
-    { page, limit, artStyle, filters }: Pagination,
+    { page, limit, artStyle, filters, sort }: Pagination,
     { rejectWithValue }
   ) => {
     try {
+      console.log('Fetching paintings with params:', {
+        page,
+        limit,
+        artStyle,
+        filters,
+        sort,
+      })
+
       const params = new URLSearchParams()
       params.append('page', page.toString())
       params.append('limit', limit.toString())
       if (artStyle) params.append('artStyle', artStyle)
       if (filters) params.append('filters', JSON.stringify(filters))
+      if (sort) params.append('sort', JSON.stringify(sort))
 
       const queryString = params.toString()
+      console.log('Final query string:', queryString)
 
       const response = await fetch(`${API_BASE_URL}/paintings?${queryString}`)
       if (!response.ok) {
         return rejectWithValue('Failed to fetch paintings')
       }
       const data = await response.json()
+      console.log('Received data:', data)
       return data
     } catch (error) {
+      console.error('Error in fetchPaintingsAction:', error)
       return rejectWithValue('Failed to load data')
     }
   }

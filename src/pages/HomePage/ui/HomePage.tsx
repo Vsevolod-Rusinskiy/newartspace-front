@@ -12,15 +12,12 @@ import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { HomePageButton } from '@/src/shared/ui/buttons/HomePageButton/HomePageButton'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
-import {
-  actionCloseSideBar,
-  actionOpenSideBar,
-  actionToggleSideBar,
-} from '../model/sideBarVisibilitySlice'
+import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
 import { actionToggleSortSideBar } from '@/src/widgets/SortSidebar/model/sortSideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
 import cn from 'classnames'
 import { selectSelectedFilters } from '@/src/widgets/Sidebar/model/selectors'
+import { getSortParams } from '@/src/widgets/SortSidebar/model/types'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -36,14 +33,31 @@ export const HomePage = () => {
   const limit = 9
 
   const selectedFilters = useSelector(selectSelectedFilters)
+  const sortType = useSelector((state: RootState) => state.sort.sortType)
 
-  const handlePageClick = (selectedItem: { selected: number }) => {
+  useEffect(() => {
+    console.log('Sort type changed:', sortType)
     dispatch(
       fetchPaintingsAction({
-        page: selectedItem.selected + 1,
+        page,
         limit,
         artStyle,
         filters: selectedFilters,
+        sort: getSortParams(sortType),
+      })
+    )
+  }, [sortType, dispatch])
+
+  const handlePageClick = (selectedItem: { selected: number }) => {
+    const newPage = selectedItem.selected + 1
+    setPage(newPage)
+    dispatch(
+      fetchPaintingsAction({
+        page: newPage,
+        limit,
+        artStyle,
+        filters: selectedFilters,
+        sort: getSortParams(sortType),
       })
     )
   }
@@ -67,7 +81,15 @@ export const HomePage = () => {
 
   const handleArtStyleChange = (style: string) => {
     dispatch(setArtStyle(style))
-    dispatch(fetchPaintingsAction({ page: 1, limit, artStyle: style }))
+    dispatch(
+      fetchPaintingsAction({
+        page: 1,
+        limit,
+        artStyle: style,
+        filters: selectedFilters,
+        sort: getSortParams(sortType),
+      })
+    )
     setSelectedArtStyle(style)
   }
 
