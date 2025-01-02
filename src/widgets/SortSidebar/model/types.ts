@@ -1,7 +1,6 @@
 export type SortField = 'price' | 'createdAt'
 export type SortOrder = 'ASC' | 'DESC'
 
-// Бэкенд ожидает массив [поле, порядок]
 export type SortParams = [SortField, SortOrder]
 
 export const getSortParams = (
