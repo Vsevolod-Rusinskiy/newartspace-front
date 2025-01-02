@@ -98,25 +98,31 @@ export const HomePage = () => {
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
-        <div className={styles.content_header}>
-          <DefaultButton
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              dispatch(actionToggleSideBar())
-            }}
-            className={cn(styles.filter_button, 'filter_button')}
-          >
-            Фильтры
-          </DefaultButton>
+        {!selectedArtStyle ? (
           <Htag tag='h1' className={styles.catalog_title}>
             Каталог
           </Htag>
-          <DefaultButton
-            onClick={() => dispatch(actionToggleSortSideBar())}
-            className={cn(styles.sort_button, 'sort_button')}
-          >
-            Сортировка
-          </DefaultButton>
-        </div>
+        ) : (
+          <div className={styles.content_header}>
+            <DefaultButton
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                dispatch(actionToggleSideBar())
+              }}
+              className={cn(styles.filter_button, 'filter_button')}
+            >
+              Фильтры
+            </DefaultButton>
+            <Htag tag='h1' className={styles.catalog_title_filters}>
+              Каталог
+            </Htag>
+            <DefaultButton
+              onClick={() => dispatch(actionToggleSortSideBar())}
+              className={cn(styles.sort_button, 'sort_button')}
+            >
+              Сортировка
+            </DefaultButton>
+          </div>
+        )}
         <div className={styles.button_container}>
           <HomePageButton
             className={cn('shadow_button', 'wide_button', {
