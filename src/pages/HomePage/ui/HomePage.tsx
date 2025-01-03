@@ -18,6 +18,7 @@ import styles from './HomePage.module.scss'
 import cn from 'classnames'
 import { selectSelectedFilters } from '@/src/widgets/Sidebar/model/selectors'
 import { getSortParams } from '@/src/widgets/SortSidebar/model/types'
+import { NoData } from '@/src/shared/ui/NoData/NoData'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -93,8 +94,6 @@ export const HomePage = () => {
     setSelectedArtStyle(style)
   }
 
-  if (error) return <div>Error: {error}</div>
-
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
@@ -145,16 +144,24 @@ export const HomePage = () => {
         </div>
 
         {selectedArtStyle && (
-          <ul className={styles.painting_list}>
-            {isLoading || isDelaying
-              ? Array.from({ length: 3 }).map((_, index) => (
+          <>
+            {error ? (
+              <NoData />
+            ) : isLoading || isDelaying ? (
+              <ul className={styles.painting_list}>
+                {Array.from({ length: 3 }).map((_, index) => (
                   <li key={index} className={`${styles.skeleton_list_item}`}>
                     <div className={styles.skeleton_container}>
                       <Skeleton className={styles.skeleton_item} />
                     </div>
                   </li>
-                ))
-              : paintingArray.map((painting) => (
+                ))}
+              </ul>
+            ) : paintings.data.length === 0 ? (
+              <NoData />
+            ) : (
+              <ul className={styles.painting_list}>
+                {paintingArray.map((painting) => (
                   <PaintingListItem
                     key={painting.id}
                     id={painting.id}
@@ -173,7 +180,9 @@ export const HomePage = () => {
                     discount={painting.discount}
                   />
                 ))}
-          </ul>
+              </ul>
+            )}
+          </>
         )}
         {paintings.data.length > 0 && (
           <Paginate
