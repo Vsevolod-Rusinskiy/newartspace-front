@@ -12,6 +12,7 @@ import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibil
 import { IPainting as BaseIPainting } from '../types/PaintingCardPage.type'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import cn from 'classnames'
+import FavoritesSVG from '@/src/shared/ui/svgIcons/FavoritesSVG'
 import { Price } from '@/src/shared/ui/Price/Price'
 import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './PaintingCardPage.module.scss'
@@ -82,8 +83,9 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
 
   return (
     <main className={styles.main}>
-      <div className={`container`}>
+      <div className={`container ${styles.navigation_container}`}>
         <NavigationButton direction='back' label='Назад' />
+        <FavoritesSVG className={styles.favorites_svg} />
       </div>
       <article className={`container ${styles.painting_card_container}`}>
         <section />
