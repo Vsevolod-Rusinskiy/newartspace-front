@@ -15,9 +15,17 @@ import { useLang } from '@/src/shared/hooks/useLang'
 import { menuItems } from '@/src/shared/constants/menuItems'
 import { setActiveMenu } from '@/src/app/model/activeMenuSlice'
 import styles from './header.module.scss'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/src/app/model/redux/store'
+import { initializeFavorites } from '@/src/entities/Favorites/model/favoritesSlice'
+import { useEffect } from 'react'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(initializeFavorites())
+  }, [dispatch])
 
   const activeMenu = useAppSelector((state) => state.activeMenu.activeMenu)
 
@@ -38,6 +46,10 @@ export const Header = () => {
   const enSubHeaderClass = cn({
     [styles.en_sub_header]: lang === 'en',
   })
+
+  const { favoriteIds, isInitialized } = useSelector(
+    (state: RootState) => state.favorites
+  )
 
   return (
     <header className={styles.header}>
@@ -87,8 +99,13 @@ export const Header = () => {
               </Link>
             </div>
             <div className={styles.favorites}>
-              <Link href='/'>
+              <Link href='/favorites'>
                 <FavoritesSVG />
+                {isInitialized && favoriteIds.length > 0 && (
+                  <span className={styles.favorites_count}>
+                    {favoriteIds.length}
+                  </span>
+                )}
               </Link>
             </div>
           </div>

@@ -16,6 +16,11 @@ import FavoritesSVG from '@/src/shared/ui/svgIcons/FavoritesSVG'
 import { Price } from '@/src/shared/ui/Price/Price'
 import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './PaintingCardPage.module.scss'
+import {
+  toggleFavorite,
+  initializeFavorites,
+} from '@/src/entities/Favorites/model/favoritesSlice'
+import { RootState } from '@/src/app/model/redux/store'
 
 interface PaintingCardItemParams {
   params: {
@@ -74,6 +79,10 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     }
   }, [dispatch, paintingCardId])
 
+  useEffect(() => {
+    dispatch(initializeFavorites())
+  }, [dispatch])
+
   /** Price type buttons */
   const isButtonVisible =
     painting?.priceType === 'Оригинал куплен' ||
@@ -81,11 +90,24 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     painting?.priceType === 'Оригинал не продаётся' ||
     painting?.priceType === 'Возможна репродукция'
 
+  const { favoriteIds, isInitialized } = useSelector(
+    (state: RootState) => state.favorites
+  )
+  const isFavorite = isInitialized && favoriteIds.includes(paintingCardId)
+
+  const handleToggleFavorite = () => {
+    dispatch(toggleFavorite(paintingCardId))
+  }
+
   return (
     <main className={styles.main}>
       <div className={`container ${styles.navigation_container}`}>
         <NavigationButton direction='back' label='Назад' />
-        <FavoritesSVG className={styles.favorites_svg} />
+        <FavoritesSVG
+          className={styles.favorites_svg}
+          isFilled={isFavorite}
+          onClick={handleToggleFavorite}
+        />
       </div>
       <article className={`container ${styles.painting_card_container}`}>
         <section />

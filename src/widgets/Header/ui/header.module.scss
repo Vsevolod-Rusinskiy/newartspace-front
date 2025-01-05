@@ -390,3 +390,12 @@
   // color: var(--primary-color-red);
   text-decoration: underline;
 }
+.favorites {
+  position: relative;
+
+  .favorites_count {
+    position: relative;
+    top: -8px;
+    right: -8px;
+  }
+}

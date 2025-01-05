@@ -18,6 +18,10 @@
     &:hover {
       fill: var(--links-hover);
     }
+
+    &[data-filled='true'] {
+      fill: var(--links-hover);
+    }
   }
 
   .painting_card_container {

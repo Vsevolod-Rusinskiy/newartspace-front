@@ -14,6 +14,7 @@ import { activeMenuSlice } from '@/src/app/model/activeMenuSlice'
 import { authSlice } from '@/src/features/Auth/sign-in/model/auth/authSlice'
 import sortSideBarVisibilityReducer from '@/src/widgets/SortSidebar/model/sortSideBarVisibilitySlice'
 import sortReducer from '@/src/widgets/SortSidebar/model/sortSlice'
+import favoritesReducer from '@/src/entities/Favorites/model/favoritesSlice'
 
 export const makeStore = () =>
   configureStore({
@@ -33,6 +34,7 @@ export const makeStore = () =>
       auth: authSlice.reducer,
       sortSideBarVisibility: sortSideBarVisibilityReducer,
       sort: sortReducer,
+      favorites: favoritesReducer,
     },
   })
 
