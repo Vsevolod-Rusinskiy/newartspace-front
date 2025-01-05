@@ -12,12 +12,12 @@ import {
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { selectSelectedFilters } from '../../model/selectors'
 import { sendSelectedFilters } from '../../api/sendSelectedFilters'
-import styles from './Sidebar.module.scss'
 import {
   actionOpenSideBar,
   actionToggleSideBar,
 } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
 import { updateHomePageData } from '@/src/pages/HomePage/model/homePageSlice'
+import styles from './Sidebar.module.scss'
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch()
@@ -58,9 +58,11 @@ export const Sidebar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      const filterButton = document.querySelector('.filter_button')
       if (
         sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
+        !sidebarRef.current.contains(event.target as Node) &&
+        !filterButton?.contains(event.target as Node)
       ) {
         dispatch(actionOpenSideBar())
       }

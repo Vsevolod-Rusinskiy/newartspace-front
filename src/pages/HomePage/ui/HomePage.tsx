@@ -13,8 +13,12 @@ import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { HomePageButton } from '@/src/shared/ui/buttons/HomePageButton/HomePageButton'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
+import { actionToggleSortSideBar } from '@/src/widgets/SortSidebar/model/sortSideBarVisibilitySlice'
 import styles from './HomePage.module.scss'
 import cn from 'classnames'
+import { selectSelectedFilters } from '@/src/widgets/Sidebar/model/selectors'
+import { getSortParams } from '@/src/widgets/SortSidebar/model/types'
+import { NoData } from '@/src/shared/ui/NoData/NoData'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -29,17 +33,34 @@ export const HomePage = () => {
 
   const limit = 9
 
+  const selectedFilters = useSelector(selectSelectedFilters)
+  const sortType = useSelector((state: RootState) => state.sort.sortType)
+
+  useEffect(() => {
+    console.log('Sort type changed:', sortType)
+    dispatch(
+      fetchPaintingsAction({
+        page,
+        limit,
+        artStyle,
+        filters: selectedFilters,
+        sort: getSortParams(sortType),
+      })
+    )
+  }, [sortType, dispatch])
+
   const handlePageClick = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected + 1)
-    if (selectedArtStyle) {
-      dispatch(
-        fetchPaintingsAction({
-          page: selectedItem.selected + 1,
-          limit,
-          artStyle: selectedArtStyle,
-        })
-      )
-    }
+    const newPage = selectedItem.selected + 1
+    setPage(newPage)
+    dispatch(
+      fetchPaintingsAction({
+        page: newPage,
+        limit,
+        artStyle,
+        filters: selectedFilters,
+        sort: getSortParams(sortType),
+      })
+    )
   }
 
   const paintingArray = Array.isArray(paintings.data) ? paintings.data : []
@@ -61,29 +82,46 @@ export const HomePage = () => {
 
   const handleArtStyleChange = (style: string) => {
     dispatch(setArtStyle(style))
-    dispatch(fetchPaintingsAction({ page: 1, limit, artStyle: style }))
+    dispatch(
+      fetchPaintingsAction({
+        page: 1,
+        limit,
+        artStyle: style,
+        filters: selectedFilters,
+        sort: getSortParams(sortType),
+      })
+    )
     setSelectedArtStyle(style)
   }
-
-  if (error) return <div>Error: {error}</div>
 
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
-        <div className={styles.content_header}>
-          <DefaultButton
-            onClick={() => dispatch(actionToggleSideBar())}
-            className={styles.filter_button}
-          >
-            Фильтры
-          </DefaultButton>
+        {!selectedArtStyle ? (
           <Htag tag='h1' className={styles.catalog_title}>
             Каталог
           </Htag>
-          <DefaultButton className={styles.sort_button} disabled>
-            Сортировка
-          </DefaultButton>
-        </div>
+        ) : (
+          <div className={styles.content_header}>
+            <DefaultButton
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                dispatch(actionToggleSideBar())
+              }}
+              className={cn(styles.filter_button, 'filter_button')}
+            >
+              Фильтры
+            </DefaultButton>
+            <Htag tag='h1' className={styles.catalog_title_filters}>
+              Каталог
+            </Htag>
+            <DefaultButton
+              onClick={() => dispatch(actionToggleSortSideBar())}
+              className={cn(styles.sort_button, 'sort_button')}
+            >
+              Сортировка
+            </DefaultButton>
+          </div>
+        )}
         <div className={styles.button_container}>
           <HomePageButton
             className={cn('shadow_button', 'wide_button', {
@@ -106,16 +144,24 @@ export const HomePage = () => {
         </div>
 
         {selectedArtStyle && (
-          <ul className={styles.painting_list}>
-            {isLoading || isDelaying
-              ? Array.from({ length: 3 }).map((_, index) => (
+          <>
+            {error ? (
+              <NoData />
+            ) : isLoading || isDelaying ? (
+              <ul className={styles.painting_list}>
+                {Array.from({ length: 3 }).map((_, index) => (
                   <li key={index} className={`${styles.skeleton_list_item}`}>
                     <div className={styles.skeleton_container}>
                       <Skeleton className={styles.skeleton_item} />
                     </div>
                   </li>
-                ))
-              : paintingArray.map((painting) => (
+                ))}
+              </ul>
+            ) : paintings.data.length === 0 ? (
+              <NoData />
+            ) : (
+              <ul className={styles.painting_list}>
+                {paintingArray.map((painting) => (
                   <PaintingListItem
                     key={painting.id}
                     id={painting.id}
@@ -134,7 +180,9 @@ export const HomePage = () => {
                     discount={painting.discount}
                   />
                 ))}
-          </ul>
+              </ul>
+            )}
+          </>
         )}
         {paintings.data.length > 0 && (
           <Paginate

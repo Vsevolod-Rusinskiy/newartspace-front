@@ -6,6 +6,7 @@ import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
 import { Alphabet } from '@/src/pages/NamesPage/ui/Alphabet'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
+import { NoData } from '@/src/shared/ui/NoData/NoData'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchArtistsAction } from '../model/namesPageSlice'
 import { RootState } from '@/src/app/model/redux/store'
@@ -52,8 +53,6 @@ export const NamesPage = () => {
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
-  if (error) return <div>Error: {error}</div>
-
   const handleLetterClick = (letter: string) => {
     dispatch(fetchArtistsAction({ page: 1, limit, letter }))
   }
@@ -63,26 +62,36 @@ export const NamesPage = () => {
       <section className={`container ${styles.content}`}>
         <Htag tag='h1'>Имена художников</Htag>
         <Alphabet onLetterClick={handleLetterClick} />
-        <div className={styles.slider_container}>
-          <ul className={styles.slider_list}>
-            {isLoading || isDelaying
-              ? Array.from({ length: 4 }).map((_, index) => (
-                  <li key={index} className={styles.skeleton_container}>
-                    <div className={styles.skeleton_list_item}>
-                      <Skeleton className={styles.skeleton_item} />
-                    </div>
-                  </li>
-                ))
-              : artistArray.map((artist) => (
-                  <li className={styles.slider_item} key={generateUniqueId()}>
-                    <Link href={`/names/${artist.id}`}>
-                      <Htag tag='h3'>{artist.artistName}</Htag>
-                      <Slider paintings={artist.paintings} />
-                    </Link>
-                  </li>
-                ))}
-          </ul>
-        </div>
+        {error ? (
+          <NoData />
+        ) : isLoading || isDelaying ? (
+          <div className={styles.slider_container}>
+            <ul className={styles.slider_list}>
+              {Array.from({ length: 4 }).map((_, index) => (
+                <li key={index} className={styles.skeleton_container}>
+                  <div className={styles.skeleton_list_item}>
+                    <Skeleton className={styles.skeleton_item} />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : artists.data.length === 0 ? (
+          <NoData />
+        ) : (
+          <div className={styles.slider_container}>
+            <ul className={styles.slider_list}>
+              {artistArray.map((artist) => (
+                <li className={styles.slider_item} key={generateUniqueId()}>
+                  <Link href={`/names/${artist.id}`}>
+                    <Htag tag='h3'>{artist.artistName}</Htag>
+                    <Slider paintings={artist.paintings} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {artists.data.length > 0 && (
           <Paginate

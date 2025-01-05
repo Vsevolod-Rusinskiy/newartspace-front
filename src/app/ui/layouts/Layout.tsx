@@ -1,6 +1,7 @@
 import { Header } from '@/src/widgets/Header'
 import { Footer } from '@/src/widgets/Footer'
 import { Sidebar } from '@/src/widgets/Sidebar'
+import { SortSidebar } from '@/src/widgets/SortSidebar'
 import { OneClickBuyModal } from '@/src/features/OneClickBuy/ui/OneClickBuyModal/OneClickBuyModal'
 import { useEffect } from 'react'
 import { ReactNode } from 'react'
@@ -32,6 +33,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <Footer />
       </div>
       <Sidebar />
+      <SortSidebar />
       <OneClickBuyModal />
     </>
   )
