@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'
 import { initializeFavorites } from '@/src/entities/Favorites/model/favoritesSlice'
 import { useEffect } from 'react'
+import { CountBadge } from '@/src/shared/ui/CountBadge/CountBadge'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -102,9 +103,7 @@ export const Header = () => {
               <Link href='/favorites'>
                 <FavoritesSVG />
                 {isInitialized && favoriteIds.length > 0 && (
-                  <span className={styles.favorites_count}>
-                    {favoriteIds.length}
-                  </span>
+                  <CountBadge count={favoriteIds.length} />
                 )}
               </Link>
             </div>
