@@ -14,6 +14,7 @@ import { HomePageButton } from '@/src/shared/ui/buttons/HomePageButton/HomePageB
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
 import { actionToggleSortSideBar } from '@/src/widgets/SortSidebar/model/sortSideBarVisibilitySlice'
+import { WelcomeModal } from '@/src/features/WelcomeModal'
 import styles from './HomePage.module.scss'
 import cn from 'classnames'
 import { selectSelectedFilters } from '@/src/widgets/Sidebar/model/selectors'
@@ -37,7 +38,6 @@ export const HomePage = () => {
   const sortType = useSelector((state: RootState) => state.sort.sortType)
 
   useEffect(() => {
-    console.log('Sort type changed:', sortType)
     dispatch(
       fetchPaintingsAction({
         page,
@@ -96,6 +96,7 @@ export const HomePage = () => {
 
   return (
     <main className={styles.main}>
+      <WelcomeModal />
       <section className={`container ${styles.content}`}>
         {!selectedArtStyle ? (
           <Htag tag='h1' className={styles.catalog_title}>
