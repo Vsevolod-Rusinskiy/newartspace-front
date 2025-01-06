@@ -118,7 +118,21 @@
   }
 }
 .description_text {
+  position: relative;
   overflow: hidden;
+
+  &:not(.expanded) {
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(transparent, white);
+      pointer-events: none;
+    }
+  }
 }
 
 @media screen and (max-width: 1000px) {
