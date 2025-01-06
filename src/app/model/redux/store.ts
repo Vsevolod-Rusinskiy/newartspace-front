@@ -15,7 +15,7 @@ import { authSlice } from '@/src/features/Auth/sign-in/model/auth/authSlice'
 import sortSideBarVisibilityReducer from '@/src/widgets/SortSidebar/model/sortSideBarVisibilitySlice'
 import sortReducer from '@/src/widgets/SortSidebar/model/sortSlice'
 import favoritesReducer from '@/src/entities/Favorites/model/favoritesSlice'
-import { welcomeModalReducer } from '@/src/features/WelcomeModal'
+import { welcomeModalSlice } from '@/src/features/WelcomeModal'
 
 export const makeStore = () =>
   configureStore({
@@ -36,7 +36,7 @@ export const makeStore = () =>
       sortSideBarVisibility: sortSideBarVisibilityReducer,
       sort: sortReducer,
       favorites: favoritesReducer,
-      welcomeModal: welcomeModalReducer,
+      welcomeModal: welcomeModalSlice.reducer,
     },
   })
 

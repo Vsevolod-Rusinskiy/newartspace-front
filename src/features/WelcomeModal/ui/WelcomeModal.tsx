@@ -26,7 +26,7 @@ export const WelcomeModal = () => {
     setTimeout(() => {
       dispatch(setHasSeenWelcomeModal())
       setIsClosing(false)
-    }, 500) // Время должно совпадать с длительностью анимации в CSS
+    }, 500)
   }
 
   if (!isInitialized || hasSeenWelcomeModal || !isOpen) {

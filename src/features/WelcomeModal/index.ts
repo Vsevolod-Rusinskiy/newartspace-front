@@ -1,2 +1,2 @@
 export { WelcomeModal } from './ui/WelcomeModal'
-export { welcomeModalReducer } from './model/welcomeModalSlice'
+export { welcomeModalSlice } from './model/welcomeModalSlice'
