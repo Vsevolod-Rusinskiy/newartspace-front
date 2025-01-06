@@ -8,6 +8,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  &.closing {
+    opacity: 0;
+    visibility: hidden;
+
+    .modal_content {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+
+    .overlay {
+      opacity: 0;
+    }
+  }
 }
 
 .overlay {
@@ -21,6 +40,8 @@
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(3px);
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .modal_content {
@@ -32,16 +53,19 @@
   width: calc(100% - 40px);
   margin: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  animation: modalAppear 0.3s ease-out;
   transform: translateY(0);
   opacity: 1;
   z-index: 10000;
+  transition:
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease;
+  animation: modalAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes modalAppear {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-50vh);
   }
   to {
     opacity: 1;

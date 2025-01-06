@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
+import cn from 'classnames'
 import {
   setHasSeenWelcomeModal,
   initializeState,
@@ -13,6 +14,7 @@ export const WelcomeModal = () => {
   const { hasSeenWelcomeModal, isOpen, isInitialized } = useAppSelector(
     (state) => state.welcomeModal
   )
+  const [isClosing, setIsClosing] = useState(false)
 
   useEffect(() => {
     console.log('Initializing state')
@@ -20,22 +22,23 @@ export const WelcomeModal = () => {
   }, [dispatch])
 
   const handleClose = () => {
-    dispatch(setHasSeenWelcomeModal())
+    setIsClosing(true)
+    setTimeout(() => {
+      dispatch(setHasSeenWelcomeModal())
+      setIsClosing(false)
+    }, 500) // Время должно совпадать с длительностью анимации в CSS
   }
 
   if (!isInitialized || hasSeenWelcomeModal || !isOpen) {
-    console.log('Not rendering modal:', {
-      isInitialized,
-      hasSeenWelcomeModal,
-      isOpen,
-    })
     return null
   }
 
-  console.log('Rendering modal')
-
   return (
-    <div className={styles.welcome_modal_wrapper}>
+    <div
+      className={cn(styles.welcome_modal_wrapper, {
+        [styles.closing]: isClosing,
+      })}
+    >
       <div className={styles.overlay} onClick={handleClose}>
         <div
           className={styles.modal_content}
