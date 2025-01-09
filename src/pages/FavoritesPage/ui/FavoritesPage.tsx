@@ -6,6 +6,7 @@ import { RootState } from '@/src/app/model/redux/store'
 import styles from './FavoritesPage.module.scss'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
 import { useFavoritePaintings } from '../api/useFavoritePaintings'
+import { Htag } from '@/src/shared/ui/Htag/Htag'
 
 export const FavoritesPage: FC = () => {
   const [content, setContent] = useState<React.ReactNode>(null)
@@ -67,9 +68,11 @@ export const FavoritesPage: FC = () => {
   }, [paintings, isLoading, error])
 
   return (
-    <div className={styles.favorites_page}>
-      <h1>Избранные картины</h1>
-      {content}
-    </div>
+    <main className={styles.main}>
+      <section className={`container ${styles.content}`}>
+        <Htag tag='h1'>Избранные картины</Htag>
+        {content}
+      </section>
+    </main>
   )
 }

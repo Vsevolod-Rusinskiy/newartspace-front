@@ -1,31 +1,42 @@
-.favorites_page {
-  padding: 20px;
+.main {
+  padding: 25px 25px 22px 25px;
 
-  h1 {
-    margin-bottom: 20px;
-    font-size: 40px;
-    font-weight: var(--font-regular);
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .paintings_grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px 0;
+      list-style: none;
+      margin: 0;
+      justify-content: center;
+    }
+
+    .loading,
+    .error {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+      font-size: var(--font-size-l);
+    }
+
+    .error {
+      color: var(--error-color);
+    }
   }
 }
 
-.paintings_grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px 0;
-  list-style: none;
-  margin: 0;
-}
-
-.loading,
-.error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-  font-size: var(--font-size-l);
-}
-
-.error {
-  color: var(--error-color);
+@media screen and (max-width: 890px) {
+  .main {
+    .content {
+      .paintings_grid {
+        justify-content: center;
+      }
+    }
+  }
 }
