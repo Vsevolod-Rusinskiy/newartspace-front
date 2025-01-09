@@ -23,7 +23,6 @@ interface HorizontalPaintingCardProps {
 }
 
 export const HorizontalPaintingCard: FC<HorizontalPaintingCardProps> = ({
-  // id,
   src,
   alt,
   author,

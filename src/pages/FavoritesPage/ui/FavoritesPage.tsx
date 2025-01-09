@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'
 import styles from './FavoritesPage.module.scss'
-import { HorizontalPaintingCard } from '@/src/shared/ui/HorizontalPaintingCard'
+import { HorizontalPaintingCard } from '@/src/shared/ui/HorizontalPaintingCard/HorizontalPaintingCard'
 import { useFavoritePaintings } from '../api/useFavoritePaintings'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 
