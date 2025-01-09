@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import Skeleton from 'react-loading-skeleton'
 import { fetchPaintingByIdAction } from '../model/paintingCardItemSlice'
 import PageSubTitle from '@/src/shared/ui/PageSubTitle/PageSubTitle'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
@@ -14,7 +13,7 @@ import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButt
 import cn from 'classnames'
 import FavoritesSVG from '@/src/shared/ui/svgIcons/FavoritesSVG'
 import { Price } from '@/src/shared/ui/Price/Price'
-import 'react-loading-skeleton/dist/skeleton.css'
+import { PaintingCardSkeleton } from './PaintingCardSkeleton'
 import styles from './PaintingCardPage.module.scss'
 import {
   toggleFavorite,
@@ -103,94 +102,57 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
         />
       </div>
       <article className={`container ${styles.painting_card_container}`}>
-        <section />
-        <section className={`${styles.image_container} ${styles.section}`}>
-          {isLoading ? (
-            <Skeleton style={{ width: '100%', height: '100%' }} />
-          ) : (
-            <Image
-              src={imgUrl}
-              alt={title}
-              width={100}
-              height={100}
-              className={styles.image}
-              unoptimized
-            />
-          )}
-        </section>
-        <section className={`${styles.details_container} ${styles.section}`}>
-          <header>
-            <h1 className={styles.title}>{isLoading ? <Skeleton /> : title}</h1>
-          </header>
-          <div className={styles.description}>
-            <p className={styles.author}>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <>
+        {isLoading ? (
+          <PaintingCardSkeleton />
+        ) : (
+          <>
+            <section className={`${styles.image_container} ${styles.section}`}>
+              <Image
+                src={imgUrl}
+                alt={title}
+                width={100}
+                height={100}
+                className={styles.image}
+                unoptimized
+              />
+            </section>
+            <section
+              className={`${styles.details_container} ${styles.section}`}
+            >
+              <header>
+                <h1 className={styles.title}>{title}</h1>
+              </header>
+              <div className={styles.description}>
+                <p className={styles.author}>
                   <span className={styles.label}>Автор:</span>{' '}
                   {artist?.artistName}
-                </>
-              )}
-            </p>
-            <p className={styles.materials}>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <>
+                </p>
+                <p className={styles.materials}>
                   <span className={styles.label}>Материалы:</span> {material},{' '}
                   {technique}
-                </>
-              )}
-            </p>
-            <p className={styles.style}>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <>
+                </p>
+                <p className={styles.style}>
                   <span className={styles.label}>Стиль:</span> {style}
-                </>
-              )}
-            </p>
-            <p className={styles.year}>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <>
+                </p>
+                <p className={styles.year}>
                   <span className={styles.label}>Год:</span> {yearOfCreation}
-                </>
-              )}
-            </p>
-            <p className={styles.dimensions}>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <>
+                </p>
+                <p className={styles.dimensions}>
                   <span className={styles.label}>Размер:</span> {height} x{' '}
                   {width}
-                </>
-              )}
-            </p>
-          </div>
-          <div className={styles.price_container}>
-            {isLoading ? (
-              <Skeleton />
-            ) : (
-              painting && (
-                <Price
-                  size='large'
-                  priceType={painting.priceType}
-                  discount={painting.discount}
-                  price={painting.price}
-                />
-              )
-            )}
-          </div>
-          <footer className={styles.actions}>
-            {isLoading ? (
-              <Skeleton />
-            ) : (
-              <>
+                </p>
+              </div>
+              <div className={styles.price_container}>
+                {painting && (
+                  <Price
+                    size='large'
+                    priceType={painting.priceType}
+                    discount={painting.discount}
+                    price={painting.price}
+                  />
+                )}
+              </div>
+              <footer className={styles.actions}>
                 <DefaultButton
                   className={cn('action_button', {})}
                   onClick={() =>
@@ -210,14 +172,14 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
                     ЗАКАЗАТЬ РЕПРОДУКЦИЮ
                   </DefaultButton>
                 )}
-              </>
-            )}
-          </footer>
-        </section>
-        <section className={` ${styles.section}`}>
-          {isLoading ? <Skeleton /> : <PageSubTitle text='Описание картины:' />}
-          {isLoading ? <Skeleton /> : <PageTextBlock text={description} />}
-        </section>
+              </footer>
+            </section>
+            <section className={styles.section}>
+              <PageSubTitle text='Описание картины:' />
+              <PageTextBlock text={description} />
+            </section>
+          </>
+        )}
       </article>
     </main>
   )
