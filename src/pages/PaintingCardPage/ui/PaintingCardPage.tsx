@@ -174,10 +174,12 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
                 )}
               </footer>
             </section>
-            <section className={styles.section}>
-              <PageSubTitle text='Описание картины:' />
-              <PageTextBlock text={description} />
-            </section>
+            {description && (
+              <section className={styles.section}>
+                <PageSubTitle text='Описание картины:' />
+                <PageTextBlock text={description} />
+              </section>
+            )}
           </>
         )}
       </article>
