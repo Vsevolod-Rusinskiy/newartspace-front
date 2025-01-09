@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'
 import styles from './FavoritesPage.module.scss'
-import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
+import { HorizontalPaintingCard } from '@/src/shared/ui/HorizontalPaintingCard'
 import { useFavoritePaintings } from '../api/useFavoritePaintings'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 
@@ -22,7 +22,30 @@ export const FavoritesPage: FC = () => {
 
   useEffect(() => {
     if (isLoading) {
-      setContent(<div className={styles.loading}>Загрузка...</div>)
+      setContent(
+        <div className={styles.paintings_list}>
+          {[1, 2, 3].map((_, index) => (
+            <HorizontalPaintingCard
+              key={index}
+              id=''
+              src=''
+              alt=''
+              author=''
+              title=''
+              price={0}
+              yearOfCreation={0}
+              style=''
+              material=''
+              technique=''
+              height={0}
+              width={0}
+              priceType=''
+              discount={0}
+              isLoading={true}
+            />
+          ))}
+        </div>
+      )
       return
     }
 
@@ -43,9 +66,9 @@ export const FavoritesPage: FC = () => {
     }
 
     setContent(
-      <ul className={styles.paintings_grid}>
+      <div className={styles.paintings_list}>
         {paintingsArray.map((painting) => (
-          <PaintingListItem
+          <HorizontalPaintingCard
             key={painting.id}
             id={painting.id}
             src={painting.imgUrl}
@@ -63,7 +86,7 @@ export const FavoritesPage: FC = () => {
             discount={painting.discount}
           />
         ))}
-      </ul>
+      </div>
     )
   }, [paintings, isLoading, error])
 

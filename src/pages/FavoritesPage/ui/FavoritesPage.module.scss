@@ -6,14 +6,11 @@
     flex-direction: column;
     width: 100%;
 
-    .paintings_grid {
+    .paintings_list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+      flex-direction: column;
+      width: 100%;
       padding: 20px 0;
-      list-style: none;
-      margin: 0;
-      justify-content: center;
     }
 
     .loading,
