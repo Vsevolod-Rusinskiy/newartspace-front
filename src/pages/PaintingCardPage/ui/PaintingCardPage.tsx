@@ -83,13 +83,6 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
     dispatch(initializeFavorites())
   }, [dispatch])
 
-  /** Price type buttons */
-  const isButtonVisible =
-    painting?.priceType === 'Оригинал куплен' ||
-    painting?.priceType === 'Оригинал забронирован' ||
-    painting?.priceType === 'Оригинал не продаётся' ||
-    painting?.priceType === 'Возможна репродукция'
-
   const { favoriteIds, isInitialized } = useSelector(
     (state: RootState) => state.favorites
   )
@@ -203,7 +196,7 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
                   onClick={() =>
                     dispatch(actionOpenModal('КУПИТЬ В ОДИН КЛИК'))
                   }
-                  isVisible={!isButtonVisible}
+                  priceType={painting?.priceType}
                 >
                   КУПИТЬ В ОДИН КЛИК
                 </DefaultButton>
