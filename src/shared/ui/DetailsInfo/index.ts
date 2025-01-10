@@ -1,1 +1,1 @@
-export { DetailsInfo } from './DetailsInfo'
+export { DetailsInfo, PaintingDetails } from './DetailsInfo'

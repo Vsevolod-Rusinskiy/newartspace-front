@@ -18,7 +18,7 @@ import {
 } from '@/src/entities/Favorites/model/favoritesSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingActions } from '@/src/widgets/PaintingActions'
-import { DetailsInfo } from '@/src/shared/ui/DetailsInfo'
+import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
 
 interface PaintingCardPageParams {
   params: {
@@ -52,18 +52,7 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
-  const {
-    imgUrl,
-    title,
-    artist,
-    style,
-    material,
-    technique,
-    yearOfCreation,
-    height,
-    width,
-    description,
-  } = painting || ({} as IPainting)
+  const { imgUrl, title, description } = painting || ({} as IPainting)
 
   useEffect(() => {
     if (error === 'Painting not found' || isNaN(Number(paintingCardId))) {
@@ -122,24 +111,12 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
                 <h1 className={styles.title}>{title}</h1>
               </header>
               <div className={styles.description}>
-                <DetailsInfo
-                  className={styles.details}
-                  items={[
-                    { label: 'Автор', value: artist?.artistName },
-                    {
-                      label: 'Материалы',
-                      value: [material, technique],
-                      type: 'list',
-                    },
-                    { label: 'Стиль', value: style },
-                    { label: 'Год', value: yearOfCreation },
-                    {
-                      label: 'Размер',
-                      value: height && width ? `${height}x${width}` : null,
-                      type: 'dimensions',
-                    },
-                  ]}
-                />
+                {painting && (
+                  <PaintingDetails
+                    className={styles.details}
+                    painting={painting}
+                  />
+                )}
               </div>
               <div className={styles.price_container}>
                 {painting && (
