@@ -19,7 +19,7 @@ import {
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingActions } from '@/src/widgets/PaintingActions'
 
-interface PaintingCardItemParams {
+interface PaintingCardPageParams {
   params: {
     paintingCardId: string
   }
@@ -42,7 +42,7 @@ export interface PaintingRootState {
   painting: PaintingState
 }
 
-export const PaintingCardItem = (params: PaintingCardItemParams) => {
+export const PaintingCardPage = (params: PaintingCardPageParams) => {
   const { paintingCardId } = params.params
   const dispatch = useAppDispatch()
   const { painting, loading, error } = useSelector(

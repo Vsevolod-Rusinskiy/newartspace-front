@@ -65,7 +65,7 @@ export interface ArtistRootState {
 const maxDescriptionLength = 1000
 const limit = 3
 
-export const ArtistCardItem = (params: ArtistPageParams) => {
+export const ArtistCardPage = (params: ArtistPageParams) => {
   const { artistCardId } = params.params
   const dispatch = useAppDispatch()
   const { artist, loading, error } = useSelector(

@@ -1,5 +1,5 @@
 'use client'
 
-import { ArtistCardItem } from '@/src/pages/ArtistCardPage'
+import { ArtistCardPage } from '@/src/pages/ArtistCardPage'
 
-export default ArtistCardItem
+export default ArtistCardPage

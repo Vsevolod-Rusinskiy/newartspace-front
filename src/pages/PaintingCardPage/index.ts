@@ -1,1 +1,1 @@
-export { PaintingCardItem } from './ui/PaintingCardPage'
+export { PaintingCardPage } from './ui/PaintingCardPage'
