@@ -1,0 +1,14 @@
+.details_info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info_item {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.label {
+  font-weight: 500;
+}
