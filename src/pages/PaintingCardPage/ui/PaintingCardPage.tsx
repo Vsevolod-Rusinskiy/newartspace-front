@@ -7,10 +7,7 @@ import { fetchPaintingByIdAction } from '../model/paintingCardItemSlice'
 import PageSubTitle from '@/src/shared/ui/PageSubTitle/PageSubTitle'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
-import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
 import { IPainting as BaseIPainting } from '../types/PaintingCardPage.type'
-import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
-import cn from 'classnames'
 import FavoritesSVG from '@/src/shared/ui/svgIcons/FavoritesSVG'
 import { Price } from '@/src/shared/ui/Price/Price'
 import { PaintingCardSkeleton } from './PaintingCardSkeleton'
@@ -20,6 +17,7 @@ import {
   initializeFavorites,
 } from '@/src/entities/Favorites/model/favoritesSlice'
 import { RootState } from '@/src/app/model/redux/store'
+import { PaintingActions } from '@/src/widgets/PaintingActions'
 
 interface PaintingCardItemParams {
   params: {
@@ -153,25 +151,10 @@ export const PaintingCardItem = (params: PaintingCardItemParams) => {
                 )}
               </div>
               <footer className={styles.actions}>
-                <DefaultButton
-                  className={cn('action_button', {})}
-                  onClick={() =>
-                    dispatch(actionOpenModal('КУПИТЬ В ОДИН КЛИК'))
-                  }
+                <PaintingActions
+                  isReproducible={painting?.isReproducible}
                   priceType={painting?.priceType}
-                >
-                  КУПИТЬ В ОДИН КЛИК
-                </DefaultButton>
-                {painting?.isReproducible && (
-                  <DefaultButton
-                    className={cn('action_button', {})}
-                    onClick={() =>
-                      dispatch(actionOpenModal('ЗАКАЗАТЬ РЕПРОДУКЦИЮ'))
-                    }
-                  >
-                    ЗАКАЗАТЬ РЕПРОДУКЦИЮ
-                  </DefaultButton>
-                )}
+                />
               </footer>
             </section>
             {description && (
