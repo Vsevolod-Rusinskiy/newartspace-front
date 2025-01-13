@@ -54,14 +54,6 @@ export const fetchPaintingsAction = createAsyncThunk<
     { rejectWithValue }
   ) => {
     try {
-      console.log('Fetching paintings with params:', {
-        page,
-        limit,
-        artStyle,
-        filters,
-        sort,
-      })
-
       const params = new URLSearchParams()
       params.append('page', page.toString())
       params.append('limit', limit.toString())
@@ -70,17 +62,14 @@ export const fetchPaintingsAction = createAsyncThunk<
       if (sort) params.append('sort', JSON.stringify(sort))
 
       const queryString = params.toString()
-      console.log('Final query string:', queryString)
 
       const response = await fetch(`${API_BASE_URL}/paintings?${queryString}`)
       if (!response.ok) {
         return rejectWithValue('Failed to fetch paintings')
       }
       const data = await response.json()
-      console.log('Received data:', data)
       return data
     } catch (error) {
-      console.error('Error in fetchPaintingsAction:', error)
       return rejectWithValue('Failed to load data')
     }
   }

@@ -12,6 +12,7 @@ interface DefaultButtonProps
   disabled?: boolean
   children: ReactNode
   isVisible?: boolean
+  priceType?: string
 }
 
 export const DefaultButton = ({
@@ -20,16 +21,28 @@ export const DefaultButton = ({
   children,
   isVisible = true,
   className,
+  priceType,
   ...props
-}: DefaultButtonProps) => (
-  <button
-    className={cn(styles.default_button, getClassNames(className, styles), {
-      [styles.hidden]: !isVisible,
-    })}
-    onClick={onClick}
-    disabled={disabled}
-    {...props}
-  >
-    {children}
-  </button>
-)
+}: DefaultButtonProps) => {
+  const shouldHideButton = priceType
+    ? priceType === 'Оригинал куплен' ||
+      priceType === 'Оригинал забронирован' ||
+      priceType === 'Оригинал не продаётся' ||
+      priceType === 'Возможна репродукция'
+    : false
+
+  const finalIsVisible = isVisible && !shouldHideButton
+
+  return (
+    <button
+      className={cn(styles.default_button, getClassNames(className, styles), {
+        [styles.hidden]: !finalIsVisible,
+      })}
+      onClick={onClick}
+      disabled={disabled}
+      {...props}
+    >
+      {children}
+    </button>
+  )
+}

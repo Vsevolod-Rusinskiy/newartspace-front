@@ -31,13 +31,23 @@ export const Price = ({
   const effective_discount = discount !== undefined ? discount : null
 
   return (
-    <>
+    <div className={cn(styles.price_wrapper, className)}>
+      <span
+        className={cn(styles.price_title, {
+          [styles.small]: size === 'small',
+          [styles.large]: size === 'large',
+          [styles.medium]: size === 'medium',
+        })}
+      >
+        Цена:
+      </span>
       {priceType === 'Специальное предложение' && (
         <>
           <span
             className={cn(styles.special_offer, styles.price, className, {
               [styles.small]: size === 'small',
               [styles.large]: size === 'large',
+              [styles.medium]: size === 'medium',
             })}
             {...props}
           >
@@ -58,6 +68,7 @@ export const Price = ({
               {
                 [styles.small]: size === 'small',
                 [styles.large]: size === 'large',
+                [styles.medium]: size === 'medium',
               }
             )}
             {...props}
@@ -75,6 +86,7 @@ export const Price = ({
             className={cn(styles.original_purchased, styles.price, className, {
               [styles.small]: size === 'small',
               [styles.large]: size === 'large',
+              [styles.medium]: size === 'medium',
             })}
             {...props}
           >
@@ -93,6 +105,7 @@ export const Price = ({
               {
                 [styles.small]: size === 'small',
                 [styles.large]: size === 'large',
+                [styles.medium]: size === 'medium',
               }
             )}
             {...props}
@@ -108,6 +121,7 @@ export const Price = ({
             className={cn(styles.original_reserved, styles.price, className, {
               [styles.small]: size === 'small',
               [styles.large]: size === 'large',
+              [styles.medium]: size === 'medium',
             })}
             {...props}
           >
@@ -128,6 +142,7 @@ export const Price = ({
               {
                 [styles.small]: size === 'small',
                 [styles.large]: size === 'large',
+                [styles.medium]: size === 'medium',
               }
             )}
             {...props}
@@ -146,6 +161,7 @@ export const Price = ({
               className={cn(styles.descount_old, styles.price, className, {
                 [styles.small]: size === 'small',
                 [styles.large]: size === 'large',
+                [styles.medium]: size === 'medium',
               })}
               {...props}
             >
@@ -155,6 +171,7 @@ export const Price = ({
               className={cn(styles.price, {
                 [styles.small]: size === 'small',
                 [styles.large]: size === 'large',
+                [styles.medium]: size === 'medium',
               })}
             >
               {formatNumberWithSpaces(
@@ -172,11 +189,12 @@ export const Price = ({
           className={cn(styles.price, {
             [styles.small]: size === 'small',
             [styles.large]: size === 'large',
+            [styles.medium]: size === 'medium',
           })}
         >
           {formatNumberWithSpaces(price)} ₽
         </span>
       )}
-    </>
+    </div>
   )
 }

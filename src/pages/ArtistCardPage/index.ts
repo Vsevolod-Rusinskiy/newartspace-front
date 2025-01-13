@@ -1,1 +1,1 @@
-export { ArtistCardItem } from './ui/ArtistCardPage'
+export { ArtistCardPage } from './ui/ArtistCardPage'

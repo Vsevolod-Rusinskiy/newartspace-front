@@ -17,6 +17,7 @@ import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButt
 import cn from 'classnames'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './ArtistCardPage.module.scss'
+
 interface Painting {
   id: string
   author: string
@@ -64,7 +65,7 @@ export interface ArtistRootState {
 const maxDescriptionLength = 1000
 const limit = 3
 
-export const ArtistCardItem = (params: ArtistPageParams) => {
+export const ArtistCardPage = (params: ArtistPageParams) => {
   const { artistCardId } = params.params
   const dispatch = useAppDispatch()
   const { artist, loading, error } = useSelector(
@@ -149,19 +150,17 @@ export const ArtistCardItem = (params: ArtistPageParams) => {
             ) : (
               <motion.div
                 initial={{ maxHeight: 400 }}
-                animate={{ maxHeight: descriptionBlockMaxHeight }}
-                transition={{ duration: 0.5 }}
+                animate={{
+                  maxHeight: descriptionBlockMaxHeight,
+                  opacity: isExpanded ? 1 : 0.99,
+                }}
+                transition={{
+                  duration: 1,
+                  ease: [0.4, 0, 0.2, 1],
+                }}
                 className={styles.description_text}
               >
-                <PageTextBlock
-                  ref={descriptionRef}
-                  text={
-                    isExpanded ||
-                    artistDescription.length <= maxDescriptionLength
-                      ? artistDescription
-                      : artistDescription.slice(0, maxDescriptionLength) + '...'
-                  }
-                />
+                <PageTextBlock ref={descriptionRef} text={artistDescription} />
               </motion.div>
             )}
           </div>

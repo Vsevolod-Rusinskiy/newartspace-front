@@ -37,7 +37,6 @@ export const HomePage = () => {
   const sortType = useSelector((state: RootState) => state.sort.sortType)
 
   useEffect(() => {
-    console.log('Sort type changed:', sortType)
     dispatch(
       fetchPaintingsAction({
         page,

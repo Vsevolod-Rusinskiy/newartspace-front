@@ -1,5 +1,5 @@
 'use client'
 
-import { PaintingCardItem } from '@/src/pages/PaintingCardPage'
+import { PaintingCardPage } from '@/src/pages/PaintingCardPage'
 
-export default PaintingCardItem
+export default PaintingCardPage
