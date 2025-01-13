@@ -32,19 +32,19 @@ interface PaintingDetailsProps {
 const formatValue = (item: DetailsInfoItem) => {
   const { value, type = 'default' } = item
 
-  if (value === null || value === undefined) return ''
+  if (value === '') return ''
 
   /* eslint-disable indent */
   switch (type) {
     case 'dimensions':
-      const [height, width] = value.toString().split('x').map(Number)
+      const [height, width] = (value ?? '').toString().split('x').map(Number)
       return height && width ? `${height} x ${width}` : ''
     case 'list':
       return Array.isArray(value)
-        ? value.filter((v) => v !== null && v !== undefined).join(', ')
-        : value.toString()
+        ? value.filter((v) => v ?? false).join(', ')
+        : (value?.toString() ?? '')
     default:
-      return value.toString()
+      return value?.toString() ?? ''
   }
   /* eslint-enable indent */
 }
