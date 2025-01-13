@@ -76,7 +76,7 @@ const favoritesSlice = createSlice({
       } else {
         state.favoriteIds.splice(index, 1)
         state.favoritePaintings.data = state.favoritePaintings.data.filter(
-          (painting) => painting.id !== id
+          (painting) => Number(painting.id) !== id
         )
         state.favoritePaintings.total = state.favoritePaintings.data.length
       }
