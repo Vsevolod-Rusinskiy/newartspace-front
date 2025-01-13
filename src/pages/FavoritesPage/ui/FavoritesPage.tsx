@@ -63,12 +63,11 @@ export const FavoritesPage = () => {
                       className={styles.image}
                     />
                   </Link>
-                  <button
+                  <FavoritesSVG
                     className={styles.favorite_button}
+                    isFilled={true}
                     onClick={() => handleToggleFavorite(Number(painting.id))}
-                  >
-                    <FavoritesSVG isFilled={true} />
-                  </button>
+                  />
                 </div>
 
                 <div className={styles.item_content}>

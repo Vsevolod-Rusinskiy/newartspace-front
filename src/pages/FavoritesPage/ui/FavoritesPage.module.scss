@@ -66,6 +66,9 @@
   cursor: pointer;
   padding: 5px;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   svg {
     width: 24px;
@@ -76,6 +79,16 @@
 
   &:hover svg {
     transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: 2px solid var(--primary-color-red);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
   }
 }
 
