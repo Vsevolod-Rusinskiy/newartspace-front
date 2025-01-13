@@ -18,7 +18,7 @@
 
 .favorites_item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   padding: 20px;
   background: #fff;
   border-radius: 8px;
@@ -67,6 +67,10 @@
 
 .item_price {
   margin-top: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 32px;
 }
 
 @media (max-width: 768px) {
