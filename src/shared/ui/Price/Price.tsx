@@ -31,7 +31,16 @@ export const Price = ({
   const effective_discount = discount !== undefined ? discount : null
 
   return (
-    <>
+    <div className={cn(styles.price_wrapper, className)}>
+      <span
+        className={cn(styles.price_title, {
+          [styles.small]: size === 'small',
+          [styles.large]: size === 'large',
+          [styles.medium]: size === 'medium',
+        })}
+      >
+        Цена:
+      </span>
       {priceType === 'Специальное предложение' && (
         <>
           <span
@@ -186,6 +195,6 @@ export const Price = ({
           {formatNumberWithSpaces(price)} ₽
         </span>
       )}
-    </>
+    </div>
   )
 }

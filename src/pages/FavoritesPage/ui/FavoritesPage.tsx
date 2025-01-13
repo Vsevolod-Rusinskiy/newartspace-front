@@ -62,6 +62,9 @@ export const FavoritesPage = () => {
                   <div className={styles.item_details}>
                     <PaintingDetails painting={painting} />
                   </div>
+                </div>
+
+                <div className={styles.item_right_column}>
                   <div className={styles.item_price}>
                     <Price
                       size='small'
