@@ -67,6 +67,7 @@ export const FavoritesPage = () => {
                 </div>
                 <div className={styles.item_price}>
                   <Price
+                    size='small'
                     price={painting.price}
                     priceType={painting.priceType}
                     discount={painting.discount}
