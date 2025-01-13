@@ -16,6 +16,7 @@ import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
 import { FavoritesSkeleton } from './FavoritesSkeleton'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
 import { PaintingActions } from '@/src/widgets/PaintingActions'
+import { Htag } from '@/src/shared/ui/Htag/Htag'
 import styles from './FavoritesPage.module.scss'
 
 export const FavoritesPage = () => {
@@ -35,6 +36,7 @@ export const FavoritesPage = () => {
     <main className={styles.main}>
       <div className={`container ${styles.navigation_container}`}>
         <NavigationButton direction='back' label='Назад' />
+        <Htag tag='h1'>Избранное</Htag>
       </div>
 
       <div className='container'>
