@@ -15,6 +15,7 @@ import { Price } from '@/src/shared/ui/Price/Price'
 import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
 import { FavoritesSkeleton } from './FavoritesSkeleton'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
+import { PaintingActions } from '@/src/widgets/PaintingActions'
 import styles from './FavoritesPage.module.scss'
 
 export const FavoritesPage = () => {
@@ -67,6 +68,12 @@ export const FavoritesPage = () => {
                       price={painting.price}
                       priceType={painting.priceType}
                       discount={painting.discount}
+                    />
+                  </div>
+                  <div className={styles.item_actions}>
+                    <PaintingActions
+                      isReproducible={painting.isReproducible}
+                      priceType={painting.priceType}
                     />
                   </div>
                 </div>

@@ -90,6 +90,11 @@
   padding: 40px 0;
 }
 
+.item_actions {
+  margin-top: 15px;
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .favorites_item {
     flex-direction: column;
