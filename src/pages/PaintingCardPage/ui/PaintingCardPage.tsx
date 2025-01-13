@@ -73,10 +73,11 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
   const { favoriteIds, isInitialized } = useSelector(
     (state: RootState) => state.favorites
   )
-  const isFavorite = isInitialized && favoriteIds.includes(paintingCardId)
+  const isFavorite =
+    isInitialized && favoriteIds.includes(Number(paintingCardId))
 
   const handleToggleFavorite = () => {
-    dispatch(toggleFavorite(paintingCardId))
+    dispatch(toggleFavorite(Number(paintingCardId)))
   }
 
   return (

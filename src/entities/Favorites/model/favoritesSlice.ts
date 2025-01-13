@@ -3,7 +3,7 @@ import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { IPainting } from '@/src/entities/Painting'
 
 interface FavoritesState {
-  favoriteIds: string[]
+  favoriteIds: number[]
   favoritePaintings: {
     data: IPainting[]
     total: number
@@ -13,10 +13,10 @@ interface FavoritesState {
   isInitialized: boolean
 }
 
-const getFavoritesFromStorage = (): string[] => {
+const getFavoritesFromStorage = (): number[] => {
   if (typeof window !== 'undefined') {
     const favorites = localStorage.getItem('favorites')
-    return favorites ? JSON.parse(favorites) : []
+    return favorites ? JSON.parse(favorites).map(Number) : []
   }
   return []
 }
@@ -67,7 +67,7 @@ const favoritesSlice = createSlice({
         state.isInitialized = true
       }
     },
-    toggleFavorite: (state, action: PayloadAction<string>) => {
+    toggleFavorite: (state, action: PayloadAction<number>) => {
       const id = action.payload
       const index = state.favoriteIds.indexOf(id)
 
