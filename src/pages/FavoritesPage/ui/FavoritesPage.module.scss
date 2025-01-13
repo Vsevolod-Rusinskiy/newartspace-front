@@ -57,6 +57,28 @@
   }
 }
 
+.favorite_button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 2;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color-red);
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: scale(1.1);
+  }
+}
+
 .item_content {
   flex: 1 1 auto;
   display: flex;

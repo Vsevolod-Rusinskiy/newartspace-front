@@ -9,6 +9,7 @@ import { RootState } from '@/src/app/model/redux/store'
 import {
   initializeFavorites,
   fetchFavoritePaintings,
+  toggleFavorite,
 } from '@/src/entities/Favorites/model/favoritesSlice'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { Price } from '@/src/shared/ui/Price/Price'
@@ -17,6 +18,7 @@ import { FavoritesSkeleton } from './FavoritesSkeleton'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
 import { PaintingActions } from '@/src/widgets/PaintingActions'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
+import FavoritesSVG from '@/src/shared/ui/svgIcons/FavoritesSVG'
 import styles from './FavoritesPage.module.scss'
 
 export const FavoritesPage = () => {
@@ -31,6 +33,10 @@ export const FavoritesPage = () => {
     dispatch(initializeFavorites())
     dispatch(fetchFavoritePaintings())
   }, [dispatch])
+
+  const handleToggleFavorite = (id: number) => {
+    dispatch(toggleFavorite(id))
+  }
 
   return (
     <main className={styles.main}>
@@ -57,6 +63,12 @@ export const FavoritesPage = () => {
                       className={styles.image}
                     />
                   </Link>
+                  <button
+                    className={styles.favorite_button}
+                    onClick={() => handleToggleFavorite(Number(painting.id))}
+                  >
+                    <FavoritesSVG isFilled={true} />
+                  </button>
                 </div>
 
                 <div className={styles.item_content}>
