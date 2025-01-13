@@ -45,10 +45,35 @@
       }
 
       @mixin icon-styles($width, $height) {
-        fill: white;
         width: $width;
         height: $height;
-        transition: fill 0.3s ease;
+
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
+
+        button {
+          background: none;
+          border: none;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        svg {
+          width: 100%;
+          height: 100%;
+          fill: white;
+          transition: fill 0.3s ease;
+        }
+
+        &:hover svg {
+          fill: var(--links-hover);
+        }
       }
 
       // Mixin for icons
@@ -153,20 +178,21 @@
         justify-content: space-between;
         z-index: 1;
 
-        .cart svg {
+        .cart {
           @include icon-styles(22px, 23px);
         }
 
-        .user svg {
+        .user {
           @include icon-styles(22px, 23px);
         }
 
-        .favorites svg {
+        .favorites {
           @include icon-styles(27px, 27px);
-        }
+          position: relative;
 
-        svg:hover {
-          fill: var(--links-hover);
+          svg[data-filled='true'] {
+            fill: var(--primary-color-red);
+          }
         }
       }
 

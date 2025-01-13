@@ -101,7 +101,7 @@ export const Header = () => {
             </div>
             <div className={styles.favorites}>
               <Link href='/favorites'>
-                <FavoritesSVG />
+                <FavoritesSVG withButton={false} />
                 {isInitialized && favoriteIds.length > 0 && (
                   <CountBadge count={favoriteIds.length} />
                 )}
