@@ -46,9 +46,9 @@ export const FavoritesPage = () => {
       </div>
 
       <div className='container'>
-        <div className={styles.favorites_list}>
+        <ul className={styles.favorites_list}>
           {favoritePaintings.data.map((painting) => (
-            <div key={painting.id} className={styles.favorites_item}>
+            <li key={painting.id} className={styles.favorites_item}>
               <div className={styles.item_image}>
                 <Link href={`/${painting.id}`}>
                   <Image
@@ -73,13 +73,15 @@ export const FavoritesPage = () => {
                   />
                 </div>
               </div>
-            </div>
+            </li>
           ))}
 
           {favoritePaintings.data.length === 0 && (
-            <p>У вас пока нет избранных картин</p>
+            <li className={styles.empty_message}>
+              У вас пока нет избранных картин
+            </li>
           )}
-        </div>
+        </ul>
       </div>
     </main>
   )
