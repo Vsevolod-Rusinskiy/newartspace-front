@@ -31,11 +31,15 @@ interface PaintingsState {
   artStyle: string | null
 }
 
+interface FilterItem {
+  [key: number]: string
+}
+
 interface Pagination {
   page: number
   limit: number
   artStyle: string | null
-  filters?: { [key: string]: string[] }
+  filters?: { [key: string]: (string | FilterItem)[] }
   sort?: SortParams
 }
 

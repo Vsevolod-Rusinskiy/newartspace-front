@@ -1,7 +1,9 @@
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
+type FilterItem = { [key: number]: string }
+
 export const sendSelectedFilters = async (selectedFilters: {
-  [key: string]: string[]
+  [key: string]: (string | FilterItem)[]
 }) => {
   try {
     const params = new URLSearchParams()
