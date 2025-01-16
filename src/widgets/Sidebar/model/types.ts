@@ -3,6 +3,7 @@ export interface FilterItem {
   priority?: number
   value: string
   isChecked: boolean
+  type?: 'material' | 'technique'
 }
 
 export interface Filters {

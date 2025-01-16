@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
-import { Filters, SideBarFiltersState } from './types'
+import { Filters, SideBarFiltersState, FilterItem } from './types'
 
 const resetIsChecked = (filters: Filters) => {
   Object.keys(filters).forEach((key) => {
@@ -20,18 +20,23 @@ export const fetchFiltersAction = createAsyncThunk<Filters>(
       }
       const data = await response.json()
 
-      /* объединяем два массива в один и сортируем по значению
-      объединить массивы (чем рисуют и на чем рисуют) это пожелание клиента
-      */
+      const materialsWithType = data.data.materialsList.map(
+        (item: FilterItem) => ({
+          ...item,
+          type: 'material',
+        })
+      )
+      const techniquesWithType = data.data.techniquesList.map(
+        (item: FilterItem) => ({
+          ...item,
+          type: 'technique',
+        })
+      )
 
       data.data.materialsList = [
-        ...data.data.materialsList,
-        ...data.data.techniquesList,
-      ]
-      data.data.materialsList.sort(
-        (a: { value: string }, b: { value: string }) =>
-          a.value.localeCompare(b.value)
-      )
+        ...materialsWithType,
+        ...techniquesWithType,
+      ].sort((a, b) => a.value.localeCompare(b.value))
 
       return data.data
     } catch (error) {
