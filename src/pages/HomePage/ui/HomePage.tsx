@@ -133,10 +133,10 @@ export const HomePage = () => {
           </HomePageButton>
           <HomePageButton
             className={cn('shadow_button', 'wide_button', {
-              active: selectedArtStyle === 'Классика',
+              active: selectedArtStyle === 'Традиции',
               shrink: selectedArtStyle || artStyle !== null,
             })}
-            onClick={() => handleArtStyleChange('Классика')}
+            onClick={() => handleArtStyleChange('Традиции')}
           >
             <span>Традиции</span>
           </HomePageButton>
