@@ -103,19 +103,17 @@ export const HomePage = () => {
           </Htag>
         ) : (
           <div className={styles.content_header}>
-            <div className={styles.filter_button_wrapper}>
-              <DefaultButton
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  dispatch(actionToggleSideBar())
-                }}
-                className={cn(styles.filter_button, 'filter_button')}
-              >
-                Фильтры
-              </DefaultButton>
+            <DefaultButton
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                dispatch(actionToggleSideBar())
+              }}
+              className={cn(styles.filter_button, 'filter_button')}
+            >
+              Фильтры
               <FilterBadge
                 isVisible={Object.keys(selectedFilters).length > 0}
               />
-            </div>
+            </DefaultButton>
             <Htag tag='h1' className={styles.catalog_title_filters}>
               Каталог
             </Htag>
