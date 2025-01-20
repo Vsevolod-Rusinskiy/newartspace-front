@@ -24,6 +24,10 @@
         letter-spacing: 1.2px;
       }
 
+      .filter_button {
+        position: relative;
+      }
+
       .catalog_title {
         flex-grow: 1;
         text-align: center;
@@ -95,6 +99,7 @@
     }
   }
 }
+
 @media screen and (max-width: 400px) {
   .main {
     .content {

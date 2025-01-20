@@ -14,6 +14,7 @@ import { HomePageButton } from '@/src/shared/ui/buttons/HomePageButton/HomePageB
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionToggleSideBar } from '../model/sideBarVisibilitySlice'
 import { actionToggleSortSideBar } from '@/src/widgets/SortSidebar/model/sortSideBarVisibilitySlice'
+import { FilterBadge } from '@/src/shared/ui/FilterBadge/FilterBadge'
 import styles from './HomePage.module.scss'
 import cn from 'classnames'
 import { selectSelectedFilters } from '@/src/widgets/Sidebar/model/selectors'
@@ -109,6 +110,9 @@ export const HomePage = () => {
               className={cn(styles.filter_button, 'filter_button')}
             >
               Фильтры
+              <FilterBadge
+                isVisible={Object.keys(selectedFilters).length > 0}
+              />
             </DefaultButton>
             <Htag tag='h1' className={styles.catalog_title_filters}>
               Каталог

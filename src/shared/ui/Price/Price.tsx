@@ -16,6 +16,7 @@ interface IPriceProps
   priceType?: string
   discount?: number
   price?: number
+  hidePrice?: boolean
 }
 export const Price = ({
   children,
@@ -26,21 +27,24 @@ export const Price = ({
   priceType,
   discount,
   price,
+  hidePrice = true,
   ...props
 }: IPriceProps) => {
   const effective_discount = discount !== undefined ? discount : null
 
   return (
     <div className={cn(styles.price_wrapper, className)}>
-      <span
-        className={cn(styles.price_title, {
-          [styles.small]: size === 'small',
-          [styles.large]: size === 'large',
-          [styles.medium]: size === 'medium',
-        })}
-      >
-        Цена:
-      </span>
+      {hidePrice && (
+        <span
+          className={cn(styles.price_title, {
+            [styles.small]: size === 'small',
+            [styles.large]: size === 'large',
+            [styles.medium]: size === 'medium',
+          })}
+        >
+          Цена:
+        </span>
+      )}
       {priceType === 'Специальное предложение' && (
         <>
           <span
