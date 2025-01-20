@@ -53,23 +53,18 @@ export const PaintingDetails = ({
   painting,
   className,
 }: PaintingDetailsProps) => {
-  const { artist, material, technique, style, yearOfCreation, height, width } =
+  const { artist, material, technique, yearOfCreation, height, width } =
     painting
 
   const items: DetailsInfoItem[] = [
     { label: 'Автор', value: artist?.artistName },
+    { label: 'Размер', value: height && width ? `${height}x${width}` : null },
     {
       label: 'Материалы',
       value: [material, technique].filter(Boolean) as string[],
       type: 'list',
     },
-    { label: 'Стиль', value: style },
     { label: 'Год', value: yearOfCreation },
-    {
-      label: 'Размер',
-      value: height && width ? `${height}x${width}` : null,
-      type: 'dimensions',
-    },
   ]
 
   return (

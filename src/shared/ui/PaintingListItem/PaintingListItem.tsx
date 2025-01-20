@@ -27,7 +27,6 @@ export const PaintingListItem = ({
   id,
   src,
   alt,
-  author,
   title,
   yearOfCreation,
   material,
@@ -61,7 +60,6 @@ export const PaintingListItem = ({
               [styles.price_container_visible]: isHovered,
             })}
           >
-            <p className={styles.author}>{author}</p>
             <p className={styles.name}>{title}</p>
             <p className={styles.size}>
               {height} x {width}
