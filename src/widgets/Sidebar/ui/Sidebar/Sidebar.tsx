@@ -22,6 +22,7 @@ import styles from './Sidebar.module.scss'
 export const Sidebar = () => {
   const dispatch = useAppDispatch()
   const selectedFilters = useAppSelector(selectSelectedFilters)
+  const artStyle = useAppSelector((state) => state.paintings.artStyle)
 
   useEffect(() => {
     dispatch(fetchFiltersAction())
@@ -86,7 +87,8 @@ export const Sidebar = () => {
 
   const handleShowFilters = async () => {
     try {
-      const response = await sendSelectedFilters(selectedFilters)
+      console.log('Отправляемые фильтры:', selectedFilters)
+      const response = await sendSelectedFilters(selectedFilters, artStyle)
       dispatch(updateHomePageData(response.data))
       dispatch(actionToggleSideBar())
     } catch (error) {
