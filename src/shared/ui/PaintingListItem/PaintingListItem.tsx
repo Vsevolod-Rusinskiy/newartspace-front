@@ -70,7 +70,12 @@ export const PaintingListItem = ({
               {material}, {technique}
             </p>
             <p className={styles.year}>{yearOfCreation} год</p>
-            <Price priceType={priceType} discount={discount} price={price} />
+            <Price
+              priceType={priceType}
+              discount={discount}
+              price={price}
+              hidePrice={false}
+            />
           </div>
         </Link>
       </div>
