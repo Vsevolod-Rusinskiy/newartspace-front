@@ -12,10 +12,10 @@ import {
   removeFromCart,
 } from '@/src/entities/Cart/model/cartSlice'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
+import { CloseButton } from '@/src/shared/ui/buttons/CloseButton/CloseButton'
 import { Price } from '@/src/shared/ui/Price/Price'
 import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
-import { PaintingActions } from '@/src/widgets/PaintingActions'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import styles from './CartPage.module.scss'
 
@@ -80,16 +80,10 @@ export const CartPage = () => {
                     />
                   </div>
                   <div className={styles.item_actions}>
-                    <PaintingActions
-                      isReproducible={painting.isReproducible}
-                      priceType={painting.priceType}
-                    />
-                    <button
+                    <CloseButton
                       onClick={() => handleRemoveFromCart(Number(painting.id))}
                       className={styles.remove_button}
-                    >
-                      Удалить
-                    </button>
+                    />
                   </div>
                 </div>
               </li>

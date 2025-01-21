@@ -58,7 +58,7 @@ export const PaintingActions = ({
           className={cn('action_button', {})}
           onClick={handleCartClick}
         >
-          {isInCart ? 'ПЕРЕЙТИ В КОРЗИНУ' : 'В КОРЗИНУ'}
+          {isInCart ? 'ПЕРЕЙТИ В КОРЗИНУ' : 'ПОЛОЖИТЬ В КОРЗИНУ'}
         </DefaultButton>
       )}
     </div>
