@@ -95,7 +95,7 @@ export const Header = () => {
               </Link>
             </div>
             <div className={styles.cart}>
-              <Link href='/'>
+              <Link href='/cart'>
                 <CartSVG />
               </Link>
             </div>

@@ -9,7 +9,7 @@ import { RootState } from '@/src/app/model/redux/store'
 import {
   initializeCart,
   fetchCartPaintings,
-  toggleCart,
+  removeFromCart,
 } from '@/src/entities/Cart/model/cartSlice'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { Price } from '@/src/shared/ui/Price/Price'
@@ -33,7 +33,7 @@ export const CartPage = () => {
   }, [dispatch])
 
   const handleRemoveFromCart = (id: number) => {
-    dispatch(toggleCart(id))
+    dispatch(removeFromCart(id))
   }
 
   return (

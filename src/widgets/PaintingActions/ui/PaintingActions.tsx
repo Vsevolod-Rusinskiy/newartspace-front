@@ -1,8 +1,10 @@
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
-import { addToCartAndNavigate } from '@/src/entities/Cart/model/cartSlice'
+import { addToCart } from '@/src/entities/Cart/model/cartSlice'
 import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/src/app/model/redux/store'
 import cn from 'classnames'
 import styles from './PaintingActions.module.scss'
 
@@ -21,12 +23,16 @@ export const PaintingActions = ({
 }: PaintingActionsProps) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const { cartIds } = useSelector((state: RootState) => state.cart)
+  const isInCart = paintingId ? cartIds.includes(paintingId) : false
 
   const handleCartClick = () => {
     if (paintingId) {
-      dispatch(addToCartAndNavigate(paintingId)).then(() =>
+      if (isInCart) {
         router.push('/cart')
-      )
+      } else {
+        dispatch(addToCart(paintingId))
+      }
     }
   }
 
@@ -52,7 +58,7 @@ export const PaintingActions = ({
           className={cn('action_button', {})}
           onClick={handleCartClick}
         >
-          В КОРЗИНУ
+          {isInCart ? 'ПЕРЕЙТИ В КОРЗИНУ' : 'В КОРЗИНУ'}
         </DefaultButton>
       )}
     </div>
