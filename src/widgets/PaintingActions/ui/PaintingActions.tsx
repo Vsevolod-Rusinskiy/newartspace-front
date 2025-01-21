@@ -1,7 +1,7 @@
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
-import { toggleCart } from '@/src/entities/Cart/model/cartSlice'
+import { addToCartAndNavigate } from '@/src/entities/Cart/model/cartSlice'
 import { useRouter } from 'next/navigation'
 import cn from 'classnames'
 import styles from './PaintingActions.module.scss'
@@ -22,12 +22,11 @@ export const PaintingActions = ({
   const dispatch = useAppDispatch()
   const router = useRouter()
 
-  const handleCartClick = async () => {
+  const handleCartClick = () => {
     if (paintingId) {
-      await dispatch(toggleCart(paintingId))
-      setTimeout(() => {
+      dispatch(addToCartAndNavigate(paintingId)).then(() =>
         router.push('/cart')
-      }, 0)
+      )
     }
   }
 

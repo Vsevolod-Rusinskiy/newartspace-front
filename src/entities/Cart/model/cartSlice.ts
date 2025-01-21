@@ -46,6 +46,14 @@ export const fetchCartPaintings = createAsyncThunk<IPainting[], void>(
   }
 )
 
+export const addToCartAndNavigate = createAsyncThunk(
+  'cart/addToCartAndNavigate',
+  async (paintingId: number, { dispatch }) => {
+    await dispatch(toggleCart(paintingId))
+    return paintingId
+  }
+)
+
 const initialState: CartState = {
   cartIds: [],
   cartPaintings: {
