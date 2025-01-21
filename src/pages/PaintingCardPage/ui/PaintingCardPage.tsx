@@ -133,6 +133,7 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
                 <PaintingActions
                   isReproducible={painting?.isReproducible}
                   priceType={painting?.priceType}
+                  paintingId={Number(paintingCardId)}
                 />
               </footer>
             </section>

@@ -90,6 +90,7 @@ export const FavoritesPage = () => {
                     <PaintingActions
                       isReproducible={painting.isReproducible}
                       priceType={painting.priceType}
+                      paintingId={Number(painting.id)}
                     />
                   </div>
                 </div>
