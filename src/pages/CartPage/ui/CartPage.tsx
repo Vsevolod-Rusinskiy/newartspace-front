@@ -1,0 +1,102 @@
+'use client'
+
+import { useEffect } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { RootState } from '@/src/app/model/redux/store'
+import {
+  initializeCart,
+  fetchCartPaintings,
+  toggleCart,
+} from '@/src/entities/Cart/model/cartSlice'
+import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
+import { Price } from '@/src/shared/ui/Price/Price'
+import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
+import { NoData } from '@/src/shared/ui/NoData/NoData'
+import { PaintingActions } from '@/src/widgets/PaintingActions'
+import { Htag } from '@/src/shared/ui/Htag/Htag'
+import styles from './CartPage.module.scss'
+
+export const CartPage = () => {
+  const dispatch = useAppDispatch()
+  const { cartPaintings, loading } = useSelector(
+    (state: RootState) => state.cart
+  )
+
+  const isLoading = loading === 'idle' || loading === 'pending'
+
+  useEffect(() => {
+    dispatch(initializeCart())
+    dispatch(fetchCartPaintings())
+  }, [dispatch])
+
+  const handleRemoveFromCart = (id: number) => {
+    dispatch(toggleCart(id))
+  }
+
+  return (
+    <main className={styles.main}>
+      <div className={`container ${styles.navigation_container}`}>
+        <NavigationButton direction='back' label='Назад' />
+        <Htag tag='h1'>Корзина</Htag>
+      </div>
+
+      <div className='container'>
+        {isLoading ? (
+          <div className={styles.loading}>Загрузка...</div>
+        ) : cartPaintings.data.length === 0 ? (
+          <NoData />
+        ) : (
+          <ul className={styles.cart_list}>
+            {cartPaintings.data.map((painting) => (
+              <li key={painting.id} className={styles.cart_item}>
+                <div className={styles.item_image}>
+                  <Link href={`/${painting.id}`}>
+                    <Image
+                      src={painting.imgUrl}
+                      alt={painting.title}
+                      fill
+                      className={styles.image}
+                    />
+                  </Link>
+                </div>
+
+                <div className={styles.item_content}>
+                  <h2 className={styles.item_title}>{painting.title}</h2>
+                  <div className={styles.item_details}>
+                    <PaintingDetails painting={painting} />
+                  </div>
+                </div>
+
+                <div className={styles.item_right_column}>
+                  <div className={styles.item_price}>
+                    <Price
+                      size='small'
+                      price={painting.price}
+                      priceType={painting.priceType}
+                      discount={painting.discount}
+                    />
+                  </div>
+                  <div className={styles.item_actions}>
+                    <PaintingActions
+                      isReproducible={painting.isReproducible}
+                      priceType={painting.priceType}
+                    />
+                    <button
+                      onClick={() => handleRemoveFromCart(Number(painting.id))}
+                      className={styles.remove_button}
+                    >
+                      Удалить
+                    </button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </main>
+  )
+}
