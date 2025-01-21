@@ -21,10 +21,10 @@ export const PaintingActions = ({
     <div className={cn(styles.actions, className)}>
       <DefaultButton
         className={cn('action_button', {})}
-        onClick={() => dispatch(actionOpenModal('КУПИТЬ В ОДИН КЛИК'))}
+        onClick={() => dispatch(actionOpenModal('ЗАКАЗАТЬ В ОДИН КЛИК'))}
         priceType={priceType}
       >
-        КУПИТЬ В ОДИН КЛИК
+        ЗАКАЗАТЬ В ОДИН КЛИК
       </DefaultButton>
       {isReproducible && (
         <DefaultButton

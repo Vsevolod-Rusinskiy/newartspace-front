@@ -89,14 +89,14 @@ export const Header = () => {
             <p>{translations[lang].header.by_appointment}</p>
           </div>
           <div className={styles.links}>
-            <div className={styles.cart}>
-              <Link href='/'>
-                <CartSVG />
-              </Link>
-            </div>
             <div className={styles.user}>
               <Link href='/profile'>
                 <UserSVG />
+              </Link>
+            </div>
+            <div className={styles.cart}>
+              <Link href='/'>
+                <CartSVG />
               </Link>
             </div>
             <div className={styles.favorites}>
