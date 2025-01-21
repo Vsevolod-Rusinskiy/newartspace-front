@@ -1,7 +1,7 @@
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
-import { addToCart } from '@/src/entities/Cart/model/cartSlice'
+import { toggleCart } from '@/src/entities/Cart/model/cartSlice'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'
@@ -26,12 +26,15 @@ export const PaintingActions = ({
   const { cartIds } = useSelector((state: RootState) => state.cart)
   const isInCart = paintingId ? cartIds.includes(paintingId) : false
 
-  const handleCartClick = () => {
+  const handleCartClick = async () => {
     if (paintingId) {
       if (isInCart) {
         router.push('/cart')
       } else {
-        dispatch(addToCart(paintingId))
+        await dispatch(toggleCart(paintingId))
+        setTimeout(() => {
+          router.push('/cart')
+        }, 0)
       }
     }
   }

@@ -67,6 +67,24 @@ const cartSlice = createSlice({
         state.isInitialized = true
       }
     },
+    toggleCart: (state, action: PayloadAction<number>) => {
+      const id = action.payload
+      const index = state.cartIds.indexOf(id)
+
+      if (index === -1) {
+        state.cartIds.push(id)
+      } else {
+        state.cartIds.splice(index, 1)
+        state.cartPaintings.data = state.cartPaintings.data.filter(
+          (painting) => Number(painting.id) !== id
+        )
+        state.cartPaintings.total = state.cartPaintings.data.length
+      }
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('cart', JSON.stringify(state.cartIds))
+      }
+    },
     addToCart: (state, action: PayloadAction<number>) => {
       const id = action.payload
       if (!state.cartIds.includes(id)) {
@@ -110,5 +128,6 @@ const cartSlice = createSlice({
   },
 })
 
-export const { initializeCart, addToCart, removeFromCart } = cartSlice.actions
+export const { initializeCart, toggleCart, addToCart, removeFromCart } =
+  cartSlice.actions
 export default cartSlice.reducer

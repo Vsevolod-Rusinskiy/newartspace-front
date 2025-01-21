@@ -18,6 +18,7 @@ import styles from './header.module.scss'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'
 import { initializeFavorites } from '@/src/entities/Favorites/model/favoritesSlice'
+import { initializeCart } from '@/src/entities/Cart/model/cartSlice'
 import { useEffect } from 'react'
 import { CountBadge } from '@/src/shared/ui/CountBadge/CountBadge'
 
@@ -26,6 +27,7 @@ export const Header = () => {
 
   useEffect(() => {
     dispatch(initializeFavorites())
+    dispatch(initializeCart())
   }, [dispatch])
 
   const activeMenu = useAppSelector((state) => state.activeMenu.activeMenu)
