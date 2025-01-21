@@ -52,6 +52,10 @@ export const Header = () => {
     (state: RootState) => state.favorites
   )
 
+  const { cartIds, isInitialized: cartIsInitialized } = useSelector(
+    (state: RootState) => state.cart
+  )
+
   return (
     <header className={styles.header}>
       <div className={`container ${styles.content}`}>
@@ -96,14 +100,20 @@ export const Header = () => {
             </div>
             <div className={styles.cart}>
               <Link href='/cart'>
-                <CartSVG />
+                <CartSVG withButton={false} />
+                {cartIsInitialized && cartIds.length > 0 && (
+                  <CountBadge count={cartIds.length} />
+                )}
               </Link>
             </div>
             <div className={styles.favorites}>
               <Link href='/favorites'>
                 <FavoritesSVG withButton={false} />
                 {isInitialized && favoriteIds.length > 0 && (
-                  <CountBadge count={favoriteIds.length} />
+                  <CountBadge
+                    count={favoriteIds.length}
+                    className={styles.favorites_count}
+                  />
                 )}
               </Link>
             </div>
