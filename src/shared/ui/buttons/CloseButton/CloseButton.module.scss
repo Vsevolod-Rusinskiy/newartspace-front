@@ -1,5 +1,5 @@
 .close_button {
-  background: none;
+  background: rgba(255, 255, 255, 0.9);
   border: none;
   width: 24px;
   height: 24px;
@@ -8,10 +8,14 @@
   display: inline-block;
   text-align: center;
   transform: rotate(45deg);
-  transition: transform 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   &:hover {
     transform: rotate(135deg);
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
 
   &::before,
@@ -20,9 +24,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 16px;
+    width: 14px;
     height: 2px;
-    background-color: #949494;
+    background-color: #666;
     transform-origin: center;
     transition: background-color 0.2s ease;
   }
@@ -38,7 +42,7 @@
   &:hover {
     &::before,
     &::after {
-      background-color: var(--links-hover);
+      background-color: var(--primary-color-red);
     }
   }
 }
