@@ -42,7 +42,7 @@ export const PaintingActions = ({
   return (
     <div className={cn(styles.actions, className)}>
       <DefaultButton
-        className={cn('action_button', {})}
+        className={cn('action_button', styles.action_button)}
         onClick={() => dispatch(actionOpenModal('ЗАКАЗАТЬ В ОДИН КЛИК'))}
         priceType={priceType}
       >
@@ -50,7 +50,7 @@ export const PaintingActions = ({
       </DefaultButton>
       {isReproducible && (
         <DefaultButton
-          className={cn('action_button', {})}
+          className={cn('action_button', styles.action_button)}
           onClick={() => dispatch(actionOpenModal('ЗАКАЗАТЬ РЕПРОДУКЦИЮ'))}
         >
           ЗАКАЗАТЬ РЕПРОДУКЦИЮ
@@ -58,7 +58,7 @@ export const PaintingActions = ({
       )}
       {paintingId && (
         <DefaultButton
-          className={cn('action_button', {})}
+          className={cn('action_button', styles.action_button)}
           onClick={handleCartClick}
         >
           {isInCart ? 'ПЕРЕЙТИ В КОРЗИНУ' : 'ПОЛОЖИТЬ В КОРЗИНУ'}
