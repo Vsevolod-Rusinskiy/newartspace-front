@@ -32,9 +32,6 @@ export const PaintingActions = ({
         router.push('/cart')
       } else {
         await dispatch(toggleCart(paintingId))
-        setTimeout(() => {
-          router.push('/cart')
-        }, 0)
       }
     }
   }
