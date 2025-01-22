@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
 import { actionCloseModal } from './model/modalVisibilitySlice'
+import { CloseButton } from '@/src/shared/ui/buttons/CloseButton/CloseButton'
 import styles from './Modal.module.scss'
 
 const ANIMATION_DELAY = 300
@@ -71,6 +72,10 @@ export const Modal = ({ children }: ModalProps) => {
       <div className={cn(styles.Modal, mods)}>
         <div className={styles.overlay} onClick={closeHandler}>
           <div className={styles.content} onClick={onContentClick}>
+            <CloseButton
+              className={styles.close_button}
+              onClick={closeHandler}
+            />
             {children}
           </div>
         </div>
