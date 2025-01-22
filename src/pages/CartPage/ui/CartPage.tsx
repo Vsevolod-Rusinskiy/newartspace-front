@@ -17,6 +17,7 @@ import { Price } from '@/src/shared/ui/Price/Price'
 import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
+import { motion, AnimatePresence } from 'framer-motion'
 import styles from './CartPage.module.scss'
 import { CartSkeleton } from './CartSkeleton'
 
@@ -51,44 +52,59 @@ export const CartPage = () => {
           <NoData />
         ) : (
           <ul className={styles.cart_list}>
-            {cartPaintings.data.map((painting) => (
-              <li key={painting.id} className={styles.cart_item}>
-                <div className={styles.item_image}>
-                  <Link href={`/${painting.id}`}>
-                    <Image
-                      src={painting.imgUrl}
-                      alt={painting.title}
-                      fill
-                      className={styles.image}
-                    />
-                  </Link>
-                </div>
+            <AnimatePresence>
+              {cartPaintings.data.map((painting) => (
+                <motion.li
+                  key={painting.id}
+                  className={styles.cart_item}
+                  initial={{ opacity: 1, height: 'auto' }}
+                  exit={{
+                    opacity: 0,
+                    height: 0,
+                    marginBottom: 0,
+                    transition: { duration: 0.3 },
+                  }}
+                  layout
+                >
+                  <div className={styles.item_image}>
+                    <Link href={`/${painting.id}`}>
+                      <Image
+                        src={painting.imgUrl}
+                        alt={painting.title}
+                        fill
+                        className={styles.image}
+                      />
+                    </Link>
+                  </div>
 
-                <div className={styles.item_content}>
-                  <h2 className={styles.item_title}>{painting.title}</h2>
-                  <div className={styles.item_details}>
-                    <PaintingDetails painting={painting} />
+                  <div className={styles.item_content}>
+                    <h2 className={styles.item_title}>{painting.title}</h2>
+                    <div className={styles.item_details}>
+                      <PaintingDetails painting={painting} />
+                    </div>
                   </div>
-                </div>
 
-                <div className={styles.item_right_column}>
-                  <div className={styles.item_price}>
-                    <Price
-                      size='small'
-                      price={painting.price}
-                      priceType={painting.priceType}
-                      discount={painting.discount}
-                    />
+                  <div className={styles.item_right_column}>
+                    <div className={styles.item_price}>
+                      <Price
+                        size='small'
+                        price={painting.price}
+                        priceType={painting.priceType}
+                        discount={painting.discount}
+                      />
+                    </div>
+                    <div className={styles.item_actions}>
+                      <CloseButton
+                        onClick={() =>
+                          handleRemoveFromCart(Number(painting.id))
+                        }
+                        className={styles.remove_button}
+                      />
+                    </div>
                   </div>
-                  <div className={styles.item_actions}>
-                    <CloseButton
-                      onClick={() => handleRemoveFromCart(Number(painting.id))}
-                      className={styles.remove_button}
-                    />
-                  </div>
-                </div>
-              </li>
-            ))}
+                </motion.li>
+              ))}
+            </AnimatePresence>
           </ul>
         )}
       </div>
