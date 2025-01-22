@@ -18,6 +18,7 @@ import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import styles from './CartPage.module.scss'
+import { CartSkeleton } from './CartSkeleton'
 
 export const CartPage = () => {
   const dispatch = useAppDispatch()
@@ -45,7 +46,7 @@ export const CartPage = () => {
 
       <div className='container'>
         {isLoading ? (
-          <div className={styles.loading}>Загрузка...</div>
+          <CartSkeleton />
         ) : cartPaintings.data.length === 0 ? (
           <NoData />
         ) : (
