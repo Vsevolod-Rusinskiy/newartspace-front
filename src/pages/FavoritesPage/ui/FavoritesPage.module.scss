@@ -58,8 +58,8 @@
 
 .favorite_button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
   background: rgba(255, 255, 255, 0.9);
   border: none;
   cursor: pointer;
@@ -97,6 +97,11 @@
 
   &:focus:not(:focus-visible) {
     outline: none;
+  }
+
+  @media (max-width: 768px) {
+    top: 15px;
+    right: 15px;
   }
 }
 

@@ -62,6 +62,11 @@ export const FavoritesPage = () => {
                 className={styles.favorites_item}
                 preset='fadeSlide'
               >
+                <FavoritesSVG
+                  className={styles.favorite_button}
+                  isFilled={true}
+                  onClick={() => handleToggleFavorite(Number(painting.id))}
+                />
                 <div className={styles.item_image}>
                   <Link href={`/${painting.id}`}>
                     <Image
@@ -71,11 +76,6 @@ export const FavoritesPage = () => {
                       className={styles.image}
                     />
                   </Link>
-                  <FavoritesSVG
-                    className={styles.favorite_button}
-                    isFilled={true}
-                    onClick={() => handleToggleFavorite(Number(painting.id))}
-                  />
                 </div>
 
                 <div className={styles.item_content}>
