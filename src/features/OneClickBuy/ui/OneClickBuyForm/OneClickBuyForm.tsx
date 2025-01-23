@@ -72,7 +72,7 @@ export const OneClickBuyForm = () => {
   return (
     <form className={styles.form_container} onSubmit={handleSubmit}>
       <span className={styles.form_title}>
-        {successMessage || 'Быстрый заказ'}
+        {successMessage || 'Заказ репродукции'}
       </span>
       <input
         ref={inputRef}

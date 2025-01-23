@@ -1,5 +1,6 @@
 import styles from './DetailsInfo.module.scss'
-import Link from 'next/link'
+import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
 
 interface DetailsInfoItem {
   label: string
@@ -55,6 +56,7 @@ export const PaintingDetails = ({
   painting,
   className,
 }: PaintingDetailsProps) => {
+  const dispatch = useAppDispatch()
   const {
     artist,
     material,
@@ -76,6 +78,10 @@ export const PaintingDetails = ({
     { label: 'Год', value: yearOfCreation },
   ]
 
+  const handleReproductionClick = () => {
+    dispatch(actionOpenModal('ЗАКАЗАТЬ РЕПРОДУКЦИЮ'))
+  }
+
   return (
     <div className={`${styles.details_info} ${className}`}>
       {items.map((item, index) => (
@@ -85,9 +91,15 @@ export const PaintingDetails = ({
         </p>
       ))}
       {isReproducible && (
-        <Link href='#' className={styles.reproduction_link}>
+        // <Link href='#' className={styles.reproduction_link}>
+        //   Возможна репродукция
+        // </Link>
+        <button
+          className={styles.reproduction_button}
+          onClick={handleReproductionClick}
+        >
           Возможна репродукция
-        </Link>
+        </button>
       )}
     </div>
   )
