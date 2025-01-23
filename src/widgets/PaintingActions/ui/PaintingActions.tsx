@@ -11,6 +11,7 @@ interface PaintingActionsProps {
   className?: string
   paintingId?: number
   priceType?: string
+  isReproducible?: boolean
 }
 
 export const PaintingActions = ({
