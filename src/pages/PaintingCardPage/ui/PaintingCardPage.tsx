@@ -122,7 +122,7 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
               <div className={styles.price_container}>
                 {painting && (
                   <Price
-                    size='large'
+                    size='small'
                     priceType={painting.priceType}
                     discount={painting.discount}
                     price={painting.price}
