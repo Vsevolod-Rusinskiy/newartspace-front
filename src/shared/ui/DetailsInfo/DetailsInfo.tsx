@@ -1,4 +1,5 @@
 import styles from './DetailsInfo.module.scss'
+import Link from 'next/link'
 
 interface DetailsInfoItem {
   label: string
@@ -25,6 +26,7 @@ interface PaintingDetailsProps {
     yearOfCreation?: number
     height?: number
     width?: number
+    isReproducible?: boolean
   }
   className?: string
 }
@@ -53,8 +55,15 @@ export const PaintingDetails = ({
   painting,
   className,
 }: PaintingDetailsProps) => {
-  const { artist, material, technique, yearOfCreation, height, width } =
-    painting
+  const {
+    artist,
+    material,
+    technique,
+    yearOfCreation,
+    height,
+    width,
+    isReproducible,
+  } = painting
 
   const items: DetailsInfoItem[] = [
     { label: 'Автор', value: artist?.artistName },
@@ -75,6 +84,11 @@ export const PaintingDetails = ({
           {formatValue(item)}
         </p>
       ))}
+      {isReproducible && (
+        <Link href='#' className={styles.reproduction_link}>
+          Возможна репродукция
+        </Link>
+      )}
     </div>
   )
 }
