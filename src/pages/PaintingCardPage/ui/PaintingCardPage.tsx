@@ -131,7 +131,6 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
               </div>
               <footer className={styles.actions}>
                 <PaintingActions
-                  isReproducible={painting?.isReproducible}
                   priceType={painting?.priceType}
                   paintingId={Number(paintingCardId)}
                 />
