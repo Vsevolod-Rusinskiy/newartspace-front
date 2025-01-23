@@ -32,14 +32,16 @@
   color: var(--primary-color);
   cursor: pointer;
   background: none;
-  border: none;
-  padding: 0;
+  border: 1px solid var(--silver-color);
+  border-radius: 4px;
+  padding: 5px 10px;
   font: inherit;
   align-self: flex-start;
 
   &:hover {
     color: var(--links-hover);
-    transition: color 0.5s ease;
+    border-color: var(--links-hover);
+    transition: all 0.3s ease;
     background: none;
   }
 }
