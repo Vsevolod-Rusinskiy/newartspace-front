@@ -11,6 +11,7 @@ import {
   fetchCartPaintings,
   removeFromCart,
 } from '@/src/entities/Cart/model/cartSlice'
+import { IPainting } from '@/src/entities/Painting'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { CloseButton } from '@/src/shared/ui/buttons/CloseButton/CloseButton'
 import { Price } from '@/src/shared/ui/Price/Price'
@@ -42,21 +43,29 @@ export const CartPage = () => {
     dispatch(removeFromCart(id))
   }
 
+  const calculatePriceWithDiscount = (price: number, discount: number) => {
+    return Math.round(price - (price * discount) / 100)
+  }
+
+  const calculateItemPrice = (painting: IPainting) => {
+    /* eslint-disable indent */
+    switch (painting.priceType) {
+      case 'Специальное предложение':
+        return painting.price
+      case 'Скидка':
+        return calculatePriceWithDiscount(painting.price, painting.discount)
+      default:
+        return painting.discount
+          ? calculatePriceWithDiscount(painting.price, painting.discount)
+          : painting.price
+    }
+    /* eslint-enable indent */
+  }
+
   const calculateTotalSum = () => {
     return cartPaintings.data.reduce((sum, painting) => {
-      if (painting.priceType === 'Специальное предложение') {
-        return sum + painting.price
-      }
-
-      const price = painting.discount
-        ? /* eslint-disable indent */
-          Math.round(
-            painting.price - (painting.price * painting.discount) / 100
-          )
-        : painting.price
-      return sum + price
+      return sum + calculateItemPrice(painting)
     }, 0)
-    /* eslint-enable indent */
   }
 
   return (
