@@ -44,11 +44,19 @@ export const CartPage = () => {
 
   const calculateTotalSum = () => {
     return cartPaintings.data.reduce((sum, painting) => {
+      if (painting.priceType === 'Специальное предложение') {
+        return sum + painting.price
+      }
+
       const price = painting.discount
-        ? painting.price - (painting.price * painting.discount) / 100
+        ? /* eslint-disable indent */
+          Math.round(
+            painting.price - (painting.price * painting.discount) / 100
+          )
         : painting.price
       return sum + price
     }, 0)
+    /* eslint-enable indent */
   }
 
   return (
