@@ -2,7 +2,7 @@ import { Header } from '@/src/widgets/Header'
 import { Footer } from '@/src/widgets/Footer'
 import { Sidebar } from '@/src/widgets/Sidebar'
 import { SortSidebar } from '@/src/widgets/SortSidebar'
-import { OneClickBuyModal } from '@/src/features/OneClickBuy/ui/OneClickBuyModal/OneClickBuyModal'
+import { RequestFormModal } from '@/src/features/RequestForm'
 import { useEffect } from 'react'
 import { ReactNode } from 'react'
 import { logout, login } from '@/src/features/Auth/sign-in/model/auth/authSlice'
@@ -34,7 +34,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       </div>
       <Sidebar />
       <SortSidebar />
-      <OneClickBuyModal />
+      <RequestFormModal />
     </>
   )
 }

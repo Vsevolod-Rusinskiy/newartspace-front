@@ -8,7 +8,7 @@ import { useMutation } from 'react-query'
 import axios from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
-import styles from './OneClickBuyForm.module.scss'
+import styles from './RequestForm.module.scss'
 import cn from 'classnames'
 
 type FormData = {
@@ -22,7 +22,7 @@ const submitForm = async (formData: FormData) => {
   return response.data
 }
 
-export const OneClickBuyForm = () => {
+export const RequestForm = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const isOpen = useAppSelector((state) => state.modalVisibility.isOpened)
   const [isChecked, setIsChecked] = useState(false)
