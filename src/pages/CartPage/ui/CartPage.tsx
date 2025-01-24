@@ -21,6 +21,7 @@ import {
   AnimatedList,
   AnimatedListItem,
 } from '@/src/shared/ui/AnimatedList/AnimatedList'
+import { CartTotal } from '@/src/widgets/CartTotal'
 import styles from './CartPage.module.scss'
 import { CartSkeleton } from './CartSkeleton'
 
@@ -41,6 +42,15 @@ export const CartPage = () => {
     dispatch(removeFromCart(id))
   }
 
+  const calculateTotalSum = () => {
+    return cartPaintings.data.reduce((sum, painting) => {
+      const price = painting.discount
+        ? painting.price - (painting.price * painting.discount) / 100
+        : painting.price
+      return sum + price
+    }, 0)
+  }
+
   return (
     <main className={styles.main}>
       <div className={`container ${styles.navigation_container}`}>
@@ -54,50 +64,55 @@ export const CartPage = () => {
         ) : cartPaintings.data.length === 0 ? (
           <NoData />
         ) : (
-          <AnimatedList className={styles.cart_list}>
-            {cartPaintings.data.map((painting) => (
-              <AnimatedListItem
-                key={painting.id}
-                className={styles.cart_item}
-                preset='fadeSlide'
-              >
-                <div className={styles.item_image}>
-                  <Link href={`/${painting.id}`}>
-                    <Image
-                      src={painting.imgUrl}
-                      alt={painting.title}
-                      fill
-                      className={styles.image}
-                    />
-                  </Link>
-                </div>
+          <>
+            <AnimatedList className={styles.cart_list}>
+              {cartPaintings.data.map((painting) => (
+                <AnimatedListItem
+                  key={painting.id}
+                  className={styles.cart_item}
+                  preset='fadeSlide'
+                >
+                  <div className={styles.item_image}>
+                    <Link href={`/${painting.id}`}>
+                      <Image
+                        src={painting.imgUrl}
+                        alt={painting.title}
+                        fill
+                        className={styles.image}
+                      />
+                    </Link>
+                  </div>
 
-                <div className={styles.item_content}>
-                  <h2 className={styles.item_title}>{painting.title}</h2>
-                  <div className={styles.item_details}>
-                    <PaintingDetails painting={painting} />
+                  <div className={styles.item_content}>
+                    <h2 className={styles.item_title}>{painting.title}</h2>
+                    <div className={styles.item_details}>
+                      <PaintingDetails painting={painting} />
+                    </div>
                   </div>
-                </div>
 
-                <div className={styles.item_right_column}>
-                  <div className={styles.item_price}>
-                    <Price
-                      size='small'
-                      price={painting.price}
-                      priceType={painting.priceType}
-                      discount={painting.discount}
-                    />
+                  <div className={styles.item_right_column}>
+                    <div className={styles.item_price}>
+                      <Price
+                        size='small'
+                        price={painting.price}
+                        priceType={painting.priceType}
+                        discount={painting.discount}
+                      />
+                    </div>
+                    <div className={styles.item_actions}>
+                      <CloseButton
+                        onClick={() =>
+                          handleRemoveFromCart(Number(painting.id))
+                        }
+                        className={styles.remove_button}
+                      />
+                    </div>
                   </div>
-                  <div className={styles.item_actions}>
-                    <CloseButton
-                      onClick={() => handleRemoveFromCart(Number(painting.id))}
-                      className={styles.remove_button}
-                    />
-                  </div>
-                </div>
-              </AnimatedListItem>
-            ))}
-          </AnimatedList>
+                </AnimatedListItem>
+              ))}
+            </AnimatedList>
+            <CartTotal totalSum={calculateTotalSum()} />
+          </>
         )}
       </div>
     </main>

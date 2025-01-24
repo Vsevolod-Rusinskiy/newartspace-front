@@ -7,7 +7,7 @@ interface ModalVisibilityState {
 
 const initialState: ModalVisibilityState = {
   isOpened: false,
-  buttonLabel: 'ЗАКАЗАТЬ В ОДИН КЛИК',
+  buttonLabel: '',
 }
 
 export const modalVisibilitySlice = createSlice({

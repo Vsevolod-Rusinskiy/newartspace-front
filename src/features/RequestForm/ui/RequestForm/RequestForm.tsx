@@ -71,9 +71,7 @@ export const RequestForm = () => {
 
   return (
     <form className={styles.form_container} onSubmit={handleSubmit}>
-      <span className={styles.form_title}>
-        {successMessage || 'Заказ репродукции'}
-      </span>
+      <span className={styles.form_title}>{successMessage || buttonLabel}</span>
       <input
         ref={inputRef}
         className={styles.form_input}
