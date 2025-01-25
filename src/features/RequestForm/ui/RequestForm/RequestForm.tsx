@@ -18,7 +18,10 @@ type FormData = {
 }
 
 const submitForm = async (formData: FormData) => {
-  const response = await axios.post(`${API_BASE_URL}/request-form`, formData)
+  const response = await axios.post(
+    `${API_BASE_URL}/request-form/reproduction`,
+    formData
+  )
   return response.data
 }
 
