@@ -3,18 +3,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface ModalVisibilityState {
   isOpened: boolean
   buttonLabel: string
-  paintingName?: string
+  paintingId?: number
 }
 
 const initialState: ModalVisibilityState = {
   isOpened: false,
   buttonLabel: '',
-  paintingName: undefined,
+  paintingId: undefined,
 }
 
 interface OpenModalPayload {
   buttonLabel: string
-  paintingName?: string
+  paintingId?: number
 }
 
 export const modalVisibilitySlice = createSlice({
@@ -27,11 +27,11 @@ export const modalVisibilitySlice = createSlice({
     actionOpenModal(state, action: PayloadAction<OpenModalPayload>) {
       state.isOpened = true
       state.buttonLabel = action.payload.buttonLabel
-      state.paintingName = action.payload.paintingName
+      state.paintingId = action.payload.paintingId
     },
     actionCloseModal(state) {
       state.isOpened = false
-      state.paintingName = undefined
+      state.paintingId = undefined
     },
   },
 })

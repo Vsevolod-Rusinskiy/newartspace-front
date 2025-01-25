@@ -20,6 +20,7 @@ interface DetailsInfoProps {
 
 interface PaintingDetailsProps {
   painting: {
+    id?: number
     artist?: { artistName?: string }
     title?: string
     material?: string
@@ -59,7 +60,7 @@ export const PaintingDetails = ({
 }: PaintingDetailsProps) => {
   const dispatch = useAppDispatch()
   const {
-    title,
+    id,
     artist,
     material,
     technique,
@@ -84,7 +85,7 @@ export const PaintingDetails = ({
     dispatch(
       actionOpenModal({
         buttonLabel: 'ЗАКАЗАТЬ РЕПРОДУКЦИЮ',
-        paintingName: title,
+        paintingId: id,
       })
     )
   }

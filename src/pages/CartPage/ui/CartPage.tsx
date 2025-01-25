@@ -103,7 +103,12 @@ export const CartPage = () => {
                   <div className={styles.item_content}>
                     <h2 className={styles.item_title}>{painting.title}</h2>
                     <div className={styles.item_details}>
-                      <PaintingDetails painting={painting} />
+                      <PaintingDetails
+                        painting={{
+                          ...painting,
+                          id: Number(painting.id),
+                        }}
+                      />
                     </div>
                   </div>
 

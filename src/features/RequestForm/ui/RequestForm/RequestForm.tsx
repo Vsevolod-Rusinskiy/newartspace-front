@@ -15,14 +15,14 @@ export type FormType = 'reproduction' | 'cart'
 
 interface RequestFormProps {
   formType: FormType
-  paintingName?: string
+  paintingId?: number
 }
 
 type FormData = {
   name: string
   phone: string
   email: string
-  paintingName?: string
+  paintingId?: number
   formType: FormType
 }
 
@@ -41,7 +41,7 @@ const submitForm = async (formData: FormData) => {
   return response.data
 }
 
-export const RequestForm = ({ formType, paintingName }: RequestFormProps) => {
+export const RequestForm = ({ formType, paintingId }: RequestFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const isOpen = useAppSelector((state) => state.modalVisibility.isOpened)
   const [isChecked, setIsChecked] = useState(false)
@@ -84,7 +84,7 @@ export const RequestForm = ({ formType, paintingName }: RequestFormProps) => {
       name,
       phone,
       email,
-      paintingName,
+      paintingId,
       formType,
     }
     mutation.mutate(formData)

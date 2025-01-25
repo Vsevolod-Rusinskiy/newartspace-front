@@ -115,7 +115,10 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
                 {painting && (
                   <PaintingDetails
                     className={styles.details}
-                    painting={painting}
+                    painting={{
+                      ...painting,
+                      id: Number(paintingCardId),
+                    }}
                   />
                 )}
               </div>
