@@ -8,6 +8,9 @@ export const RequestFormModal = () => {
     (state) => state.modalVisibility.buttonLabel
   )
   const paintingId = useAppSelector((state) => state.modalVisibility.paintingId)
+  const cartItemIds = useAppSelector(
+    (state) => state.modalVisibility.cartItemIds
+  )
 
   const getFormType = (label: string): FormType => {
     if (!label) return 'cart'
@@ -25,12 +28,16 @@ export const RequestFormModal = () => {
     /* eslint-enable */
   }
 
-  console.log('Модальное окно:', { buttonLabel, paintingId })
+  console.log('Модальное окно:', { buttonLabel, paintingId, cartItemIds })
   const formType = getFormType(buttonLabel)
 
   return (
     <Modal>
-      <RequestForm formType={formType} paintingId={paintingId} />
+      <RequestForm
+        formType={formType}
+        paintingId={paintingId}
+        cartItemIds={cartItemIds}
+      />
     </Modal>
   )
 }

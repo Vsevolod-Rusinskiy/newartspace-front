@@ -1,6 +1,6 @@
 'use client'
 
-import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
 import styles from './CartTotal.module.scss'
@@ -11,11 +11,13 @@ interface CartTotalProps {
 
 export const CartTotal = ({ totalSum }: CartTotalProps) => {
   const dispatch = useAppDispatch()
+  const cartIds = useAppSelector((state) => state.cart.cartIds)
 
   const handleOrderClick = () => {
     dispatch(
       actionOpenModal({
         buttonLabel: 'ОФОРМИТЬ ЗАКАЗ',
+        cartItemIds: cartIds,
       })
     )
   }

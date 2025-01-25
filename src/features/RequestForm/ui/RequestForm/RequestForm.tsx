@@ -16,6 +16,15 @@ export type FormType = 'reproduction' | 'cart'
 interface RequestFormProps {
   formType: FormType
   paintingId?: number
+  cartItemIds?: number[]
+}
+
+interface RequestFormData {
+  name: string
+  phone: string
+  email: string
+  paintingId?: number
+  cartItemIds?: number[]
 }
 
 type FormData = {
@@ -23,25 +32,53 @@ type FormData = {
   phone: string
   email: string
   paintingId?: number
+  cartItemIds?: number[]
   formType: FormType
 }
 
 const submitForm = async (formData: FormData) => {
-  const endpoint =
-    formData.formType === 'reproduction'
-      ? '/request-form/reproduction'
-      : '/request-form/cart'
+  let endpoint: string
+  let requestData: RequestFormData
 
+  /* eslint-disable */
+  switch (formData.formType) {
+    case 'reproduction':
+      endpoint = '/request-form/reproduction'
+      requestData = {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        paintingId: formData.paintingId,
+      }
+      break
+    case 'cart':
+      endpoint = '/request-form/cart'
+      requestData = {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        cartItemIds: formData.cartItemIds,
+      }
+      break
+    default:
+      throw new Error('Неизвестный тип формы')
+  }
+  /* eslint-enable */
   console.log('Отправляем данные:', {
-    ...formData,
+    ...requestData,
     endpoint: `${API_BASE_URL}${endpoint}`,
+    formType: formData.formType,
   })
 
-  const response = await axios.post(`${API_BASE_URL}${endpoint}`, formData)
+  const response = await axios.post(`${API_BASE_URL}${endpoint}`, requestData)
   return response.data
 }
 
-export const RequestForm = ({ formType, paintingId }: RequestFormProps) => {
+export const RequestForm = ({
+  formType,
+  paintingId,
+  cartItemIds,
+}: RequestFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const isOpen = useAppSelector((state) => state.modalVisibility.isOpened)
   const [isChecked, setIsChecked] = useState(false)
@@ -85,6 +122,7 @@ export const RequestForm = ({ formType, paintingId }: RequestFormProps) => {
       phone,
       email,
       paintingId,
+      cartItemIds,
       formType,
     }
     mutation.mutate(formData)
