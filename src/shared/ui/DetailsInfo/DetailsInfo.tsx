@@ -58,6 +58,7 @@ export const PaintingDetails = ({
 }: PaintingDetailsProps) => {
   const dispatch = useAppDispatch()
   const {
+    title,
     artist,
     material,
     technique,
@@ -79,7 +80,12 @@ export const PaintingDetails = ({
   ]
 
   const handleReproductionClick = () => {
-    dispatch(actionOpenModal('ЗАКАЗАТЬ РЕПРОДУКЦИЮ'))
+    dispatch(
+      actionOpenModal({
+        buttonLabel: 'ЗАКАЗАТЬ РЕПРОДУКЦИЮ',
+        paintingName: title,
+      })
+    )
   }
 
   return (

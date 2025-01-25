@@ -11,21 +11,31 @@ import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButt
 import styles from './RequestForm.module.scss'
 import cn from 'classnames'
 
+export type FormType = 'reproduction' | 'cart'
+
+interface RequestFormProps {
+  formType: FormType
+  paintingName?: string
+}
+
 type FormData = {
   name: string
   phone: string
   email: string
+  paintingName?: string
+  formType: FormType
 }
 
 const submitForm = async (formData: FormData) => {
-  const response = await axios.post(
-    `${API_BASE_URL}/request-form/reproduction`,
-    formData
-  )
+  const endpoint =
+    formData.formType === 'reproduction'
+      ? '/request-form/reproduction'
+      : '/request-form/cart'
+  const response = await axios.post(`${API_BASE_URL}${endpoint}`, formData)
   return response.data
 }
 
-export const RequestForm = () => {
+export const RequestForm = ({ formType, paintingName }: RequestFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const isOpen = useAppSelector((state) => state.modalVisibility.isOpened)
   const [isChecked, setIsChecked] = useState(false)
@@ -68,6 +78,8 @@ export const RequestForm = () => {
       name,
       phone,
       email,
+      paintingName,
+      formType,
     }
     mutation.mutate(formData)
   }
