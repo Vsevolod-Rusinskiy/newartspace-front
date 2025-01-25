@@ -18,7 +18,7 @@ type FormData = {
 }
 
 const submitForm = async (formData: FormData) => {
-  const response = await axios.post(`${API_BASE_URL}/one-click-order`, formData)
+  const response = await axios.post(`${API_BASE_URL}/request-form`, formData)
   return response.data
 }
 
