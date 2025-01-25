@@ -21,6 +21,7 @@ interface DetailsInfoProps {
 interface PaintingDetailsProps {
   painting: {
     artist?: { artistName?: string }
+    title?: string
     material?: string
     technique?: string
     style?: string
