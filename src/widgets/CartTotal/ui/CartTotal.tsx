@@ -13,7 +13,11 @@ export const CartTotal = ({ totalSum }: CartTotalProps) => {
   const dispatch = useAppDispatch()
 
   const handleOrderClick = () => {
-    dispatch(actionOpenModal('ОФОРМИТЬ ЗАКАЗ'))
+    dispatch(
+      actionOpenModal({
+        buttonLabel: 'ОФОРМИТЬ ЗАКАЗ',
+      })
+    )
   }
 
   return (

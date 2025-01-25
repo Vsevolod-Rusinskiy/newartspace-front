@@ -31,6 +31,12 @@ const submitForm = async (formData: FormData) => {
     formData.formType === 'reproduction'
       ? '/request-form/reproduction'
       : '/request-form/cart'
+
+  console.log('Отправляем данные:', {
+    ...formData,
+    endpoint: `${API_BASE_URL}${endpoint}`,
+  })
+
   const response = await axios.post(`${API_BASE_URL}${endpoint}`, formData)
   return response.data
 }
