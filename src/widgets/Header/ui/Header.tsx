@@ -18,6 +18,7 @@ import styles from './header.module.scss'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'
 import { initializeFavorites } from '@/src/entities/Favorites/model/favoritesSlice'
+import { initializeCart } from '@/src/entities/Cart/model/cartSlice'
 import { useEffect } from 'react'
 import { CountBadge } from '@/src/shared/ui/CountBadge/CountBadge'
 
@@ -26,6 +27,7 @@ export const Header = () => {
 
   useEffect(() => {
     dispatch(initializeFavorites())
+    dispatch(initializeCart())
   }, [dispatch])
 
   const activeMenu = useAppSelector((state) => state.activeMenu.activeMenu)
@@ -50,6 +52,10 @@ export const Header = () => {
 
   const { favoriteIds, isInitialized } = useSelector(
     (state: RootState) => state.favorites
+  )
+
+  const { cartIds, isInitialized: cartIsInitialized } = useSelector(
+    (state: RootState) => state.cart
   )
 
   return (
@@ -89,21 +95,27 @@ export const Header = () => {
             <p>{translations[lang].header.by_appointment}</p>
           </div>
           <div className={styles.links}>
-            <div className={styles.cart}>
-              <Link href='/'>
-                <CartSVG />
-              </Link>
-            </div>
             <div className={styles.user}>
               <Link href='/profile'>
                 <UserSVG />
+              </Link>
+            </div>
+            <div className={styles.cart}>
+              <Link href='/cart'>
+                <CartSVG withButton={false} />
+                {cartIsInitialized && cartIds.length > 0 && (
+                  <CountBadge count={cartIds.length} />
+                )}
               </Link>
             </div>
             <div className={styles.favorites}>
               <Link href='/favorites'>
                 <FavoritesSVG withButton={false} />
                 {isInitialized && favoriteIds.length > 0 && (
-                  <CountBadge count={favoriteIds.length} />
+                  <CountBadge
+                    count={favoriteIds.length}
+                    className={styles.favorites_count}
+                  />
                 )}
               </Link>
             </div>

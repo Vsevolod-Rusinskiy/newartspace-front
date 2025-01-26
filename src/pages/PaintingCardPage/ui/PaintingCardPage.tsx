@@ -115,14 +115,17 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
                 {painting && (
                   <PaintingDetails
                     className={styles.details}
-                    painting={painting}
+                    painting={{
+                      ...painting,
+                      id: Number(paintingCardId),
+                    }}
                   />
                 )}
               </div>
               <div className={styles.price_container}>
                 {painting && (
                   <Price
-                    size='large'
+                    size='small'
                     priceType={painting.priceType}
                     discount={painting.discount}
                     price={painting.price}
@@ -131,8 +134,8 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
               </div>
               <footer className={styles.actions}>
                 <PaintingActions
-                  isReproducible={painting?.isReproducible}
                   priceType={painting?.priceType}
+                  paintingId={Number(paintingCardId)}
                 />
               </footer>
             </section>

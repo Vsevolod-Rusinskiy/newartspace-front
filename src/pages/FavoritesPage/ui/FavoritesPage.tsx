@@ -19,6 +19,10 @@ import { NoData } from '@/src/shared/ui/NoData/NoData'
 import { PaintingActions } from '@/src/widgets/PaintingActions'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import FavoritesSVG from '@/src/shared/ui/svgIcons/FavoritesSVG'
+import {
+  AnimatedList,
+  AnimatedListItem,
+} from '@/src/shared/ui/AnimatedList/AnimatedList'
 import styles from './FavoritesPage.module.scss'
 
 export const FavoritesPage = () => {
@@ -51,9 +55,18 @@ export const FavoritesPage = () => {
         ) : favoritePaintings.data.length === 0 ? (
           <NoData />
         ) : (
-          <ul className={styles.favorites_list}>
+          <AnimatedList className={styles.favorites_list}>
             {favoritePaintings.data.map((painting) => (
-              <li key={painting.id} className={styles.favorites_item}>
+              <AnimatedListItem
+                key={painting.id}
+                className={styles.favorites_item}
+                preset='fadeSlide'
+              >
+                <FavoritesSVG
+                  className={styles.favorite_button}
+                  isFilled={true}
+                  onClick={() => handleToggleFavorite(Number(painting.id))}
+                />
                 <div className={styles.item_image}>
                   <Link href={`/${painting.id}`}>
                     <Image
@@ -63,11 +76,6 @@ export const FavoritesPage = () => {
                       className={styles.image}
                     />
                   </Link>
-                  <FavoritesSVG
-                    className={styles.favorite_button}
-                    isFilled={true}
-                    onClick={() => handleToggleFavorite(Number(painting.id))}
-                  />
                 </div>
 
                 <div className={styles.item_content}>
@@ -90,12 +98,13 @@ export const FavoritesPage = () => {
                     <PaintingActions
                       isReproducible={painting.isReproducible}
                       priceType={painting.priceType}
+                      paintingId={Number(painting.id)}
                     />
                   </div>
                 </div>
-              </li>
+              </AnimatedListItem>
             ))}
-          </ul>
+          </AnimatedList>
         )}
       </div>
     </main>

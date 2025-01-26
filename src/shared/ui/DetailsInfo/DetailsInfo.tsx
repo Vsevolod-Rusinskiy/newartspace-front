@@ -1,4 +1,6 @@
 import styles from './DetailsInfo.module.scss'
+import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
 
 interface DetailsInfoItem {
   label: string
@@ -18,13 +20,16 @@ interface DetailsInfoProps {
 
 interface PaintingDetailsProps {
   painting: {
+    id?: number
     artist?: { artistName?: string }
+    title?: string
     material?: string
     technique?: string
     style?: string
     yearOfCreation?: number
     height?: number
     width?: number
+    isReproducible?: boolean
   }
   className?: string
 }
@@ -53,8 +58,17 @@ export const PaintingDetails = ({
   painting,
   className,
 }: PaintingDetailsProps) => {
-  const { artist, material, technique, yearOfCreation, height, width } =
-    painting
+  const dispatch = useAppDispatch()
+  const {
+    id,
+    artist,
+    material,
+    technique,
+    yearOfCreation,
+    height,
+    width,
+    isReproducible,
+  } = painting
 
   const items: DetailsInfoItem[] = [
     { label: 'Автор', value: artist?.artistName },
@@ -67,6 +81,15 @@ export const PaintingDetails = ({
     { label: 'Год', value: yearOfCreation },
   ]
 
+  const handleReproductionClick = () => {
+    dispatch(
+      actionOpenModal({
+        buttonLabel: 'ЗАКАЗАТЬ РЕПРОДУКЦИЮ',
+        paintingId: id,
+      })
+    )
+  }
+
   return (
     <div className={`${styles.details_info} ${className}`}>
       {items.map((item, index) => (
@@ -75,6 +98,17 @@ export const PaintingDetails = ({
           {formatValue(item)}
         </p>
       ))}
+      {isReproducible && (
+        // <Link href='#' className={styles.reproduction_link}>
+        //   Возможна репродукция
+        // </Link>
+        <button
+          className={styles.reproduction_button}
+          onClick={handleReproductionClick}
+        >
+          Возможна репродукция
+        </button>
+      )}
     </div>
   )
 }

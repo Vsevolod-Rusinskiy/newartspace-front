@@ -8,21 +8,77 @@ import { useMutation } from 'react-query'
 import axios from 'axios'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
-import styles from './OneClickBuyForm.module.scss'
+import styles from './RequestForm.module.scss'
 import cn from 'classnames'
+
+export type FormType = 'reproduction' | 'cart'
+
+interface RequestFormProps {
+  formType: FormType
+  paintingId?: number
+  cartItemIds?: number[]
+}
+
+interface RequestFormData {
+  name: string
+  phone: string
+  email: string
+  paintingId?: number
+  cartItemIds?: number[]
+}
 
 type FormData = {
   name: string
   phone: string
   email: string
+  paintingId?: number
+  cartItemIds?: number[]
+  formType: FormType
 }
 
 const submitForm = async (formData: FormData) => {
-  const response = await axios.post(`${API_BASE_URL}/one-click-order`, formData)
+  let endpoint: string
+  let requestData: RequestFormData
+
+  /* eslint-disable */
+  switch (formData.formType) {
+    case 'reproduction':
+      endpoint = '/request-form/reproduction'
+      requestData = {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        paintingId: formData.paintingId,
+      }
+      break
+    case 'cart':
+      endpoint = '/request-form/cart'
+      requestData = {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        cartItemIds: formData.cartItemIds,
+      }
+      break
+    default:
+      throw new Error('Неизвестный тип формы')
+  }
+  /* eslint-enable */
+  console.log('Отправляем данные:', {
+    ...requestData,
+    endpoint: `${API_BASE_URL}${endpoint}`,
+    formType: formData.formType,
+  })
+
+  const response = await axios.post(`${API_BASE_URL}${endpoint}`, requestData)
   return response.data
 }
 
-export const OneClickBuyForm = () => {
+export const RequestForm = ({
+  formType,
+  paintingId,
+  cartItemIds,
+}: RequestFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const isOpen = useAppSelector((state) => state.modalVisibility.isOpened)
   const [isChecked, setIsChecked] = useState(false)
@@ -65,15 +121,16 @@ export const OneClickBuyForm = () => {
       name,
       phone,
       email,
+      paintingId,
+      cartItemIds,
+      formType,
     }
     mutation.mutate(formData)
   }
 
   return (
     <form className={styles.form_container} onSubmit={handleSubmit}>
-      <span className={styles.form_title}>
-        {successMessage || 'Быстрый заказ'}
-      </span>
+      <span className={styles.form_title}>{successMessage || buttonLabel}</span>
       <input
         ref={inputRef}
         className={styles.form_input}

@@ -180,6 +180,7 @@
 
         .cart {
           @include icon-styles(22px, 23px);
+          position: relative;
         }
 
         .user {
@@ -420,20 +421,6 @@
   position: relative;
 
   .favorites_count {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    border-radius: 50%;
-    border: 1px solid var(--white-color);
-    background-color: var(--white-color);
-    color: var(--links-hover);
-    font-size: 12px;
-    font-weight: bold;
-    min-width: 18px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px;
+    top: -6px;
   }
 }

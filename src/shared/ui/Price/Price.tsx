@@ -62,6 +62,38 @@ export const Price = ({
           </span>
         </>
       )}
+      {price &&
+        effective_discount !== null &&
+        effective_discount > 0 &&
+        priceType === 'Скидка' && (
+          <>
+            <span
+              className={cn(styles.descount_old, styles.price, className, {
+                [styles.small]: size === 'small',
+                [styles.large]: size === 'large',
+                [styles.medium]: size === 'medium',
+              })}
+              {...props}
+            >
+              {formatNumberWithSpaces(price)} ₽
+            </span>
+            <span
+              className={cn(styles.price, {
+                [styles.small]: size === 'small',
+                [styles.large]: size === 'large',
+                [styles.medium]: size === 'medium',
+              })}
+            >
+              {formatNumberWithSpaces(
+                Math.round(price - price * (effective_discount / 100))
+              )}{' '}
+              ₽
+            </span>
+            <span className={cn(styles.prise_description, styles.price)}>
+              СКИДКА {effective_discount}%
+            </span>
+          </>
+        )}
       {priceType === 'Возможна репродукция' && (
         <>
           <span
@@ -156,38 +188,6 @@ export const Price = ({
           </span>
         </>
       )}
-      {price &&
-        effective_discount !== null &&
-        effective_discount > 0 &&
-        priceType === 'Скидка' && (
-          <>
-            <span
-              className={cn(styles.descount_old, styles.price, className, {
-                [styles.small]: size === 'small',
-                [styles.large]: size === 'large',
-                [styles.medium]: size === 'medium',
-              })}
-              {...props}
-            >
-              {formatNumberWithSpaces(price)} ₽
-            </span>
-            <span
-              className={cn(styles.price, {
-                [styles.small]: size === 'small',
-                [styles.large]: size === 'large',
-                [styles.medium]: size === 'medium',
-              })}
-            >
-              {formatNumberWithSpaces(
-                Math.round(price - price * (effective_discount / 100))
-              )}{' '}
-              ₽
-            </span>
-            <span className={cn(styles.prise_description, styles.price)}>
-              СКИДКА {effective_discount}%
-            </span>
-          </>
-        )}
       {!priceType && (
         <span
           className={cn(styles.price, {
