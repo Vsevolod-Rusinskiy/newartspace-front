@@ -1,31 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { SortParams } from '@/src/widgets/SortSidebar/model/types'
-
-console.log('ApiUrl:', API_BASE_URL)
-
-interface Painting {
-  id: string
-  author: string
-  imgUrl: string
-  title: string
-  artType: string
-  price: number
-  theme: string
-  style: string
-  material: string
-  technique: string
-  height: number
-  width: number
-  yearOfCreation: number
-  format: string
-  color: string
-  priceType: string
-  discount: number
-}
+import { IPainting } from '@/src/entities/Painting'
 
 interface PaintingsState {
-  paintings: { data: Painting[]; total: number }
+  paintings: { data: IPainting[]; total: number }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
   artStyle: string | null
@@ -44,7 +23,7 @@ interface Pagination {
 }
 
 interface FetchPaintingsResult {
-  data: Painting[]
+  data: IPainting[]
   total: number
 }
 
@@ -92,7 +71,7 @@ export const paintingsSlice = createSlice({
   reducers: {
     updateHomePageData: (
       state: PaintingsState,
-      action: PayloadAction<Painting[]>
+      action: PayloadAction<IPainting[]>
     ) => {
       state.paintings.data = action.payload
       state.paintings.total = action.payload.length

@@ -7,7 +7,7 @@ import styles from './PaintingListItem.module.scss'
 import { Price } from '../Price/Price'
 
 export interface IPaintingListItem {
-  id: string
+  id: number
   src: string
   alt: string
   author: string

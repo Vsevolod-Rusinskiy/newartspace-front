@@ -106,7 +106,7 @@ export const CartPage = () => {
                       <PaintingDetails
                         painting={{
                           ...painting,
-                          id: Number(painting.id),
+                          id: painting.id,
                         }}
                       />
                     </div>
@@ -123,9 +123,7 @@ export const CartPage = () => {
                     </div>
                     <div className={styles.item_actions}>
                       <CloseButton
-                        onClick={() =>
-                          handleRemoveFromCart(Number(painting.id))
-                        }
+                        onClick={() => handleRemoveFromCart(painting.id)}
                         className={styles.remove_button}
                       />
                     </div>

@@ -22,13 +22,11 @@ export const RequestFormModal = () => {
       case 'ОФОРМИТЬ ЗАКАЗ':
         return 'cart'
       default:
-        console.log('Тип формы по умолчанию:', label)
         return 'cart'
     }
     /* eslint-enable */
   }
 
-  console.log('Модальное окно:', { buttonLabel, paintingId, cartItemIds })
   const formType = getFormType(buttonLabel)
 
   return (
