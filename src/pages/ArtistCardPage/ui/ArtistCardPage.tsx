@@ -14,29 +14,10 @@ import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import { IPainting } from '@/src/entities/Painting'
 import cn from 'classnames'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './ArtistCardPage.module.scss'
-
-interface Painting {
-  id: string
-  author: string
-  imgUrl: string
-  title: string
-  artType: string
-  price: number
-  theme: string
-  style: string
-  material: string
-  technique: string
-  height: number
-  width: number
-  yearOfCreation: number
-  format: string
-  color: string
-  priceType: string
-  discount: number
-}
 
 interface ArtistPageParams {
   params: {
@@ -49,7 +30,7 @@ export interface IArtist {
   artistName: string
   artistDescription: string
   imgUrl: string
-  paintings: Painting[]
+  paintings: IPainting[]
 }
 
 export interface ArtistState {

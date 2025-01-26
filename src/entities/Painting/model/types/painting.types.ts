@@ -1,5 +1,5 @@
 export interface IPainting {
-  id: string
+  id: number
   author: string
   imgUrl: string
   title: string
