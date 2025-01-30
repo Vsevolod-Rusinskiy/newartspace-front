@@ -148,12 +148,19 @@ const favoritesSlice = createSlice({
         const serverFavoriteIds = action.payload
         const localFavoriteIds = getFavoritesFromStorage()
 
+        console.log('📦 Данные для синхронизации:')
+        console.log('- С сервера:', serverFavoriteIds)
+        console.log('- Из localStorage:', localFavoriteIds)
+
         state.favoriteIds = Array.from(
           new Set([...localFavoriteIds, ...serverFavoriteIds])
         )
 
+        console.log('✨ Результат после объединения:', state.favoriteIds)
+
         if (typeof window !== 'undefined') {
           localStorage.setItem('favorites', JSON.stringify(state.favoriteIds))
+          console.log('💾 Сохранили в localStorage')
         }
       })
   },
