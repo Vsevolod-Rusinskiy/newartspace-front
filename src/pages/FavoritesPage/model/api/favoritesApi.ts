@@ -1,10 +1,17 @@
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
+import axiosInstance from '@/src/shared/config/axios/axiosInstatnce'
+import { getAuthDataFromLS } from '@/src/shared/lib/common'
 
 // Получение избранного с сервера
 export const getFavoritesFromServer = async () => {
   console.log('🔵 Запрашиваем избранное с сервера...')
 
-  const response = await fetch(`${API_BASE_URL}/user/favorites`)
+  const authData = getAuthDataFromLS('auth')
+  const response = await axiosInstance.get(`/user/favorites`, {
+    headers: {
+      Authorization: `Bearer ${authData?.accessToken}`,
+    },
+  })
 
   if (!response.ok) {
     console.error(
@@ -15,7 +22,7 @@ export const getFavoritesFromServer = async () => {
     throw new Error('Failed to fetch favorites from server')
   }
 
-  const data = await response.json()
+  const data = response.data
   console.log('✅ Получили с сервера избранное:', data)
   return data
 }
@@ -24,13 +31,19 @@ export const getFavoritesFromServer = async () => {
 export const updateFavoritesOnServer = async (favoriteIds: number[]) => {
   console.log('🔵 Отправляем на сервер избранное:', favoriteIds)
 
-  const response = await fetch(`${API_BASE_URL}/user/favorites`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const authData = getAuthDataFromLS('auth')
+  const response = await axiosInstance.post(
+    `${API_BASE_URL}/user/favorites`,
+    {
+      favoriteIds,
     },
-    body: JSON.stringify({ favoriteIds }),
-  })
+    {
+      headers: {
+        Authorization: `Bearer ${authData?.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  )
 
   if (!response.ok) {
     console.error(
@@ -41,7 +54,7 @@ export const updateFavoritesOnServer = async (favoriteIds: number[]) => {
     throw new Error('Failed to update favorites on server')
   }
 
-  const data = await response.json()
+  const data = response.data
   console.log('✅ Сервер подтвердил обновление избранного:', data)
   return data
 }

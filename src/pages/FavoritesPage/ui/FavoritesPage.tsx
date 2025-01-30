@@ -26,7 +26,7 @@ import {
   AnimatedListItem,
 } from '@/src/shared/ui/AnimatedList/AnimatedList'
 import styles from './FavoritesPage.module.scss'
-import { selectIsLoggedIn } from '@/src/features/Auth/sign-in/model/selectors'
+import { selectIsLoggedIn } from '@/src/features/Auth'
 
 export const FavoritesPage = () => {
   const dispatch = useAppDispatch()
