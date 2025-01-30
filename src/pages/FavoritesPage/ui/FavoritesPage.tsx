@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
 import { RootState } from '@/src/app/model/redux/store'
 import {
   initializeFavorites,
@@ -24,12 +24,16 @@ import {
   AnimatedListItem,
 } from '@/src/shared/ui/AnimatedList/AnimatedList'
 import styles from './FavoritesPage.module.scss'
+import { selectIsLoggedIn } from '@/src/features/Auth/sign-in/model/selectors'
 
 export const FavoritesPage = () => {
   const dispatch = useAppDispatch()
   const { favoritePaintings, loading } = useSelector(
     (state: RootState) => state.favorites
   )
+
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  console.log(isLoggedIn, 'isLoggedIn')
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
