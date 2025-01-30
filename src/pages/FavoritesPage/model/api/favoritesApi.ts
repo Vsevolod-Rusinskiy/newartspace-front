@@ -1,4 +1,3 @@
-import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import axiosInstance from '@/src/shared/config/axios/axiosInstatnce'
 import { getAuthDataFromLS } from '@/src/shared/lib/common'
 
@@ -7,24 +6,24 @@ export const getFavoritesFromServer = async () => {
   console.log('🔵 Запрашиваем избранное с сервера...')
 
   const authData = getAuthDataFromLS('auth')
-  const response = await axiosInstance.get(`/user/favorites`, {
-    headers: {
-      Authorization: `Bearer ${authData?.accessToken}`,
-    },
-  })
+  const userId = authData?.userId
 
-  if (!response.ok) {
-    console.error(
-      '🔴 Ошибка при получении избранного:',
-      response.status,
-      response.statusText
-    )
-    throw new Error('Failed to fetch favorites from server')
+  if (!userId) {
+    console.error('🔴 Ошибка: userId не найден в localStorage')
+    throw new Error('UserId not found')
   }
 
-  const data = response.data
-  console.log('✅ Получили с сервера избранное:', data)
-  return data
+  try {
+    const response = await axiosInstance.get(`/user-paintings/${userId}`)
+    // console.log('✅ Получили с сервера ответ:', response)
+    // console.log('✅ Данные с сервера:', response.data)
+    // console.log('✅ Тип данных:', typeof response.data)
+    // console.log('✅ Это массив?', Array.isArray(response.data))
+    return response.data
+  } catch (error) {
+    console.error('🔴 Ошибка при получении избранного:', error)
+    throw new Error('Failed to fetch favorites from server')
+  }
 }
 
 // Обновление избранного на сервере
@@ -32,29 +31,22 @@ export const updateFavoritesOnServer = async (favoriteIds: number[]) => {
   console.log('🔵 Отправляем на сервер избранное:', favoriteIds)
 
   const authData = getAuthDataFromLS('auth')
-  const response = await axiosInstance.post(
-    `${API_BASE_URL}/user/favorites`,
-    {
-      favoriteIds,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${authData?.accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    }
-  )
+  const userId = authData?.userId
 
-  if (!response.ok) {
-    console.error(
-      '🔴 Ошибка при обновлении избранного:',
-      response.status,
-      response.statusText
-    )
-    throw new Error('Failed to update favorites on server')
+  if (!userId) {
+    console.error('🔴 Ошибка: userId не найден в localStorage')
+    throw new Error('UserId not found')
   }
 
-  const data = response.data
-  console.log('✅ Сервер подтвердил обновление избранного:', data)
-  return data
+  try {
+    const response = await axiosInstance.put(`/user-paintings/${userId}`, {
+      paintingIds: favoriteIds, // предполагаю, что в DTO поле называется paintingIds
+    })
+
+    console.log('✅ Сервер подтвердил обновление избранного:', response.data)
+    return response.data
+  } catch (error) {
+    console.error('🔴 Ошибка при обновлении избранного:', error)
+    throw new Error('Failed to update favorites on server')
+  }
 }

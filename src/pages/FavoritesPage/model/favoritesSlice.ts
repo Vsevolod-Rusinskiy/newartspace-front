@@ -145,7 +145,7 @@ const favoritesSlice = createSlice({
         state.error = action.payload as string
       })
       .addCase(fetchServerFavorites.fulfilled, (state, action) => {
-        const serverFavoriteIds = action.payload
+        const serverFavoriteIds = action.payload.favorites
         const localFavoriteIds = getFavoritesFromStorage()
 
         console.log('📦 Данные для синхронизации:')
