@@ -10,6 +10,8 @@ import {
   initializeFavorites,
   fetchFavoritePaintings,
   toggleFavorite,
+  syncFavoritesWithServer,
+  fetchServerFavorites,
 } from '@/src/pages/FavoritesPage/model/favoritesSlice'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { Price } from '@/src/shared/ui/Price/Price'
@@ -39,11 +41,26 @@ export const FavoritesPage = () => {
 
   useEffect(() => {
     dispatch(initializeFavorites())
-    dispatch(fetchFavoritePaintings())
-  }, [dispatch])
+
+    if (isLoggedIn) {
+      dispatch(fetchServerFavorites())
+        .unwrap()
+        .then(() => {
+          dispatch(syncFavoritesWithServer())
+        })
+        .then(() => {
+          dispatch(fetchFavoritePaintings())
+        })
+    } else {
+      dispatch(fetchFavoritePaintings())
+    }
+  }, [dispatch, isLoggedIn])
 
   const handleToggleFavorite = (id: number) => {
     dispatch(toggleFavorite(id))
+    if (isLoggedIn) {
+      dispatch(syncFavoritesWithServer())
+    }
   }
 
   return (
