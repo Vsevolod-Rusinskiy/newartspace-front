@@ -10,7 +10,7 @@ import {
   initializeCart,
   fetchCartPaintings,
   removeFromCart,
-} from '@/src/entities/Cart/model/cartSlice'
+} from '@/src/pages/CartPage/model/cartSlice'
 import { IPainting } from '@/src/entities/Painting'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { CloseButton } from '@/src/shared/ui/buttons/CloseButton/CloseButton'

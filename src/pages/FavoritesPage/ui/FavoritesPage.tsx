@@ -10,7 +10,7 @@ import {
   initializeFavorites,
   fetchFavoritePaintings,
   toggleFavorite,
-} from '@/src/entities/Favorites/model/favoritesSlice'
+} from '@/src/pages/FavoritesPage/model/favoritesSlice'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { Price } from '@/src/shared/ui/Price/Price'
 import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'

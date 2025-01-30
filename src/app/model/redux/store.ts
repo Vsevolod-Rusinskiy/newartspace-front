@@ -14,8 +14,8 @@ import { activeMenuSlice } from '@/src/app/model/activeMenuSlice'
 import { authSlice } from '@/src/features/Auth/sign-in/model/auth/authSlice'
 import sortSideBarVisibilityReducer from '@/src/widgets/SortSidebar/model/sortSideBarVisibilitySlice'
 import sortReducer from '@/src/widgets/SortSidebar/model/sortSlice'
-import favoritesReducer from '@/src/entities/Favorites/model/favoritesSlice'
-import cartReducer from '@/src/entities/Cart/model/cartSlice'
+import favoritesReducer from '@/src/pages/FavoritesPage/model/favoritesSlice'
+import cartReducer from '@/src/pages/CartPage/model/cartSlice'
 import { welcomeModalSlice } from '@/src/features/WelcomeModal'
 
 export const makeStore = () =>
