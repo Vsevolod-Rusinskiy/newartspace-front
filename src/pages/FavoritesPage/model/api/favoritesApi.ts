@@ -40,8 +40,8 @@ export const updateFavoritesOnServer = async (favoriteIds: number[]) => {
 
   try {
     const response = await axiosInstance.put(`/user-paintings/${userId}`, {
-      favorites: favoriteIds, // предполагаю, что в DTO поле называется paintingIds
-      type: 'favorite',
+      favorites: favoriteIds,
+      cart: [], // если у вас нет элементов в корзине, передайте пустой массив
     })
 
     console.log('✅ Сервер подтвердил обновление избранного:', response.data)

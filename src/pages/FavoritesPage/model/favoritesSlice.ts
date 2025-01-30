@@ -58,6 +58,11 @@ export const syncFavoritesWithServer = createAsyncThunk(
       const state = getState() as { favorites: FavoritesState }
       const { favoriteIds } = state.favorites
 
+      console.log(
+        '🔵 Синхронизация избранного с сервером. Текущие favoriteIds:',
+        favoriteIds
+      )
+
       const response = await updateFavoritesOnServer(favoriteIds)
       return response
     } catch (error) {
