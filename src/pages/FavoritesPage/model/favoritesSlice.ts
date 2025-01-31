@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { IPainting } from '@/src/entities/Painting'
+import {
+  getFavoritesFromServer,
+  updateFavoritesOnServer,
+} from './api/favoritesApi'
 
 interface FavoritesState {
   favoriteIds: number[]
@@ -11,6 +15,7 @@ interface FavoritesState {
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
   isInitialized: boolean
+  isSyncing: boolean
 }
 
 const getFavoritesFromStorage = (): number[] => {
@@ -46,6 +51,33 @@ export const fetchFavoritePaintings = createAsyncThunk<IPainting[], void>(
   }
 )
 
+export const syncFavoritesWithServer = createAsyncThunk(
+  'favorites/syncWithServer',
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const state = getState() as { favorites: FavoritesState }
+      const { favoriteIds } = state.favorites
+
+      const response = await updateFavoritesOnServer(favoriteIds)
+      return response
+    } catch (error) {
+      return rejectWithValue('Failed to sync favorites with server')
+    }
+  }
+)
+
+export const fetchServerFavorites = createAsyncThunk(
+  'favorites/fetchFromServer',
+  async (_, { rejectWithValue }) => {
+    try {
+      const serverFavorites = await getFavoritesFromServer()
+      return serverFavorites
+    } catch (error) {
+      return rejectWithValue('Failed to fetch favorites from server')
+    }
+  }
+)
+
 const initialState: FavoritesState = {
   favoriteIds: [],
   favoritePaintings: {
@@ -55,6 +87,7 @@ const initialState: FavoritesState = {
   loading: 'idle',
   error: null,
   isInitialized: false,
+  isSyncing: false,
 }
 
 const favoritesSlice = createSlice({
@@ -99,6 +132,29 @@ const favoritesSlice = createSlice({
       .addCase(fetchFavoritePaintings.rejected, (state, action) => {
         state.loading = 'failed'
         state.error = action.payload as string
+      })
+      .addCase(syncFavoritesWithServer.pending, (state) => {
+        state.isSyncing = true
+      })
+      .addCase(syncFavoritesWithServer.fulfilled, (state) => {
+        state.isSyncing = false
+        state.error = null
+      })
+      .addCase(syncFavoritesWithServer.rejected, (state, action) => {
+        state.isSyncing = false
+        state.error = action.payload as string
+      })
+      .addCase(fetchServerFavorites.fulfilled, (state, action) => {
+        const serverFavoriteIds = action.payload.favorites
+        const localFavoriteIds = getFavoritesFromStorage()
+
+        state.favoriteIds = Array.from(
+          new Set([...localFavoriteIds, ...serverFavoriteIds])
+        )
+
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('favorites', JSON.stringify(state.favoriteIds))
+        }
       })
   },
 })

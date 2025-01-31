@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
-import { toggleCart } from '@/src/entities/Cart/model/cartSlice'
+import { toggleCart } from '@/src/pages/CartPage/model/cartSlice'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'

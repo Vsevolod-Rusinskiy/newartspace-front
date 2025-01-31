@@ -4,13 +4,15 @@ import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
 import { RootState } from '@/src/app/model/redux/store'
 import {
   initializeFavorites,
   fetchFavoritePaintings,
   toggleFavorite,
-} from '@/src/entities/Favorites/model/favoritesSlice'
+  syncFavoritesWithServer,
+  fetchServerFavorites,
+} from '@/src/pages/FavoritesPage/model/favoritesSlice'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { Price } from '@/src/shared/ui/Price/Price'
 import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
@@ -24,6 +26,7 @@ import {
   AnimatedListItem,
 } from '@/src/shared/ui/AnimatedList/AnimatedList'
 import styles from './FavoritesPage.module.scss'
+import { selectIsLoggedIn } from '@/src/features/Auth'
 
 export const FavoritesPage = () => {
   const dispatch = useAppDispatch()
@@ -31,15 +34,32 @@ export const FavoritesPage = () => {
     (state: RootState) => state.favorites
   )
 
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
   const isLoading = loading === 'idle' || loading === 'pending'
 
   useEffect(() => {
     dispatch(initializeFavorites())
-    dispatch(fetchFavoritePaintings())
-  }, [dispatch])
+
+    if (isLoggedIn) {
+      dispatch(fetchServerFavorites())
+        .unwrap()
+        .then(() => {
+          dispatch(syncFavoritesWithServer())
+        })
+        .then(() => {
+          dispatch(fetchFavoritePaintings())
+        })
+    } else {
+      dispatch(fetchFavoritePaintings())
+    }
+  }, [dispatch, isLoggedIn])
 
   const handleToggleFavorite = (id: number) => {
     dispatch(toggleFavorite(id))
+    if (isLoggedIn) {
+      dispatch(syncFavoritesWithServer())
+    }
   }
 
   return (

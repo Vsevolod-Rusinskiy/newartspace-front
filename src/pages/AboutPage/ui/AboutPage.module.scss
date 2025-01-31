@@ -1,0 +1,35 @@
+.main {
+  padding: 25px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .title_container {
+      margin-bottom: 15px;
+    }
+
+    .text_container {
+      margin: 20px 0;
+
+      p.large_text {
+        font-size: 22px;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      text-align: justify;
+      line-height: 1.4;
+
+      &:first-of-type {
+        margin-bottom: 20px;
+      }
+
+      &:not(:first-of-type) {
+        margin-bottom: 15px;
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@ import styles from './PaintingCardPage.module.scss'
 import {
   toggleFavorite,
   initializeFavorites,
-} from '@/src/entities/Favorites/model/favoritesSlice'
+} from '@/src/pages/FavoritesPage/model/favoritesSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingActions } from '@/src/widgets/PaintingActions'
 import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
