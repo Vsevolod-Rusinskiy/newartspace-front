@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { IPainting } from '@/src/entities/Painting'
+import { getCartFromServer, updateCartOnServer } from './api/cartApi'
+import { RootState } from '@/src/app/model/redux/store'
 
 interface CartState {
   cartIds: number[]
@@ -11,6 +13,7 @@ interface CartState {
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
   isInitialized: boolean
+  isSyncing: boolean
 }
 
 const getCartFromStorage = (): number[] => {
@@ -46,6 +49,37 @@ export const fetchCartPaintings = createAsyncThunk<IPainting[], void>(
   }
 )
 
+export const syncCartWithServer = createAsyncThunk(
+  'cart/syncWithServer',
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const state = getState() as RootState
+      const { cartIds } = state.cart
+      const { favoriteIds } = state.favorites // Получаем текущие избранные
+
+      console.log('🔄 Синхронизация корзины. cartIds:', cartIds)
+      console.log('🔄 Текущие избранные:', favoriteIds)
+
+      const response = await updateCartOnServer(cartIds, favoriteIds)
+      return response
+    } catch (error) {
+      return rejectWithValue('Failed to sync cart with server')
+    }
+  }
+)
+
+export const fetchServerCart = createAsyncThunk(
+  'cart/fetchFromServer',
+  async (_, { rejectWithValue }) => {
+    try {
+      const serverData = await getCartFromServer()
+      return serverData
+    } catch (error) {
+      return rejectWithValue('Failed to fetch cart from server')
+    }
+  }
+)
+
 const initialState: CartState = {
   cartIds: [],
   cartPaintings: {
@@ -55,6 +89,7 @@ const initialState: CartState = {
   loading: 'idle',
   error: null,
   isInitialized: false,
+  isSyncing: false,
 }
 
 const cartSlice = createSlice({
@@ -124,6 +159,36 @@ const cartSlice = createSlice({
       .addCase(fetchCartPaintings.rejected, (state, action) => {
         state.loading = 'failed'
         state.error = action.payload as string
+      })
+      .addCase(syncCartWithServer.pending, (state) => {
+        state.isSyncing = true
+      })
+      .addCase(syncCartWithServer.fulfilled, (state) => {
+        state.isSyncing = false
+        state.error = null
+      })
+      .addCase(syncCartWithServer.rejected, (state, action) => {
+        state.isSyncing = false
+        state.error = action.payload as string
+      })
+      .addCase(fetchServerCart.fulfilled, (state, action) => {
+        console.log('📦 Получили данные корзины с сервера:', action.payload)
+
+        const serverCartIds = action.payload.cart
+        const localCartIds = getCartFromStorage()
+
+        console.log('📦 Данные для синхронизации:')
+        console.log('- С сервера:', serverCartIds)
+        console.log('- Из localStorage:', localCartIds)
+
+        state.cartIds = Array.from(new Set([...localCartIds, ...serverCartIds]))
+
+        console.log('✨ Результат после объединения:', state.cartIds)
+
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('cart', JSON.stringify(state.cartIds))
+          console.log('💾 Сохранили в localStorage')
+        }
       })
   },
 })

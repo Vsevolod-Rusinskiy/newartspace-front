@@ -4,13 +4,15 @@ import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from '@/src/app/model/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/src/app/model/redux/hooks'
 import { RootState } from '@/src/app/model/redux/store'
 import {
   initializeCart,
   fetchCartPaintings,
-  removeFromCart,
-} from '@/src/pages/CartPage/model/cartSlice'
+  toggleCart,
+  syncCartWithServer,
+  fetchServerCart,
+} from '../model/cartSlice'
 import { IPainting } from '@/src/entities/Painting'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { CloseButton } from '@/src/shared/ui/buttons/CloseButton/CloseButton'
@@ -25,6 +27,7 @@ import {
 import { CartTotal } from '@/src/widgets/CartTotal'
 import styles from './CartPage.module.scss'
 import { CartSkeleton } from './CartSkeleton'
+import { selectIsLoggedIn } from '@/src/features/Auth'
 
 export const CartPage = () => {
   const dispatch = useAppDispatch()
@@ -32,15 +35,31 @@ export const CartPage = () => {
     (state: RootState) => state.cart
   )
 
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const isLoading = loading === 'idle' || loading === 'pending'
 
   useEffect(() => {
     dispatch(initializeCart())
-    dispatch(fetchCartPaintings())
-  }, [dispatch])
 
-  const handleRemoveFromCart = (id: number) => {
-    dispatch(removeFromCart(id))
+    if (isLoggedIn) {
+      dispatch(fetchServerCart())
+        .unwrap()
+        .then(() => {
+          dispatch(syncCartWithServer())
+        })
+        .then(() => {
+          dispatch(fetchCartPaintings())
+        })
+    } else {
+      dispatch(fetchCartPaintings())
+    }
+  }, [dispatch, isLoggedIn])
+
+  const handleToggleCart = (id: number) => {
+    dispatch(toggleCart(id))
+    if (isLoggedIn) {
+      dispatch(syncCartWithServer())
+    }
   }
 
   const calculatePriceWithDiscount = (price: number, discount: number) => {
@@ -123,7 +142,7 @@ export const CartPage = () => {
                     </div>
                     <div className={styles.item_actions}>
                       <CloseButton
-                        onClick={() => handleRemoveFromCart(painting.id)}
+                        onClick={() => handleToggleCart(painting.id)}
                         className={styles.remove_button}
                       />
                     </div>

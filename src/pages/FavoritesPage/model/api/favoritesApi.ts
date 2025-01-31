@@ -3,7 +3,7 @@ import { getAuthDataFromLS } from '@/src/shared/lib/common'
 
 // Получение избранного с сервера
 export const getFavoritesFromServer = async () => {
-  console.log('🔵 Запрашиваем избранное с сервера...')
+  // console.log('🔵 Запрашиваем избранное с сервера...')
 
   const authData = getAuthDataFromLS('auth')
   const userId = authData?.userId
@@ -28,7 +28,7 @@ export const getFavoritesFromServer = async () => {
 
 // Обновление избранного на сервере
 export const updateFavoritesOnServer = async (favoriteIds: number[]) => {
-  console.log('🔵 Отправляем на сервер избранное:', favoriteIds)
+  // console.log('🔵 Отправляем на сервер избранное:', favoriteIds)
 
   const authData = getAuthDataFromLS('auth')
   const userId = authData?.userId
@@ -44,7 +44,7 @@ export const updateFavoritesOnServer = async (favoriteIds: number[]) => {
       cart: [], // если у вас нет элементов в корзине, передайте пустой массив
     })
 
-    console.log('✅ Сервер подтвердил обновление избранного:', response.data)
+    // console.log('✅ Сервер подтвердил обновление избранного:', response.data)
     return response.data
   } catch (error) {
     console.error('🔴 Ошибка при обновлении избранного:', error)
