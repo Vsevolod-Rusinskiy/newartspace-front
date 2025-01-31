@@ -3,8 +3,6 @@ import { getAuthDataFromLS } from '@/src/shared/lib/common'
 
 // Получение корзины с сервера
 export const getCartFromServer = async () => {
-  console.log('🔵 Запрашиваем корзину с сервера...')
-
   const authData = getAuthDataFromLS('auth')
   const userId = authData?.userId
 
@@ -15,7 +13,6 @@ export const getCartFromServer = async () => {
 
   try {
     const response = await axiosInstance.get(`/user-paintings/${userId}`)
-    console.log('✅ Получили с сервера ответ:', response.data)
 
     if (!response.data || !Array.isArray(response.data.cart)) {
       console.error('🔴 Неверный формат ответа сервера')
@@ -34,9 +31,6 @@ export const updateCartOnServer = async (
   cartIds: number[],
   currentFavorites: number[]
 ) => {
-  console.log('🔵 Отправляем на сервер корзину:', cartIds)
-  console.log('🔵 Текущие избранные:', currentFavorites)
-
   const authData = getAuthDataFromLS('auth')
   const userId = authData?.userId
 
@@ -51,7 +45,6 @@ export const updateCartOnServer = async (
       cart: cartIds,
     })
 
-    console.log('✅ Сервер подтвердил обновление корзины:', response.data)
     return response.data
   } catch (error) {
     console.error('🔴 Ошибка при обновлении корзины:', error)

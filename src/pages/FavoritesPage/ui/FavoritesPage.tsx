@@ -35,7 +35,6 @@ export const FavoritesPage = () => {
   )
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
-  // console.log(isLoggedIn, 'isLoggedIn')
 
   const isLoading = loading === 'idle' || loading === 'pending'
 

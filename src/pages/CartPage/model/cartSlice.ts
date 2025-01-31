@@ -55,10 +55,7 @@ export const syncCartWithServer = createAsyncThunk(
     try {
       const state = getState() as RootState
       const { cartIds } = state.cart
-      const { favoriteIds } = state.favorites // Получаем текущие избранные
-
-      console.log('🔄 Синхронизация корзины. cartIds:', cartIds)
-      console.log('🔄 Текущие избранные:', favoriteIds)
+      const { favoriteIds } = state.favorites
 
       const response = await updateCartOnServer(cartIds, favoriteIds)
       return response
@@ -172,22 +169,13 @@ const cartSlice = createSlice({
         state.error = action.payload as string
       })
       .addCase(fetchServerCart.fulfilled, (state, action) => {
-        console.log('📦 Получили данные корзины с сервера:', action.payload)
-
         const serverCartIds = action.payload.cart
         const localCartIds = getCartFromStorage()
 
-        console.log('📦 Данные для синхронизации:')
-        console.log('- С сервера:', serverCartIds)
-        console.log('- Из localStorage:', localCartIds)
-
         state.cartIds = Array.from(new Set([...localCartIds, ...serverCartIds]))
-
-        console.log('✨ Результат после объединения:', state.cartIds)
 
         if (typeof window !== 'undefined') {
           localStorage.setItem('cart', JSON.stringify(state.cartIds))
-          console.log('💾 Сохранили в localStorage')
         }
       })
   },
