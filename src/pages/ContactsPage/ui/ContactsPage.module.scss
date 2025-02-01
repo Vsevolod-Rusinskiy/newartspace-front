@@ -1,0 +1,73 @@
+.main {
+  padding: 25px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .title_container {
+      margin-bottom: 15px;
+    }
+
+    .text_container {
+      margin: 20px 0;
+
+      .contact_block {
+        margin-bottom: 30px;
+      }
+
+      .contact_title {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.4;
+        margin-bottom: 10px;
+      }
+
+      .contact_link {
+        color: #000;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #666;
+        }
+      }
+
+      .social_links {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+
+        .tg {
+          width: 30px;
+          height: 30px;
+          background: url('/social/telegram.svg') no-repeat center;
+          background-size: contain;
+        }
+
+        .vk {
+          width: 30px;
+          height: 30px;
+          background: url('/social/vk.svg') no-repeat center;
+          background-size: contain;
+        }
+      }
+
+      .requisites {
+        background-color: #f5f5f5;
+        padding: 20px;
+        border-radius: 8px;
+
+        p {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+}
