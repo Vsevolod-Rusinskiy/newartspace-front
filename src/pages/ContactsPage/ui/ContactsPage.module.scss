@@ -44,19 +44,58 @@
         display: flex;
         gap: 15px;
         margin-top: 10px;
+        position: relative;
 
         .tg {
           width: 30px;
           height: 30px;
-          background: url('/social/telegram.svg') no-repeat center;
-          background-size: contain;
+          position: relative;
+
+          &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--silver-color);
+            transition: background-color 0.3s ease;
+          }
+
+          &:hover::before {
+            background-color: var(--links-hover);
+          }
         }
 
         .vk {
-          width: 30px;
-          height: 30px;
-          background: url('/social/vk.svg') no-repeat center;
-          background-size: contain;
+          width: 43px;
+          height: 43px;
+          position: relative;
+          top: -5px;
+          &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--silver-color);
+            transition: background-color 0.3s ease;
+          }
+
+          &:hover::before {
+            background-color: var(--links-hover);
+          }
+        }
+
+        .tg::before {
+          -webkit-mask: url('/img/telegram.svg') no-repeat 50% 50%;
+          mask: url('/img/telegram.svg') no-repeat 50% 50%;
+        }
+
+        .vk::before {
+          -webkit-mask: url('/img/vk.svg') no-repeat 50% 50%;
+          mask: url('/img/vk.svg') no-repeat 50% 50%;
         }
       }
 
