@@ -30,8 +30,8 @@ export const menuItems = (
   { href: '/about', label: translations[lang].main_menu.about_us },
   { href: '/names', label: translations[lang].main_menu.names },
   { href: '/catalog', label: translations[lang].main_menu.catalog },
-  { href: '/another', label: translations[lang].main_menu.another },
-  { href: '/services', label: translations[lang].main_menu.services },
+  // { href: '/another', label: translations[lang].main_menu.another },
+  // { href: '/services', label: translations[lang].main_menu.services },
   { href: '/events', label: translations[lang].main_menu.events },
   { href: '/contacts', label: translations[lang].main_menu.contacts },
 ]
