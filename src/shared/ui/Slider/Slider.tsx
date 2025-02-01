@@ -58,6 +58,7 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
           priceType={painting.priceType}
           discount={painting.discount}
           price={painting.price}
+          hidePrice={false}
         />
       </div>
     </div>
