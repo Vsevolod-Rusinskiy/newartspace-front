@@ -17,7 +17,7 @@
       "another": "Another",
       "events": "Events",
       "contacts": "Contacts",
-      "return_and_shipping": "Return and Shipping Policy",
+      "payment_and_delivery_conditions": "Payment and Delivery Conditions",
       "privacy_policy": "Privacy Policy",
       "agreement": "Agreement"
     },
@@ -55,7 +55,7 @@
       "another": "Другое",
       "events": "События",
       "contacts": "Контакты",
-      "return_and_shipping": "Условия возврата и доставки",
+      "payment_and_delivery_conditions": "Условия оплаты и доставки",
       "privacy_policy": "Политика персональных данных",
       "agreement": "Договор"
     },

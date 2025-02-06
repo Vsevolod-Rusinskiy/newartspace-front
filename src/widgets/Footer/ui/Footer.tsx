@@ -22,7 +22,10 @@ export const Footer = () => {
   const secondMenuItems = [
     { href: '/events', label: translations[lang].main_menu.events },
     { href: '/contacts', label: translations[lang].main_menu.contacts },
-    { href: '#', label: translations[lang].main_menu.return_and_shipping },
+    {
+      href: '/delivery',
+      label: translations[lang].main_menu.payment_and_delivery_conditions,
+    },
     {
       href: '/privacy-policy',
       label: translations[lang].main_menu.privacy_policy,
