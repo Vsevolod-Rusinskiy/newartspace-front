@@ -1,0 +1,70 @@
+.main {
+  padding: 40px 0;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title_container {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.text_container {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--silver-color);
+}
+
+.contract_intro {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contract_text {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.contract_subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 25px 0 15px;
+}
+
+.terms_list {
+  margin: 20px 0;
+}
+
+.term_item {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.term_title {
+  font-weight: 600;
+  color: var(--silver-color);
+}
+
+.contract_section {
+  margin: 20px 0;
+}
+
+.contract_list {
+  margin: 10px 0 20px;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.contract_list_item {
+  margin-bottom: 10px;
+  text-align: justify;
+
+  &::marker {
+    color: var(--silver-color);
+  }
+}
