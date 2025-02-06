@@ -7,7 +7,7 @@ interface Translation {
     another: string
     events: string
     contacts: string
-    return_and_shipping?: string
+    payment_and_delivery_conditions?: string
     privacy_policy?: string
     agreement?: string
   }
