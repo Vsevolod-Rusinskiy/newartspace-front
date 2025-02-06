@@ -23,7 +23,10 @@ export const Footer = () => {
     { href: '/events', label: translations[lang].main_menu.events },
     { href: '/contacts', label: translations[lang].main_menu.contacts },
     { href: '#', label: translations[lang].main_menu.return_and_shipping },
-    { href: '#', label: translations[lang].main_menu.privacy_policy },
+    {
+      href: '/privacy-policy',
+      label: translations[lang].main_menu.privacy_policy,
+    },
     { href: '/contract', label: translations[lang].main_menu.agreement },
   ]
 
