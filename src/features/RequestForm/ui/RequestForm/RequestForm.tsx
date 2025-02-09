@@ -170,6 +170,7 @@ export const RequestForm = ({
         <input
           className={styles.form_checkbox}
           type='checkbox'
+          checked={isChecked}
           onChange={(e) => setIsChecked(e.target.checked)}
           required
         />
