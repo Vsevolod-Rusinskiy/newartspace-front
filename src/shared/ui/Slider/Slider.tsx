@@ -41,8 +41,8 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
       <Image
         src={painting.imgUrl}
         alt={painting.title}
-        width={200}
-        height={200}
+        width={230}
+        height={220}
         className={styles.slider_item_img}
         unoptimized
       />
