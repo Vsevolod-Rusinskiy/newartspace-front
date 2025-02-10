@@ -76,7 +76,11 @@ export const Footer = () => {
           </address>
         </div>
         <div className={styles.rights}>
-          <p>{translations[lang].individual.copyright}</p>
+          {translations[lang].individual.copyright
+            .split('\n')
+            .map((line, index) => (
+              <p key={index}>{line}</p>
+            ))}
         </div>
       </div>
     </footer>
