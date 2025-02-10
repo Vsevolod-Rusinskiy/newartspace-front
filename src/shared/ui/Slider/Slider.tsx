@@ -5,6 +5,7 @@ import cn from 'classnames'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './Slider.module.scss'
 import { Price } from '../Price/Price'
+
 interface Painting {
   id: number
   imgUrl: string
@@ -18,6 +19,7 @@ interface Painting {
   price: number
   priceType: string
   discount: number
+  priority: number
 }
 
 interface PaintingSliderProps {
@@ -26,7 +28,10 @@ interface PaintingSliderProps {
 
 export const Slider = ({ paintings }: PaintingSliderProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const items = paintings.map((painting, index) => (
+
+  const sortedPaintings = [...paintings].sort((a, b) => b.priority - a.priority)
+
+  const items = sortedPaintings.map((painting, index) => (
     <div
       key={painting.id}
       className={styles.slider_item}
