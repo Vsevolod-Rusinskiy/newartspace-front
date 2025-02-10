@@ -90,9 +90,20 @@ export const RequestForm = ({
     (state) => state.modalVisibility.buttonLabel
   )
 
+  const resetForm = () => {
+    setName('')
+    setPhone('')
+    setEmail('')
+    setIsChecked(false)
+  }
+
   const mutation = useMutation(submitForm, {
     onSuccess: () => {
       setSuccessMessage('Мы приняли заявку и свяжемся с Вами в ближайшее время')
+      resetForm()
+      setTimeout(() => {
+        setSuccessMessage('')
+      }, 3000)
     },
     onError: (error: unknown) => {
       const errorMessage =
@@ -159,6 +170,7 @@ export const RequestForm = ({
         <input
           className={styles.form_checkbox}
           type='checkbox'
+          checked={isChecked}
           onChange={(e) => setIsChecked(e.target.checked)}
           required
         />
