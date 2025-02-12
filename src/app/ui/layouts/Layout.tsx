@@ -11,7 +11,7 @@ import {
   removeUserDataFromLS,
 } from '@/src/shared/lib/common'
 import { useDispatch } from 'react-redux'
-
+import { WelcomeModal } from '@/src/features/WelcomeModal'
 const Layout = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch()
   const authData = getAuthDataFromLS('auth')
@@ -35,6 +35,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <Sidebar />
       <SortSidebar />
       <RequestFormModal />
+      <WelcomeModal />
     </>
   )
 }

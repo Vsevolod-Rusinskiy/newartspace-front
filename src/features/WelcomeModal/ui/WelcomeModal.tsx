@@ -46,12 +46,15 @@ export const WelcomeModal = () => {
         >
           <button className={styles.close_button} onClick={handleClose} />
           <div className={styles.content}>
-            <h2>Добро пожаловать!</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            <h2>Добро пожаловать в Галерею !</h2>
+            <p className={styles.schedule}>
+              В феврале Галерея открыта понедельник, четверг и пятница с
+              13:00-18:00
+            </p>
+            <p className={styles.address}>
+              Санкт-Петербург, ул. Ново-рыбинская, д. 19-21,
+              <br />
+              ЦБ и Т «Квартал», 2 эт., зал 9
             </p>
           </div>
         </div>
