@@ -20,7 +20,6 @@ interface Pagination {
   artStyle: string | null
   filters?: { [key: string]: (string | FilterItem)[] }
   sort?: SortParams
-  isInfiniteLoad?: boolean
 }
 
 interface FetchPaintingsResult {
@@ -90,15 +89,15 @@ export const paintingsSlice = createSlice({
       .addCase(fetchPaintingsAction.fulfilled, (state, action) => {
         state.loading = 'succeeded'
 
-        // Если это бесконечная подгрузка - добавляем данные
-        if (action.meta?.arg.isInfiniteLoad) {
+        // Если это первая страница - заменяем данные
+        if (action.meta?.arg.page === 1) {
+          state.paintings.data = action.payload.data
+        } else {
+          // Если не первая - добавляем к существующим
           state.paintings.data = [
             ...state.paintings.data,
             ...action.payload.data,
           ]
-        } else {
-          // Если обычная загрузка - заменяем данные
-          state.paintings.data = action.payload.data
         }
 
         // В любом случае обновляем total

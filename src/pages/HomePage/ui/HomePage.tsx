@@ -59,7 +59,6 @@ export const HomePage = () => {
         artStyle,
         filters: selectedFilters,
         sort: getSortParams(sortType),
-        isInfiniteLoad: false,
       })
     )
   }, [dispatch, limit, artStyle, selectedFilters, sortType])
@@ -83,7 +82,6 @@ export const HomePage = () => {
         artStyle,
         filters: selectedFilters,
         sort: getSortParams(sortType),
-        isInfiniteLoad: true,
       })
     )
   }, [
@@ -122,7 +120,6 @@ export const HomePage = () => {
         artStyle: style,
         filters: selectedFilters,
         sort: getSortParams(sortType),
-        isInfiniteLoad: false,
       })
     )
     setSelectedArtStyle(style)
