@@ -1,6 +1,6 @@
 'use client'
 /* eslint-disable */
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
@@ -95,6 +95,19 @@ export const HomePage = () => {
     setSelectedArtStyle(style)
   }
 
+  const onLoadNextPage = useCallback(() => {
+    setPage((prevPage) => prevPage + 1)
+    dispatch(
+      fetchPaintingsAction({
+        page: page + 1,
+        limit,
+        artStyle,
+        filters: selectedFilters,
+        sort: getSortParams(sortType),
+      })
+    )
+  }, [dispatch, limit, page, artStyle, selectedFilters, sortType])
+
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
@@ -147,6 +160,13 @@ export const HomePage = () => {
           </HomePageButton>
         </div>
 
+        {paintings.data.length > 0 && (
+          <Paginate
+            pageCount={Math.ceil(paintings.total / limit)}
+            onPageChange={handlePageClick}
+            forcePage={page - 1}
+          />
+        )}
         {selectedArtStyle && (
           <>
             {error ? (
@@ -185,20 +205,13 @@ export const HomePage = () => {
                   />
                 ))}
                 <InfiniteScrollTrigger
-                  onTrigger={() => console.log('Triggered infinite scroll')}
+                  onTrigger={onLoadNextPage}
                   isLoading={isLoading}
                   hasMore={paintings.data.length < paintings.total}
                 />
               </ul>
             )}
           </>
-        )}
-        {paintings.data.length > 0 && (
-          <Paginate
-            pageCount={Math.ceil(paintings.total / limit)}
-            onPageChange={handlePageClick}
-            forcePage={page - 1}
-          />
         )}
       </section>
     </main>
