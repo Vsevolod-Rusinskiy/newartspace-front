@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
 interface IArtist {
@@ -66,13 +66,15 @@ export const artistsSlice = createSlice<
       .addCase(fetchArtistsAction.pending, (state) => {
         state.loading = 'pending'
       })
-      .addCase(
-        fetchArtistsAction.fulfilled,
-        (state, action: PayloadAction<FetchArtistsResult>) => {
-          state.loading = 'succeeded'
-          state.artists = action.payload
+      .addCase(fetchArtistsAction.fulfilled, (state, action) => {
+        state.loading = 'succeeded'
+        if (action.meta.arg.page === 1) {
+          state.artists.data = action.payload.data
+        } else {
+          state.artists.data = [...state.artists.data, ...action.payload.data]
         }
-      )
+        state.artists.total = action.payload.total
+      })
       .addCase(fetchArtistsAction.rejected, (state, action) => {
         state.loading = 'failed'
         state.error =

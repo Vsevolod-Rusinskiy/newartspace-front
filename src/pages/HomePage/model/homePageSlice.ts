@@ -84,14 +84,26 @@ export const paintingsSlice = createSlice({
     builder
       .addCase(fetchPaintingsAction.pending, (state) => {
         state.loading = 'pending'
+        state.error = null
       })
-      .addCase(
-        fetchPaintingsAction.fulfilled,
-        (state, action: PayloadAction<FetchPaintingsResult>) => {
-          state.loading = 'succeeded'
-          state.paintings = action.payload
+      .addCase(fetchPaintingsAction.fulfilled, (state, action) => {
+        state.loading = 'succeeded'
+
+        // Если это первая страница - заменяем данные
+        if (action.meta?.arg.page === 1) {
+          state.paintings.data = action.payload.data
+        } else {
+          // Если не первая - добавляем к существующим
+          state.paintings.data = [
+            ...state.paintings.data,
+            ...action.payload.data,
+          ]
         }
-      )
+
+        // В любом случае обновляем total
+        state.paintings.total = action.payload.total
+        state.error = null
+      })
       .addCase(fetchPaintingsAction.rejected, (state, action) => {
         state.loading = 'failed'
         state.error =

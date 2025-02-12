@@ -1,6 +1,6 @@
 'use client'
 /* eslint-disable */
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
@@ -15,6 +15,7 @@ import { Slider } from '@/src/shared/ui/Slider/Slider'
 import { generateUniqueId } from '@/src/shared/utils/generateUniqueId'
 import Link from 'next/link'
 import styles from './NamePage.module.scss'
+import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
 
 export const NamesPage = () => {
   const dispatch = useAppDispatch()
@@ -24,18 +25,43 @@ export const NamesPage = () => {
 
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
+  const [selectedLetter, setSelectedLetter] = useState<string | null>(null)
 
   const limit = 8
+  const totalPages = Math.ceil(artists.total / limit)
+  const isLastPage = page >= totalPages
+
+  const onLoadNextPage = useCallback(() => {
+    if (isLastPage || loading === 'pending') {
+      return
+    }
+
+    const nextPage = page + 1
+    setPage(nextPage)
+
+    dispatch(
+      fetchArtistsAction({
+        page: nextPage,
+        limit,
+        letter: selectedLetter || undefined,
+      })
+    )
+  }, [isLastPage, page, loading, dispatch, limit, selectedLetter])
 
   useEffect(() => {
-    dispatch(fetchArtistsAction({ page, limit }))
-  }, [dispatch, page])
+    dispatch(
+      fetchArtistsAction({
+        page: 1,
+        limit,
+        letter: selectedLetter || undefined,
+      })
+    )
+  }, [dispatch, selectedLetter])
 
-  const handlePageClick = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected + 1)
+  const handleLetterClick = (letter: string) => {
+    setSelectedLetter(letter)
+    setPage(1)
   }
-
-  const artistArray = Array.isArray(artists.data) ? artists.data : []
 
   useEffect(() => {
     if (loading === 'succeeded') {
@@ -53,10 +79,6 @@ export const NamesPage = () => {
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
-  const handleLetterClick = (letter: string) => {
-    dispatch(fetchArtistsAction({ page: 1, limit, letter }))
-  }
-
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
@@ -64,7 +86,7 @@ export const NamesPage = () => {
         <Alphabet onLetterClick={handleLetterClick} />
         {error ? (
           <NoData />
-        ) : isLoading || isDelaying ? (
+        ) : (isLoading || isDelaying) && page === 1 ? (
           <div className={styles.slider_container}>
             <ul className={styles.slider_list}>
               {Array.from({ length: 4 }).map((_, index) => (
@@ -81,7 +103,7 @@ export const NamesPage = () => {
         ) : (
           <div className={styles.slider_container}>
             <ul className={styles.slider_list}>
-              {artistArray.map((artist) => (
+              {artists.data.map((artist) => (
                 <li className={styles.slider_item} key={generateUniqueId()}>
                   <Link href={`/names/${artist.id}`}>
                     <Htag tag='h3'>{artist.artistName}</Htag>
@@ -90,15 +112,26 @@ export const NamesPage = () => {
                 </li>
               ))}
             </ul>
+            {loading === 'pending' && page > 1 && (
+              <ul className={styles.slider_list}>
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <li
+                    key={`skeleton-${index}`}
+                    className={styles.skeleton_container}
+                  >
+                    <div className={styles.skeleton_list_item}>
+                      <Skeleton className={styles.skeleton_item} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <InfiniteScrollTrigger
+              onTrigger={onLoadNextPage}
+              isLoading={loading === 'pending' && page > 1}
+              hasMore={!isLastPage && artists.data.length < artists.total}
+            />
           </div>
-        )}
-
-        {artists.data.length > 0 && (
-          <Paginate
-            pageCount={Math.ceil(artists.total / limit)}
-            onPageChange={handlePageClick}
-            forcePage={page - 1}
-          />
         )}
       </section>
     </main>

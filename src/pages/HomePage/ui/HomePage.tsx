@@ -1,6 +1,6 @@
 'use client'
 /* eslint-disable */
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
@@ -8,6 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchPaintingsAction, setArtStyle } from '../model/homePageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
+import { IPainting } from '@/src/entities/Painting'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { HomePageButton } from '@/src/shared/ui/buttons/HomePageButton/HomePageButton'
@@ -34,37 +35,66 @@ export const HomePage = () => {
   )
 
   const limit = 9
+  const totalPages = Math.ceil(paintings.total / limit)
+  const isLastPage = page >= totalPages
 
   const selectedFilters = useSelector(selectSelectedFilters)
   const sortType = useSelector((state: RootState) => state.sort.sortType)
 
-  useEffect(() => {
-    dispatch(
-      fetchPaintingsAction({
-        page,
-        limit,
-        artStyle,
-        filters: selectedFilters,
-        sort: getSortParams(sortType),
-      })
-    )
-  }, [sortType, dispatch])
-
-  const handlePageClick = (selectedItem: { selected: number }) => {
-    const newPage = selectedItem.selected + 1
-    setPage(newPage)
-    dispatch(
-      fetchPaintingsAction({
-        page: newPage,
-        limit,
-        artStyle,
-        filters: selectedFilters,
-        sort: getSortParams(sortType),
-      })
-    )
+  // Используем эту же функцию в кнопках фильтров и сортировки
+  const handleFilterClick = () => {
+    dispatch(actionToggleSideBar())
   }
 
-  const paintingArray = Array.isArray(paintings.data) ? paintings.data : []
+  const handleSortClick = () => {
+    dispatch(actionToggleSortSideBar())
+  }
+
+  const handleApplyFilters = useCallback(() => {
+    setPage(1)
+    dispatch(
+      fetchPaintingsAction({
+        page: 1,
+        limit,
+        artStyle,
+        filters: selectedFilters,
+        sort: getSortParams(sortType),
+      })
+    )
+  }, [dispatch, limit, artStyle, selectedFilters, sortType])
+
+  useEffect(() => {
+    handleApplyFilters()
+  }, [artStyle, handleApplyFilters])
+
+  const onLoadNextPage = useCallback(() => {
+    if (isLastPage || loading === 'pending') {
+      return
+    }
+
+    const nextPage = page + 1
+    setPage(nextPage)
+
+    dispatch(
+      fetchPaintingsAction({
+        page: nextPage,
+        limit,
+        artStyle,
+        filters: selectedFilters,
+        sort: getSortParams(sortType),
+      })
+    )
+  }, [
+    isLastPage,
+    page,
+    loading,
+    dispatch,
+    limit,
+    artStyle,
+    selectedFilters,
+    sortType,
+  ])
+
   useEffect(() => {
     if (loading === 'succeeded') {
       const timer = setTimeout(() => {
@@ -105,9 +135,7 @@ export const HomePage = () => {
         ) : (
           <div className={styles.content_header}>
             <DefaultButton
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                dispatch(actionToggleSideBar())
-              }}
+              onClick={handleFilterClick}
               className={cn(styles.filter_button, 'filter_button')}
             >
               Фильтры
@@ -119,7 +147,7 @@ export const HomePage = () => {
               Каталог
             </Htag>
             <DefaultButton
-              onClick={() => dispatch(actionToggleSortSideBar())}
+              onClick={handleSortClick}
               className={cn(styles.sort_button, 'sort_button')}
             >
               Сортировка
@@ -151,7 +179,7 @@ export const HomePage = () => {
           <>
             {error ? (
               <NoData />
-            ) : isLoading || isDelaying ? (
+            ) : (isLoading || isDelaying) && page === 1 ? (
               <ul className={styles.painting_list}>
                 {Array.from({ length: 3 }).map((_, index) => (
                   <li key={index} className={`${styles.skeleton_list_item}`}>
@@ -165,7 +193,7 @@ export const HomePage = () => {
               <NoData />
             ) : (
               <ul className={styles.painting_list}>
-                {paintingArray.map((painting) => (
+                {paintings.data.map((painting) => (
                   <PaintingListItem
                     key={painting.id}
                     id={painting.id}
@@ -184,21 +212,30 @@ export const HomePage = () => {
                     discount={painting.discount}
                   />
                 ))}
+                {loading === 'pending' && page > 1 && (
+                  <>
+                    {Array.from({ length: 3 }).map((_, index) => (
+                      <li
+                        key={`skeleton-${index}`}
+                        className={`${styles.skeleton_list_item}`}
+                      >
+                        <div className={styles.skeleton_container}>
+                          <Skeleton className={styles.skeleton_item} />
+                        </div>
+                      </li>
+                    ))}
+                  </>
+                )}
                 <InfiniteScrollTrigger
-                  onTrigger={() => console.log('Triggered infinite scroll')}
-                  isLoading={isLoading}
-                  hasMore={paintings.data.length < paintings.total}
+                  onTrigger={onLoadNextPage}
+                  isLoading={loading === 'pending' && page > 1}
+                  hasMore={
+                    !isLastPage && paintings.data.length < paintings.total
+                  }
                 />
               </ul>
             )}
           </>
-        )}
-        {paintings.data.length > 0 && (
-          <Paginate
-            pageCount={Math.ceil(paintings.total / limit)}
-            onPageChange={handlePageClick}
-            forcePage={page - 1}
-          />
         )}
       </section>
     </main>
