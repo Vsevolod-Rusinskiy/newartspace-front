@@ -70,7 +70,12 @@ export const artistsSlice = createSlice<
         fetchArtistsAction.fulfilled,
         (state, action: PayloadAction<FetchArtistsResult>) => {
           state.loading = 'succeeded'
-          state.artists = action.payload
+          if (action.meta?.arg.page === 1) {
+            state.artists.data = action.payload.data
+          } else {
+            state.artists.data = [...state.artists.data, ...action.payload.data]
+          }
+          state.artists.total = action.payload.total
         }
       )
       .addCase(fetchArtistsAction.rejected, (state, action) => {
