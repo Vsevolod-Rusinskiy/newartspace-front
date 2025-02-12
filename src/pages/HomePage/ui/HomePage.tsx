@@ -20,6 +20,7 @@ import cn from 'classnames'
 import { selectSelectedFilters } from '@/src/widgets/Sidebar/model/selectors'
 import { getSortParams } from '@/src/widgets/SortSidebar/model/types'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
+import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -183,6 +184,11 @@ export const HomePage = () => {
                     discount={painting.discount}
                   />
                 ))}
+                <InfiniteScrollTrigger
+                  onTrigger={() => console.log('Triggered infinite scroll')}
+                  isLoading={isLoading}
+                  hasMore={paintings.data.length < paintings.total}
+                />
               </ul>
             )}
           </>
