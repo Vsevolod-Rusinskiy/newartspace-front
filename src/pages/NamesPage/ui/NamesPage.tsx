@@ -112,6 +112,20 @@ export const NamesPage = () => {
                 </li>
               ))}
             </ul>
+            {loading === 'pending' && page > 1 && (
+              <ul className={styles.slider_list}>
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <li
+                    key={`skeleton-${index}`}
+                    className={styles.skeleton_container}
+                  >
+                    <div className={styles.skeleton_list_item}>
+                      <Skeleton className={styles.skeleton_item} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
             <InfiniteScrollTrigger
               onTrigger={onLoadNextPage}
               isLoading={loading === 'pending' && page > 1}
