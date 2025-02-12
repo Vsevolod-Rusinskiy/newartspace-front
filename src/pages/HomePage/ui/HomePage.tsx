@@ -8,6 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchPaintingsAction, setArtStyle } from '../model/homePageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
+import { IPainting } from '@/src/entities/Painting'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { HomePageButton } from '@/src/shared/ui/buttons/HomePageButton/HomePageButton'
@@ -37,50 +38,66 @@ export const HomePage = () => {
   const totalPages = Math.ceil(paintings.total / limit)
   const isLastPage = page >= totalPages
 
-  console.log(
-    'Current page:',
-    page,
-    'Total pages:',
-    totalPages,
-    'Is last page:',
-    isLastPage
-  )
-
   const selectedFilters = useSelector(selectSelectedFilters)
   const sortType = useSelector((state: RootState) => state.sort.sortType)
 
-  useEffect(() => {
-    // При изменении фильтров или сортировки сбрасываем на первую страницу
-    if (sortType || Object.keys(selectedFilters).length > 0) {
-      setPage(1)
-    }
-
+  const handleApplyFilters = useCallback(() => {
+    setPage(1)
     dispatch(
       fetchPaintingsAction({
-        page,
+        page: 1,
         limit,
         artStyle,
         filters: selectedFilters,
         sort: getSortParams(sortType),
+        isInfiniteLoad: false,
       })
     )
-  }, [page, sortType, selectedFilters, artStyle, dispatch, limit])
+  }, [dispatch, limit, artStyle, selectedFilters, sortType])
 
-  const onLoadNextPage = useCallback(() => {
-    // Не загружаем следующую страницу, если это последняя
-    if (isLastPage) {
-      console.log('Достигнута последняя страница')
-      return
-    }
-    setPage((prev) => prev + 1)
-  }, [isLastPage])
+  // Загрузка первой страницы только при изменении artStyle
+  useEffect(() => {
+    handleApplyFilters()
+  }, [artStyle, handleApplyFilters])
 
-  const handlePageClick = (selectedItem: { selected: number }) => {
-    const newPage = selectedItem.selected + 1
-    setPage(newPage)
+  // Используем эту же функцию в кнопках фильтров и сортировки
+  const handleFilterClick = () => {
+    dispatch(actionToggleSideBar())
   }
 
-  const paintingArray = Array.isArray(paintings.data) ? paintings.data : []
+  const handleSortClick = () => {
+    dispatch(actionToggleSortSideBar())
+  }
+
+  const onLoadNextPage = useCallback(() => {
+    if (isLastPage || loading === 'pending') {
+      return
+    }
+
+    const nextPage = page + 1
+    setPage(nextPage)
+
+    dispatch(
+      fetchPaintingsAction({
+        page: nextPage,
+        limit,
+        artStyle,
+        filters: selectedFilters,
+        sort: getSortParams(sortType),
+        isInfiniteLoad: true,
+      })
+    )
+  }, [
+    isLastPage,
+    page,
+    loading,
+    dispatch,
+    limit,
+    artStyle,
+    selectedFilters,
+    sortType,
+  ])
+
   useEffect(() => {
     if (loading === 'succeeded') {
       const timer = setTimeout(() => {
@@ -106,6 +123,7 @@ export const HomePage = () => {
         artStyle: style,
         filters: selectedFilters,
         sort: getSortParams(sortType),
+        isInfiniteLoad: false,
       })
     )
     setSelectedArtStyle(style)
@@ -121,9 +139,7 @@ export const HomePage = () => {
         ) : (
           <div className={styles.content_header}>
             <DefaultButton
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                dispatch(actionToggleSideBar())
-              }}
+              onClick={handleFilterClick}
               className={cn(styles.filter_button, 'filter_button')}
             >
               Фильтры
@@ -135,7 +151,7 @@ export const HomePage = () => {
               Каталог
             </Htag>
             <DefaultButton
-              onClick={() => dispatch(actionToggleSortSideBar())}
+              onClick={handleSortClick}
               className={cn(styles.sort_button, 'sort_button')}
             >
               Сортировка
@@ -163,18 +179,11 @@ export const HomePage = () => {
           </HomePageButton>
         </div>
 
-        {paintings.data.length > 0 && (
-          <Paginate
-            pageCount={Math.ceil(paintings.total / limit)}
-            onPageChange={handlePageClick}
-            forcePage={page - 1}
-          />
-        )}
         {selectedArtStyle && (
           <>
             {error ? (
               <NoData />
-            ) : isLoading || isDelaying ? (
+            ) : (isLoading || isDelaying) && page === 1 ? (
               <ul className={styles.painting_list}>
                 {Array.from({ length: 3 }).map((_, index) => (
                   <li key={index} className={`${styles.skeleton_list_item}`}>
@@ -188,7 +197,7 @@ export const HomePage = () => {
               <NoData />
             ) : (
               <ul className={styles.painting_list}>
-                {paintingArray.map((painting) => (
+                {paintings.data.map((painting) => (
                   <PaintingListItem
                     key={painting.id}
                     id={painting.id}
@@ -207,9 +216,23 @@ export const HomePage = () => {
                     discount={painting.discount}
                   />
                 ))}
+                {loading === 'pending' && page > 1 && (
+                  <>
+                    {Array.from({ length: 3 }).map((_, index) => (
+                      <li
+                        key={`skeleton-${index}`}
+                        className={`${styles.skeleton_list_item}`}
+                      >
+                        <div className={styles.skeleton_container}>
+                          <Skeleton className={styles.skeleton_item} />
+                        </div>
+                      </li>
+                    ))}
+                  </>
+                )}
                 <InfiniteScrollTrigger
                   onTrigger={onLoadNextPage}
-                  isLoading={isLoading}
+                  isLoading={loading === 'pending' && page > 1}
                   hasMore={
                     !isLastPage && paintings.data.length < paintings.total
                   }
