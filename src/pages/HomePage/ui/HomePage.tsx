@@ -34,11 +34,27 @@ export const HomePage = () => {
   )
 
   const limit = 9
+  const totalPages = Math.ceil(paintings.total / limit)
+  const isLastPage = page >= totalPages
+
+  console.log(
+    'Current page:',
+    page,
+    'Total pages:',
+    totalPages,
+    'Is last page:',
+    isLastPage
+  )
 
   const selectedFilters = useSelector(selectSelectedFilters)
   const sortType = useSelector((state: RootState) => state.sort.sortType)
 
   useEffect(() => {
+    // При изменении фильтров или сортировки сбрасываем на первую страницу
+    if (sortType || Object.keys(selectedFilters).length > 0) {
+      setPage(1)
+    }
+
     dispatch(
       fetchPaintingsAction({
         page,
@@ -48,20 +64,20 @@ export const HomePage = () => {
         sort: getSortParams(sortType),
       })
     )
-  }, [sortType, dispatch])
+  }, [page, sortType, selectedFilters, artStyle, dispatch, limit])
+
+  const onLoadNextPage = useCallback(() => {
+    // Не загружаем следующую страницу, если это последняя
+    if (isLastPage) {
+      console.log('Достигнута последняя страница')
+      return
+    }
+    setPage((prev) => prev + 1)
+  }, [isLastPage])
 
   const handlePageClick = (selectedItem: { selected: number }) => {
     const newPage = selectedItem.selected + 1
     setPage(newPage)
-    dispatch(
-      fetchPaintingsAction({
-        page: newPage,
-        limit,
-        artStyle,
-        filters: selectedFilters,
-        sort: getSortParams(sortType),
-      })
-    )
   }
 
   const paintingArray = Array.isArray(paintings.data) ? paintings.data : []
@@ -94,19 +110,6 @@ export const HomePage = () => {
     )
     setSelectedArtStyle(style)
   }
-
-  const onLoadNextPage = useCallback(() => {
-    setPage((prevPage) => prevPage + 1)
-    dispatch(
-      fetchPaintingsAction({
-        page: page + 1,
-        limit,
-        artStyle,
-        filters: selectedFilters,
-        sort: getSortParams(sortType),
-      })
-    )
-  }, [dispatch, limit, page, artStyle, selectedFilters, sortType])
 
   return (
     <main className={styles.main}>
@@ -207,7 +210,9 @@ export const HomePage = () => {
                 <InfiniteScrollTrigger
                   onTrigger={onLoadNextPage}
                   isLoading={isLoading}
-                  hasMore={paintings.data.length < paintings.total}
+                  hasMore={
+                    !isLastPage && paintings.data.length < paintings.total
+                  }
                 />
               </ul>
             )}
