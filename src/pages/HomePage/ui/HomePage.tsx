@@ -41,6 +41,15 @@ export const HomePage = () => {
   const selectedFilters = useSelector(selectSelectedFilters)
   const sortType = useSelector((state: RootState) => state.sort.sortType)
 
+  // Используем эту же функцию в кнопках фильтров и сортировки
+  const handleFilterClick = () => {
+    dispatch(actionToggleSideBar())
+  }
+
+  const handleSortClick = () => {
+    dispatch(actionToggleSortSideBar())
+  }
+
   const handleApplyFilters = useCallback(() => {
     setPage(1)
     dispatch(
@@ -55,19 +64,9 @@ export const HomePage = () => {
     )
   }, [dispatch, limit, artStyle, selectedFilters, sortType])
 
-  // Загрузка первой страницы только при изменении artStyle
   useEffect(() => {
     handleApplyFilters()
   }, [artStyle, handleApplyFilters])
-
-  // Используем эту же функцию в кнопках фильтров и сортировки
-  const handleFilterClick = () => {
-    dispatch(actionToggleSideBar())
-  }
-
-  const handleSortClick = () => {
-    dispatch(actionToggleSortSideBar())
-  }
 
   const onLoadNextPage = useCallback(() => {
     if (isLastPage || loading === 'pending') {
