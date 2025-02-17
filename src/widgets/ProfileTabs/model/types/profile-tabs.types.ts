@@ -1,4 +1,4 @@
-export type TabType = 'password' | 'orders' | 'favorites'
+export type TabType = 'info' | 'orders' | 'favorites'
 
 export interface TabItem {
   id: TabType

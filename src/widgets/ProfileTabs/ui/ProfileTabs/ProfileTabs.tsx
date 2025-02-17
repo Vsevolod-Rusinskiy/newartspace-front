@@ -5,13 +5,13 @@ import { TabType } from '../../model/types/profile-tabs.types'
 import styles from './ProfileTabs.module.scss'
 
 const TABS: { id: TabType; title: string }[] = [
-  { id: 'password', title: 'Сменить пароль' },
+  { id: 'info', title: 'Личная информация' },
   { id: 'orders', title: 'История покупок' },
   { id: 'favorites', title: 'Избранное' },
 ]
 
 export const ProfileTabs = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('password')
+  const [activeTab, setActiveTab] = useState<TabType>('info')
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab)
@@ -34,7 +34,7 @@ export const ProfileTabs = () => {
       </div>
 
       <div className={styles.tab_content}>
-        {activeTab === 'password' && <div>Компонент смены пароля</div>}
+        {activeTab === 'info' && <div>Компонент личной информации</div>}
         {activeTab === 'orders' && <div>Компонент истории покупок</div>}
         {activeTab === 'favorites' && <div>Компонент избранного</div>}
       </div>
