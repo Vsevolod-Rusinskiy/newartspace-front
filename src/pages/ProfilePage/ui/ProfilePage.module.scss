@@ -17,10 +17,13 @@
 
       .logout_button {
         margin-top: 30px;
-        width: 150px;
+        width: 100px;
         align-self: flex-end;
         font-size: 12px;
         height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   }
