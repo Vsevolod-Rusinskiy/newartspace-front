@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
 import cn from 'classnames'
+import { ProfileTabs } from '@/src/widgets/ProfileTabs'
 
 export const ProfilePage = () => {
   const [userData, setUserData] = useState(null)
@@ -20,6 +21,8 @@ export const ProfilePage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const router = useRouter()
   const dispatch = useDispatch()
+
+  console.log(userData)
 
   useEffect(() => {
     const authData = getAuthDataFromLS('auth')
@@ -74,10 +77,7 @@ export const ProfilePage = () => {
   return (
     <div className='outerContainer'>
       <div className='innerContainer'>
-        <p>Страница личного кабинета в разработке . . .</p>
-        <div className='userDataContainer'>
-          {userData && JSON.stringify(userData, null, 2)}
-        </div>
+        <ProfileTabs />
         <DefaultButton
           className={cn('action_button', {})}
           onClick={handleLogout}

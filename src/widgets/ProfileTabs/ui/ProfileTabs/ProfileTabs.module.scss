@@ -1,0 +1,45 @@
+.profile_tabs {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tabs_header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--silver-color);
+}
+
+.tab_button {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  color: var(--silver-color);
+  cursor: pointer;
+  font-size: 16px;
+  position: relative;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--links-hover);
+  }
+
+  &.active {
+    color: var(--text-color);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+  }
+}
+
+.tab_content {
+  padding: 20px 0;
+}
