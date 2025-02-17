@@ -8,28 +8,46 @@ import {
   initializeState,
 } from '../model/welcomeModalSlice'
 import styles from './WelcomeModal.module.scss'
+import { generateHash } from '@/src/shared/lib/generateHash'
+
+const MODAL_CONTENT = `В феврале Галерея открыта понедельник, четверг и пятница с
+13:00-18:00, вторник и среда с 13:00-17:00. А также по
+предварительной договоренности.
+Будем рады Вас видеть!!`
 
 export const WelcomeModal = () => {
   const dispatch = useAppDispatch()
-  const { hasSeenWelcomeModal, isOpen, isInitialized } = useAppSelector(
-    (state) => state.welcomeModal
-  )
+  const { hasSeenWelcomeModal, isOpen, isInitialized, messageHash } =
+    useAppSelector((state) => state.welcomeModal)
   const [isClosing, setIsClosing] = useState(false)
+  const [shouldShow, setShouldShow] = useState(true)
 
   useEffect(() => {
-    console.log('Initializing state')
-    dispatch(initializeState())
+    const initModal = async () => {
+      const currentHash = await generateHash(MODAL_CONTENT)
+      dispatch(initializeState(currentHash))
+    }
+    initModal()
   }, [dispatch])
 
-  const handleClose = () => {
+  useEffect(() => {
+    const checkHash = async () => {
+      const currentHash = await generateHash(MODAL_CONTENT)
+      setShouldShow(!hasSeenWelcomeModal || messageHash !== currentHash)
+    }
+    checkHash()
+  }, [hasSeenWelcomeModal, messageHash])
+
+  const handleClose = async () => {
     setIsClosing(true)
+    const hash = await generateHash(MODAL_CONTENT)
     setTimeout(() => {
-      dispatch(setHasSeenWelcomeModal())
+      dispatch(setHasSeenWelcomeModal(hash))
       setIsClosing(false)
     }, 500)
   }
 
-  if (!isInitialized || hasSeenWelcomeModal || !isOpen) {
+  if (!isInitialized || !shouldShow || !isOpen) {
     return null
   }
 
@@ -47,10 +65,7 @@ export const WelcomeModal = () => {
           <button className={styles.close_button} onClick={handleClose} />
           <div className={styles.content}>
             <h2>Добро пожаловать в Галерею !</h2>
-            <p className={styles.schedule}>
-              В феврале Галерея открыта понедельник, четверг и пятница с
-              13:00-18:00
-            </p>
+            <p className={styles.schedule}>{MODAL_CONTENT}</p>
             <p className={styles.address}>
               Санкт-Петербург, ул. Ново-рыбинская, д. 19-21,
               <br />

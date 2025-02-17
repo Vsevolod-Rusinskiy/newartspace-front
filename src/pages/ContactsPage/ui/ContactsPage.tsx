@@ -10,6 +10,16 @@ export const ContactsPage = () => (
       </div>
       <div className={styles.text_container}>
         <div className={styles.contact_block}>
+          <p className={styles.contact_title}>Время работы</p>
+          <p>
+            В феврале Галерея открыта понедельник, четверг и пятница с
+            13:00-18:00, вторник и среда с 13:00-17:00. А также по
+            предварительной договоренности.
+          </p>
+          <p>Будем рады Вас видеть!</p>
+        </div>
+
+        <div className={styles.contact_block}>
           <p className={styles.contact_title}>Наш адрес</p>
           <p>
             Санкт-Петербург, ул. Ново-рыбинская, д. 19-21, ЦБ и Т «Квартал», 2
