@@ -12,8 +12,10 @@ import { logout } from '@/src/features/Auth/sign-in/model/auth/authSlice'
 import { useDispatch } from 'react-redux'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
-import cn from 'classnames'
 import { ProfileTabs } from '@/src/widgets/ProfileTabs'
+import styles from './ProfilePage.module.scss'
+import { Htag } from '@/src/shared/ui/Htag/Htag'
+import cn from 'classnames'
 
 export const ProfilePage = () => {
   const [userData, setUserData] = useState(null)
@@ -75,16 +77,22 @@ export const ProfilePage = () => {
   }
 
   return (
-    <div className='outerContainer'>
-      <div className='innerContainer'>
-        <ProfileTabs />
-        <DefaultButton
-          className={cn('action_button', {})}
-          onClick={handleLogout}
-        >
-          ВЫЙТИ
-        </DefaultButton>
-      </div>
-    </div>
+    <main className={styles.main}>
+      <section className={`container ${styles.content}`}>
+        <div className={styles.title_container}>
+          <Htag tag='h1'>Личный кабинет</Htag>
+        </div>
+        <div className={styles.profile_container}>
+          <ProfileTabs />
+          <DefaultButton
+            // className={styles.logout_button}
+            className={cn('action_button', styles.logout_button)}
+            onClick={handleLogout}
+          >
+            ВЫЙТИ
+          </DefaultButton>
+        </div>
+      </section>
+    </main>
   )
 }
