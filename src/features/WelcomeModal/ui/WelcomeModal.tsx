@@ -13,7 +13,7 @@ import { generateHash } from '@/src/shared/lib/generateHash'
 const MODAL_CONTENT = `В феврале Галерея открыта понедельник, четверг и пятница с
 13:00-18:00, вторник и среда с 13:00-17:00. А также по
 предварительной договоренности.
-Будем рады Вас видеть!!`
+Будем рады Вас видеть!`
 
 export const WelcomeModal = () => {
   const dispatch = useAppDispatch()
