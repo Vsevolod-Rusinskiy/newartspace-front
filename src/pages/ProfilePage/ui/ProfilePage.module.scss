@@ -17,13 +17,17 @@
 
       .logout_button {
         margin-top: 30px;
-        width: 100px;
-        align-self: flex-end;
-        font-size: 12px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--silver-color);
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+          color: var(--links-hover);
+          transition: color 0.5s ease;
+        }
       }
     }
   }

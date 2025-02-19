@@ -14,7 +14,6 @@ import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
 import { ProfileTabs } from '@/src/widgets/ProfileTabs'
 import styles from './ProfilePage.module.scss'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
-import cn from 'classnames'
 import { UserProfileData } from '@/src/features/EditProfileForm'
 import { profileApi } from '@/src/features/EditProfileForm/api/profile.api'
 
@@ -80,7 +79,7 @@ export const ProfilePage = () => {
         <div className={styles.profile_container}>
           {userData && <ProfileTabs userData={userData} />}
           <DefaultButton
-            className={cn('action_button', styles.logout_button)}
+            className={styles.logout_button}
             onClick={handleLogout}
           >
             ВЫЙТИ
