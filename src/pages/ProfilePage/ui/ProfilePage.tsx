@@ -42,7 +42,7 @@ export const ProfilePage = () => {
 
       try {
         const authData = getAuthDataFromLS('auth')
-        const response = await axiosInstance.get(`/profile`, {
+        const response = await axiosInstance.get(`/profile/info`, {
           headers: {
             Authorization: `Bearer ${authData.accessToken}`,
           },
