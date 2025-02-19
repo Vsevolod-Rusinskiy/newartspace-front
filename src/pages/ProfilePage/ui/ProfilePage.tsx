@@ -6,7 +6,6 @@ import {
   getAuthDataFromLS,
   removeUserDataFromLS,
 } from '@/src/shared/lib/common'
-import axiosInstance from '@/src/shared/config/axios/axiosInstatnce'
 import { useRouter } from 'next/navigation'
 import { logout } from '@/src/features/Auth/sign-in/model/auth/authSlice'
 import { useDispatch } from 'react-redux'
@@ -16,9 +15,11 @@ import { ProfileTabs } from '@/src/widgets/ProfileTabs'
 import styles from './ProfilePage.module.scss'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import cn from 'classnames'
+import { UserProfileData } from '@/src/features/EditProfileForm'
+import { profileApi } from '@/src/features/EditProfileForm/api/profile.api'
 
 export const ProfilePage = () => {
-  const [userData, setUserData] = useState(null)
+  const [userData, setUserData] = useState<UserProfileData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const router = useRouter()
@@ -33,21 +34,15 @@ export const ProfilePage = () => {
       return
     }
     setIsAuthenticated(true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [router])
 
   useEffect(() => {
     const fetchUserData = async () => {
       if (!isAuthenticated) return
 
       try {
-        const authData = getAuthDataFromLS('auth')
-        const response = await axiosInstance.get(`/profile/info`, {
-          headers: {
-            Authorization: `Bearer ${authData.accessToken}`,
-          },
-        })
-        setUserData(response.data)
+        const data = await profileApi.getUserInfo()
+        setUserData(data)
       } catch (error) {
         router.push('/auth')
         console.error('Ошибка при получении данных пользователя:', error)

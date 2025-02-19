@@ -8,8 +8,7 @@ import {
   EditProfileFormValues,
   UserProfileData,
 } from '@/src/features/EditProfileForm'
-import axiosInstance from '@/src/shared/config/axios/axiosInstatnce'
-import { getAuthDataFromLS } from '@/src/shared/lib/common'
+import { profileApi } from '@/src/features/EditProfileForm/api/profile.api'
 
 interface ProfileTabsProps {
   userData: UserProfileData
@@ -32,13 +31,8 @@ export const ProfileTabs = ({ userData }: ProfileTabsProps) => {
 
   const handleProfileUpdate = async (data: EditProfileFormValues) => {
     try {
-      const authData = getAuthDataFromLS('auth')
-      const response = await axiosInstance.patch('/profile/info', data, {
-        headers: {
-          Authorization: `Bearer ${authData.accessToken}`,
-        },
-      })
-      setUpdateMessage(response.data.message)
+      const response = await profileApi.updateProfile(data)
+      setUpdateMessage(response.message)
     } catch (error) {
       setUpdateMessage('Произошла ошибка при обновлении профиля')
       console.error('Ошибка при обновлении профиля:', error)
