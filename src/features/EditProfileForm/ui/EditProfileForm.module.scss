@@ -1,0 +1,46 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 14px;
+    color: var(--silver-color);
+  }
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid var(--silver-color);
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+
+  &:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color-red);
+  }
+}
+
+.error {
+  color: var(--primary-color-red);
+  font-size: 12px;
+}
+
+.submit_button {
+  margin-top: 10px;
+  align-self: flex-start;
+}

@@ -88,3 +88,16 @@
     padding: 10px 0;
   }
 }
+
+.message {
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  background-color: #e6ffe6;
+  color: #006600;
+
+  &.error {
+    background-color: #ffe6e6;
+    color: var(--primary-color-red);
+  }
+}

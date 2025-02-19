@@ -83,9 +83,8 @@ export const ProfilePage = () => {
           <Htag tag='h1'>Личный кабинет</Htag>
         </div>
         <div className={styles.profile_container}>
-          <ProfileTabs />
+          {userData && <ProfileTabs userData={userData} />}
           <DefaultButton
-            // className={styles.logout_button}
             className={cn('action_button', styles.logout_button)}
             onClick={handleLogout}
           >
