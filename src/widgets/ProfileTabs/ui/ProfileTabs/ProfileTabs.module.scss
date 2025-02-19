@@ -42,12 +42,11 @@
   }
 
   &:hover {
-    color: var(--links-hover);
+    color: var(--primary-color-red);
   }
 
   &.active {
-    color: var(--text-color);
-    font-weight: bold;
+    color: var(--primary-color-red);
     font-size: 18px;
 
     @media (max-width: 768px) {
@@ -65,7 +64,7 @@
       left: 0;
       width: 100%;
       height: 2px;
-      background-color: var(--primary-color);
+      background-color: var(--primary-color-red);
 
       @media (max-width: 576px) {
         height: 100%;
