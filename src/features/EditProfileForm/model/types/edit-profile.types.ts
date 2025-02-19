@@ -1,5 +1,5 @@
 export interface EditProfileFormValues {
-  userName: string
+  userName?: string
   newPassword?: string
 }
 

@@ -8,6 +8,7 @@ import {
   UserProfileData,
 } from '../model/types/edit-profile.types'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
+import cn from 'classnames'
 
 interface EditProfileFormProps {
   userData: UserProfileData
@@ -39,12 +40,7 @@ export const EditProfileForm: FC<EditProfileFormProps> = ({
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.form_group}>
         <label>Email:</label>
-        <input
-          type='email'
-          value={userData.email}
-          disabled
-          className={styles.input}
-        />
+        <div className={styles.email_text}>{userData.email}</div>
       </div>
 
       <div className={styles.form_group}>
@@ -67,7 +63,10 @@ export const EditProfileForm: FC<EditProfileFormProps> = ({
         )}
       </div>
 
-      <DefaultButton type='submit' className={styles.submit_button}>
+      <DefaultButton
+        type='submit'
+        className={cn('action_button', styles.submit_button)}
+      >
         Сохранить изменения
       </DefaultButton>
     </form>
