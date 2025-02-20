@@ -31,6 +31,7 @@ export const ProfileTabs = ({ userData }: ProfileTabsProps) => {
 
   const handleProfileUpdate = async (data: EditProfileFormValues) => {
     try {
+      console.log('Отправляемые данные:', data)
       const response = await profileApi.updateProfile(data)
       setUpdateMessage(response.message)
     } catch (error) {
