@@ -61,16 +61,20 @@ export const OrderHistory = () => {
             {order.orderItems.map((item) => (
               <div key={item.id} className={styles.order_item}>
                 <div className={styles.item_image}>
-                  <Image
-                    src={item.painting.imageUrl}
-                    alt={item.painting.title}
-                    width={100}
-                    height={100}
-                    objectFit='cover'
-                  />
+                  {item.painting?.imgUrl && (
+                    <Image
+                      src={item.painting.imgUrl}
+                      alt={item.painting.title || 'Изображение картины'}
+                      width={100}
+                      height={100}
+                      style={{ objectFit: 'cover' }}
+                    />
+                  )}
                 </div>
                 <div className={styles.item_info}>
-                  <div className={styles.item_title}>{item.painting.title}</div>
+                  <div className={styles.item_title}>
+                    {item.painting?.title || 'Название отсутствует'}
+                  </div>
                   <div className={styles.item_details}>
                     <span>Количество: {item.quantity}</span>
                     <span>Цена: {formatPrice(item.price)} ₽</span>
