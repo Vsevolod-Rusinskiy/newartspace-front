@@ -9,6 +9,7 @@ import {
   UserProfileData,
 } from '@/src/features/EditProfileForm'
 import { profileApi } from '@/src/features/EditProfileForm/api/profile.api'
+import { OrderHistory } from '@/src/features/OrderHistory'
 
 interface ProfileTabsProps {
   userData: UserProfileData
@@ -31,7 +32,6 @@ export const ProfileTabs = ({ userData }: ProfileTabsProps) => {
 
   const handleProfileUpdate = async (data: EditProfileFormValues) => {
     try {
-      console.log('Отправляемые данные:', data)
       const response = await profileApi.updateProfile(data)
       setUpdateMessage(response.message)
     } catch (error) {
@@ -70,7 +70,7 @@ export const ProfileTabs = ({ userData }: ProfileTabsProps) => {
         {activeTab === 'info' && (
           <EditProfileForm userData={userData} onSubmit={handleProfileUpdate} />
         )}
-        {activeTab === 'orders' && <div>Компонент истории покупок</div>}
+        {activeTab === 'orders' && <OrderHistory />}
         {activeTab === 'favorites' && <div>Компонент избранного</div>}
       </div>
     </div>
