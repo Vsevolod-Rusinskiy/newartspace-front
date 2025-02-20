@@ -18,8 +18,6 @@ export const OrderHistory = () => {
       try {
         setIsLoading(true)
         const data = await orderHistoryApi.getUserPurchases()
-        console.log('Полный ответ с сервера:', JSON.stringify(data, null, 2))
-        console.log('Структура первого заказа:', data[0])
         setOrders(data)
       } catch (err) {
         setError('Ошибка при загрузке истории заказов')

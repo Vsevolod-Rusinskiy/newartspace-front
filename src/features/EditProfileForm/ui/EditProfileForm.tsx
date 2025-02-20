@@ -57,6 +57,7 @@ export const EditProfileForm: FC<EditProfileFormProps> = ({
           type='password'
           {...register('newPassword')}
           className={styles.input}
+          autoComplete='new-password'
         />
         {errors.newPassword && (
           <span className={styles.error}>{errors.newPassword.message}</span>
