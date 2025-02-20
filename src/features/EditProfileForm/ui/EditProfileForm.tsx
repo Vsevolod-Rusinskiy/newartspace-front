@@ -38,7 +38,7 @@ export const EditProfileForm: FC<EditProfileFormProps> = ({
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.form_group}>
+      <div className={cn(styles.form_group, styles.email_group)}>
         <label>Email:</label>
         <div className={styles.email_text}>{userData.email}</div>
       </div>

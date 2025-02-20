@@ -23,10 +23,21 @@
         color: var(--silver-color);
         text-decoration: underline;
         cursor: pointer;
+        font-size: inherit;
+        display: inline;
+        min-width: auto;
+        min-height: auto;
+        width: fit-content;
+        -webkit-tap-highlight-color: transparent;
 
         &:hover {
           color: var(--links-hover);
           transition: color 0.5s ease;
+        }
+
+        &:active {
+          background: none;
+          transform: none;
         }
       }
     }
