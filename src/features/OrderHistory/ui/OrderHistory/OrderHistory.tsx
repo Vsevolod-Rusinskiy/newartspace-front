@@ -6,12 +6,13 @@ import { Order } from '../../model/types/order-history.types'
 import styles from './OrderHistory.module.scss'
 import Image from 'next/image'
 import { formatPrice } from '@/src/shared/lib/helpers/formatPrice'
-import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
+import { OrderHistorySkeleton } from './OrderHistorySkeleton'
 
 export const OrderHistory = () => {
   const [orders, setOrders] = useState<Order[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isDelaying, setIsDelaying] = useState(true)
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -30,8 +31,19 @@ export const OrderHistory = () => {
     fetchOrders()
   }, [])
 
-  if (isLoading) {
-    return <Spinner />
+  useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        setIsDelaying(false)
+      }, 300)
+      return () => clearTimeout(timer)
+    } else {
+      setIsDelaying(true)
+    }
+  }, [isLoading])
+
+  if (isLoading && isDelaying) {
+    return <OrderHistorySkeleton />
   }
 
   if (error) {

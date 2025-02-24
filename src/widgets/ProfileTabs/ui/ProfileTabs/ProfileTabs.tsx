@@ -18,7 +18,7 @@ interface ProfileTabsProps {
 const TABS: { id: TabType; title: string }[] = [
   { id: 'info', title: 'Личная информация' },
   { id: 'orders', title: 'История покупок' },
-  { id: 'favorites', title: 'Избранное' },
+  // { id: 'favorites', title: 'Избранное' },
 ]
 
 export const ProfileTabs = ({ userData }: ProfileTabsProps) => {
