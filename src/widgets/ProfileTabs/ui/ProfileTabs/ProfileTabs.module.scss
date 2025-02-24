@@ -1,0 +1,102 @@
+.profile_tabs {
+  width: 100%;
+}
+
+.tabs_header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--silver-color);
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    gap: 5px;
+    border-bottom: none;
+  }
+}
+
+.tab_button {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  color: var(--silver-color);
+  cursor: pointer;
+  font-size: 16px;
+  position: relative;
+  transition: color 0.3s ease;
+
+  @media (max-width: 768px) {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 576px) {
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid var(--silver-color);
+  }
+
+  &:hover {
+    color: var(--primary-color-red);
+  }
+
+  &.active {
+    color: var(--primary-color-red);
+    font-size: 18px;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 14px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+
+      @media (max-width: 576px) {
+        height: 100%;
+        width: 2px;
+        top: 0;
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+}
+
+.tab_content {
+  padding: 20px 0;
+
+  @media (max-width: 768px) {
+    padding: 15px 0;
+  }
+
+  @media (max-width: 576px) {
+    padding: 10px 0;
+  }
+}
+
+.message {
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  background-color: #e6ffe6;
+  color: #006600;
+
+  &.error {
+    background-color: #ffe6e6;
+    color: var(--primary-color-red);
+  }
+}

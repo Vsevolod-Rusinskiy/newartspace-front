@@ -1,0 +1,45 @@
+.main {
+  padding: 25px;
+  color: var(--silver-color);
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .title_container {
+      margin-bottom: 15px;
+    }
+
+    .profile_container {
+      margin: 20px 0;
+      width: 100%;
+
+      .logout_button {
+        margin-top: 30px;
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--silver-color);
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: inherit;
+        display: inline;
+        min-width: auto;
+        min-height: auto;
+        width: fit-content;
+        -webkit-tap-highlight-color: transparent;
+
+        &:hover {
+          color: var(--links-hover);
+          transition: color 0.5s ease;
+        }
+
+        &:active {
+          background: none;
+          transform: none;
+        }
+      }
+    }
+  }
+}
