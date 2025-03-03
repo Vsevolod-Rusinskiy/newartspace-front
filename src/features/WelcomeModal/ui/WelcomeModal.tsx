@@ -10,10 +10,12 @@ import {
 import styles from './WelcomeModal.module.scss'
 import { generateHash } from '@/src/shared/lib/generateHash'
 
-const MODAL_CONTENT = `В феврале Галерея открыта понедельник, четверг и пятница с
-13:00-18:00, вторник и среда с 13:00-17:00. А также по
-предварительной договоренности.
-Будем рады Вас видеть!`
+const PHONE_NUMBER = '+79219326215'
+
+const MODAL_CONTENT = `В марте Галерея открыта с пнд по птн с 13.00-17.00,
+или в другое время / день по предварительной договоренности `
+
+const MODAL_FOOTER = 'Приносим свои извинения.\n\nБудем рады Вас видеть!'
 
 export const WelcomeModal = () => {
   const dispatch = useAppDispatch()
@@ -24,7 +26,9 @@ export const WelcomeModal = () => {
 
   useEffect(() => {
     const initModal = async () => {
-      const currentHash = await generateHash(MODAL_CONTENT)
+      const currentHash = await generateHash(
+        MODAL_CONTENT + PHONE_NUMBER + MODAL_FOOTER
+      )
       dispatch(initializeState(currentHash))
     }
     initModal()
@@ -32,7 +36,9 @@ export const WelcomeModal = () => {
 
   useEffect(() => {
     const checkHash = async () => {
-      const currentHash = await generateHash(MODAL_CONTENT)
+      const currentHash = await generateHash(
+        MODAL_CONTENT + PHONE_NUMBER + MODAL_FOOTER
+      )
       setShouldShow(!hasSeenWelcomeModal || messageHash !== currentHash)
     }
     checkHash()
@@ -40,7 +46,7 @@ export const WelcomeModal = () => {
 
   const handleClose = async () => {
     setIsClosing(true)
-    const hash = await generateHash(MODAL_CONTENT)
+    const hash = await generateHash(MODAL_CONTENT + PHONE_NUMBER + MODAL_FOOTER)
     setTimeout(() => {
       dispatch(setHasSeenWelcomeModal(hash))
       setIsClosing(false)
@@ -65,7 +71,16 @@ export const WelcomeModal = () => {
           <button className={styles.close_button} onClick={handleClose} />
           <div className={styles.content}>
             <h2>Добро пожаловать в Галерею !</h2>
-            <p className={styles.schedule}>{MODAL_CONTENT}</p>
+            <p className={styles.schedule}>
+              {MODAL_CONTENT}
+              <a href={`tel:${PHONE_NUMBER}`} className={styles.phone_link}>
+                {PHONE_NUMBER}
+              </a>
+              .
+              <br />
+              <br />
+              {MODAL_FOOTER}
+            </p>
             <p className={styles.address}>
               Санкт-Петербург, ул. Ново-рыбинская, д. 19-21,
               <br />

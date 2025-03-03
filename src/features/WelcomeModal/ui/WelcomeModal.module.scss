@@ -225,3 +225,13 @@
     }
   }
 }
+
+.phone_link {
+  color: #0066cc;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #0052a3;
+  }
+}
