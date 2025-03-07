@@ -2,12 +2,22 @@ import React from 'react'
 import '../../temp/styles.css'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import styles from './AboutPage.module.scss'
+import aboutImage from '../assets/about-image.jpg'
+import Image from 'next/image'
 
 export const AboutPage = () => (
   <main className={styles.main}>
     <section className={`container ${styles.content}`}>
       <div className={styles.title_container}>
         <Htag tag='h1'>О нас</Htag>
+      </div>
+      <div className={styles.about_image_container}>
+        <Image
+          src={aboutImage}
+          alt='О нас'
+          className={styles.about_image}
+          priority
+        />
       </div>
       <div className={styles.text_container}>
         <p>
