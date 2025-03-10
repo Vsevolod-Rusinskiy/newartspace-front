@@ -42,3 +42,25 @@
   max-width: 100%;
   height: auto;
 }
+
+.signature_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 20px;
+}
+
+.photographer_info {
+  font-size: 10px;
+}
+
+.phone_link {
+  text-decoration: underline;
+  transition: color 0.3s ease;
+  color: inherit;
+
+  &:hover {
+    // opacity: 0.7;
+    color: var(--links-hover);
+  }
+}
