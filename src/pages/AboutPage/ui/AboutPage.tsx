@@ -42,7 +42,11 @@ export const AboutPage = () => (
             Художник Кабанченко Светлана *КСГ*
           </p>
           <p className={styles.photographer_info}>
-            Фотография создана: Максим +7(901)971-56-11 , theater-photos.ru
+            Фотография создана: Максим{' '}
+            <a href='tel:+79019715611' className={styles.phone_link}>
+              +7 (901) 971-56-11
+            </a>
+            , theater-photos.ru
           </p>
         </div>
       </div>
