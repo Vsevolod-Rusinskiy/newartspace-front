@@ -42,3 +42,14 @@
   max-width: 100%;
   height: auto;
 }
+
+.signature_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 20px;
+}
+
+.photographer_info {
+  font-size: 10px;
+}
