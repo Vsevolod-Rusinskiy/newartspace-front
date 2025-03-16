@@ -1,10 +1,10 @@
 'use client'
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import cn from 'classnames'
 import styles from './PaintingListItem.module.scss'
 import { Price } from '../Price/Price'
+import { ImageWithWatermark } from '../ImageWithWatermark/ImageWithWatermark'
 
 export interface IPaintingListItem {
   id: number
@@ -46,7 +46,7 @@ export const PaintingListItem = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className={styles.painting_list_item_img_container}>
-        <Image
+        <ImageWithWatermark
           src={src}
           alt={alt}
           width={100}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import AliceCarousel from 'react-alice-carousel'
-import Image from 'next/image'
 import cn from 'classnames'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './Slider.module.scss'
 import { Price } from '../Price/Price'
+import { ImageWithWatermark } from '../ImageWithWatermark/ImageWithWatermark'
 
 interface Painting {
   id: number
@@ -38,13 +38,14 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
       onMouseEnter={() => setHoveredIndex(index)}
       onMouseLeave={() => setHoveredIndex(null)}
     >
-      <Image
+      <ImageWithWatermark
         src={painting.imgUrl}
         alt={painting.title}
         width={230}
         height={220}
         className={styles.slider_item_img}
         unoptimized
+        objectFit='cover'
       />
       <div
         className={cn(styles.painting_info_container, {
