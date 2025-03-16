@@ -17,22 +17,20 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 200%;
-    height: 200%;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     user-select: none;
-    transform: rotate(-45deg);
     display: flex;
-    flex-wrap: wrap;
-    gap: 80px 120px;
-    margin: -100px;
-    padding: 100px;
+    justify-content: center;
+    align-items: center;
 
     .watermark {
-      color: rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.25);
       white-space: nowrap;
-      font-size: 16px;
+      font-size: 24px;
       font-weight: 500;
+      letter-spacing: 1px;
     }
   }
 }

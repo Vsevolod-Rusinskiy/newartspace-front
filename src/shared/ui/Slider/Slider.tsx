@@ -46,6 +46,7 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
         className={styles.slider_item_img}
         unoptimized
         objectFit='cover'
+        watermarkSize={16}
       />
       <div
         className={cn(styles.painting_info_container, {

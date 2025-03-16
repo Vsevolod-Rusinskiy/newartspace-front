@@ -13,6 +13,7 @@ interface ImageWithWatermarkProps {
   watermarkText?: string
   unoptimized?: boolean
   objectFit?: 'contain' | 'cover'
+  watermarkSize?: number
 }
 
 export const ImageWithWatermark = ({
@@ -24,14 +25,8 @@ export const ImageWithWatermark = ({
   watermarkText = 'newartspace.ru',
   unoptimized = false,
   objectFit = 'contain',
+  watermarkSize = 24,
 }: ImageWithWatermarkProps) => {
-  // Создаем массив для множественных водяных знаков
-  const watermarks = Array.from({ length: 20 }, (_, i) => (
-    <span key={i} className={styles.watermark}>
-      {watermarkText}
-    </span>
-  ))
-
   return (
     <div className={styles.image_container}>
       <Image
@@ -43,7 +38,11 @@ export const ImageWithWatermark = ({
         unoptimized={unoptimized}
         style={{ objectFit }}
       />
-      <div className={styles.watermark_container}>{watermarks}</div>
+      <div className={styles.watermark_container}>
+        <span className={styles.watermark} style={{ fontSize: watermarkSize }}>
+          {watermarkText}
+        </span>
+      </div>
     </div>
   )
 }
