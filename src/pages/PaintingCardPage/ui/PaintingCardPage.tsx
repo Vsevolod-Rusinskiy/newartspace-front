@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { useSelector } from 'react-redux'
@@ -19,6 +18,7 @@ import {
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingActions } from '@/src/widgets/PaintingActions'
 import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
+import { ImageWithWatermark } from '@/src/shared/ui/ImageWithWatermark/ImageWithWatermark'
 
 interface PaintingCardPageParams {
   params: {
@@ -96,7 +96,7 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
         ) : (
           <>
             <section className={`${styles.image_container} ${styles.section}`}>
-              <Image
+              <ImageWithWatermark
                 src={imgUrl}
                 alt={title}
                 width={100}

@@ -1,8 +1,24 @@
 .slider_item {
   position: relative;
+  width: 100%;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 
   .slider_item_img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+
+    :global(.watermark) {
+      font-size: 16px !important;
+    }
   }
 
   .painting_info_container {
@@ -19,9 +35,7 @@
     align-items: center;
     text-align: center;
     opacity: 0;
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
+    transition: opacity 0.3s ease;
     overflow: hidden;
 
     .title {
@@ -46,12 +60,10 @@
 
     &.visible {
       opacity: 1;
-      transform: translateY(-5px);
     }
   }
 
   &:hover .painting_info_container {
     opacity: 1;
-    transform: translateY(-5px);
   }
 }
