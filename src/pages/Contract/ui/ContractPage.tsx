@@ -1,14 +1,17 @@
+'use client'
 import React from 'react'
 import '../../temp/styles.css'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
+import { useLang } from '@/src/shared/hooks/useLang'
 import styles from './ContractPage.module.scss'
 
 export const ContractPage: React.FC = () => {
+  const { lang, translations } = useLang()
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <div className={styles.title_container}>
-          <Htag tag='h1'>Договор-оферта</Htag>
+          <Htag tag='h1'>{translations[lang].page_titles.contract}</Htag>
         </div>
         <div className={styles.text_container}>
           <p className={styles.contract_intro}>

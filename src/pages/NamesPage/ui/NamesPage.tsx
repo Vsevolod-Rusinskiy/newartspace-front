@@ -16,12 +16,14 @@ import { generateUniqueId } from '@/src/shared/utils/generateUniqueId'
 import Link from 'next/link'
 import styles from './NamePage.module.scss'
 import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 export const NamesPage = () => {
   const dispatch = useAppDispatch()
   const { artists, loading, error } = useSelector(
     (state: RootState) => state.artists
   )
+  const { lang, translations } = useLang()
 
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
@@ -82,7 +84,9 @@ export const NamesPage = () => {
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
-        <Htag tag='h1'>Имена художников</Htag>
+        <div className={styles.title_container}>
+          <Htag tag='h1'>{translations[lang].page_titles.names}</Htag>
+        </div>
         <Alphabet onLetterClick={handleLetterClick} />
         {error ? (
           <NoData />

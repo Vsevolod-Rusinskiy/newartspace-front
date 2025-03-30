@@ -1,6 +1,7 @@
 'use client'
 /* eslint-disable */
 
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
@@ -13,6 +14,7 @@ import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
 import styles from './EventsPage.module.scss'
 import { EventListItem } from './EventListItem'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 export const EventsPage = () => {
   const dispatch = useAppDispatch()
@@ -22,6 +24,7 @@ export const EventsPage = () => {
   const [page, setPage] = useState(1)
   const [isDelaying, setIsDelaying] = useState(true)
   const limit = 9
+  const { lang, translations } = useLang()
 
   const handlePageClick = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1)
@@ -50,7 +53,7 @@ export const EventsPage = () => {
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <div className={styles.title_container}>
-          <Htag tag='h1'>События</Htag>
+          <Htag tag='h1'>{translations[lang].page_titles.events}</Htag>
         </div>
         {error ? (
           <NoData />
