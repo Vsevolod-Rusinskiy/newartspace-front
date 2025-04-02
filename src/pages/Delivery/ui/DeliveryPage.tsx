@@ -2,7 +2,7 @@
 import React from 'react'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { useLang } from '@/src/shared/hooks/useLang'
-import styles from './DeliveryPage.module.scss'
+import styles from './Delivery.module.scss'
 
 export const DeliveryPage: React.FC = () => {
   const { lang, translations } = useLang()
