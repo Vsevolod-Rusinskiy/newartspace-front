@@ -35,6 +35,41 @@
       "materials": "Materials",
       "style": "Style",
       "size": "Size"
+    },
+    "page_titles": {
+      "delivery": "Payment and Delivery Terms",
+      "contract": "Contract Agreement",
+      "contacts": "Contacts",
+      "privacy": "Privacy Policy",
+      "events": "Events",
+      "names": "Artists",
+      "about": "About Us"
+    },
+    "privacy_page": {
+      "info_title": "Information Processing",
+      "info_text": "This page will contain the privacy policy"
+    },
+    "contacts_page": {
+      "work_time": "Working Hours",
+      "work_time_text": "In February, the Gallery is open Monday, Thursday and Friday from 13:00-18:00, Tuesday and Wednesday from 13:00-17:00. Also by appointment. You can book a visit by phone",
+      "welcome": "We look forward to seeing you!",
+      "address": "Our Address",
+      "contact_us": "Contact Us",
+      "phone": "Phone",
+      "email": "E-mail",
+      "social_networks": "Social Networks",
+      "requisites": "Requisites",
+      "work_time_text_en": "In February, the Gallery is open Monday, Thursday and Friday from 13:00-18:00, Tuesday and Wednesday from 13:00-17:00. Also by appointment. You can book a visit by phone"
+    },
+    "about_page": {
+      "title": "About Us",
+      "gallery_description": "New Space Gallery is a space for young and lesser-known artists",
+      "mission": "Our mission is to support and promote emerging talents in the art world",
+      "main_text": "The Gallery of Young and Lesser-known Artists \"New Space\" was created for the development and promotion of artists who found inspiration in this field, just like the founder of the Gallery – Kabanchenko Svetlana, who only recently rediscovered her artistic calling after long futile searches for a beloved activity. Only after her Parents gave her everything needed for painting as a Birthday gift, did she realize that this was exactly what her soul had been striving for. Also, Family members supported the opening of the Gallery, the meaning and idea of which is to discover like-minded Artists whose paintings are based on manifestations of love for Life, carrying a kind message, evoking joy, happiness and/or calmness, tranquility, based on their own worldview and direct ideas in a single copy with an author's signature style.",
+      "signature": "Sincerely,",
+      "artist_name": "Artist Kabanchenko Svetlana *KSG*",
+      "photographer_info": "Photo by: Maxim",
+      "photographer_site": "theater-photos.ru"
     }
   },
   "ru": {
@@ -73,6 +108,40 @@
       "materials": "Материалы",
       "style": "Стиль",
       "size": "Размер"
+    },
+    "page_titles": {
+      "delivery": "Условия оплаты и доставки",
+      "contract": "Договор-оферта",
+      "contacts": "Контакты",
+      "privacy": "Политика конфиденциальности",
+      "events": "События",
+      "names": "Имена",
+      "about": "О нас"
+    },
+    "privacy_page": {
+      "info_title": "Обработка информации",
+      "info_text": "На этой странице будет размещена политика конфиденциальности"
+    },
+    "contacts_page": {
+      "work_time": "Время работы",
+      "work_time_text": "В феврале Галерея открыта понедельник, четверг и пятница с 13:00-18:00, вторник и среда с 13:00-17:00. А также по предварительной договоренности. Запись по телефону",
+      "welcome": "Будем рады Вас видеть!",
+      "address": "Наш адрес",
+      "contact_us": "Связаться с нами",
+      "phone": "Телефон",
+      "email": "E-mail",
+      "social_networks": "Социальные сети",
+      "requisites": "Реквизиты"
+    },
+    "about_page": {
+      "title": "О нас",
+      "gallery_description": "Галерея «Новое пространство» - это пространство для молодых и малоизвестных художников",
+      "mission": "Наша миссия - поддерживать и продвигать начинающие таланты в мире искусства",
+      "main_text": "Галерея молодых и малоизвестных Художников \"Новое пространство\" создана для развития и продвижения художников, которые нашли вдохновение в этом деле, так же как и основательница Галереи – Кабанченко Светлана, которая лишь недавно вновь открыла свое художественное призвание после долгих тщетных поисков любимой деятельности, и только после того, как Родители на День Рождения подарили всё для живописи, пришло осознание, что это дело-именно то, к которому стремилась ее душа. Также, Родные Люди поддержали в открытии Галереи, смысл и идея которой в открытии Художников-единомышленников, в основу картин которых заложены проявления любви к Жизни, несущие в себе добрый посыл, вызывающие радость, счастье и / или спокойствие, умиротворение, основанные на собственном мировоззрении и непосредственных идеях в единственном экземпляре с авторским подчерком.",
+      "signature": "С уважением,",
+      "artist_name": "Художник Кабанченко Светлана *КСГ*",
+      "photographer_info": "Фотография создана: Максим",
+      "photographer_site": "theater-photos.ru"
     }
   }
 }

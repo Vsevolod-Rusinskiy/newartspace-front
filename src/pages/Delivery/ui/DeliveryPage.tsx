@@ -1,13 +1,17 @@
+'use client'
 import React from 'react'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
-import styles from './Delivery.module.scss'
+import { useLang } from '@/src/shared/hooks/useLang'
+import styles from './DeliveryPage.module.scss'
 
 export const DeliveryPage: React.FC = () => {
+  const { lang, translations } = useLang()
+
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
         <div className={styles.title_container}>
-          <Htag tag='h1'>Условия оплаты и доставки</Htag>
+          <Htag tag='h1'>{translations[lang].page_titles.delivery}</Htag>
         </div>
         <div className={styles.text_container}>
           <div className={styles.warning}>
