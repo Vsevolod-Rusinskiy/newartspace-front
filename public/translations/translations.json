@@ -80,6 +80,19 @@
       },
       "filters": "Filters",
       "sorting": "Sorting"
+    },
+    "sidebar_filters": {
+      "title": "Filters",
+      "price": "Prices",
+      "art_types": "Art Types",
+      "styles": "Styles",
+      "materials": "Materials",
+      "sizes": "Sizes",
+      "colors": "Colors",
+      "themes": "Themes",
+      "formats": "Formats",
+      "reset": "Reset",
+      "show": "Show"
     }
   },
   "ru": {
@@ -162,6 +175,19 @@
       },
       "filters": "Фильтры",
       "sorting": "Сортировка"
+    },
+    "sidebar_filters": {
+      "title": "Фильтры",
+      "price": "Цены",
+      "art_types": "Виды искусства",
+      "styles": "Стили",
+      "materials": "Материалы",
+      "sizes": "Размеры",
+      "colors": "Цвета",
+      "themes": "Тематика",
+      "formats": "Форматы",
+      "reset": "Сбросить",
+      "show": "Показать"
     }
   }
 }
