@@ -43,7 +43,8 @@
       "privacy": "Privacy Policy",
       "events": "Events",
       "names": "Artists",
-      "about": "About Us"
+      "about": "About Us",
+      "catalog": "Catalog"
     },
     "privacy_page": {
       "info_title": "Information Processing",
@@ -70,6 +71,15 @@
       "artist_name": "Artist Kabanchenko Svetlana *KSG*",
       "photographer_info": "Photo by: Maxim",
       "photographer_site": "theater-photos.ru"
+    },
+    "catalog_page": {
+      "title": "Catalog",
+      "art_styles": {
+        "modern": "Modern",
+        "traditional": "Traditional"
+      },
+      "filters": "Filters",
+      "sorting": "Sorting"
     }
   },
   "ru": {
@@ -116,7 +126,8 @@
       "privacy": "Политика конфиденциальности",
       "events": "События",
       "names": "Имена",
-      "about": "О нас"
+      "about": "О нас",
+      "catalog": "Каталог"
     },
     "privacy_page": {
       "info_title": "Обработка информации",
@@ -142,6 +153,15 @@
       "artist_name": "Художник Кабанченко Светлана *КСГ*",
       "photographer_info": "Фотография создана: Максим",
       "photographer_site": "theater-photos.ru"
+    },
+    "catalog_page": {
+      "title": "Каталог",
+      "art_styles": {
+        "modern": "Современность",
+        "traditional": "Традиции"
+      },
+      "filters": "Фильтры",
+      "sorting": "Сортировка"
     }
   }
 }
