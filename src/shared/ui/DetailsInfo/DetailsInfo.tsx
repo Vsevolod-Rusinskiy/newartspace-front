@@ -1,6 +1,7 @@
 import styles from './DetailsInfo.module.scss'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import { actionOpenModal } from '@/src/shared/ui/modals/Modal/model/modalVisibilitySlice'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 interface DetailsInfoItem {
   label: string
@@ -59,6 +60,7 @@ export const PaintingDetails = ({
   className,
 }: PaintingDetailsProps) => {
   const dispatch = useAppDispatch()
+  const { lang, translations } = useLang()
   const {
     id,
     artist,
@@ -71,14 +73,23 @@ export const PaintingDetails = ({
   } = painting
 
   const items: DetailsInfoItem[] = [
-    { label: 'Автор', value: artist?.artistName },
-    { label: 'Размер', value: height && width ? `${height}x${width}` : null },
     {
-      label: 'Материалы',
+      label: translations[lang].painting_details.author,
+      value: artist?.artistName,
+    },
+    {
+      label: translations[lang].painting_details.size,
+      value: height && width ? `${height}x${width}` : null,
+    },
+    {
+      label: translations[lang].painting_details.materials,
       value: [material, technique].filter(Boolean) as string[],
       type: 'list',
     },
-    { label: 'Год', value: yearOfCreation },
+    {
+      label: translations[lang].painting_details.year,
+      value: yearOfCreation,
+    },
   ]
 
   const handleReproductionClick = () => {
@@ -106,7 +117,7 @@ export const PaintingDetails = ({
           className={styles.reproduction_button}
           onClick={handleReproductionClick}
         >
-          Возможна репродукция
+          {translations[lang].painting_details.reproduction}
         </button>
       )}
     </div>

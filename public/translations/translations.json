@@ -45,6 +45,13 @@
       "collapse": "COLLAPSE",
       "painting_description": "Painting Description:"
     },
+    "painting_details": {
+      "author": "Artist",
+      "size": "Size",
+      "materials": "Materials",
+      "year": "Year",
+      "reproduction": "Reproduction available"
+    },
     "page_titles": {
       "events": "Events",
       "cart": "Cart",
@@ -542,6 +549,13 @@
       "show_more": "БОЛЕЕ ДЕТАЛЬНО...",
       "collapse": "СВЕРНУТЬ",
       "painting_description": "Описание картины:"
+    },
+    "painting_details": {
+      "author": "Автор",
+      "size": "Размер",
+      "materials": "Материалы",
+      "year": "Год",
+      "reproduction": "Возможна репродукция"
     },
     "page_titles": {
       "events": "События",
