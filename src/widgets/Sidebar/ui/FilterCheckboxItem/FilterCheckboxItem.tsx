@@ -22,7 +22,7 @@ const FilterCheckboxItem = ({
 
   // Функция для получения переведенного значения фильтра
   const getTranslatedValue = (originalValue: string) => {
-    // Применяем перевод только для artTypesList
+    // Применяем перевод в зависимости от типа фильтра
     if (
       filterName === 'artTypesList' &&
       translations[lang].sidebar_filters.art_types_values
@@ -31,7 +31,16 @@ const FilterCheckboxItem = ({
         .art_types_values as Record<string, string>
 
       return artTypesValues[originalValue] || originalValue
+    } else if (
+      filterName === 'stylesList' &&
+      translations[lang].sidebar_filters.styles_values
+    ) {
+      const stylesValues = translations[lang].sidebar_filters
+        .styles_values as Record<string, string>
+
+      return stylesValues[originalValue] || originalValue
     }
+
     // Для всех остальных фильтров возвращаем оригинальное значение
     return originalValue
   }
