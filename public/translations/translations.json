@@ -36,12 +36,20 @@
       "style": "Style",
       "size": "Size"
     },
+    "common": {
+      "back": "Back",
+      "cart": "Cart",
+      "add_to_cart": "ADD TO CART",
+      "go_to_cart": "GO TO CART"
+    },
     "page_titles": {
-      "delivery": "Payment and Delivery Terms",
-      "contract": "Contract Agreement",
-      "contacts": "Contacts",
-      "privacy": "Privacy Policy",
       "events": "Events",
+      "cart": "Cart",
+      "favorites": "Favorites",
+      "profile": "Profile",
+      "delivery": "Delivery",
+      "privacy": "Privacy Policy",
+      "contacts": "Contacts",
       "names": "Artists",
       "about": "About Us",
       "catalog": "Catalog"
@@ -520,12 +528,20 @@
       "style": "Стиль",
       "size": "Размер"
     },
+    "common": {
+      "back": "Назад",
+      "cart": "Корзина",
+      "add_to_cart": "ДОБАВИТЬ В КОРЗИНУ",
+      "go_to_cart": "ПЕРЕЙТИ В КОРЗИНУ"
+    },
     "page_titles": {
-      "delivery": "Условия оплаты и доставки",
-      "contract": "Договор-оферта",
-      "contacts": "Контакты",
-      "privacy": "Политика конфиденциальности",
       "events": "События",
+      "cart": "Корзина",
+      "favorites": "Избранное",
+      "profile": "Профиль",
+      "delivery": "Условия оплаты и доставки",
+      "privacy": "Политика конфиденциальности",
+      "contacts": "Контакты",
       "names": "Имена",
       "about": "О нас",
       "catalog": "Каталог"

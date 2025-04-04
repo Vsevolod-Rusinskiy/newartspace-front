@@ -28,6 +28,7 @@ import { CartTotal } from '@/src/widgets/CartTotal'
 import styles from './CartPage.module.scss'
 import { CartSkeleton } from './CartSkeleton'
 import { selectIsLoggedIn } from '@/src/features/Auth'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 export const CartPage = () => {
   const dispatch = useAppDispatch()
@@ -37,6 +38,7 @@ export const CartPage = () => {
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const isLoading = loading === 'idle' || loading === 'pending'
+  const { lang, translations } = useLang()
 
   useEffect(() => {
     dispatch(initializeCart())
@@ -91,7 +93,7 @@ export const CartPage = () => {
     <main className={styles.main}>
       <div className={`container ${styles.navigation_container}`}>
         <NavigationButton direction='back' label='Назад' />
-        <Htag tag='h1'>Корзина</Htag>
+        <Htag tag='h1'>{translations[lang].page_titles.cart}</Htag>
       </div>
 
       <div className='container'>
