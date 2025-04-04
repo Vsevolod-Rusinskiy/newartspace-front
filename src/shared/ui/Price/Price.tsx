@@ -3,6 +3,7 @@ import { ReactNode, DetailedHTMLProps, ButtonHTMLAttributes } from 'react'
 import cn from 'classnames'
 import styles from './Price.module.scss'
 import { formatNumberWithSpaces } from '../../lib/common'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 interface IPriceProps
   extends DetailedHTMLProps<
@@ -31,6 +32,7 @@ export const Price = ({
   ...props
 }: IPriceProps) => {
   const effective_discount = discount !== undefined ? discount : null
+  const { lang, translations } = useLang()
 
   return (
     <div className={cn(styles.price_wrapper, className)}>
@@ -42,7 +44,7 @@ export const Price = ({
             [styles.medium]: size === 'medium',
           })}
         >
-          Цена:
+          {translations[lang].price_descriptions.price}
         </span>
       )}
       {priceType === 'Специальное предложение' && (
@@ -58,7 +60,10 @@ export const Price = ({
             {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={styles.prise_description}>
-            СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ {discount}% ОТ ЦЕНЫ НА КАРТУ
+            {translations[lang].price_descriptions.special_offer.replace(
+              '{discount}',
+              discount?.toString() || ''
+            )}
           </span>
         </>
       )}
@@ -90,7 +95,10 @@ export const Price = ({
               ₽
             </span>
             <span className={cn(styles.prise_description, styles.price)}>
-              СКИДКА {effective_discount}%
+              {translations[lang].price_descriptions.discount.replace(
+                '{discount}',
+                effective_discount?.toString() || ''
+              )}
             </span>
           </>
         )}
@@ -112,7 +120,7 @@ export const Price = ({
             {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={cn(styles.prise_description, styles.price)}>
-            ВОЗМОЖНА РЕПРОДУКЦИЯ
+            {translations[lang].price_descriptions.reproduction_possible}
           </span>
         </>
       )}
@@ -128,7 +136,9 @@ export const Price = ({
           >
             {formatNumberWithSpaces(price)} ₽
           </span>
-          <span className={styles.prise_description}>ОРИГИНАЛ КУПЛЕН</span>
+          <span className={styles.prise_description}>
+            {translations[lang].price_descriptions.original_purchased}
+          </span>
         </>
       )}
       {priceType === 'Оригинал на выставке' && (
@@ -148,7 +158,9 @@ export const Price = ({
           >
             {formatNumberWithSpaces(price)} ₽
           </span>
-          <span className={styles.prise_description}>ОРИГИНАЛ НА ВЫСТАВКЕ</span>
+          <span className={styles.prise_description}>
+            {translations[lang].price_descriptions.original_on_exhibition}
+          </span>
         </>
       )}
       {priceType === 'Оригинал забронирован' && (
@@ -164,7 +176,7 @@ export const Price = ({
             {formatNumberWithSpaces(price)} ₽
           </span>
           <span className={styles.prise_description}>
-            ОРИГИНАЛ ЗАБРОНИРОВАН
+            {translations[lang].price_descriptions.original_reserved}
           </span>
         </>
       )}
@@ -184,7 +196,7 @@ export const Price = ({
             {...props}
           ></span>
           <span className={styles.prise_description}>
-            ОРИГИНАЛ НЕ ПРОДАЁТСЯ
+            {translations[lang].price_descriptions.original_not_for_sale}
           </span>
         </>
       )}

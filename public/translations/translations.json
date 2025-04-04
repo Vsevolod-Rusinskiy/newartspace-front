@@ -52,6 +52,24 @@
       "year": "Year",
       "reproduction": "Reproduction available"
     },
+    "painting_price_types": {
+      "Возможна репродукция": "Возможна репродукция",
+      "Оригинал куплен": "Оригинал куплен",
+      "Оригинал не продаётся": "Оригинал не продаётся",
+      "Оригинал забронирован": "Оригинал забронирован",
+      "Специальное предложение": "Специальное предложение",
+      "Скидка": "Скидка"
+    },
+    "price_descriptions": {
+      "price": "Price:",
+      "special_offer": "SPECIAL OFFER {discount}% OFF CARD PRICE",
+      "discount": "DISCOUNT {discount}%",
+      "reproduction_possible": "REPRODUCTION AVAILABLE",
+      "original_purchased": "ORIGINAL PURCHASED",
+      "original_on_exhibition": "ORIGINAL AT EXHIBITION",
+      "original_reserved": "ORIGINAL RESERVED",
+      "original_not_for_sale": "ORIGINAL NOT FOR SALE"
+    },
     "page_titles": {
       "events": "Events",
       "cart": "Cart",
@@ -556,6 +574,24 @@
       "materials": "Материалы",
       "year": "Год",
       "reproduction": "Возможна репродукция"
+    },
+    "painting_price_types": {
+      "Возможна репродукция": "Возможна репродукция",
+      "Оригинал куплен": "Оригинал куплен",
+      "Оригинал не продаётся": "Оригинал не продаётся",
+      "Оригинал забронирован": "Оригинал забронирован",
+      "Специальное предложение": "Специальное предложение",
+      "Скидка": "Скидка"
+    },
+    "price_descriptions": {
+      "price": "Цена:",
+      "special_offer": "СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ {discount}% ОТ ЦЕНЫ НА КАРТУ",
+      "discount": "СКИДКА {discount}%",
+      "reproduction_possible": "ВОЗМОЖНА РЕПРОДУКЦИЯ",
+      "original_purchased": "ОРИГИНАЛ КУПЛЕН",
+      "original_on_exhibition": "ОРИГИНАЛ НА ВЫСТАВКЕ",
+      "original_reserved": "ОРИГИНАЛ ЗАБРОНИРОВАН",
+      "original_not_for_sale": "ОРИГИНАЛ НЕ ПРОДАЁТСЯ"
     },
     "page_titles": {
       "events": "События",
