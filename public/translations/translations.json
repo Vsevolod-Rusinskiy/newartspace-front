@@ -79,7 +79,12 @@
         "traditional": "Traditional"
       },
       "filters": "Filters",
-      "sorting": "Sorting"
+      "sorting": "Sorting",
+      "sorting_options": {
+        "expensive": "Most Expensive First",
+        "cheap": "Least Expensive First",
+        "new": "Newest First"
+      }
     },
     "sidebar_filters": {
       "title": "Filters",
@@ -557,7 +562,12 @@
         "traditional": "Традиции"
       },
       "filters": "Фильтры",
-      "sorting": "Сортировка"
+      "sorting": "Сортировка",
+      "sorting_options": {
+        "expensive": "Самый дорогой сначала",
+        "cheap": "Самый дешевый сначала",
+        "new": "Новые сначала"
+      }
     },
     "sidebar_filters": {
       "title": "Фильтры",
