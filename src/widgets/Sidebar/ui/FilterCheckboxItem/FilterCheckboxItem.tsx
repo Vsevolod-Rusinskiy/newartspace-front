@@ -63,6 +63,14 @@ const FilterCheckboxItem = ({
         .colors_values as Record<string, string>
 
       return colorsValues[originalValue] || originalValue
+    } else if (
+      filterName === 'themesList' &&
+      translations[lang].sidebar_filters.themes_values
+    ) {
+      const themesValues = translations[lang].sidebar_filters
+        .themes_values as Record<string, string>
+
+      return themesValues[originalValue] || originalValue
     }
 
     // Для всех остальных фильтров возвращаем оригинальное значение
