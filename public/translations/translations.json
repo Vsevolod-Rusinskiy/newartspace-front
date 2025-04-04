@@ -40,7 +40,9 @@
       "back": "Back",
       "cart": "Cart",
       "add_to_cart": "ADD TO CART",
-      "go_to_cart": "GO TO CART"
+      "go_to_cart": "GO TO CART",
+      "show_more": "MORE DETAILS...",
+      "collapse": "COLLAPSE"
     },
     "page_titles": {
       "events": "Events",
@@ -79,6 +81,9 @@
       "artist_name": "Artist Kabanchenko Svetlana *KSG*",
       "photographer_info": "Photo by: Maxim",
       "photographer_site": "theater-photos.ru"
+    },
+    "artist_page": {
+      "more_works": "More Works by the Artist"
     },
     "catalog_page": {
       "title": "Catalog",
@@ -532,7 +537,9 @@
       "back": "Назад",
       "cart": "Корзина",
       "add_to_cart": "ДОБАВИТЬ В КОРЗИНУ",
-      "go_to_cart": "ПЕРЕЙТИ В КОРЗИНУ"
+      "go_to_cart": "ПЕРЕЙТИ В КОРЗИНУ",
+      "show_more": "БОЛЕЕ ДЕТАЛЬНО...",
+      "collapse": "СВЕРНУТЬ"
     },
     "page_titles": {
       "events": "События",
@@ -570,6 +577,9 @@
       "artist_name": "Художник Кабанченко Светлана *КСГ*",
       "photographer_info": "Фотография создана: Максим",
       "photographer_site": "theater-photos.ru"
+    },
+    "artist_page": {
+      "more_works": "Больше работ художника"
     },
     "catalog_page": {
       "title": "Каталог",
