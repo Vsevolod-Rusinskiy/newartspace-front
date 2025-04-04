@@ -19,6 +19,7 @@ import { RootState } from '@/src/app/model/redux/store'
 import { PaintingActions } from '@/src/widgets/PaintingActions'
 import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
 import { ImageWithWatermark } from '@/src/shared/ui/ImageWithWatermark/ImageWithWatermark'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 interface PaintingCardPageParams {
   params: {
@@ -49,6 +50,7 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
   const { painting, loading, error } = useSelector(
     (state: PaintingRootState) => state.painting
   )
+  const { lang, translations } = useLang()
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
@@ -141,7 +143,9 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
             </section>
             {description && (
               <section className={styles.section}>
-                <PageSubTitle text='Описание картины:' />
+                <PageSubTitle
+                  text={translations[lang].common.painting_description}
+                />
                 <PageTextBlock text={description} />
               </section>
             )}
