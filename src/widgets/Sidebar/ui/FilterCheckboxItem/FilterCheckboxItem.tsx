@@ -39,6 +39,14 @@ const FilterCheckboxItem = ({
         .styles_values as Record<string, string>
 
       return stylesValues[originalValue] || originalValue
+    } else if (
+      filterName === 'materialsList' &&
+      translations[lang].sidebar_filters.materials_values
+    ) {
+      const materialsValues = translations[lang].sidebar_filters
+        .materials_values as Record<string, string>
+
+      return materialsValues[originalValue] || originalValue
     }
 
     // Для всех остальных фильтров возвращаем оригинальное значение
