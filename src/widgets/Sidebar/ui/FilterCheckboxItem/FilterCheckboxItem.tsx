@@ -55,6 +55,14 @@ const FilterCheckboxItem = ({
         .sizes_values as Record<string, string>
 
       return sizesValues[originalValue] || originalValue
+    } else if (
+      filterName === 'colorsList' &&
+      translations[lang].sidebar_filters.colors_values
+    ) {
+      const colorsValues = translations[lang].sidebar_filters
+        .colors_values as Record<string, string>
+
+      return colorsValues[originalValue] || originalValue
     }
 
     // Для всех остальных фильтров возвращаем оригинальное значение
