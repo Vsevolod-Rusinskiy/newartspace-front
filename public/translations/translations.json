@@ -80,7 +80,8 @@
       "contacts": "Contacts",
       "names": "Artists",
       "about": "About Us",
-      "catalog": "Catalog"
+      "catalog": "Catalog",
+      "contract": "Sales Agreement"
     },
     "privacy_page": {
       "info_title": "Information Processing",
@@ -648,7 +649,8 @@
       "contacts": "Контакты",
       "names": "Имена",
       "about": "О нас",
-      "catalog": "Каталог"
+      "catalog": "Каталог",
+      "contract": "Договор купли-продажи"
     },
     "privacy_page": {
       "info_title": "Обработка информации",
