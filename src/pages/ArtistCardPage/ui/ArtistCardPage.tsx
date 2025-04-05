@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { useSelector } from 'react-redux'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { motion } from 'framer-motion'
@@ -12,13 +12,13 @@ import { fetchArtistByIdAction } from '../model/artistCardPageSlice'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
-import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import { IPainting } from '@/src/entities/Painting'
 import cn from 'classnames'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './ArtistCardPage.module.scss'
 import { useLang } from '@/src/shared/hooks/useLang'
+import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
 
 interface ArtistPageParams {
   params: {
@@ -58,6 +58,8 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
     useState(400)
   const descriptionRef = useRef<HTMLDivElement>(null)
   const [page, setPage] = useState(1)
+  const [displayedPaintings, setDisplayedPaintings] = useState<IPainting[]>([])
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const { lang, translations } = useLang()
 
@@ -93,13 +95,33 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
     }
   }, [dispatch, artistCardId])
 
-  const handlePageClick = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected + 1)
-  }
+  // Обновляем отображаемые картины при изменении художника или страницы
+  useEffect(() => {
+    if (artist && artist.paintings) {
+      const newPaintings = artist.paintings.slice(0, page * limit)
+      setDisplayedPaintings(newPaintings)
+      setIsLoadingMore(false)
+    }
+  }, [artist, page])
 
-  const startIndex = (page - 1) * limit
-  const endIndex = startIndex + limit
-  const currentPaintings = artist?.paintings.slice(startIndex, endIndex) || []
+  // Функция для загрузки следующей страницы картин
+  const loadMorePaintings = useCallback(() => {
+    if (artist && artist.paintings) {
+      const totalItems = artist.paintings.length
+      const totalPages = Math.ceil(totalItems / limit)
+
+      if (page < totalPages) {
+        setIsLoadingMore(true)
+        setPage((prevPage) => prevPage + 1)
+      }
+    }
+  }, [artist, page])
+
+  // Определяем, есть ли еще картины для загрузки
+  const hasMorePaintings =
+    artist && artist.paintings
+      ? displayedPaintings.length < artist.paintings.length
+      : false
 
   return (
     <main className={styles.main}>
@@ -191,7 +213,7 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
                   </div>
                 </li>
               ))
-            : currentPaintings.map((painting) => (
+            : displayedPaintings.map((painting) => (
                 <PaintingListItem
                   key={painting.id}
                   id={painting.id}
@@ -210,12 +232,25 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
                   discount={painting.discount}
                 />
               ))}
+
+          {isLoadingMore &&
+            Array.from({ length: limit }).map((_, index) => (
+              <li
+                key={`skeleton-${index}`}
+                className={`${styles.skeleton_list_item}`}
+              >
+                <div className={styles.skeleton_container}>
+                  <Skeleton className={styles.skeleton_item} />
+                </div>
+              </li>
+            ))}
         </ul>
+
         {artist && artist.paintings && artist.paintings.length > 0 && (
-          <Paginate
-            pageCount={Math.ceil(artist.paintings.length / limit)}
-            onPageChange={handlePageClick}
-            forcePage={page - 1}
+          <InfiniteScrollTrigger
+            onTrigger={loadMorePaintings}
+            isLoading={isLoadingMore}
+            hasMore={hasMorePaintings}
           />
         )}
       </section>
