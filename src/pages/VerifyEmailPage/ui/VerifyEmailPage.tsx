@@ -11,6 +11,7 @@ import { setFormType } from '@/src/features/Auth/sign-in/model/auth/authSlice'
 import cn from 'classnames'
 import '../../temp/styles.css'
 import styles from './VerifyEmailPage.module.scss'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 export const VerifyEmailPage = () => {
   const [verificationStatus, setVerificationStatus] = useState<string>('')
@@ -23,11 +24,12 @@ export const VerifyEmailPage = () => {
   const router = useRouter()
   const token = searchParams?.get('token')
   const dispatch = useAppDispatch()
+  const { lang, translations } = useLang()
 
   useEffect(() => {
     if (!token) {
       setIsError(true)
-      setVerificationStatus('Ссылка для подтверждения email недействительна')
+      setVerificationStatus(translations[lang].email_verification.invalid_link)
       return
     }
 
@@ -44,7 +46,7 @@ export const VerifyEmailPage = () => {
 
         if (response.data.message === 'Email verified successfully') {
           setIsSuccess(true)
-          setVerificationStatus('Email успешно подтвержден!')
+          setVerificationStatus(translations[lang].email_verification.success)
         }
       } catch (error) {
         setIsError(true)
@@ -53,14 +55,16 @@ export const VerifyEmailPage = () => {
           switch (errorMessage) {
             case 'Invalid verification token':
               setVerificationStatus(
-                'Ссылка для подтверждения email недействительна'
+                translations[lang].email_verification.invalid_link
               )
               break
             default:
-              setVerificationStatus('Ошибка проверки email')
+              setVerificationStatus(translations[lang].email_verification.error)
           }
         } else {
-          setVerificationStatus('Произошла неизвестная ошибка')
+          setVerificationStatus(
+            translations[lang].email_verification.unknown_error
+          )
         }
       } finally {
         setIsLoading(false)
@@ -68,7 +72,7 @@ export const VerifyEmailPage = () => {
     }
 
     verifyEmail()
-  }, [token, router])
+  }, [token, router, lang, translations])
 
   const handleRedirect = (formType: 'register' | 'login') => {
     setIsNavigating(true)
@@ -81,7 +85,9 @@ export const VerifyEmailPage = () => {
   return (
     <div className='outerContainer'>
       <div className={styles.verify_email_container}>
-        <h2 className={styles.verify_email_title}>Подтверждение email</h2>
+        <h2 className={styles.verify_email_title}>
+          {translations[lang].email_verification.title}
+        </h2>
 
         {isLoading || isNavigating ? (
           <div className={styles.spinner_container}>
@@ -104,7 +110,7 @@ export const VerifyEmailPage = () => {
                 className={cn('action_button', {})}
                 onClick={() => handleRedirect('register')}
               >
-                ПЕРЕЙТИ К РЕГИСТРАЦИИ
+                {translations[lang].email_verification.to_register}
               </DefaultButton>
             )}
 
@@ -113,7 +119,7 @@ export const VerifyEmailPage = () => {
                 className={cn('action_button', {})}
                 onClick={() => handleRedirect('login')}
               >
-                ВОЙТИ
+                {translations[lang].email_verification.to_login}
               </DefaultButton>
             )}
           </>

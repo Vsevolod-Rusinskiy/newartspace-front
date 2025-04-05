@@ -525,6 +525,46 @@
       "total": "Total:",
       "checkout": "CHECKOUT",
       "place_order": "PLACE ORDER"
+    },
+    "auth": {
+      "login": "Log In",
+      "register": "Register",
+      "login_button": "LOG IN",
+      "register_button": "REGISTER",
+      "email": "Email*",
+      "password": "Password*",
+      "name": "Name*",
+      "forgot_password": "Forgot password?",
+      "privacy_agreement": "I agree with the privacy policy",
+      "have_account": "Already have an account?",
+      "no_account": "Don't have an account yet?",
+      "login_link": "Log in",
+      "register_link": "Register"
+    },
+    "email_verification": {
+      "title": "Email Verification",
+      "success": "Email successfully verified!",
+      "invalid_link": "Invalid email verification link",
+      "error": "Email verification error",
+      "unknown_error": "An unknown error occurred",
+      "to_login": "LOG IN",
+      "to_register": "GO TO REGISTRATION"
+    },
+    "password_recovery": {
+      "title": "Password Recovery",
+      "email_label": "Email*",
+      "submit_button": "RESET PASSWORD",
+      "reset_instructions": "Please enter your email and we will send instructions to reset your password",
+      "success_message": "Instructions for password reset have been sent to your email",
+      "back_to_login": "BACK TO LOGIN",
+      "reset_title": "Set a new password",
+      "new_password": "New Password*",
+      "confirm_password": "Confirm Password*",
+      "save_password": "SAVE PASSWORD",
+      "passwords_match_error": "Passwords don't match",
+      "invalid_token": "Invalid or expired password reset link",
+      "success_reset": "Password successfully reset!",
+      "min_length_error": "Password must be at least 8 characters"
     }
   },
   "ru": {
@@ -1052,6 +1092,46 @@
       "total": "Итого:",
       "checkout": "ОФОРМИТЬ ЗАКАЗ",
       "place_order": "ОФОРМИТЬ ЗАКАЗ"
+    },
+    "auth": {
+      "login": "Вход",
+      "register": "Регистрация",
+      "login_button": "ВОЙТИ",
+      "register_button": "ЗАРЕГИСТРИРОВАТЬСЯ",
+      "email": "Электронная почта*",
+      "password": "Пароль*",
+      "name": "Имя*",
+      "forgot_password": "Забыли пароль?",
+      "privacy_agreement": "Я согласен с политикой конфиденциальности",
+      "have_account": "Уже есть аккаунт?",
+      "no_account": "Еще нет аккаунта?",
+      "login_link": "Войти",
+      "register_link": "Зарегистрироваться"
+    },
+    "email_verification": {
+      "title": "Подтверждение электронной почты",
+      "success": "Электронная почта успешно подтверждена!",
+      "invalid_link": "Неверная ссылка для подтверждения электронной почты",
+      "error": "Ошибка подтверждения электронной почты",
+      "unknown_error": "Произошла неизвестная ошибка",
+      "to_login": "ВОЙТИ",
+      "to_register": "ПЕРЕЙТИ НА РЕГИСТРАЦИЮ"
+    },
+    "password_recovery": {
+      "title": "Восстановление пароля",
+      "email_label": "Электронная почта*",
+      "submit_button": "ВОССТАНОВИТЬ ПАРОЛЬ",
+      "reset_instructions": "Пожалуйста, введите вашу электронную почту, и мы отправим инструкции для восстановления пароля",
+      "success_message": "Инструкции для восстановления пароля отправлены на вашу электронную почту",
+      "back_to_login": "ВОЙТИ",
+      "reset_title": "Установите новый пароль",
+      "new_password": "Новый пароль*",
+      "confirm_password": "Подтвердите пароль*",
+      "save_password": "СОХРАНИТЬ ПАРОЛЬ",
+      "passwords_match_error": "Пароли не совпадают",
+      "invalid_token": "Неверная или просроченная ссылка для восстановления пароля",
+      "success_reset": "Пароль успешно восстановлен!",
+      "min_length_error": "Пароль должен быть не менее 8 символов"
     }
   }
 }
