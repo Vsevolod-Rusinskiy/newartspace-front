@@ -22,6 +22,7 @@ import { selectSelectedFilters } from '@/src/widgets/Sidebar/model/selectors'
 import { getSortParams } from '@/src/widgets/SortSidebar/model/types'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
 import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -33,6 +34,7 @@ export const HomePage = () => {
   const [selectedArtStyle, setSelectedArtStyle] = useState<string | null>(
     artStyle
   )
+  const { lang, translations } = useLang()
 
   const limit = 9
   const totalPages = Math.ceil(paintings.total / limit)
@@ -130,7 +132,7 @@ export const HomePage = () => {
       <section className={`container ${styles.content}`}>
         {!selectedArtStyle ? (
           <Htag tag='h1' className={styles.catalog_title}>
-            Каталог
+            {translations[lang].page_titles.catalog}
           </Htag>
         ) : (
           <div className={styles.content_header}>
@@ -138,19 +140,19 @@ export const HomePage = () => {
               onClick={handleFilterClick}
               className={cn(styles.filter_button, 'filter_button')}
             >
-              Фильтры
+              {translations[lang].catalog_page.filters}
               <FilterBadge
                 isVisible={Object.keys(selectedFilters).length > 0}
               />
             </DefaultButton>
             <Htag tag='h1' className={styles.catalog_title_filters}>
-              Каталог
+              {translations[lang].page_titles.catalog}
             </Htag>
             <DefaultButton
               onClick={handleSortClick}
               className={cn(styles.sort_button, 'sort_button')}
             >
-              Сортировка
+              {translations[lang].catalog_page.sorting}
             </DefaultButton>
           </div>
         )}
@@ -162,7 +164,7 @@ export const HomePage = () => {
             })}
             onClick={() => handleArtStyleChange('Современность')}
           >
-            <span>Современность</span>
+            <span>{translations[lang].catalog_page.art_styles.modern}</span>
           </HomePageButton>
           <HomePageButton
             className={cn('shadow_button', 'wide_button', {
@@ -171,7 +173,9 @@ export const HomePage = () => {
             })}
             onClick={() => handleArtStyleChange('Традиции')}
           >
-            <span>Традиции</span>
+            <span>
+              {translations[lang].catalog_page.art_styles.traditional}
+            </span>
           </HomePageButton>
         </div>
 

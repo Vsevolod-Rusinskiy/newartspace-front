@@ -17,12 +17,14 @@ import {
   actionToggleSideBar,
 } from '@/src/pages/HomePage/model/sideBarVisibilitySlice'
 import { updateHomePageData } from '@/src/pages/HomePage/model/homePageSlice'
+import { useLang } from '@/src/shared/hooks/useLang'
 import styles from './Sidebar.module.scss'
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch()
   const selectedFilters = useAppSelector(selectSelectedFilters)
   const artStyle = useAppSelector((state) => state.paintings.artStyle)
+  const { lang, translations } = useLang()
 
   useEffect(() => {
     dispatch(fetchFiltersAction())
@@ -106,45 +108,45 @@ export const Sidebar = () => {
       >
         <button onClick={onToggle} className={styles.close_button} />
         <div>
-          <Htag tag={'h3'}>Фильтры</Htag>
+          <Htag tag={'h3'}>{translations[lang].sidebar_filters.title}</Htag>
           <ul className={styles.filter_list}>
             <FilterAccordion
-              title='Цены'
+              title={translations[lang].sidebar_filters.price}
               filterName='priceList'
               filterType='radio'
             />
             <FilterAccordion
-              title='Виды искусства'
+              title={translations[lang].sidebar_filters.art_types}
               filterName='artTypesList'
               filterType='checkbox'
             />
             <FilterAccordion
-              title='Стили'
+              title={translations[lang].sidebar_filters.styles}
               filterName='stylesList'
               filterType='checkbox'
             />
             <FilterAccordion
-              title='Материалы'
+              title={translations[lang].sidebar_filters.materials}
               filterName='materialsList'
               filterType='checkbox'
             />
             <FilterAccordion
-              title='Размеры'
+              title={translations[lang].sidebar_filters.sizes}
               filterName='sizeList'
               filterType='checkbox'
             />
             <FilterAccordion
-              title='Цвета'
+              title={translations[lang].sidebar_filters.colors}
               filterName='colorsList'
               filterType='checkbox'
             />
             <FilterAccordion
-              title='Тематика'
+              title={translations[lang].sidebar_filters.themes}
               filterName='themesList'
               filterType='checkbox'
             />
             <FilterAccordion
-              title='Форматы'
+              title={translations[lang].sidebar_filters.formats}
               filterName='formatsList'
               filterType='checkbox'
             />
@@ -154,13 +156,13 @@ export const Sidebar = () => {
               onClick={handleResetFilters}
               className={styles.button}
             >
-              Сбросить
+              {translations[lang].sidebar_filters.reset}
             </DefaultButton>
             <DefaultButton
               onClick={handleShowFilters}
               className={styles.button}
             >
-              Показать
+              {translations[lang].sidebar_filters.show}
             </DefaultButton>
           </div>
         </div>

@@ -22,7 +22,7 @@ export const ImageWithWatermark = ({
   width,
   height,
   className,
-  watermarkText = 'newartspace.ru',
+  watermarkText = 'www.newartspace.ru',
   unoptimized = false,
   objectFit = 'contain',
   watermarkSize = 24,

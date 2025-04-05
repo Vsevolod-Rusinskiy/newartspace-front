@@ -9,6 +9,7 @@ import cn from 'classnames'
 import Link from 'next/link'
 import '../../temp/styles.css'
 import styles from './ForgotPasswordPage.module.scss'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 export const ForgotPasswordPage = () => {
   const [resetStatus, setResetStatus] = useState<string>('')
@@ -16,6 +17,7 @@ export const ForgotPasswordPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [email, setEmail] = useState('')
+  const { lang, translations } = useLang()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,9 +38,7 @@ export const ForgotPasswordPage = () => {
         'Password reset instructions sent to your email'
       ) {
         setIsSuccess(true)
-        setResetStatus(
-          'Инструкции по восстановлению пароля отправлены на вашу почту'
-        )
+        setResetStatus(translations[lang].password_recovery.success_message)
       }
     } catch (error) {
       setIsError(true)
@@ -50,13 +50,13 @@ export const ForgotPasswordPage = () => {
             setResetStatus('Пользователь с таким email не найден')
             break
           case 'Invalid or expired reset token':
-            setResetStatus('Неверный или устаревший токен сброса пароля')
+            setResetStatus(translations[lang].password_recovery.invalid_token)
             break
           default:
             setResetStatus('Ошибка при отправке инструкций')
         }
       } else {
-        setResetStatus('Произошла неизвестная ошибка')
+        setResetStatus(translations[lang].email_verification.unknown_error)
       }
     } finally {
       setIsLoading(false)
@@ -66,7 +66,9 @@ export const ForgotPasswordPage = () => {
   return (
     <div className='outerContainer'>
       <div className={styles.forgot_password_container}>
-        <h2 className={styles.forgot_password_title}>Восстановление пароля</h2>
+        <h2 className={styles.forgot_password_title}>
+          {translations[lang].password_recovery.title}
+        </h2>
 
         {isLoading ? (
           <div className={styles.spinner_container}>
@@ -76,10 +78,13 @@ export const ForgotPasswordPage = () => {
           <>
             {!isSuccess ? (
               <form className={styles.form_container} onSubmit={handleSubmit}>
+                <p className={styles.reset_instructions}>
+                  {translations[lang].password_recovery.reset_instructions}
+                </p>
                 <input
                   className={styles.signin_form_input}
                   type='email'
-                  placeholder='Введите ваш email'
+                  placeholder={translations[lang].password_recovery.email_label}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -90,10 +95,10 @@ export const ForgotPasswordPage = () => {
                   type='submit'
                   disabled={isLoading}
                 >
-                  ОТПРАВИТЬ
+                  {translations[lang].password_recovery.submit_button}
                 </DefaultButton>
                 <Link href='/auth' className={styles.form_link}>
-                  Вернуться к входу
+                  {translations[lang].password_recovery.back_to_login}
                 </Link>
               </form>
             ) : null}

@@ -11,9 +11,11 @@ import {
 } from '../../model/sortSideBarVisibilitySlice'
 import { SortSpan } from '../SortSpan/SortSpan'
 import { setSortType, SortType } from '../../model/sortSlice'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 export const SortSidebar = () => {
   const dispatch = useAppDispatch()
+  const { lang, translations } = useLang()
   const [isClient, setIsClient] = useState(false)
   const portalRef = useRef<HTMLElement | null>(null)
   const sidebarRef = useRef<HTMLDivElement | null>(null)
@@ -22,6 +24,12 @@ export const SortSidebar = () => {
     (state) => state.sortSideBarVisibility.isClosed
   )
   const currentSortType = useAppSelector((state) => state.sort.sortType)
+
+  // Функция для получения переведенного текста сортировки
+  const getSortOptionText = (sortType: SortType): string => {
+    if (!sortType) return ''
+    return translations[lang].catalog_page.sorting_options[sortType] || sortType
+  }
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -85,20 +93,20 @@ export const SortSidebar = () => {
       >
         <button onClick={onToggle} className={styles.close_button} />
         <div>
-          <Htag tag={'h3'}>Сортировка</Htag>
+          <Htag tag={'h3'}>{translations[lang].catalog_page.sorting}</Htag>
           <div className={styles.sort_list}>
             <SortSpan
-              text='Сначала дорогие'
+              text={getSortOptionText('expensive')}
               isActive={currentSortType === 'expensive'}
               onClick={() => handleSortChange('expensive')}
             />
             <SortSpan
-              text='Сначала недорогие'
+              text={getSortOptionText('cheap')}
               isActive={currentSortType === 'cheap'}
               onClick={() => handleSortChange('cheap')}
             />
             <SortSpan
-              text='Сначала новые'
+              text={getSortOptionText('new')}
               isActive={currentSortType === 'new'}
               onClick={() => handleSortChange('new')}
             />

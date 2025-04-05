@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/src/app/model/redux/store'
 import cn from 'classnames'
 import styles from './PaintingActions.module.scss'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 interface PaintingActionsProps {
   className?: string
@@ -23,6 +24,7 @@ export const PaintingActions = ({
   const router = useRouter()
   const { cartIds } = useSelector((state: RootState) => state.cart)
   const isInCart = paintingId ? cartIds.includes(paintingId) : false
+  const { lang, translations } = useLang()
 
   const handleCartClick = async () => {
     if (paintingId) {
@@ -61,7 +63,9 @@ export const PaintingActions = ({
             className={cn('action_button', styles.action_button)}
             onClick={handleCartClick}
           >
-            {isInCart ? 'ПЕРЕЙТИ В КОРЗИНУ' : 'ПОЛОЖИТЬ В КОРЗИНУ'}
+            {isInCart
+              ? translations[lang].common.go_to_cart
+              : translations[lang].common.add_to_cart}
           </DefaultButton>
         )}
     </div>

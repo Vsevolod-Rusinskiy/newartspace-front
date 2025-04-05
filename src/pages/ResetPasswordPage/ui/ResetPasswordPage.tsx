@@ -10,11 +10,13 @@ import cn from 'classnames'
 import Link from 'next/link'
 import '../../temp/styles.css'
 import styles from './ResetPasswordPage.module.scss'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 export const ResetPasswordPage = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const token = searchParams?.get('token') || ''
+  const { lang, translations } = useLang()
 
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -28,7 +30,7 @@ export const ResetPasswordPage = () => {
 
     if (newPassword !== confirmPassword) {
       setIsError(true)
-      setResetStatus('Пароли не совпадают')
+      setResetStatus(translations[lang].password_recovery.passwords_match_error)
       return
     }
 
@@ -43,7 +45,9 @@ export const ResetPasswordPage = () => {
       if (response.data.message === 'Password successfully changed') {
         setIsSuccess(true)
         setResetStatus(
-          'Пароль успешно изменен. Перенаправление на страницу входа...'
+          translations[lang].password_recovery.success_reset +
+            ' ' +
+            'Перенаправление на страницу входа...'
         )
         setTimeout(() => router.push('/auth'), 3000)
       }
@@ -54,7 +58,7 @@ export const ResetPasswordPage = () => {
         /* eslint-disable indent */
         switch (errorMessage) {
           case 'Invalid or expired reset token':
-            setResetStatus('Неверный или устаревший токен сброса пароля')
+            setResetStatus(translations[lang].password_recovery.invalid_token)
             break
           default:
             setResetStatus('Ошибка при сбросе пароля')
@@ -70,7 +74,7 @@ export const ResetPasswordPage = () => {
     <div className='outerContainer'>
       <div className={styles.forgot_password_container}>
         <h2 className={styles.forgot_password_title}>
-          Установка нового пароля
+          {translations[lang].password_recovery.reset_title}
         </h2>
 
         {isLoading ? (
@@ -84,7 +88,9 @@ export const ResetPasswordPage = () => {
                 <input
                   className={styles.signin_form_input}
                   type='password'
-                  placeholder='Введите новый пароль'
+                  placeholder={
+                    translations[lang].password_recovery.new_password
+                  }
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
@@ -92,7 +98,9 @@ export const ResetPasswordPage = () => {
                 <input
                   className={styles.signin_form_input}
                   type='password'
-                  placeholder='Подтвердите новый пароль'
+                  placeholder={
+                    translations[lang].password_recovery.confirm_password
+                  }
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
@@ -102,10 +110,10 @@ export const ResetPasswordPage = () => {
                   type='submit'
                   disabled={isLoading}
                 >
-                  СОХРАНИТЬ
+                  {translations[lang].password_recovery.save_password}
                 </DefaultButton>
                 <Link href='/auth' className={styles.form_link}>
-                  Вернуться к входу
+                  {translations[lang].password_recovery.back_to_login}
                 </Link>
               </form>
             ) : null}

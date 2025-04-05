@@ -10,6 +10,7 @@ import { login, setFormType } from '../../model/auth/authSlice'
 import { useRouter } from 'next/navigation'
 import { SuccessMessage } from '../SuccessMessage/SuccessMessage'
 import { Spinner } from '@/src/shared/ui/Spinner/Spinner'
+import { useLang } from '@/src/shared/hooks/useLang'
 import cn from 'classnames'
 import styles from './SignInForm.module.scss'
 
@@ -37,7 +38,12 @@ export const SignInForm = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const formType = useAppSelector((state) => state.auth.formType)
-  const currentAuthTitle = formType === 'login' ? 'Войти' : 'Регистрация'
+  const { lang, translations } = useLang()
+
+  const currentAuthTitle =
+    formType === 'login'
+      ? translations[lang].auth.login
+      : translations[lang].auth.register
   const inputRef = useRef<HTMLInputElement>(null)
   const [isChecked, setIsChecked] = useState(false)
   const [name, setName] = useState('')
@@ -112,7 +118,7 @@ export const SignInForm = () => {
             <input
               className={styles.signin_form_input}
               type='text'
-              placeholder='Имя*'
+              placeholder={translations[lang].auth.name}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -122,7 +128,7 @@ export const SignInForm = () => {
           <input
             className={styles.signin_form_input}
             type='email'
-            placeholder='Почта*'
+            placeholder={translations[lang].auth.email}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -131,7 +137,7 @@ export const SignInForm = () => {
           <input
             className={styles.signin_form_input}
             type='password'
-            placeholder='Пароль*'
+            placeholder={translations[lang].auth.password}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -141,7 +147,7 @@ export const SignInForm = () => {
             href='/forgot-password'
             className={cn(styles.form_link, styles.forgot_password_link)}
           >
-            Забыли пароль?
+            {translations[lang].auth.forgot_password}
           </Link>
           <div className={styles.form_checkbox_container}>
             <input
@@ -151,19 +157,20 @@ export const SignInForm = () => {
               onChange={(e) => setIsChecked(e.target.checked)}
               required
             />
-            <span>
-              Я согласен{' '}
-              <Link href='#' className={styles.form_link}>
-                с политикой конфиденциальности
-              </Link>
-            </span>
+            <span>{translations[lang].auth.privacy_agreement}</span>
           </div>
           <DefaultButton
             className={cn('action_button', {})}
             type='submit'
             disabled={mutation.isLoading || isSubmitting}
           >
-            {mutation.isLoading ? <Spinner /> : currentAuthTitle.toUpperCase()}
+            {mutation.isLoading ? (
+              <Spinner />
+            ) : formType === 'login' ? (
+              translations[lang].auth.login_button
+            ) : (
+              translations[lang].auth.register_button
+            )}
           </DefaultButton>
           {mutation.isError && (
             <p className={styles.error_message}>
@@ -174,24 +181,28 @@ export const SignInForm = () => {
           <div className={styles.question_text_container}>
             {formType === 'login' ? (
               <>
-                <span className={styles.question_text}>Еще нет аккаунта?</span>
+                <span className={styles.question_text}>
+                  {translations[lang].auth.no_account}
+                </span>
                 <Link
                   href='#'
                   className={styles.form_link}
                   onClick={() => handleFormTypeChange('register')}
                 >
-                  Зарегистрироваться
+                  {translations[lang].auth.register_link}
                 </Link>
               </>
             ) : (
               <>
-                <span className={styles.question_text}>Уже есть аккаунт?</span>
+                <span className={styles.question_text}>
+                  {translations[lang].auth.have_account}
+                </span>
                 <Link
                   href='#'
                   className={styles.form_link}
                   onClick={() => handleFormTypeChange('login')}
                 >
-                  Войти
+                  {translations[lang].auth.login_link}
                 </Link>
               </>
             )}

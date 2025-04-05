@@ -18,6 +18,7 @@ import { IPainting } from '@/src/entities/Painting'
 import cn from 'classnames'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './ArtistCardPage.module.scss'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 interface ArtistPageParams {
   params: {
@@ -58,6 +59,7 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
   const descriptionRef = useRef<HTMLDivElement>(null)
   const [page, setPage] = useState(1)
   const titleRef = useRef<HTMLHeadingElement>(null)
+  const { lang, translations } = useLang()
 
   const isLoading = loading === 'idle' || loading === 'pending'
   const { imgUrl, artistName, artistDescription } = artist || ({} as IArtist)
@@ -154,7 +156,9 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
                   className={cn('action_button', {})}
                   onClick={handleToggle}
                 >
-                  {isExpanded ? 'СВЕРНУТЬ' : 'ПОДРОБНЕЕ . . .'}
+                  {isExpanded
+                    ? translations[lang].common.collapse
+                    : translations[lang].common.show_more}
                 </DefaultButton>
               )
             )}
@@ -171,7 +175,7 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
             <>
               <div className={styles.separator}></div>
               <Htag tag='h1' className={styles.catalog_title}>
-                Еще работы художника
+                {translations[lang].artist_page.more_works}
               </Htag>
               <div className={styles.separator}></div>
             </>
