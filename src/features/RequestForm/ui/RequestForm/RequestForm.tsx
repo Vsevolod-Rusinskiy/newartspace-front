@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 import { useRef, useEffect, useState } from 'react'
 import { useAppSelector } from '@/src/app/model/redux/hooks'
 import PhoneInput from 'react-phone-input-2'
@@ -10,6 +9,8 @@ import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import styles from './RequestForm.module.scss'
 import cn from 'classnames'
+import { useLang } from '@/src/shared/hooks/useLang'
+import Link from 'next/link'
 
 export type FormType = 'reproduction' | 'cart'
 
@@ -25,6 +26,7 @@ interface RequestFormData {
   email: string
   paintingId?: number
   cartItemIds?: number[]
+  deliveryMethod?: string
 }
 
 type FormData = {
@@ -33,6 +35,7 @@ type FormData = {
   email: string
   paintingId?: number
   cartItemIds?: number[]
+  deliveryMethod?: string
   formType: FormType
 }
 
@@ -58,6 +61,7 @@ const submitForm = async (formData: FormData) => {
         phone: formData.phone,
         email: formData.email,
         cartItemIds: formData.cartItemIds,
+        deliveryMethod: formData.deliveryMethod,
       }
       break
     default:
@@ -85,7 +89,9 @@ export const RequestForm = ({
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  const [deliveryMethod, setDeliveryMethod] = useState('pickup')
   const [successMessage, setSuccessMessage] = useState('')
+  const { lang, translations } = useLang()
   const buttonLabel = useAppSelector(
     (state) => state.modalVisibility.buttonLabel
   )
@@ -95,6 +101,12 @@ export const RequestForm = ({
     setPhone('')
     setEmail('')
     setIsChecked(false)
+  }
+
+  const handleDeliveryMethodChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setDeliveryMethod(e.target.value)
   }
 
   const mutation = useMutation(submitForm, {
@@ -134,6 +146,7 @@ export const RequestForm = ({
       email,
       paintingId,
       cartItemIds,
+      deliveryMethod,
       formType,
     }
     mutation.mutate(formData)
@@ -146,7 +159,7 @@ export const RequestForm = ({
         ref={inputRef}
         className={styles.form_input}
         type='text'
-        placeholder='Имя*'
+        placeholder={translations[lang].cart_page.name_placeholder}
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
@@ -156,16 +169,45 @@ export const RequestForm = ({
         country={'ru'}
         value={phone}
         onChange={(phone) => setPhone(phone)}
-        placeholder='Телефон*'
+        placeholder={translations[lang].cart_page.phone_placeholder}
       />
       <input
         className={cn(styles.form_input, styles.email_input)}
         type='email'
-        placeholder='Почта*'
+        placeholder={translations[lang].cart_page.email_placeholder}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
       />
+      {formType === 'cart' && (
+        <div className={styles.delivery_method}>
+          <div className={styles.delivery_title}>
+            {translations[lang].cart_page.delivery_method}:
+          </div>
+          <div className={styles.delivery_options}>
+            <label className={styles.delivery_option}>
+              <input
+                type='radio'
+                name='delivery_method'
+                value='delivery'
+                checked={deliveryMethod === 'delivery'}
+                onChange={handleDeliveryMethodChange}
+              />
+              {translations[lang].cart_page.delivery}
+            </label>
+            <label className={styles.delivery_option}>
+              <input
+                type='radio'
+                name='delivery_method'
+                value='pickup'
+                checked={deliveryMethod === 'pickup'}
+                onChange={handleDeliveryMethodChange}
+              />
+              {translations[lang].cart_page.pickup}
+            </label>
+          </div>
+        </div>
+      )}
       <div className={styles.form_checkbox_container}>
         <input
           className={styles.form_checkbox}
@@ -175,9 +217,15 @@ export const RequestForm = ({
           required
         />
         <span>
-          Я согласен{' '}
-          <Link href='#' className={styles.form_link}>
-            с политикой конфиденциальности
+          {translations[lang].cart_page.privacy_agreement
+            .split(' ')
+            .slice(0, 2)
+            .join(' ')}{' '}
+          <Link href='/privacy' className={styles.form_link}>
+            {translations[lang].cart_page.privacy_agreement
+              .split(' ')
+              .slice(2)
+              .join(' ')}
           </Link>
         </span>
       </div>

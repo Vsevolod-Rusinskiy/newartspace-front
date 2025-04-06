@@ -525,7 +525,14 @@
     "cart_page": {
       "total": "Total:",
       "checkout": "CHECKOUT",
-      "place_order": "PLACE ORDER"
+      "place_order": "PLACE ORDER",
+      "delivery_method": "Choose delivery method",
+      "delivery": "Delivery",
+      "pickup": "Pick up from gallery",
+      "name_placeholder": "Name*",
+      "phone_placeholder": "Phone*",
+      "email_placeholder": "Email*",
+      "privacy_agreement": "I agree with the privacy policy"
     },
     "auth": {
       "login": "Log In",
@@ -1093,7 +1100,14 @@
     "cart_page": {
       "total": "Итого:",
       "checkout": "ОФОРМИТЬ ЗАКАЗ",
-      "place_order": "ОФОРМИТЬ ЗАКАЗ"
+      "place_order": "ОФОРМИТЬ ЗАКАЗ",
+      "delivery_method": "Выберите способ доставки",
+      "delivery": "Доставка",
+      "pickup": "Забрать из галереи",
+      "name_placeholder": "Имя*",
+      "phone_placeholder": "Телефон*",
+      "email_placeholder": "Почта*",
+      "privacy_agreement": "Я согласен с политикой конфиденциальности"
     },
     "auth": {
       "login": "Вход",
