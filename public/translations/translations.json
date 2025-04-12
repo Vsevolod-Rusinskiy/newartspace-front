@@ -19,7 +19,7 @@
       "contacts": "Contacts",
       "payment_and_delivery_conditions": "Payment and Delivery Conditions",
       "privacy_policy": "Privacy Policy",
-      "agreement": "Agreement"
+      "agreement": "Offer Agreement"
     },
     "individual": {
       "name": "Svetlana Gennadievna Kabanchenko",
@@ -588,7 +588,7 @@
       "contacts": "Контакты",
       "payment_and_delivery_conditions": "Условия оплаты и доставки",
       "privacy_policy": "Политика персональных данных",
-      "agreement": "Договор"
+      "agreement": "Договор оферты"
     },
     "individual": {
       "name": "Кабанченко Светлана Геннадьевна",
