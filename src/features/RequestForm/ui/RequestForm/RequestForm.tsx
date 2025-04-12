@@ -140,7 +140,11 @@ export const RequestForm = ({
   }
 
   return (
-    <form className={styles.form_container} onSubmit={handleSubmit}>
+    <form
+      className={styles.form_container}
+      onSubmit={handleSubmit}
+      autoComplete='on'
+    >
       <span className={styles.form_title}>{successMessage || buttonLabel}</span>
       <input
         ref={inputRef}
@@ -150,6 +154,7 @@ export const RequestForm = ({
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
+        autoComplete='name'
       />
       <PhoneInput
         inputClass={cn(styles.form_input, styles.phone_input)}
@@ -157,6 +162,10 @@ export const RequestForm = ({
         value={phone}
         onChange={(phone) => setPhone(phone)}
         placeholder='Телефон*'
+        inputProps={{
+          autoComplete: 'tel',
+          required: true,
+        }}
       />
       <input
         className={cn(styles.form_input, styles.email_input)}
@@ -165,6 +174,7 @@ export const RequestForm = ({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
+        autoComplete='email'
       />
       <div className={styles.form_checkbox_container}>
         <input
@@ -176,7 +186,7 @@ export const RequestForm = ({
         />
         <span>
           Я согласен{' '}
-          <Link href='#' className={styles.form_link}>
+          <Link href='/privacy-policy' className={styles.form_link}>
             с политикой обработки персональных данных
           </Link>
         </span>
