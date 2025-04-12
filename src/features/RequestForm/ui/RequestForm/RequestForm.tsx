@@ -121,7 +121,7 @@ export const RequestForm = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!isChecked) {
-      alert('Пожалуйста, согласитесь с политикой конфиденциальности')
+      alert('Пожалуйста, согласитесь с персональных данных')
       return
     }
     if (!phone) {
@@ -177,7 +177,7 @@ export const RequestForm = ({
         <span>
           Я согласен{' '}
           <Link href='#' className={styles.form_link}>
-            с политикой конфиденциальности
+            с политикой обработки персональных данных
           </Link>
         </span>
       </div>
