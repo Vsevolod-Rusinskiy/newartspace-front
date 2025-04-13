@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import { useAppSelector } from '@/src/app/model/redux/hooks'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
@@ -97,27 +97,46 @@ export const RequestForm = ({
     (state) => state.modalVisibility.buttonLabel
   )
 
-  const resetForm = () => {
+  const completeReset = useCallback(() => {
     setName('')
     setPhone('')
     setEmail('')
     setIsChecked(false)
     setIsAgreementChecked(false)
-  }
+    setSuccessMessage('')
+  }, [])
 
-  const handleDeliveryMethodChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setDeliveryMethod(e.target.value)
-  }
+  useEffect(() => {
+    if (!isOpen) {
+      completeReset()
+    }
+  }, [isOpen, completeReset])
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [isOpen])
 
   const mutation = useMutation(submitForm, {
     onSuccess: () => {
-      setSuccessMessage('Мы приняли заявку и свяжемся с Вами в ближайшее время')
-      resetForm()
-      setTimeout(() => {
-        setSuccessMessage('')
-      }, 3000)
+      setSuccessMessage(
+        `Уважаемый Коллекционер!
+
+Благодарим за Ваш выбор!
+
+Наши творения уникальны и представлены в Галерее в единичном экземпляре, 
+поэтому для завершения покупки необходимо дождаться письма, 
+подтверждающего наличие выбранных Вами товаров.
+
+Если Вы не получили письмо в течении дня, пожалуйста, проверьте не находится ли оно в Спаме. 
+Также для уточнения информации возможно написать на почту EMAIL или по телефону PHONE`
+      )
+      setName('')
+      setPhone('')
+      setEmail('')
+      setIsChecked(false)
+      setIsAgreementChecked(false)
     },
     onError: (error: unknown) => {
       const errorMessage =
@@ -126,11 +145,11 @@ export const RequestForm = ({
     },
   })
 
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus()
-    }
-  }, [isOpen])
+  const handleDeliveryMethodChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setDeliveryMethod(e.target.value)
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -160,112 +179,145 @@ export const RequestForm = ({
 
   return (
     <form className={styles.form_container} onSubmit={handleSubmit}>
-      <span className={styles.form_title}>{successMessage || buttonLabel}</span>
-      <input
-        ref={inputRef}
-        className={styles.form_input}
-        type='text'
-        placeholder={translations[lang].cart_page.name_placeholder}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-      <PhoneInput
-        inputClass={cn(styles.form_input, styles.phone_input)}
-        country={'ru'}
-        value={phone}
-        onChange={(phone) => setPhone(phone)}
-        placeholder={translations[lang].cart_page.phone_placeholder}
-      />
-      <input
-        className={cn(styles.form_input, styles.email_input)}
-        type='email'
-        placeholder={translations[lang].cart_page.email_placeholder}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      {formType === 'cart' && (
-        <div className={styles.delivery_method}>
-          <div className={styles.delivery_title}>
-            {translations[lang].cart_page.delivery_method}:
+      {!successMessage ? (
+        <>
+          <span className={styles.form_title}>{buttonLabel}</span>
+
+          <input
+            ref={inputRef}
+            className={styles.form_input}
+            type='text'
+            placeholder={translations[lang].cart_page.name_placeholder}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <PhoneInput
+            inputClass={cn(styles.form_input, styles.phone_input)}
+            country={'ru'}
+            value={phone}
+            onChange={(phone) => setPhone(phone)}
+            placeholder={translations[lang].cart_page.phone_placeholder}
+          />
+          <input
+            className={cn(styles.form_input, styles.email_input)}
+            type='email'
+            placeholder={translations[lang].cart_page.email_placeholder}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          {formType === 'cart' && (
+            <div className={styles.delivery_method}>
+              <div className={styles.delivery_title}>
+                {translations[lang].cart_page.delivery_method}:
+              </div>
+              <div className={styles.delivery_options}>
+                <label className={styles.delivery_option}>
+                  <input
+                    type='radio'
+                    name='delivery_method'
+                    value='delivery'
+                    checked={deliveryMethod === 'delivery'}
+                    onChange={handleDeliveryMethodChange}
+                  />
+                  {translations[lang].cart_page.delivery}
+                </label>
+                <label className={styles.delivery_option}>
+                  <input
+                    type='radio'
+                    name='delivery_method'
+                    value='pickup'
+                    checked={deliveryMethod === 'pickup'}
+                    onChange={handleDeliveryMethodChange}
+                  />
+                  {translations[lang].cart_page.pickup}
+                </label>
+              </div>
+            </div>
+          )}
+          <div className={styles.form_checkbox_container}>
+            <input
+              className={styles.form_checkbox}
+              type='checkbox'
+              checked={isChecked}
+              onChange={(e) => setIsChecked(e.target.checked)}
+              required
+            />
+            <span>
+              {translations[lang].cart_page.privacy_agreement
+                .split(' ')
+                .slice(0, 2)
+                .join(' ')}{' '}
+              <Link href='/privacy-policy' className={styles.form_link}>
+                {translations[lang].cart_page.privacy_agreement
+                  .split(' ')
+                  .slice(2)
+                  .join(' ')}
+              </Link>
+            </span>
           </div>
-          <div className={styles.delivery_options}>
-            <label className={styles.delivery_option}>
-              <input
-                type='radio'
-                name='delivery_method'
-                value='delivery'
-                checked={deliveryMethod === 'delivery'}
-                onChange={handleDeliveryMethodChange}
-              />
-              {translations[lang].cart_page.delivery}
-            </label>
-            <label className={styles.delivery_option}>
-              <input
-                type='radio'
-                name='delivery_method'
-                value='pickup'
-                checked={deliveryMethod === 'pickup'}
-                onChange={handleDeliveryMethodChange}
-              />
-              {translations[lang].cart_page.pickup}
-            </label>
+
+          <div className={styles.form_checkbox_container}>
+            <input
+              className={styles.form_checkbox}
+              type='checkbox'
+              checked={isAgreementChecked}
+              onChange={(e) => setIsAgreementChecked(e.target.checked)}
+              required
+            />
+            <span>
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              {(translations[lang].cart_page as any).offer_agreement
+                .split(' ')
+                .slice(0, 2)
+                .join(' ')}{' '}
+              <Link href='/contract' className={styles.form_link}>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {(translations[lang].cart_page as any).offer_agreement
+                  .split(' ')
+                  .slice(2)
+                  .join(' ')}
+              </Link>
+            </span>
           </div>
+          <DefaultButton
+            className='action_button'
+            type='submit'
+            disabled={mutation.isLoading}
+          >
+            {mutation.isLoading ? 'Отправка...' : buttonLabel}
+          </DefaultButton>
+        </>
+      ) : (
+        <div className={styles.success_message_container}>
+          {successMessage.split('\n').map((line, index) => {
+            if (line.includes('EMAIL') || line.includes('PHONE')) {
+              return (
+                <p key={index} className={styles.success_message_text}>
+                  {line.split('EMAIL')[0]}
+                  <a
+                    href='mailto:9326215@mail.ru'
+                    className={styles.contact_link}
+                  >
+                    9326215@mail.ru
+                  </a>
+                  {line.split('EMAIL')[1].split('PHONE')[0]}
+                  <a href='tel:+79219326215' className={styles.contact_link}>
+                    +7(921)932-62-15
+                  </a>
+                </p>
+              )
+            }
+            return (
+              <p key={index} className={styles.success_message_text}>
+                {line}
+              </p>
+            )
+          })}
         </div>
       )}
-      <div className={styles.form_checkbox_container}>
-        <input
-          className={styles.form_checkbox}
-          type='checkbox'
-          checked={isChecked}
-          onChange={(e) => setIsChecked(e.target.checked)}
-          required
-        />
-        <span>
-          {translations[lang].cart_page.privacy_agreement
-            .split(' ')
-            .slice(0, 2)
-            .join(' ')}{' '}
-          <Link href='/privacy-policy' className={styles.form_link}>
-            {translations[lang].cart_page.privacy_agreement
-              .split(' ')
-              .slice(2)
-              .join(' ')}
-          </Link>
-        </span>
-      </div>
 
-      <div className={styles.form_checkbox_container}>
-        <input
-          className={styles.form_checkbox}
-          type='checkbox'
-          checked={isAgreementChecked}
-          onChange={(e) => setIsAgreementChecked(e.target.checked)}
-          required
-        />
-        <span>
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {(translations[lang].cart_page as any).offer_agreement
-            .split(' ')
-            .slice(0, 2)
-            .join(' ')}{' '}
-          <Link href='/contract' className={styles.form_link}>
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {(translations[lang].cart_page as any).offer_agreement
-              .split(' ')
-              .slice(2)
-              .join(' ')}
-          </Link>
-        </span>
-      </div>
-      <DefaultButton
-        className='action_button'
-        type='submit'
-        disabled={mutation.isLoading}
-      >
-        {mutation.isLoading ? 'Отправка...' : buttonLabel}
-      </DefaultButton>
       {mutation.isError && (
         <p className={styles.error_message}>
           Ошибка: {(mutation.error as Error).message}
