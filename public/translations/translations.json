@@ -18,8 +18,8 @@
       "events": "Events",
       "contacts": "Contacts",
       "payment_and_delivery_conditions": "Payment and Delivery Conditions",
-      "privacy_policy": "Privacy Policy",
-      "agreement": "Agreement"
+      "privacy_policy": "Personal Data Policy",
+      "agreement": "Offer Agreement"
     },
     "individual": {
       "name": "Svetlana Gennadievna Kabanchenko",
@@ -76,7 +76,7 @@
       "favorites": "Favorites",
       "profile": "Profile",
       "delivery": "Delivery",
-      "privacy": "Privacy Policy",
+      "privacy": "Personal Data Processing Policy",
       "contacts": "Contacts",
       "names": "Artists",
       "about": "About Us",
@@ -85,7 +85,7 @@
     },
     "privacy_page": {
       "info_title": "Information Processing",
-      "info_text": "This page will contain the privacy policy"
+      "info_text": ""
     },
     "contacts_page": {
       "work_time": "Working Hours",
@@ -532,7 +532,8 @@
       "name_placeholder": "Name*",
       "phone_placeholder": "Phone*",
       "email_placeholder": "Email*",
-      "privacy_agreement": "I agree with the privacy policy"
+      "privacy_agreement": "I agree with the privacy policy",
+      "offer_agreement": "I agree with the offer agreement"
     },
     "auth": {
       "login": "Log In",
@@ -543,7 +544,7 @@
       "password": "Password*",
       "name": "Name*",
       "forgot_password": "Forgot password?",
-      "privacy_agreement": "I agree with the privacy policy",
+      "privacy_agreement": "I agree with the personal data policy",
       "have_account": "Already have an account?",
       "no_account": "Don't have an account yet?",
       "login_link": "Log in",
@@ -595,7 +596,7 @@
       "contacts": "Контакты",
       "payment_and_delivery_conditions": "Условия оплаты и доставки",
       "privacy_policy": "Политика персональных данных",
-      "agreement": "Договор"
+      "agreement": "Договор оферты"
     },
     "individual": {
       "name": "Кабанченко Светлана Геннадьевна",
@@ -652,7 +653,7 @@
       "favorites": "Избранное",
       "profile": "Профиль",
       "delivery": "Условия оплаты и доставки",
-      "privacy": "Политика конфиденциальности",
+      "privacy": "Политика обработки персональных данных",
       "contacts": "Контакты",
       "names": "Имена",
       "about": "О нас",
@@ -661,7 +662,7 @@
     },
     "privacy_page": {
       "info_title": "Обработка информации",
-      "info_text": "На этой странице будет размещена политика конфиденциальности"
+      "info_text": ""
     },
     "contacts_page": {
       "work_time": "Время работы",
@@ -1107,7 +1108,8 @@
       "name_placeholder": "Имя*",
       "phone_placeholder": "Телефон*",
       "email_placeholder": "Почта*",
-      "privacy_agreement": "Я согласен с политикой конфиденциальности"
+      "privacy_agreement": "Я согласен с политикой персональных данных",
+      "offer_agreement": "Я принимаю условия договора оферты"
     },
     "auth": {
       "login": "Вход",
@@ -1118,7 +1120,7 @@
       "password": "Пароль*",
       "name": "Имя*",
       "forgot_password": "Забыли пароль?",
-      "privacy_agreement": "Я согласен с политикой конфиденциальности",
+      "privacy_agreement": "Я согласен с политикой персональных данных",
       "have_account": "Уже есть аккаунт?",
       "no_account": "Еще нет аккаунта?",
       "login_link": "Войти",

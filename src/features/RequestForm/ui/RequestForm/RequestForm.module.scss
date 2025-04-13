@@ -21,6 +21,34 @@
   }
 }
 
+.success_message_container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.success_message_text {
+  margin-bottom: 15px;
+  line-height: 1.5;
+  color: var(--silver-color);
+  text-align: justify;
+  white-space: pre-line;
+  max-width: 450px;
+  padding: 0 15px;
+}
+
+.contact_link {
+  color: var(--silver-color);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: var(--links-hover);
+  }
+}
+
 .delivery_method {
   display: flex;
   flex-direction: column;

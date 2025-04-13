@@ -17,3 +17,54 @@
   line-height: 1.6;
   color: var(--silver-color);
 }
+
+.privacy_intro {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.privacy_text {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.privacy_subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 25px 0 15px;
+}
+
+.terms_list {
+  margin: 20px 0;
+}
+
+.term_item {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.term_title {
+  font-weight: 600;
+  color: var(--silver-color);
+}
+
+.privacy_section {
+  margin: 20px 0;
+}
+
+.privacy_list {
+  margin: 10px 0 20px;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.privacy_list_item {
+  margin-bottom: 10px;
+  text-align: justify;
+
+  &::marker {
+    color: var(--silver-color);
+  }
+}

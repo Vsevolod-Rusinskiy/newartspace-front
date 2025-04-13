@@ -85,7 +85,7 @@ export const SignInForm = () => {
     e.preventDefault()
 
     if (!isChecked) {
-      alert('Пожалуйста, согласитесь с политикой конфиденциальности')
+      alert('Пожалуйста, согласитесь с политикой персональных данных')
       return
     }
 
