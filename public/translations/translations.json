@@ -532,7 +532,8 @@
       "name_placeholder": "Name*",
       "phone_placeholder": "Phone*",
       "email_placeholder": "Email*",
-      "privacy_agreement": "I agree with the privacy policy"
+      "privacy_agreement": "I agree with the privacy policy",
+      "offer_agreement": "I agree with the offer agreement"
     },
     "auth": {
       "login": "Log In",
@@ -1107,7 +1108,8 @@
       "name_placeholder": "Имя*",
       "phone_placeholder": "Телефон*",
       "email_placeholder": "Почта*",
-      "privacy_agreement": "Я согласен с политикой конфиденциальности"
+      "privacy_agreement": "Я согласен с политикой персональных данных",
+      "offer_agreement": "Я принимаю условия договора оферты"
     },
     "auth": {
       "login": "Вход",

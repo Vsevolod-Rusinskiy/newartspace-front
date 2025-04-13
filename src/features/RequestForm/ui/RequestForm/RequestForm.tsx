@@ -86,6 +86,7 @@ export const RequestForm = ({
   const inputRef = useRef<HTMLInputElement>(null)
   const isOpen = useAppSelector((state) => state.modalVisibility.isOpened)
   const [isChecked, setIsChecked] = useState(false)
+  const [isAgreementChecked, setIsAgreementChecked] = useState(false)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -101,6 +102,7 @@ export const RequestForm = ({
     setPhone('')
     setEmail('')
     setIsChecked(false)
+    setIsAgreementChecked(false)
   }
 
   const handleDeliveryMethodChange = (
@@ -133,7 +135,11 @@ export const RequestForm = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!isChecked) {
-      alert('Пожалуйста, согласитесь с политикой конфиденциальности')
+      alert('Пожалуйста, согласитесь с политикой персональных данных')
+      return
+    }
+    if (!isAgreementChecked) {
+      alert('Пожалуйста, примите условия оферты')
       return
     }
     if (!phone) {
@@ -221,8 +227,32 @@ export const RequestForm = ({
             .split(' ')
             .slice(0, 2)
             .join(' ')}{' '}
-          <Link href='/privacy' className={styles.form_link}>
+          <Link href='/privacy-policy' className={styles.form_link}>
             {translations[lang].cart_page.privacy_agreement
+              .split(' ')
+              .slice(2)
+              .join(' ')}
+          </Link>
+        </span>
+      </div>
+
+      <div className={styles.form_checkbox_container}>
+        <input
+          className={styles.form_checkbox}
+          type='checkbox'
+          checked={isAgreementChecked}
+          onChange={(e) => setIsAgreementChecked(e.target.checked)}
+          required
+        />
+        <span>
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {(translations[lang].cart_page as any).offer_agreement
+            .split(' ')
+            .slice(0, 2)
+            .join(' ')}{' '}
+          <Link href='/contract' className={styles.form_link}>
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            {(translations[lang].cart_page as any).offer_agreement
               .split(' ')
               .slice(2)
               .join(' ')}
