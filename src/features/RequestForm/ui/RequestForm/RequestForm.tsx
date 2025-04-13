@@ -10,6 +10,7 @@ import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
 import styles from './RequestForm.module.scss'
 import cn from 'classnames'
+import { useLang } from '@/src/shared/hooks/useLang'
 
 export type FormType = 'reproduction' | 'cart'
 
@@ -89,6 +90,7 @@ export const RequestForm = ({
   const buttonLabel = useAppSelector(
     (state) => state.modalVisibility.buttonLabel
   )
+  const { lang, translations } = useLang()
 
   const resetForm = () => {
     setName('')
@@ -140,11 +142,7 @@ export const RequestForm = ({
   }
 
   return (
-    <form
-      className={styles.form_container}
-      onSubmit={handleSubmit}
-      autoComplete='on'
-    >
+    <form className={styles.form_container} onSubmit={handleSubmit}>
       <span className={styles.form_title}>{successMessage || buttonLabel}</span>
       <input
         ref={inputRef}
@@ -154,14 +152,13 @@ export const RequestForm = ({
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
-        autoComplete='name'
       />
       <PhoneInput
         inputClass={cn(styles.form_input, styles.phone_input)}
         country={'ru'}
         value={phone}
         onChange={(phone) => setPhone(phone)}
-        placeholder='Телефон*'
+        placeholder={translations[lang].cart_page.phone_placeholder}
         inputProps={{
           autoComplete: 'tel',
           required: true,
@@ -174,7 +171,6 @@ export const RequestForm = ({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        autoComplete='email'
       />
       <div className={styles.form_checkbox_container}>
         <input
@@ -185,9 +181,15 @@ export const RequestForm = ({
           required
         />
         <span>
-          Я согласен{' '}
+          {translations[lang].cart_page.privacy_agreement
+            .split(' ')
+            .slice(0, 2)
+            .join(' ')}{' '}
           <Link href='/privacy-policy' className={styles.form_link}>
-            с политикой обработки персональных данных
+            {translations[lang].cart_page.privacy_agreement
+              .split(' ')
+              .slice(2)
+              .join(' ')}
           </Link>
         </span>
       </div>
