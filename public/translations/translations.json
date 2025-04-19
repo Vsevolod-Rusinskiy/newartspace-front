@@ -574,6 +574,11 @@
       "invalid_token": "Invalid or expired password reset link",
       "success_reset": "Password successfully reset!",
       "min_length_error": "Password must be at least 8 characters"
+    },
+    "cookie_banner": {
+      "text": "We use cookies to improve your experience. By continuing to use the site, you agree to our ",
+      "accept_button": "Accept",
+      "privacy_link": "privacy policy"
     }
   },
   "ru": {
@@ -1150,6 +1155,11 @@
       "invalid_token": "Неверная или просроченная ссылка для восстановления пароля",
       "success_reset": "Пароль успешно восстановлен!",
       "min_length_error": "Пароль должен быть не менее 8 символов"
+    },
+    "cookie_banner": {
+      "text": "Мы используем cookie для улучшения работы сайта. Продолжая пользоваться сайтом, вы соглашаетесь с нашей ",
+      "accept_button": "Принять",
+      "privacy_link": "политикой обработки персональных данных"
     }
   }
 }
