@@ -12,6 +12,8 @@ import {
 } from '@/src/shared/lib/common'
 import { useDispatch } from 'react-redux'
 import { WelcomeModal } from '@/src/features/WelcomeModal'
+import { CookieBanner } from '@/src/features/CookieBanner/ui/CookieBanner'
+
 const Layout = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch()
   const authData = getAuthDataFromLS('auth')
@@ -36,6 +38,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <SortSidebar />
       <RequestFormModal />
       <WelcomeModal />
+      <CookieBanner />
     </>
   )
 }

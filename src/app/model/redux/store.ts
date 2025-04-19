@@ -17,6 +17,7 @@ import sortReducer from '@/src/widgets/SortSidebar/model/sortSlice'
 import favoritesReducer from '@/src/pages/FavoritesPage/model/favoritesSlice'
 import cartReducer from '@/src/pages/CartPage/model/cartSlice'
 import { welcomeModalSlice } from '@/src/features/WelcomeModal'
+import { cookieBannerSlice } from '@/src/features/CookieBanner/model/cookieBannerSlice'
 
 export const makeStore = () =>
   configureStore({
@@ -39,6 +40,7 @@ export const makeStore = () =>
       favorites: favoritesReducer,
       cart: cartReducer,
       welcomeModal: welcomeModalSlice.reducer,
+      cookieBanner: cookieBannerSlice.reducer,
     },
   })
 
