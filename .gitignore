@@ -43,3 +43,5 @@ next-env.d.ts
 /Makefile
 /docker-compose.dev.yaml
 /k8s/frontend-configmap.yaml
+
+seo_plan.md
