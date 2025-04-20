@@ -5,7 +5,11 @@ import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { fetchPaintingsAction, setArtStyle } from '../model/homePageSlice'
+import {
+  fetchPaintingsAction,
+  setArtStyle,
+  updateHomePageData,
+} from '../model/homePageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
@@ -21,8 +25,16 @@ import { getSortParams } from '@/src/widgets/SortSidebar/model/types'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
 import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
 import { useLang } from '@/src/shared/hooks/useLang'
+import { IPainting } from '@/src/entities/Painting'
 
-export const HomePage = () => {
+interface HomePageProps {
+  initialData?: {
+    data: IPainting[]
+    total: number
+  }
+}
+
+export const HomePage = ({ initialData }: HomePageProps) => {
   const dispatch = useAppDispatch()
   const { paintings, loading, error, artStyle } = useSelector(
     (state: RootState) => state.paintings
@@ -124,6 +136,17 @@ export const HomePage = () => {
     )
     setSelectedArtStyle(style)
   }
+
+  // Инициализация redux-store начальными данными с сервера
+  useEffect(() => {
+    if (
+      initialData &&
+      paintings.data.length === 0 &&
+      initialData.data.length > 0
+    ) {
+      dispatch(updateHomePageData(initialData.data))
+    }
+  }, [initialData, paintings.data.length, dispatch])
 
   return (
     <main className={styles.main}>
