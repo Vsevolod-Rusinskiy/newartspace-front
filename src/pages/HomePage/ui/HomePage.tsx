@@ -8,7 +8,6 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchPaintingsAction, setArtStyle } from '../model/homePageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
-
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { HomePageButton } from '@/src/shared/ui/buttons/HomePageButton/HomePageButton'
 import { DefaultButton } from '@/src/shared/ui/buttons/DefaultButton/DefaultButton'
