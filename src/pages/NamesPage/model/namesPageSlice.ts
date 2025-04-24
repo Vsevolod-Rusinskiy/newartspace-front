@@ -51,7 +51,7 @@ export const initialState: ArtistsState = {
   loading: 'idle',
   error: null,
 }
-
+/* eslint-disable indent */
 export const artistsSlice = createSlice<
   ArtistsState,
   {
@@ -92,7 +92,7 @@ export const artistsSlice = createSlice<
       })
   },
 })
-
+/* eslint-enable indent */
 export const { updateNamesPageData } = artistsSlice.actions
 
 export default artistsSlice.reducer
