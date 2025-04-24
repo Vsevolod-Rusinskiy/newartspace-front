@@ -54,13 +54,23 @@ export const initialState: ArtistsState = {
 
 export const artistsSlice = createSlice<
   ArtistsState,
-  Record<string, never>,
+  {
+    updateNamesPageData: (
+      state: ArtistsState,
+      action: { payload: IArtist[] }
+    ) => void
+  },
   string,
   any // eslint-disable-line @typescript-eslint/no-explicit-any
 >({
   name: 'artists',
   initialState,
-  reducers: {},
+  reducers: {
+    updateNamesPageData: (state, action) => {
+      state.artists.data = action.payload
+      state.artists.total = action.payload.length
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchArtistsAction.pending, (state) => {
@@ -82,5 +92,7 @@ export const artistsSlice = createSlice<
       })
   },
 })
+
+export const { updateNamesPageData } = artistsSlice.actions
 
 export default artistsSlice.reducer
