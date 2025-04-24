@@ -59,7 +59,12 @@ export const fetchEventsAction = createAsyncThunk<
 export const eventsSlice = createSlice({
   name: 'events',
   initialState,
-  reducers: {},
+  reducers: {
+    updateEventsPageData: (state, action: PayloadAction<Event[]>) => {
+      state.events.data = action.payload
+      state.events.total = action.payload.length
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchEventsAction.pending, (state) => {
@@ -79,5 +84,7 @@ export const eventsSlice = createSlice({
       })
   },
 })
+
+export const { updateEventsPageData } = eventsSlice.actions
 
 export default eventsSlice.reducer
