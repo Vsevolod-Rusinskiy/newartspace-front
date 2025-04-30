@@ -5,6 +5,7 @@ import cn from 'classnames'
 import styles from './PaintingListItem.module.scss'
 import { Price } from '../Price/Price'
 import { ImageWithWatermark } from '../ImageWithWatermark/ImageWithWatermark'
+import { slugify } from '@/src/shared/lib/slugify'
 
 export interface IPaintingListItem {
   id: number
@@ -54,7 +55,7 @@ export const PaintingListItem = ({
           className={styles.painting_list_item_img}
           unoptimized
         />
-        <Link href={`/${id}`}>
+        <Link href={`/paintings/${id}-${slugify(title)}`}>
           <div
             className={cn(styles.painting_info_container, {
               [styles.price_container_visible]: isHovered,
