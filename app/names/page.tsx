@@ -22,5 +22,44 @@ export const metadata = {
 }
 
 export default function Page() {
-  return <NamesPageServer />
+  // Структурированные данные JSON-LD для страницы Имена (список художников)
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Имена художников | Галерея «Новое пространство»',
+    description:
+      'Список художников, представленных в нашей галерее. Биографии, работы и достижения.',
+    url: 'https://newartspace.ru/names',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Галерея молодых и малоизвестных художников «Новое пространство»',
+      url: 'https://newartspace.ru/',
+    },
+    about: {
+      '@type': 'Thing',
+      name: 'Художники современного искусства',
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          url: 'https://newartspace.ru/names',
+        },
+      ],
+    },
+  }
+
+  return (
+    <>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      <NamesPageServer />
+    </>
+  )
 }

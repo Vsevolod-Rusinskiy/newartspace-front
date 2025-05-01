@@ -22,5 +22,40 @@ export const metadata = {
 }
 
 export default function Page() {
-  return <EventsPageServer />
+  // Структурированные данные JSON-LD для страницы событий
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'События и выставки | Галерея «Новое пространство»',
+    description:
+      'Актуальные и прошедшие события, выставки и мероприятия галереи молодых и малоизвестных художников.',
+    url: 'https://newartspace.ru/events',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Галерея молодых и малоизвестных художников «Новое пространство»',
+      url: 'https://newartspace.ru/',
+    },
+    about: {
+      '@type': 'Thing',
+      name: 'Выставки и мероприятия галереи современного искусства',
+    },
+    mainContentOfPage: {
+      '@type': 'WebPageElement',
+      isPartOf: {
+        '@id': 'https://newartspace.ru/events',
+      },
+    },
+  }
+
+  return (
+    <>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      <EventsPageServer />
+    </>
+  )
 }

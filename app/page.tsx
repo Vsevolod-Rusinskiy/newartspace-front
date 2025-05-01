@@ -21,4 +21,31 @@ export const metadata = {
   },
 }
 
-export default HomePage
+export default function Page() {
+  // Структурированные данные JSON-LD для главной страницы
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Галерея молодых и малоизвестных художников «Новое пространство»',
+    url: 'https://newartspace.ru/',
+    description:
+      'Онлайн-галерея современных молодых художников, картины, выставки и мероприятия.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://newartspace.ru/catalog?search={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  }
+
+  return (
+    <>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      <HomePage />
+    </>
+  )
+}
