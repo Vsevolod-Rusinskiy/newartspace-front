@@ -25,6 +25,7 @@ interface PaintingCardPageParams {
   params: {
     paintingCardId: string
   }
+  initialData?: IPainting
 }
 export interface IArtist {
   artistName: string
@@ -46,6 +47,7 @@ export interface PaintingRootState {
 
 export const PaintingCardPage = (params: PaintingCardPageParams) => {
   const { paintingCardId } = params.params
+  const { initialData } = params
   const dispatch = useAppDispatch()
   const { painting, loading, error } = useSelector(
     (state: PaintingRootState) => state.painting
@@ -63,10 +65,12 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
   }, [error, paintingCardId])
 
   useEffect(() => {
-    if (paintingCardId) {
+    if (initialData) {
+      dispatch({ type: 'painting/setPaintingData', payload: initialData })
+    } else if (paintingCardId) {
       dispatch(fetchPaintingByIdAction(paintingCardId))
     }
-  }, [dispatch, paintingCardId])
+  }, [dispatch, initialData, paintingCardId])
 
   useEffect(() => {
     dispatch(initializeFavorites())

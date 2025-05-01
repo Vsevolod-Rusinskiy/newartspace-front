@@ -1,21 +1,17 @@
-'use client'
-import { PaintingCardPage } from '@/src/pages/PaintingCardPage'
 import { notFound } from 'next/navigation'
+import { fetchPaintingById } from '@/src/shared/api/fetch-painting-by-id'
+import { PaintingCardClient } from './painting-card-client'
 
-interface PaintingCardPageParams {
-  params: {
-    id_slug: string
-  }
-}
+export const revalidate = 300
 
-export default function PaintingCardPageServer({
+export default async function PaintingCardPageServer({
   params,
-}: PaintingCardPageParams) {
-  // Парсим id из id_slug (до первого дефиса)
+}: {
+  params: { id_slug: string }
+}) {
   const [id] = params.id_slug.split('-')
-  if (!id || isNaN(Number(id))) {
-    notFound()
-  }
-  // Прокидываем id как paintingCardId (как раньше)
-  return <PaintingCardPage params={{ paintingCardId: id }} />
+  if (!id || isNaN(Number(id))) notFound()
+  const painting = await fetchPaintingById(id)
+  if (!painting) notFound()
+  return <PaintingCardClient painting={painting} />
 }

@@ -44,7 +44,13 @@ export const paintingSlice = createSlice<
 >({
   name: 'painting',
   initialState,
-  reducers: {},
+  reducers: {
+    setPaintingData: (state, action: PayloadAction<IPainting>) => {
+      state.painting = action.payload
+      state.loading = 'succeeded'
+      state.error = null
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPaintingByIdAction.pending, (state) => {
@@ -64,5 +70,7 @@ export const paintingSlice = createSlice<
       })
   },
 })
+
+export const { setPaintingData } = paintingSlice.actions
 
 export default paintingSlice.reducer
