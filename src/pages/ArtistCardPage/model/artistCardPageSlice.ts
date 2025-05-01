@@ -50,7 +50,13 @@ export const artistSlice = createSlice<
 >({
   name: 'artist',
   initialState,
-  reducers: {},
+  reducers: {
+    setArtistData: (state, action: PayloadAction<IArtist>) => {
+      state.artist = action.payload
+      state.loading = 'succeeded'
+      state.error = null
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchArtistByIdAction.pending, (state) => {
@@ -70,5 +76,7 @@ export const artistSlice = createSlice<
       })
   },
 })
+
+export const { setArtistData } = artistSlice.actions
 
 export default artistSlice.reducer

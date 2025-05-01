@@ -21,6 +21,7 @@ import styles from './NamePage.module.scss'
 import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
 import { useLang } from '@/src/shared/hooks/useLang'
 import { IArtist } from '@/src/shared/api/artists'
+import { slugify } from '@/src/shared/lib/slugify'
 
 interface NamesPageProps {
   initialData?: {
@@ -131,7 +132,9 @@ export const NamesPage = ({ initialData }: NamesPageProps) => {
             <ul className={styles.slider_list}>
               {artists.data.map((artist) => (
                 <li className={styles.slider_item} key={generateUniqueId()}>
-                  <Link href={`/names/${artist.id}`}>
+                  <Link
+                    href={`/names/${artist.id}-${slugify(artist.artistName)}`}
+                  >
                     <Htag tag='h3'>{artist.artistName}</Htag>
                     <Slider paintings={artist.paintings} />
                   </Link>
