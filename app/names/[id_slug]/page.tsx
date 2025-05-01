@@ -20,6 +20,9 @@ export async function generateMetadata({
     const artist = await fetchArtistById(id)
     if (!artist) return { title: 'Страница не найдена' }
 
+    // Формируем канонический URL
+    const canonicalUrl = `https://newartspace.ru/names/${params.id_slug}`
+
     // Формируем мета-данные
     return {
       title: `${artist.artistName} | Галерея молодых и малоизвестных художников`,
@@ -31,7 +34,7 @@ export async function generateMetadata({
         description: artist.artistDescription
           ? artist.artistDescription.substring(0, 160) + '...'
           : `Ознакомьтесь с работами художника ${artist.artistName} в нашей галерее.`,
-        url: `https://newartspace.ru/names/${params.id_slug}`,
+        url: canonicalUrl,
         type: 'profile',
         images: [
           {
@@ -41,6 +44,10 @@ export async function generateMetadata({
             alt: artist.artistName,
           },
         ],
+      },
+      // Добавляем каноническую ссылку в alternates
+      alternates: {
+        canonical: canonicalUrl,
       },
     }
   } catch (error) {

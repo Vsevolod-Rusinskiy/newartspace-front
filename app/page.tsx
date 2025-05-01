@@ -19,6 +19,10 @@ export const metadata = {
       },
     ],
   },
+  canonical: 'https://newartspace.ru/',
+  alternates: {
+    canonical: 'https://newartspace.ru/',
+  },
 }
 
 export default function Page() {

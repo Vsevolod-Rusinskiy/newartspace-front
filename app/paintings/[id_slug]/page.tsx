@@ -36,13 +36,16 @@ export async function generateMetadata({
       ? painting.description.substring(0, 160) + '...'
       : `${painting.title || 'Картина'}, ${technique}, ${dimensions}, ${year}`
 
+    // Формируем канонический URL
+    const canonicalUrl = `https://newartspace.ru/paintings/${params.id_slug}`
+
     return {
       title,
       description,
       openGraph: {
         title,
         description,
-        url: `https://newartspace.ru/paintings/${params.id_slug}`,
+        url: canonicalUrl,
         type: 'article',
         images: [
           {
@@ -52,6 +55,10 @@ export async function generateMetadata({
             alt: painting.title,
           },
         ],
+      },
+      // Добавляем каноническую ссылку в alternates
+      alternates: {
+        canonical: canonicalUrl,
       },
     }
   } catch (error) {
