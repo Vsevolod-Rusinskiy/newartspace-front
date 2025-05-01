@@ -19,11 +19,11 @@ export async function generateMetadata({
     // Получаем данные картины
     const painting = await fetchPaintingById(id)
     if (!painting) return { title: 'Страница не найдена' }
-
     // Формируем метаданные
-    const title = `${painting.title || 'Картина'} - ${painting.author || 'Художник'} (${
-      painting.yearOfCreation || 'N/A'
-    })`
+    const title = `${painting.title || 'Картина'} - ${painting.author || 'Художник'}, ${
+      (painting.yearOfCreation || 'N/A') +
+      (painting.yearOfCreation ? ' г.' : '')
+    }`
 
     const technique = painting.technique || ''
     const dimensions =
