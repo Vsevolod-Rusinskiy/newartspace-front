@@ -22,6 +22,7 @@ import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './ArtistCardPage.module.scss'
 import { useLang } from '@/src/shared/hooks/useLang'
 import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
+import Head from 'next/head'
 
 interface ArtistPageParams {
   params: {
@@ -132,6 +133,19 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
 
   return (
     <main className={styles.main}>
+      {artist && !isLoading && (
+        <Head>
+          <title>{`${artistName} | Галерея молодых и малоизвестных художников`}</title>
+          <meta
+            name='description'
+            content={
+              artistDescription
+                ? artistDescription.substring(0, 160) + '...'
+                : `Ознакомьтесь с работами художника ${artistName} в нашей галерее.`
+            }
+          />
+        </Head>
+      )}
       <div className={`container`}>
         <NavigationButton direction='back' label='Назад' />
       </div>

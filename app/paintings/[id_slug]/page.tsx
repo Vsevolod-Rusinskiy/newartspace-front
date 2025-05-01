@@ -21,10 +21,20 @@ export async function generateMetadata({
     if (!painting) return { title: 'Страница не найдена' }
 
     // Формируем метаданные
-    const title = `${painting.title} - ${painting.author} (${painting.yearOfCreation})`
+    const title = `${painting.title || 'Картина'} - ${painting.author || 'Художник'} (${
+      painting.yearOfCreation || 'N/A'
+    })`
+
+    const technique = painting.technique || ''
+    const dimensions =
+      painting.height && painting.width
+        ? `${painting.height}x${painting.width}см`
+        : ''
+    const year = painting.yearOfCreation ? `${painting.yearOfCreation}г.` : ''
+
     const description = painting.description
       ? painting.description.substring(0, 160) + '...'
-      : `${painting.title}, ${painting.technique}, ${painting.height}x${painting.width}см, ${painting.yearOfCreation}г.`
+      : `${painting.title || 'Картина'}, ${technique}, ${dimensions}, ${year}`
 
     return {
       title,
