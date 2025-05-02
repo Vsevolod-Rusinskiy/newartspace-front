@@ -7,7 +7,7 @@
     "prettier-format": "prettier --write '**/*.{js,jsx,ts,tsx}'",
     "prettier-check": "prettier --check '**/*.{js,jsx,ts,tsx}'",
     "build": "next build",
-    "start": "PORT=3001 next start",
+    "start": "next start",
     "lint": "next lint",
     "lfix": "next lint --fix",
     "pfix": "prettier --write '**/*.{js,jsx,ts,tsx}'",
