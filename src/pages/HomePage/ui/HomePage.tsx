@@ -27,6 +27,8 @@ import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/Inf
 import { useLang } from '@/src/shared/hooks/useLang'
 import { IPainting } from '@/src/entities/Painting'
 
+// test
+
 interface HomePageProps {
   initialData?: {
     data: IPainting[]
