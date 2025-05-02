@@ -96,11 +96,12 @@ export const NamesPage = ({ initialData }: NamesPageProps) => {
     if (
       initialData &&
       artists.data.length === 0 &&
-      initialData.data.length > 0
+      initialData.data.length > 0 &&
+      !selectedLetter // Только если не выбрана буква
     ) {
       dispatch(updateNamesPageData(initialData.data))
     }
-  }, [initialData, artists.data.length, dispatch])
+  }, [initialData, artists.data.length, dispatch, selectedLetter])
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
