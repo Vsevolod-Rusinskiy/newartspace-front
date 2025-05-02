@@ -42,12 +42,8 @@ const initialState: ArtistState = {
 }
 
 // Слайс для работы с данными художника
-export const artistSlice = createSlice<
-  ArtistState,
-  Record<string, never>,
-  string,
-  any // eslint-disable-line @typescript-eslint/no-explicit-any
->({
+/* eslint-disable indent */
+export const artistSlice = createSlice({
   name: 'artist',
   initialState,
   reducers: {
@@ -76,6 +72,7 @@ export const artistSlice = createSlice<
       })
   },
 })
+/* eslint-enable indent */
 
 export const { setArtistData } = artistSlice.actions
 

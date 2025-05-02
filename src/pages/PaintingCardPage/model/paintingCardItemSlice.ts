@@ -35,13 +35,9 @@ const initialState: PaintingState = {
   loading: 'idle',
   error: null,
 }
-// @ts-ignore
-export const paintingSlice = createSlice<
-  PaintingState,
-  Record<string, never>,
-  string,
-  any // eslint-disable-line @typescript-eslint/no-explicit-any
->({
+
+/* eslint-disable indent */
+export const paintingSlice = createSlice({
   name: 'painting',
   initialState,
   reducers: {
@@ -70,6 +66,7 @@ export const paintingSlice = createSlice<
       })
   },
 })
+/* eslint-enable indent */
 
 export const { setPaintingData } = paintingSlice.actions
 
