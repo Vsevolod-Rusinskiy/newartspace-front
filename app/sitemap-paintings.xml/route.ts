@@ -4,6 +4,7 @@ import {
   FetchPaintingsParams,
   fetchPaintings,
 } from '@/src/shared/api/paintings'
+import { IPainting } from '@/src/entities/Painting/model/types/painting.types'
 
 export const revalidate = 43200 // Обновляем раз в 12 часов
 
@@ -39,7 +40,7 @@ export async function GET() {
       const paintings = pageData.data || []
 
       // Добавляем каждую картину в sitemap
-      paintings.forEach((painting) => {
+      paintings.forEach((painting: IPainting) => {
         // Создаем slug из id и заголовка картины (если есть)
         const slug = painting.title
           ? `${painting.id}-${painting.title
