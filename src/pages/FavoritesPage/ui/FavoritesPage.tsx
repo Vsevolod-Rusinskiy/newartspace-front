@@ -27,6 +27,7 @@ import {
 } from '@/src/shared/ui/AnimatedList/AnimatedList'
 import styles from './FavoritesPage.module.scss'
 import { selectIsLoggedIn } from '@/src/features/Auth'
+import { slugify } from '@/src/shared/lib/slugify'
 
 export const FavoritesPage = () => {
   const dispatch = useAppDispatch()
@@ -88,7 +89,9 @@ export const FavoritesPage = () => {
                   onClick={() => handleToggleFavorite(Number(painting.id))}
                 />
                 <div className={styles.item_image}>
-                  <Link href={`/${painting.id}`}>
+                  <Link
+                    href={`/paintings/${painting.id}-${slugify(painting.title)}`}
+                  >
                     <Image
                       src={painting.imgUrl}
                       alt={painting.title}

@@ -1,3 +1,7 @@
+export interface IArtist {
+  artistName: string
+}
+
 export interface IPainting {
   id: number
   author: string
@@ -18,4 +22,5 @@ export interface IPainting {
   color: string
   description: string
   isReproducible: boolean
+  artist: IArtist
 }

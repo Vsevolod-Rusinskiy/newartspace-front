@@ -13,6 +13,7 @@ interface ArtistsState {
   artists: { data: IArtist[]; total: number }
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null | undefined
+  currentLetter: string | null
 }
 
 interface Pagination {
@@ -50,21 +51,42 @@ export const initialState: ArtistsState = {
   artists: { data: [], total: 0 },
   loading: 'idle',
   error: null,
+  currentLetter: null,
 }
-
+/* eslint-disable indent */
 export const artistsSlice = createSlice<
   ArtistsState,
-  Record<string, never>,
+  {
+    updateNamesPageData: (
+      state: ArtistsState,
+      action: { payload: IArtist[] }
+    ) => void
+  },
   string,
   any // eslint-disable-line @typescript-eslint/no-explicit-any
 >({
   name: 'artists',
   initialState,
-  reducers: {},
+  reducers: {
+    updateNamesPageData: (state, action) => {
+      state.artists.data = action.payload
+      state.artists.total = action.payload.length
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchArtistsAction.pending, (state) => {
+      .addCase(fetchArtistsAction.pending, (state, action) => {
         state.loading = 'pending'
+        // Если изменилась буква или это первая страница, очищаем данные
+        if (
+          action.meta.arg.page === 1 ||
+          action.meta.arg.letter !== state.currentLetter
+        ) {
+          state.artists.data = []
+          state.artists.total = 0
+        }
+        // Запоминаем текущую букву
+        state.currentLetter = action.meta.arg.letter || null
       })
       .addCase(fetchArtistsAction.fulfilled, (state, action) => {
         state.loading = 'succeeded'
@@ -82,5 +104,7 @@ export const artistsSlice = createSlice<
       })
   },
 })
+/* eslint-enable indent */
+export const { updateNamesPageData } = artistsSlice.actions
 
 export default artistsSlice.reducer

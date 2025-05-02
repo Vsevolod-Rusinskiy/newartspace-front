@@ -1,3 +1,6 @@
-import { HomePage } from '@/src/pages/HomePage'
+import { redirect } from 'next/navigation'
 
-export default HomePage
+export default function Page() {
+  redirect('/')
+  return null
+}

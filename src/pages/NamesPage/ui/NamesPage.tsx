@@ -8,7 +8,10 @@ import { Alphabet } from '@/src/pages/NamesPage/ui/Alphabet'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { NoData } from '@/src/shared/ui/NoData/NoData'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { fetchArtistsAction } from '../model/namesPageSlice'
+import {
+  fetchArtistsAction,
+  updateNamesPageData,
+} from '../model/namesPageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Slider } from '@/src/shared/ui/Slider/Slider'
@@ -17,8 +20,17 @@ import Link from 'next/link'
 import styles from './NamePage.module.scss'
 import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
 import { useLang } from '@/src/shared/hooks/useLang'
+import { IArtist } from '@/src/shared/api/artists'
+import { slugify } from '@/src/shared/lib/slugify'
 
-export const NamesPage = () => {
+interface NamesPageProps {
+  initialData?: {
+    data: IArtist[]
+    total: number
+  }
+}
+
+export const NamesPage = ({ initialData }: NamesPageProps) => {
   const dispatch = useAppDispatch()
   const { artists, loading, error } = useSelector(
     (state: RootState) => state.artists
@@ -79,6 +91,18 @@ export const NamesPage = () => {
     }
   }, [loading, artists, error])
 
+  // Инициализация redux-store начальными данными с сервера
+  useEffect(() => {
+    if (
+      initialData &&
+      artists.data.length === 0 &&
+      initialData.data.length > 0 &&
+      !selectedLetter // Только если не выбрана буква
+    ) {
+      dispatch(updateNamesPageData(initialData.data))
+    }
+  }, [initialData, artists.data.length, dispatch, selectedLetter])
+
   const isLoading = loading === 'idle' || loading === 'pending'
 
   return (
@@ -109,7 +133,9 @@ export const NamesPage = () => {
             <ul className={styles.slider_list}>
               {artists.data.map((artist) => (
                 <li className={styles.slider_item} key={generateUniqueId()}>
-                  <Link href={`/names/${artist.id}`}>
+                  <Link
+                    href={`/names/${artist.id}-${slugify(artist.artistName)}`}
+                  >
                     <Htag tag='h3'>{artist.artistName}</Htag>
                     <Slider paintings={artist.paintings} />
                   </Link>

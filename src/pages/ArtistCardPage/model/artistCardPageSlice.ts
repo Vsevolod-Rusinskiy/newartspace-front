@@ -42,15 +42,17 @@ const initialState: ArtistState = {
 }
 
 // Слайс для работы с данными художника
-export const artistSlice = createSlice<
-  ArtistState,
-  Record<string, never>,
-  string,
-  any // eslint-disable-line @typescript-eslint/no-explicit-any
->({
+/* eslint-disable indent */
+export const artistSlice = createSlice({
   name: 'artist',
   initialState,
-  reducers: {},
+  reducers: {
+    setArtistData: (state, action: PayloadAction<IArtist>) => {
+      state.artist = action.payload
+      state.loading = 'succeeded'
+      state.error = null
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchArtistByIdAction.pending, (state) => {
@@ -70,5 +72,8 @@ export const artistSlice = createSlice<
       })
   },
 })
+/* eslint-enable indent */
+
+export const { setArtistData } = artistSlice.actions
 
 export default artistSlice.reducer

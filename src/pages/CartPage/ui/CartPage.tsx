@@ -29,6 +29,7 @@ import styles from './CartPage.module.scss'
 import { CartSkeleton } from './CartSkeleton'
 import { selectIsLoggedIn } from '@/src/features/Auth'
 import { useLang } from '@/src/shared/hooks/useLang'
+import { slugify } from '@/src/shared/lib/slugify'
 
 export const CartPage = () => {
   const dispatch = useAppDispatch()
@@ -111,7 +112,9 @@ export const CartPage = () => {
                   preset='fadeSlide'
                 >
                   <div className={styles.item_image}>
-                    <Link href={`/${painting.id}`}>
+                    <Link
+                      href={`/paintings/${painting.id}-${slugify(painting.title)}`}
+                    >
                       <Image
                         src={painting.imgUrl}
                         alt={painting.title}

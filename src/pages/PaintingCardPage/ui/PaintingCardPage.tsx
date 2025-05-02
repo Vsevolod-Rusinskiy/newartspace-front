@@ -20,11 +20,13 @@ import { PaintingActions } from '@/src/widgets/PaintingActions'
 import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
 import { ImageWithWatermark } from '@/src/shared/ui/ImageWithWatermark/ImageWithWatermark'
 import { useLang } from '@/src/shared/hooks/useLang'
+import Head from 'next/head'
 
 interface PaintingCardPageParams {
   params: {
     paintingCardId: string
   }
+  initialData?: IPainting
 }
 export interface IArtist {
   artistName: string
@@ -46,6 +48,7 @@ export interface PaintingRootState {
 
 export const PaintingCardPage = (params: PaintingCardPageParams) => {
   const { paintingCardId } = params.params
+  const { initialData } = params
   const dispatch = useAppDispatch()
   const { painting, loading, error } = useSelector(
     (state: PaintingRootState) => state.painting
@@ -54,7 +57,8 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
-  const { imgUrl, title, description } = painting || ({} as IPainting)
+  const { imgUrl, title, description, author, yearOfCreation } =
+    painting || ({} as IPainting)
 
   useEffect(() => {
     if (error === 'Painting not found' || isNaN(Number(paintingCardId))) {
@@ -63,10 +67,12 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
   }, [error, paintingCardId])
 
   useEffect(() => {
-    if (paintingCardId) {
+    if (initialData) {
+      dispatch({ type: 'painting/setPaintingData', payload: initialData })
+    } else if (paintingCardId) {
       dispatch(fetchPaintingByIdAction(paintingCardId))
     }
-  }, [dispatch, paintingCardId])
+  }, [dispatch, initialData, paintingCardId])
 
   useEffect(() => {
     dispatch(initializeFavorites())
@@ -84,6 +90,19 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
 
   return (
     <main className={styles.main}>
+      {painting && !isLoading && (
+        <Head>
+          <title>{`${title} - ${author} (${yearOfCreation})`}</title>
+          <meta
+            name='description'
+            content={
+              description
+                ? description.substring(0, 160) + '...'
+                : `${title}, ${painting.technique}, ${painting.height}x${painting.width}см, ${yearOfCreation}г.`
+            }
+          />
+        </Head>
+      )}
       <div className={`container ${styles.navigation_container}`}>
         <NavigationButton direction='back' label='Назад' />
         <FavoritesSVG

@@ -8,7 +8,10 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { motion } from 'framer-motion'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
-import { fetchArtistByIdAction } from '../model/artistCardPageSlice'
+import {
+  fetchArtistByIdAction,
+  setArtistData,
+} from '../model/artistCardPageSlice'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
 import { PaintingListItem } from '@/src/shared/ui/PaintingListItem/PaintingListItem'
@@ -19,11 +22,13 @@ import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './ArtistCardPage.module.scss'
 import { useLang } from '@/src/shared/hooks/useLang'
 import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
+import Head from 'next/head'
 
 interface ArtistPageParams {
   params: {
     artistCardId: string
   }
+  initialData?: IArtist
 }
 
 export interface IArtist {
@@ -49,6 +54,7 @@ const limit = 3
 
 export const ArtistCardPage = (params: ArtistPageParams) => {
   const { artistCardId } = params.params
+  const { initialData } = params
   const dispatch = useAppDispatch()
   const { artist, loading, error } = useSelector(
     (state: ArtistRootState) => state.artist
@@ -90,10 +96,12 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
   }, [error, artistCardId])
 
   useEffect(() => {
-    if (artistCardId) {
+    if (initialData) {
+      dispatch(setArtistData(initialData))
+    } else if (artistCardId) {
       dispatch(fetchArtistByIdAction(artistCardId))
     }
-  }, [dispatch, artistCardId])
+  }, [dispatch, initialData, artistCardId])
 
   // Обновляем отображаемые картины при изменении художника или страницы
   useEffect(() => {
@@ -125,6 +133,19 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
 
   return (
     <main className={styles.main}>
+      {artist && !isLoading && (
+        <Head>
+          <title>{`${artistName} | Галерея молодых и малоизвестных художников`}</title>
+          <meta
+            name='description'
+            content={
+              artistDescription
+                ? artistDescription.substring(0, 160) + '...'
+                : `Ознакомьтесь с работами художника ${artistName} в нашей галерее.`
+            }
+          />
+        </Head>
+      )}
       <div className={`container`}>
         <NavigationButton direction='back' label='Назад' />
       </div>

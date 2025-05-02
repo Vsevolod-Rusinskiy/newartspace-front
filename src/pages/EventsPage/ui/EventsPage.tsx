@@ -7,7 +7,10 @@ import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/src/app/model/redux/hooks'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { fetchEventsAction } from '../model/eventsPageSlice'
+import {
+  fetchEventsAction,
+  updateEventsPageData,
+} from '../model/eventsPageSlice'
 import { RootState } from '@/src/app/model/redux/store'
 import { Paginate } from '@/src/shared/ui/Pagination/Pagination'
 import { Htag } from '@/src/shared/ui/Htag/Htag'
@@ -16,7 +19,14 @@ import styles from './EventsPage.module.scss'
 import { EventListItem } from './EventListItem'
 import { useLang } from '@/src/shared/hooks/useLang'
 
-export const EventsPage = () => {
+interface EventsPageProps {
+  initialData?: {
+    data: any[]
+    total: number
+  }
+}
+
+export const EventsPage = ({ initialData }: EventsPageProps) => {
   const dispatch = useAppDispatch()
   const { events, loading, error } = useSelector(
     (state: RootState) => state.events
@@ -33,6 +43,16 @@ export const EventsPage = () => {
   useEffect(() => {
     dispatch(fetchEventsAction({ page, limit }))
   }, [dispatch, page])
+
+  useEffect(() => {
+    if (
+      initialData &&
+      events.data.length === 0 &&
+      initialData.data.length > 0
+    ) {
+      dispatch(updateEventsPageData(initialData.data))
+    }
+  }, [initialData, events.data.length, dispatch])
 
   const isLoading = loading === 'idle' || loading === 'pending'
 
