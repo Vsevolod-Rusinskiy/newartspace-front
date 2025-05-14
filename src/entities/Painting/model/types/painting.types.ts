@@ -18,4 +18,5 @@ export interface IPainting {
   color: string
   description: string
   isReproducible: boolean
+  priority: number
 }

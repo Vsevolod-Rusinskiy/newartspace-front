@@ -106,7 +106,11 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
   // Обновляем отображаемые картины при изменении художника или страницы
   useEffect(() => {
     if (artist && artist.paintings) {
-      const newPaintings = artist.paintings.slice(0, page * limit)
+      // Сортировка по приоритету (по убыванию)
+      const sortedPaintings = [...artist.paintings].sort(
+        (a, b) => b.priority - a.priority
+      )
+      const newPaintings = sortedPaintings.slice(0, page * limit)
       setDisplayedPaintings(newPaintings)
       setIsLoadingMore(false)
     }

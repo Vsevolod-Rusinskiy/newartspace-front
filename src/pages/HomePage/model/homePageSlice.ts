@@ -82,9 +82,13 @@ export const paintingsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPaintingsAction.pending, (state) => {
+      .addCase(fetchPaintingsAction.pending, (state, action) => {
         state.loading = 'pending'
         state.error = null
+        if (action.meta?.arg.page === 1) {
+          state.paintings.data = []
+          state.paintings.total = 0
+        }
       })
       .addCase(fetchPaintingsAction.fulfilled, (state, action) => {
         state.loading = 'succeeded'
