@@ -126,7 +126,15 @@ export const HomePage = ({ initialData }: HomePageProps) => {
   const isLoading = loading === 'idle' || loading === 'pending'
 
   const handleArtStyleChange = (style: string) => {
+    // Если выбранный стиль совпадает с текущим, ничего не делаем
+    if (style === selectedArtStyle) return
+
     dispatch(setArtStyle(style))
+    setSelectedArtStyle(style)
+    setPage(1) // Сбрасываем страницу при смене стиля
+    setIsDelaying(true) // Показываем скелетон при загрузке
+
+    // Принудительно загружаем данные для выбранного стиля
     dispatch(
       fetchPaintingsAction({
         page: 1,
@@ -136,7 +144,6 @@ export const HomePage = ({ initialData }: HomePageProps) => {
         sort: getSortParams(sortType),
       })
     )
-    setSelectedArtStyle(style)
   }
 
   // Инициализация redux-store начальными данными с сервера
@@ -144,11 +151,24 @@ export const HomePage = ({ initialData }: HomePageProps) => {
     if (
       initialData &&
       paintings.data.length === 0 &&
-      initialData.data.length > 0
+      initialData.data.length > 0 &&
+      artStyle === null // Только если стиль не выбран
     ) {
       dispatch(updateHomePageData(initialData.data))
     }
-  }, [initialData, paintings.data.length, dispatch])
+  }, [initialData, paintings.data.length, dispatch, artStyle])
+
+  // Сброс page при изменении artStyle
+  useEffect(() => {
+    setPage(1)
+  }, [artStyle])
+
+  // Синхронизация selectedArtStyle с artStyle из redux
+  useEffect(() => {
+    if (selectedArtStyle !== artStyle) {
+      setSelectedArtStyle(artStyle)
+    }
+  }, [artStyle])
 
   return (
     <main className={styles.main}>
