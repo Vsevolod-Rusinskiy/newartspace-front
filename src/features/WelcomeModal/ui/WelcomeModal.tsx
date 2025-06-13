@@ -12,7 +12,7 @@ import { generateHash } from '@/src/shared/lib/generateHash'
 
 const PHONE_NUMBER = '+79219326215'
 
-const MODAL_CONTENT = `В мае Галерея открыта с пн по ср с 13:00-19:00, по чт и птн с 13:00-18:00.
+const MODAL_CONTENT = `Галерея открыта с пн по ср с 13:00-19:00, по чт и птн с 13:00-18:00.
 В другое время / день по предварительной договоренности `
 
 const MODAL_FOOTER = 'Приносим свои извинения.\n\nБудем рады Вас видеть!'
