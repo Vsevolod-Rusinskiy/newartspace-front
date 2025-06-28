@@ -12,7 +12,7 @@ import { generateHash } from '@/src/shared/lib/generateHash'
 
 const PHONE_NUMBER = '+79219326215'
 
-const MODAL_CONTENT = `В июне Галерея открыта в Пн, Ср, Пт с 13:00-19:00, во Вт и Чт с 13:00-18:00.
+const MODAL_CONTENT = `В июле и августе Галерея открыта Пн - Пт с 13:00-18:00.
 В другое время / день по предварительной договоренности`
 
 const MODAL_FOOTER = 'Приносим свои извинения.\n\nБудем рады Вас видеть!'
@@ -84,7 +84,7 @@ export const WelcomeModal = () => {
             <p className={styles.address}>
               Санкт-Петербург, ул. Ново-рыбинская, д. 19-21,
               <br />
-              ЦБ и Т «Квартал», 2 эт., зал 9
+              БЦ «Квартал», 2 эт., зал 9
             </p>
           </div>
         </div>
