@@ -12,10 +12,11 @@ import { generateHash } from '@/src/shared/lib/generateHash'
 
 const PHONE_NUMBER = '+79219326215'
 
-const MODAL_CONTENT = `В июле и августе Галерея открыта Пн - Пт с 13:00-18:00.
-В другое время / день по предварительной договоренности`
+const MODAL_CONTENT = `В летнее время возможно закрытие Галереи на мероприятия. 
+Просьба уточнять время работы по тел. +79219326215
+Благодарим за понимание!`
 
-const MODAL_FOOTER = 'Приносим свои извинения.\n\nБудем рады Вас видеть!'
+const MODAL_FOOTER = 'Будем рады Вас видеть!'
 
 export const WelcomeModal = () => {
   const dispatch = useAppDispatch()
