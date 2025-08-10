@@ -255,6 +255,7 @@ export const ArtistCardPage = (params: ArtistPageParams) => {
                   width={painting.width}
                   priceType={painting.priceType}
                   discount={painting.discount}
+                  isAdult={painting.isAdult}
                 />
               ))}
 
