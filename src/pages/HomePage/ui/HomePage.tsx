@@ -257,6 +257,7 @@ export const HomePage = ({ initialData }: HomePageProps) => {
                     width={painting.width}
                     priceType={painting.priceType}
                     discount={painting.discount}
+                    isAdult={painting.isAdult}
                   />
                 ))}
                 {loading === 'pending' && page > 1 && (

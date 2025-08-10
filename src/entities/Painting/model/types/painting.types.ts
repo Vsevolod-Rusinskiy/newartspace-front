@@ -19,4 +19,5 @@ export interface IPainting {
   description: string
   isReproducible: boolean
   priority: number
+  isAdult: boolean
 }

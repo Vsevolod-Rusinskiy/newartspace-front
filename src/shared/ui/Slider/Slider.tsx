@@ -20,6 +20,7 @@ interface Painting {
   priceType: string
   discount: number
   priority: number
+  isAdult: boolean
 }
 
 interface PaintingSliderProps {
@@ -47,6 +48,7 @@ export const Slider = ({ paintings }: PaintingSliderProps) => {
         unoptimized
         objectFit='cover'
         watermarkSize={16}
+        isAdult={painting.isAdult}
       />
       <div
         className={cn(styles.painting_info_container, {

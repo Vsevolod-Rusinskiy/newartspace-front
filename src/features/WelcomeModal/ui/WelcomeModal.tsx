@@ -10,7 +10,7 @@ import {
 import styles from './WelcomeModal.module.scss'
 import { generateHash } from '@/src/shared/lib/generateHash'
 
-const PHONE_NUMBER = '+79219326215'
+const PHONE_NUMBER = <a href='tel:+79219326215'>+79219326215</a>
 
 const MODAL_CONTENT = `В летнее время возможно закрытие Галереи на мероприятия. 
 Просьба уточнять время работы по тел. ${PHONE_NUMBER}

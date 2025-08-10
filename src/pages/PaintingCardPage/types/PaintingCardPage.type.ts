@@ -23,4 +23,5 @@ export interface IPainting {
   description: string
   isReproducible: boolean
   artist: IArtist
+  isAdult: boolean
 }

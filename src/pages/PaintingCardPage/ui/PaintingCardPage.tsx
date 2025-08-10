@@ -124,6 +124,7 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
                 height={100}
                 className={styles.image}
                 unoptimized
+                isAdult={painting?.isAdult}
               />
             </section>
             <section

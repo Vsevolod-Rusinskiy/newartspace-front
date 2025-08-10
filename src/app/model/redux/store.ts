@@ -18,6 +18,7 @@ import favoritesReducer from '@/src/pages/FavoritesPage/model/favoritesSlice'
 import cartReducer from '@/src/pages/CartPage/model/cartSlice'
 import { welcomeModalSlice } from '@/src/features/WelcomeModal'
 import { cookieBannerSlice } from '@/src/features/CookieBanner/model/cookieBannerSlice'
+import { ageVerificationSlice } from '@/src/features/AgeVerification'
 
 export const makeStore = () =>
   configureStore({
@@ -41,6 +42,7 @@ export const makeStore = () =>
       cart: cartReducer,
       welcomeModal: welcomeModalSlice.reducer,
       cookieBanner: cookieBannerSlice.reducer,
+      ageVerification: ageVerificationSlice.reducer,
     },
   })
 
