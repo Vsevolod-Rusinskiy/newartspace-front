@@ -22,6 +22,7 @@ export interface IPaintingListItem {
   width: number
   priceType: string
   discount: number
+  isAdult: boolean
 }
 
 export const PaintingListItem = ({
@@ -37,6 +38,7 @@ export const PaintingListItem = ({
   priceType,
   discount,
   price,
+  isAdult,
 }: IPaintingListItem) => {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -54,6 +56,7 @@ export const PaintingListItem = ({
           height={100}
           className={styles.painting_list_item_img}
           unoptimized
+          isAdult={isAdult}
         />
         <Link href={`/paintings/${id}-${slugify(title)}`}>
           <div

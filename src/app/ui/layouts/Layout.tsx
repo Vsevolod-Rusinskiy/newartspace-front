@@ -13,6 +13,7 @@ import {
 import { useDispatch } from 'react-redux'
 import { WelcomeModal } from '@/src/features/WelcomeModal'
 import { CookieBanner } from '@/src/features/CookieBanner/ui/CookieBanner'
+import { initializeAgeVerification } from '@/src/features/AgeVerification'
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch()
@@ -24,6 +25,10 @@ const Layout = ({ children }: { children: ReactNode }) => {
     } else {
       dispatch(login({ userName: authData.userName }))
     }
+
+    // Initialize age verification state
+    dispatch(initializeAgeVerification())
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
