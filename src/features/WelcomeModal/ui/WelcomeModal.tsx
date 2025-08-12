@@ -10,11 +10,10 @@ import {
 import styles from './WelcomeModal.module.scss'
 import { generateHash } from '@/src/shared/lib/generateHash'
 
-const PHONE_NUMBER = <a href='tel:+79219326215'>+79219326215</a>
+const PHONE_NUMBER = '+79219326215'
 
-const MODAL_CONTENT = `В летнее время возможно закрытие Галереи на мероприятия. 
-Просьба уточнять время работы по тел. ${PHONE_NUMBER}
-Благодарим за понимание!`
+const MODAL_CONTENT =
+  'В летнее время возможно закрытие Галереи на мероприятия. Просьба уточнять время работы по тел.'
 
 const MODAL_FOOTER = 'Будем рады Вас видеть!'
 
@@ -73,7 +72,12 @@ export const WelcomeModal = () => {
           <div className={styles.content}>
             <h2>Добро пожаловать в Галерею !</h2>
             <p className={styles.schedule}>
-              {MODAL_CONTENT}
+              {MODAL_CONTENT}{' '}
+              <a href={`tel:${PHONE_NUMBER}`} className={styles.phone_link}>
+                {PHONE_NUMBER}
+              </a>
+              <br />
+              Благодарим за понимание!
               <br />
               <br />
               {MODAL_FOOTER}
