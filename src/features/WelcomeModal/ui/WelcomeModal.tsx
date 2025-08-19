@@ -15,7 +15,7 @@ const PHONE_NUMBER = '+79219326215'
 const MODAL_CONTENT =
   'В летнее время возможно закрытие Галереи на мероприятия. Просьба уточнять время работы по тел.'
 
-const MODAL_FOOTER = 'Будем рады Вас видеть!'
+const MODAL_FOOTER = ''
 
 export const WelcomeModal = () => {
   const dispatch = useAppDispatch()
@@ -79,8 +79,6 @@ export const WelcomeModal = () => {
               <br />
               Благодарим за понимание!
               <br />
-              <br />
-              {MODAL_FOOTER}
             </p>
             <p className={styles.address}>
               Санкт-Петербург, ул. Ново-рыбинская, д. 19-21,
