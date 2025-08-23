@@ -13,7 +13,8 @@ import { generateHash } from '@/src/shared/lib/generateHash'
 const PHONE_NUMBER = '+79219326215'
 
 const MODAL_CONTENT =
-  'В летнее время возможно закрытие Галереи на мероприятия. Просьба уточнять время работы по тел.'
+  // 'В летнее время возможно закрытие Галереи на мероприятия. Просьба уточнять время работы по тел.'
+  '25 и 26 августа Галерея закрыта на мероприятия. В другие дни ждём с Пнд по Птн с 13:00 до 18:00'
 
 const MODAL_FOOTER = ''
 
@@ -74,10 +75,9 @@ export const WelcomeModal = () => {
             <p className={styles.schedule}>
               {MODAL_CONTENT}{' '}
               <a href={`tel:${PHONE_NUMBER}`} className={styles.phone_link}>
+                <br />
                 {PHONE_NUMBER}
               </a>
-              <br />
-              Благодарим за понимание!
               <br />
             </p>
             <p className={styles.address}>
