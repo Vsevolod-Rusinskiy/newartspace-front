@@ -10,14 +10,13 @@ import {
 import styles from './WelcomeModal.module.scss'
 import { generateHash } from '@/src/shared/lib/generateHash'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
+import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
 interface IWelcomeMessage {
   content: string // HTML контент
   id: number // для отслеживания новых сообщений
   created_at: string // для сортировки
 }
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export const WelcomeModal = () => {
   const dispatch = useAppDispatch()
@@ -32,8 +31,8 @@ export const WelcomeModal = () => {
   useEffect(() => {
     const fetchWelcomeMessage = async () => {
       try {
-        console.log('Fetching welcome message from:', `${API_URL}/welcome`)
-        const response = await fetch(`${API_URL}/welcome`)
+        console.log('Fetching welcome message from:', `${API_BASE_URL}/welcome`)
+        const response = await fetch(`${API_BASE_URL}/welcome`)
         console.log('Raw response:', response)
 
         const responseData = await response.json()
