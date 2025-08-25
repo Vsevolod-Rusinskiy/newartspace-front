@@ -9,14 +9,15 @@ import {
 } from '../model/welcomeModalSlice'
 import styles from './WelcomeModal.module.scss'
 import { generateHash } from '@/src/shared/lib/generateHash'
+import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 
-const PHONE_NUMBER = '+79219326215'
+interface IWelcomeMessage {
+  content: string // HTML контент
+  id: number // для отслеживания новых сообщений
+  created_at: string // для сортировки
+}
 
-const MODAL_CONTENT =
-  // 'В летнее время возможно закрытие Галереи на мероприятия. Просьба уточнять время работы по тел.'
-  '25 и 26 августа Галерея закрыта на мероприятия. В другие дни ждём с Пнд по Птн с 13:00 до 18:00'
-
-const MODAL_FOOTER = ''
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export const WelcomeModal = () => {
   const dispatch = useAppDispatch()
@@ -24,37 +25,72 @@ export const WelcomeModal = () => {
     useAppSelector((state) => state.welcomeModal)
   const [isClosing, setIsClosing] = useState(false)
   const [shouldShow, setShouldShow] = useState(true)
+  const [welcomeMessage, setWelcomeMessage] = useState<IWelcomeMessage | null>(
+    null
+  )
 
   useEffect(() => {
-    const initModal = async () => {
-      const currentHash = await generateHash(
-        MODAL_CONTENT + PHONE_NUMBER + MODAL_FOOTER
-      )
-      dispatch(initializeState(currentHash))
+    const fetchWelcomeMessage = async () => {
+      try {
+        console.log('Fetching welcome message from:', `${API_URL}/welcome`)
+        const response = await fetch(`${API_URL}/welcome`)
+        console.log('Raw response:', response)
+
+        const responseData = await response.json()
+        console.log('Parsed welcome message data:', responseData)
+
+        // Проверяем наличие данных в правильной структуре
+        if (responseData.data && responseData.data.length > 0) {
+          const welcomeMessageData = responseData.data[0] // Берем первое сообщение из массива
+          console.log('Welcome message:', welcomeMessageData)
+
+          setWelcomeMessage(welcomeMessageData)
+          const currentHash = await generateHash(
+            welcomeMessageData.id.toString()
+          )
+          dispatch(initializeState(currentHash))
+        } else {
+          console.warn('No welcome message data received')
+          dispatch(initializeState('')) // Используем пустую строку вместо null
+        }
+      } catch (error) {
+        console.error('Failed to fetch welcome message:', error)
+        dispatch(initializeState('')) // Используем пустую строку вместо null
+      }
     }
-    initModal()
+    fetchWelcomeMessage()
   }, [dispatch])
 
   useEffect(() => {
+    if (!welcomeMessage) return
+
     const checkHash = async () => {
-      const currentHash = await generateHash(
-        MODAL_CONTENT + PHONE_NUMBER + MODAL_FOOTER
-      )
+      const currentHash = await generateHash(welcomeMessage.id.toString())
+      console.log('Current message hash:', currentHash)
+      console.log('Stored message hash:', messageHash)
+      console.log('Has seen welcome modal:', hasSeenWelcomeModal)
+
       setShouldShow(!hasSeenWelcomeModal || messageHash !== currentHash)
+      console.log(
+        'Should show modal:',
+        !hasSeenWelcomeModal || messageHash !== currentHash
+      )
     }
     checkHash()
-  }, [hasSeenWelcomeModal, messageHash])
+  }, [hasSeenWelcomeModal, messageHash, welcomeMessage])
 
   const handleClose = async () => {
+    if (!welcomeMessage) return
+
     setIsClosing(true)
-    const hash = await generateHash(MODAL_CONTENT + PHONE_NUMBER + MODAL_FOOTER)
+    const hash = await generateHash(welcomeMessage.id.toString())
     setTimeout(() => {
       dispatch(setHasSeenWelcomeModal(hash))
       setIsClosing(false)
     }, 500)
   }
 
-  if (!isInitialized || !shouldShow || !isOpen) {
+  if (!isInitialized || !shouldShow || !isOpen || !welcomeMessage) {
     return null
   }
 
@@ -71,20 +107,10 @@ export const WelcomeModal = () => {
         >
           <button className={styles.close_button} onClick={handleClose} />
           <div className={styles.content}>
-            <h2>Добро пожаловать в Галерею !</h2>
-            <p className={styles.schedule}>
-              {MODAL_CONTENT}{' '}
-              <a href={`tel:${PHONE_NUMBER}`} className={styles.phone_link}>
-                <br />
-                {PHONE_NUMBER}
-              </a>
-              <br />
-            </p>
-            <p className={styles.address}>
-              Санкт-Петербург, ул. Ново-рыбинская, д. 19-21,
-              <br />
-              БЦ «Квартал», 2 эт., зал 9
-            </p>
+            <PageTextBlock
+              text={welcomeMessage.content}
+              className={styles.schedule}
+            />
           </div>
         </div>
       </div>
