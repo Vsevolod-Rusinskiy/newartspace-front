@@ -107,16 +107,10 @@ export const WelcomeModal = () => {
         >
           <button className={styles.close_button} onClick={handleClose} />
           <div className={styles.content}>
-            <h2>Добро пожаловать в Галерею!</h2>
             <PageTextBlock
               text={welcomeMessage.content}
               className={styles.schedule}
             />
-            <p className={styles.address}>
-              Санкт-Петербург, ул. Ново-рыбинская, д. 19-21,
-              <br />
-              БЦ «Квартал», 2 эт., зал 9
-            </p>
           </div>
         </div>
       </div>
