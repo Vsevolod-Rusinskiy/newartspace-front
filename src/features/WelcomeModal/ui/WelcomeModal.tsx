@@ -19,6 +19,8 @@ interface IWelcomeMessage {
 }
 
 export const WelcomeModal = () => {
+  return null // Добавить эту строку сразу после объявления компонента
+
   const dispatch = useAppDispatch()
   const { hasSeenWelcomeModal, isOpen, isInitialized, messageHash } =
     useAppSelector((state) => state.welcomeModal)
