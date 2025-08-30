@@ -11,7 +11,7 @@ import {
   removeUserDataFromLS,
 } from '@/src/shared/lib/common'
 import { useDispatch } from 'react-redux'
-// import { WelcomeModal } from '@/src/features/WelcomeModal'
+import { WelcomeModal } from '@/src/features/WelcomeModal'
 import { CookieBanner } from '@/src/features/CookieBanner/ui/CookieBanner'
 import { initializeAgeVerification } from '@/src/features/AgeVerification'
 
@@ -42,7 +42,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <Sidebar />
       <SortSidebar />
       <RequestFormModal />
-      {/* <WelcomeModal /> */}
+      <WelcomeModal />
       <CookieBanner />
     </>
   )
