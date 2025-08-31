@@ -16,6 +16,7 @@ interface IWelcomeMessage {
   content: string // HTML контент
   id: number // для отслеживания новых сообщений
   created_at: string // для сортировки
+  isActive: boolean // добавляем новое поле
 }
 
 export const WelcomeModal = () => {
@@ -38,23 +39,28 @@ export const WelcomeModal = () => {
         const responseData = await response.json()
         console.log('Parsed welcome message data:', responseData)
 
-        // Проверяем наличие данных в правильной структуре
+        // Find active message instead of taking first one
         if (responseData.data && responseData.data.length > 0) {
-          const welcomeMessageData = responseData.data[0] // Берем первое сообщение из массива
-          console.log('Welcome message:', welcomeMessageData)
-
-          setWelcomeMessage(welcomeMessageData)
-          const currentHash = await generateHash(
-            welcomeMessageData.id.toString()
+          const activeMessage = responseData.data.find(
+            (message: IWelcomeMessage) => message.isActive
           )
-          dispatch(initializeState(currentHash))
+          console.log('Active welcome message:', activeMessage)
+
+          if (activeMessage) {
+            setWelcomeMessage(activeMessage)
+            const currentHash = await generateHash(activeMessage.id.toString())
+            dispatch(initializeState(currentHash))
+          } else {
+            console.warn('No active welcome message found')
+            dispatch(initializeState(''))
+          }
         } else {
           console.warn('No welcome message data received')
-          dispatch(initializeState('')) // Используем пустую строку вместо null
+          dispatch(initializeState(''))
         }
       } catch (error) {
         console.error('Failed to fetch welcome message:', error)
-        dispatch(initializeState('')) // Используем пустую строку вместо null
+        dispatch(initializeState(''))
       }
     }
     fetchWelcomeMessage()
