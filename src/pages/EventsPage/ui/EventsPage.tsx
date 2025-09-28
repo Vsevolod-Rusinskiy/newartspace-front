@@ -99,6 +99,7 @@ export const EventsPage = ({ initialData }: EventsPageProps) => {
                 title={event.title}
                 date={event.date}
                 content={event.content}
+                eventPhotos={event.eventPhotos}
               />
             ))}
           </ul>

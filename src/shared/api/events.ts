@@ -1,5 +1,15 @@
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
+export interface EventPhoto {
+  id: number
+  imgUrl: string
+  priority: number
+  title: string
+  createdAt: string
+  updatedAt: string
+  eventId: number
+}
+
 export interface Event {
   id: number
   title: string
@@ -9,6 +19,7 @@ export interface Event {
   createdAt: string
   updatedAt: string
   priority: number
+  eventPhotos: EventPhoto[]
 }
 
 export interface FetchEventsParams {
