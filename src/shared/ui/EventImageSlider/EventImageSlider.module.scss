@@ -29,8 +29,8 @@
       font-weight: bold !important;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.8) !important;
-        color: var(--links-hover, #007bff) !important;
+        background-color: var(--links-hover, #007bff) !important;
+        color: white !important;
         transform: translateY(-50%) scale(1.05) !important;
       }
 
@@ -85,27 +85,6 @@
       // transform: translateY(-60%) !important;
     }
 
-    :global(.alice-carousel__dots) {
-      margin: 15px 0 0 0;
-
-      :global(.alice-carousel__dots-item) {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: #ccc;
-        margin: 0 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-
-        &:global(.alice-carousel__dots-item--active) {
-          background-color: var(--links-hover, #007bff);
-        }
-
-        &:hover {
-          background-color: var(--links-hover, #007bff);
-        }
-      }
-    }
   }
 }
 
@@ -170,6 +149,34 @@
     .event_img,
     .event_video {
       min-height: 200px;
+    }
+  }
+}
+
+// Кастомные dots в стиле проекта (как в Pagination)
+.custom_dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 0 0;
+  gap: 10px;
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 0;
+
+    &:hover {
+      background-color: var(--primary-color-red, #dc3545);
+    }
+
+    &.active {
+      background-color: var(--primary-color-red, #dc3545);
     }
   }
 }

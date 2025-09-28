@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import styles from './EventImageSlider.module.scss'
@@ -22,6 +22,8 @@ export const EventImageSlider = ({
   eventPhotos,
   eventTitle,
 }: EventImageSliderProps) => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+
   // Combine main image with additional photos
   const allImages = [
     {
@@ -122,16 +124,31 @@ export const EventImageSlider = ({
         autoPlay={false}
         infinite={false}
         disableButtonsControls={false}
-        disableDotsControls={false}
+        disableDotsControls={true}
         autoPlayStrategy='default'
         renderPrevButton={renderPrevButton}
         renderNextButton={renderNextButton}
+        activeIndex={currentSlide}
+        onSlideChanged={(e) => setCurrentSlide(e.item)}
         responsive={{
           0: { items: 1 },
           768: { items: 1 },
           1024: { items: 1 },
         }}
       />
+
+      {/* Кастомные dots в стиле проекта */}
+      {sortedImages.length > 1 && (
+        <div className={styles.custom_dots}>
+          {sortedImages.map((_, index) => (
+            <button
+              key={index}
+              className={`${styles.dot} ${currentSlide === index ? styles.active : ''}`}
+              onClick={() => setCurrentSlide(index)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
