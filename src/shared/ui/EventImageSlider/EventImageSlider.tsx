@@ -36,6 +36,15 @@ export const EventImageSlider = ({
   // Sort by priority (highest first)
   const sortedImages = [...allImages].sort((a, b) => b.priority - a.priority)
 
+  // Debug logs for priority sorting
+  console.log('🔍 EventImageSlider Debug:')
+  console.log('📷 All images before sort:', allImages)
+  console.log('📊 Sorted images:', sortedImages)
+  console.log(
+    '🔢 Priority order:',
+    sortedImages.map((img) => ({ title: img.title, priority: img.priority }))
+  )
+
   const items = sortedImages.map((photo, index) => {
     const isVideo = photo.imgUrl.endsWith('.mp4')
 
