@@ -24,28 +24,17 @@ export const EventImageSlider = ({
 }: EventImageSliderProps) => {
   const [currentSlide, setCurrentSlide] = useState(0)
 
-  // Combine main image with additional photos
   const allImages = [
     {
       id: 0,
       imgUrl: mainImage,
-      priority: 999, // Give main image highest priority
+      priority: 999,
       title: 'Main',
     },
     ...eventPhotos,
   ]
 
-  // Sort by priority (highest first)
   const sortedImages = [...allImages].sort((a, b) => b.priority - a.priority)
-
-  // Debug logs for priority sorting
-  console.log('🔍 EventImageSlider Debug:')
-  console.log('📷 All images before sort:', allImages)
-  console.log('📊 Sorted images:', sortedImages)
-  console.log(
-    '🔢 Priority order:',
-    sortedImages.map((img) => ({ title: img.title, priority: img.priority }))
-  )
 
   const items = sortedImages.map((photo, index) => {
     const isVideo = photo.imgUrl.endsWith('.mp4')
@@ -77,7 +66,6 @@ export const EventImageSlider = ({
     )
   })
 
-  // If only one image, don't render slider
   if (sortedImages.length <= 1) {
     const isVideo = mainImage.endsWith('.mp4')
     return (
@@ -107,7 +95,6 @@ export const EventImageSlider = ({
     )
   }
 
-  // Custom render functions for navigation (в стиле проекта)
   const renderPrevButton = () => {
     return <span>‹</span>
   }
@@ -137,7 +124,6 @@ export const EventImageSlider = ({
         }}
       />
 
-      {/* Кастомные dots в стиле проекта */}
       {sortedImages.length > 1 && (
         <div className={styles.custom_dots}>
           {sortedImages.map((_, index) => (

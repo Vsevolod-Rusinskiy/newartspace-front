@@ -50,16 +50,6 @@ export const EventCardPage = (params: EventPageParams) => {
   } = event || ({} as IEvent)
   const hasMultipleImages = eventPhotos && eventPhotos.length > 0
 
-  // Add console logs to check individual event data
-  console.log('🔍 Single event analysis:')
-  console.log('📋 Full event object:', event)
-  console.log('📸 Event imgUrl:', imgUrl)
-  console.log('📷 Event eventPhotos:', eventPhotos)
-  console.log('🔢 Has multiple images:', hasMultipleImages)
-  if (event) {
-    console.log('🔍 Event all properties:', Object.keys(event))
-  }
-
   return (
     <main className={styles.main}>
       <div className={`container`}>

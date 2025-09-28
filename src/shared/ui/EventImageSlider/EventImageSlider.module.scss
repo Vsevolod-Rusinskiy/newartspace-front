@@ -39,7 +39,6 @@
         cursor: not-allowed !important;
       }
 
-      // Remove default pseudo-content
       &:before,
       &:after {
         display: none !important;
@@ -52,37 +51,18 @@
         padding: 0 !important;
         display: block !important;
         
-        // 🎯 ПОЗИЦИОНИРОВАНИЕ СТРЕЛОЧЕК ВНУТРИ КРУЖКА:
         position: relative !important;
-        top: -2px !important;           // Стрелочка выше в кружке
-        // top: 2px !important;            // Стрелочка ниже в кружке
-        // left: -1px !important;          // Стрелочка левее в кружке  
-        // left: 1px !important;           // Стрелочка правее в кружке
-        // transform: translateY(-1px) !important;  // Микрокоррекция вверх
-        // transform: translateY(1px) !important;   // Микрокоррекция вниз
+        top: -2px !important;
       }
     }
 
     :global(.alice-carousel__prev-btn) {
       left: 15px !important;
       
-      // 🎯 ПОПРОБУЙ РАЗНЫЕ ЗНАЧЕНИЯ (убери // чтобы активировать):
-      // top: 45% !important;              // Выше центра
-      // top: 55% !important;              // Ниже центра
-      // margin-top: -10px !important;     // Сдвиг вверх на 10px
-      // margin-top: 10px !important;      // Сдвиг вниз на 10px
-      // transform: translateY(-60%) !important;  // Еще выше
     }
 
     :global(.alice-carousel__next-btn) {
       right: 15px !important;
-      
-      // 🎯 ТАКИЕ ЖЕ НАСТРОЙКИ ДЛЯ ПРАВОЙ СТРЕЛКИ:
-      // top: 45% !important;              
-      // top: 55% !important;              
-      // margin-top: -10px !important;     
-      // margin-top: 10px !important;      
-      // transform: translateY(-60%) !important;
     }
 
   }
@@ -153,7 +133,6 @@
   }
 }
 
-// Кастомные dots в стиле проекта (как в Pagination)
 .custom_dots {
   display: flex;
   justify-content: center;
