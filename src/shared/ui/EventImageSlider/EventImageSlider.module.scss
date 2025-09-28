@@ -10,43 +10,78 @@
 
     :global(.alice-carousel__prev-btn),
     :global(.alice-carousel__next-btn) {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      background-color: rgba(0, 0, 0, 0.5);
-      border: none;
-      border-radius: 50%;
-      color: white;
-      cursor: pointer;
-      z-index: 2;
-      transition: background-color 0.3s ease;
+      position: absolute !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 32px !important;
+      height: 32px !important;
+      background-color: rgba(0, 0, 0, 0.6) !important;
+      border: none !important;
+      border-radius: 50% !important;
+      color: white !important;
+      cursor: pointer !important;
+      z-index: 3 !important;
+      transition: all 0.3s ease !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 16px !important;
+      font-weight: bold !important;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.8) !important;
+        transform: translateY(-50%) scale(1.05) !important;
       }
 
-      &:before {
-        font-size: 18px;
-        line-height: 1;
+      &:disabled {
+        opacity: 0.3 !important;
+        cursor: not-allowed !important;
+      }
+
+      // Remove default pseudo-content
+      &:before,
+      &:after {
+        display: none !important;
+        content: '' !important;
+      }
+
+      span {
+        line-height: 1 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        
+        // 🎯 ПОЗИЦИОНИРОВАНИЕ СТРЕЛОЧЕК ВНУТРИ КРУЖКА:
+        position: relative !important;
+        top: -2px !important;           // Стрелочка выше в кружке
+        // top: 2px !important;            // Стрелочка ниже в кружке
+        // left: -1px !important;          // Стрелочка левее в кружке  
+        // left: 1px !important;           // Стрелочка правее в кружке
+        // transform: translateY(-1px) !important;  // Микрокоррекция вверх
+        // transform: translateY(1px) !important;   // Микрокоррекция вниз
       }
     }
 
     :global(.alice-carousel__prev-btn) {
-      left: 10px;
-
-      &:before {
-        content: '‹';
-      }
+      left: 15px !important;
+      
+      // 🎯 ПОПРОБУЙ РАЗНЫЕ ЗНАЧЕНИЯ (убери // чтобы активировать):
+      // top: 45% !important;              // Выше центра
+      // top: 55% !important;              // Ниже центра
+      // margin-top: -10px !important;     // Сдвиг вверх на 10px
+      // margin-top: 10px !important;      // Сдвиг вниз на 10px
+      // transform: translateY(-60%) !important;  // Еще выше
     }
 
     :global(.alice-carousel__next-btn) {
-      right: 10px;
-
-      &:before {
-        content: '›';
-      }
+      right: 15px !important;
+      
+      // 🎯 ТАКИЕ ЖЕ НАСТРОЙКИ ДЛЯ ПРАВОЙ СТРЕЛКИ:
+      // top: 45% !important;              
+      // top: 55% !important;              
+      // margin-top: -10px !important;     
+      // margin-top: 10px !important;      
+      // transform: translateY(-60%) !important;
     }
 
     :global(.alice-carousel__dots) {

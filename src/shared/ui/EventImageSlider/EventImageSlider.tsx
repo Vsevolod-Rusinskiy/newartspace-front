@@ -96,6 +96,15 @@ export const EventImageSlider = ({
     )
   }
 
+  // Custom render functions for navigation
+  const renderPrevButton = () => {
+    return <span>‹</span>
+  }
+
+  const renderNextButton = () => {
+    return <span>›</span>
+  }
+
   return (
     <div className={styles.slider_container}>
       <AliceCarousel
@@ -106,6 +115,8 @@ export const EventImageSlider = ({
         disableButtonsControls={false}
         disableDotsControls={false}
         autoPlayStrategy='default'
+        renderPrevButton={renderPrevButton}
+        renderNextButton={renderNextButton}
         responsive={{
           0: { items: 1 },
           768: { items: 1 },
