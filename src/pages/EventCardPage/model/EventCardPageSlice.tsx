@@ -3,6 +3,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_BASE_URL } from '@/src/shared/config/apiConfig'
 
+export interface IEventPhoto {
+  id: number
+  imgUrl: string
+  priority: number
+  title: string
+  createdAt: string
+  updatedAt: string
+  eventId: number
+}
+
 export interface IEvent {
   id: string
   title: string
@@ -10,6 +20,7 @@ export interface IEvent {
   date: string
   imgUrl: string
   priority: number
+  eventPhotos: IEventPhoto[]
 }
 
 interface EventState {

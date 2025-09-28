@@ -69,6 +69,16 @@ export const EventsPage = ({ initialData }: EventsPageProps) => {
 
   const eventArray = Array.isArray(events.data) ? events.data : []
 
+  // Add console logs to check what data we receive from backend
+  console.log('🔍 Events data analysis:')
+  console.log('📊 Full events object:', events)
+  console.log('📋 Events array:', eventArray)
+  console.log('🖼️ First event detailed:', eventArray[0])
+  if (eventArray[0]) {
+    console.log('📸 First event imgUrl:', eventArray[0].imgUrl)
+    console.log('🔍 First event all properties:', Object.keys(eventArray[0]))
+  }
+
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
@@ -99,6 +109,7 @@ export const EventsPage = ({ initialData }: EventsPageProps) => {
                 title={event.title}
                 date={event.date}
                 content={event.content}
+                eventPhotos={event.eventPhotos}
               />
             ))}
           </ul>

@@ -8,6 +8,7 @@ import Skeleton from 'react-loading-skeleton'
 import { fetchEventByIdAction } from '../model/EventCardPageSlice'
 import PageTextBlock from '@/src/shared/ui/PageTextBlock/PageTextBlock'
 import NavigationButton from '@/src/shared/ui/buttons/NavigationButton/NavigationButton'
+import { EventImageSlider } from '@/src/shared/ui/EventImageSlider'
 import { RootState } from '@/src/app/model/redux/store'
 import { IEvent } from '../model/EventCardPageSlice'
 import styles from './EventCardPage.module.scss'
@@ -40,7 +41,24 @@ export const EventCardPage = (params: EventPageParams) => {
   }, [error, eventsCardId])
 
   const isLoading = loading === 'idle' || loading === 'pending'
-  const { title, date, imgUrl, content } = event || ({} as IEvent)
+  const {
+    title,
+    date,
+    imgUrl,
+    content,
+    eventPhotos = [],
+  } = event || ({} as IEvent)
+  const hasMultipleImages = eventPhotos && eventPhotos.length > 0
+
+  // Add console logs to check individual event data
+  console.log('🔍 Single event analysis:')
+  console.log('📋 Full event object:', event)
+  console.log('📸 Event imgUrl:', imgUrl)
+  console.log('📷 Event eventPhotos:', eventPhotos)
+  console.log('🔢 Has multiple images:', hasMultipleImages)
+  if (event) {
+    console.log('🔍 Event all properties:', Object.keys(event))
+  }
 
   return (
     <main className={styles.main}>
@@ -57,25 +75,35 @@ export const EventCardPage = (params: EventPageParams) => {
               <p className={styles.date}>{formatDateForRussia(date)}</p>
             </header>
             <section className={styles.image_container}>
-              {imgUrl.endsWith('.mp4') ? (
-                <video
-                  className={styles.event_img}
-                  src={imgUrl}
-                  controls
-                  crossOrigin='anonymous'
-                  width={100}
-                  height={100}
-                  preload='auto'
+              {hasMultipleImages ? (
+                <EventImageSlider
+                  mainImage={imgUrl}
+                  eventPhotos={eventPhotos}
+                  eventTitle={title}
                 />
               ) : (
-                <Image
-                  src={imgUrl}
-                  alt={title}
-                  className={styles.event_img}
-                  width={100}
-                  height={100}
-                  unoptimized
-                />
+                <>
+                  {imgUrl.endsWith('.mp4') ? (
+                    <video
+                      className={styles.event_img}
+                      src={imgUrl}
+                      controls
+                      crossOrigin='anonymous'
+                      width={100}
+                      height={100}
+                      preload='auto'
+                    />
+                  ) : (
+                    <Image
+                      src={imgUrl}
+                      alt={title}
+                      className={styles.event_img}
+                      width={100}
+                      height={100}
+                      unoptimized
+                    />
+                  )}
+                </>
               )}
             </section>
             <div className={styles.description}>
