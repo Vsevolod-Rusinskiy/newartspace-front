@@ -30,6 +30,7 @@
 
       &:hover {
         background-color: rgba(0, 0, 0, 0.8) !important;
+        color: var(--links-hover, #007bff) !important;
         transform: translateY(-50%) scale(1.05) !important;
       }
 

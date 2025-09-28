@@ -96,7 +96,7 @@ export const EventImageSlider = ({
     )
   }
 
-  // Custom render functions for navigation
+  // Custom render functions for navigation (в стиле проекта)
   const renderPrevButton = () => {
     return <span>‹</span>
   }
