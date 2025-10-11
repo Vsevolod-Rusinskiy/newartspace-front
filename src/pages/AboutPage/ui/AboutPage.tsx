@@ -28,6 +28,12 @@ export const AboutPage = () => {
           <p className={styles.about_text}>
             {translations[lang].about_page.main_text}
           </p>
+          <p className={styles.about_text}>
+            {translations[lang].about_page.additional_text_1}
+          </p>
+          <p className={styles.about_text}>
+            {translations[lang].about_page.additional_text_2}
+          </p>
           <div className={styles.signature_container}>
             <p>
               {translations[lang].about_page.signature} <br />
