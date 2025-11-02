@@ -33,10 +33,11 @@
 .painting_list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  list-style: none;
+  width: 100%;
   padding: 0;
   margin: 0;
+  list-style: none;
+  justify-content: center;
 }
 
 .skeleton_list_item {
@@ -86,10 +87,6 @@
   .skeleton_catalog_title {
     width: 200px;
     height: 30px;
-  }
-
-  .painting_list {
-    gap: 15px;
   }
 
   .skeleton_list_item {
