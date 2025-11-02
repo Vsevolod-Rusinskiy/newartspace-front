@@ -114,6 +114,9 @@
     "artist_page": {
       "more_works": "More Works by the Artist"
     },
+    "recently_viewed": {
+      "title": "Recently Viewed"
+    },
     "catalog_page": {
       "title": "Catalog",
       "art_styles": {
@@ -696,6 +699,9 @@
     },
     "artist_page": {
       "more_works": "Больше работ художника"
+    },
+    "recently_viewed": {
+      "title": "Вы смотрели ранее"
     },
     "catalog_page": {
       "title": "Каталог",

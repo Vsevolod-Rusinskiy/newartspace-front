@@ -21,6 +21,11 @@ import { PaintingDetails } from '@/src/shared/ui/DetailsInfo'
 import { ImageWithWatermark } from '@/src/shared/ui/ImageWithWatermark/ImageWithWatermark'
 import { useLang } from '@/src/shared/hooks/useLang'
 import Head from 'next/head'
+import {
+  initializeRecentlyViewed,
+  addToRecentlyViewed,
+} from '@/src/features/RecentlyViewed'
+import { RecentlyViewed } from '@/src/features/RecentlyViewed/ui/RecentlyViewed'
 
 interface PaintingCardPageParams {
   params: {
@@ -76,7 +81,15 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
 
   useEffect(() => {
     dispatch(initializeFavorites())
+    dispatch(initializeRecentlyViewed())
   }, [dispatch])
+
+  useEffect(() => {
+    // Add to recently viewed when painting is loaded
+    if (painting && painting.id) {
+      dispatch(addToRecentlyViewed(Number(paintingCardId)))
+    }
+  }, [dispatch, painting, paintingCardId])
 
   const { favoriteIds, isInitialized } = useSelector(
     (state: RootState) => state.favorites
@@ -172,6 +185,10 @@ export const PaintingCardPage = (params: PaintingCardPageParams) => {
           </>
         )}
       </article>
+
+      {!isLoading && painting && (
+        <RecentlyViewed currentPaintingId={Number(paintingCardId)} limit={6} />
+      )}
     </main>
   )
 }
