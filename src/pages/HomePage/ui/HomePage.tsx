@@ -26,6 +26,8 @@ import { NoData } from '@/src/shared/ui/NoData/NoData'
 import { InfiniteScrollTrigger } from '@/src/shared/ui/InfiniteScrollTrigger/InfiniteScrollTrigger'
 import { useLang } from '@/src/shared/hooks/useLang'
 import { IPainting } from '@/src/entities/Painting'
+import { initializeRecentlyViewed } from '@/src/features/RecentlyViewed'
+import { RecentlyViewed } from '@/src/features/RecentlyViewed/ui/RecentlyViewed'
 
 // test
 
@@ -170,6 +172,11 @@ export const HomePage = ({ initialData }: HomePageProps) => {
     }
   }, [artStyle])
 
+  // Initialize recently viewed
+  useEffect(() => {
+    dispatch(initializeRecentlyViewed())
+  }, [dispatch])
+
   return (
     <main className={styles.main}>
       <section className={`container ${styles.content}`}>
@@ -283,6 +290,11 @@ export const HomePage = ({ initialData }: HomePageProps) => {
                 />
               </ul>
             )}
+
+            {!isLoading &&
+              !isDelaying &&
+              isLastPage &&
+              paintings.data.length > 0 && <RecentlyViewed limit={6} />}
           </>
         )}
       </section>

@@ -12,7 +12,7 @@ import { useLang } from '@/src/shared/hooks/useLang'
 import styles from './RecentlyViewed.module.scss'
 
 interface RecentlyViewedProps {
-  currentPaintingId: number
+  currentPaintingId?: number
   limit?: number
 }
 
