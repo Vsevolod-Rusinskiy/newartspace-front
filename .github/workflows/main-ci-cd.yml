@@ -2,109 +2,87 @@ name: Master CI/CD
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/newartspace-front
 
 jobs:
-  prettier-lint-check:
+  checks:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20.9.0'
+          node-version: "20.9.0"
+          cache: "yarn"
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Install
+        run: yarn install --frozen-lockfile
 
-      - name: Run Prettier check
+      - name: Prettier check
         run: yarn prettier-check
 
-      - name: Run Lint check
+      - name: Lint
         run: yarn lint
 
-  build-and-push-image:
-    needs: prettier-lint-check
+  build-and-push:
+    needs: checks
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GH_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Сборка и загрузка Docker образа в GitHub Packages
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/vsevolod-rusinskiy/newartspace-front:latest
+          tags: |
+            ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
 
   deploy:
-    needs: build-and-push-image
+    needs: build-and-push
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Deploy to Server
-        uses: appleboy/ssh-action@master
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 360m
+          command_timeout: 60m
           script: |
-            cd /var/www/newartspace/frontend
-            git restore .
-            git pull origin master
+            set -e
 
-      - name: Stop and remove existing container
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 360m
-          script: |
-            echo "Stopping and removing old container..."
+            IMAGE="${{ env.IMAGE_NAME }}:sha-${{ github.sha }}"
+
+            echo "Pull image: $IMAGE"
+            docker logout ghcr.io || true
+            docker pull "$IMAGE"
+
+            echo "Recreate container"
             docker rm -f front || true
-            docker image prune -f
 
-      - name: Run new container
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 360m
-          script: |
+            docker run -d \
+              --name front \
+              --restart unless-stopped \
+              --network newartspace-net \
+              --env-file /var/www/newartspace/frontend/.env \
+              -p 127.0.0.1:3001:3000 \
+              "$IMAGE"
 
-            echo "Switching to application directory..."
-            cd /var/www/newartspace/frontend
-
-            echo "Running the application container..."
-            docker run --pull always --env-file .env -d --name front --restart unless-stopped -p 3001:3000 ghcr.io/vsevolod-rusinskiy/newartspace-front:latest
-
-      - name: Check container status
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            echo "Checking container status..."
+            echo "Status:"
             docker ps -f name=front
-            echo "Fetching container logs..."
-            docker logs front

@@ -1,46 +1,29 @@
-# Этап сборки
-FROM node:20.9.0-alpine AS builder
+# syntax=docker/dockerfile:1
 
-# Установка необходимых системных библиотек для sharp
-RUN apk add --no-cache libc6-compat && mkdir /app
-
-# Устанавливаем рабочую директорию внутри контейнера
+FROM node:20.9.0-alpine AS deps
 WORKDIR /app
-
-# Копируем package.json и yarn.lock, чтобы установить зависимости
+RUN apk add --no-cache libc6-compat
 COPY package.json yarn.lock ./
-
-# Устанавливаем все зависимости без выполнения скриптов
-ENV CI=true
 RUN yarn install --frozen-lockfile
 
-# Копируем остальной исходный код приложения
+FROM node:20.9.0-alpine AS builder
+WORKDIR /app
+ENV NEXT_TELEMETRY_DISABLED=1
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Собираем приложение
 RUN yarn build
 
-# Этап продакшн
-FROM node:20.9.0-alpine
-
-# Установка необходимых системных библиотек для sharp
-RUN apk add --no-cache libc6-compat && mkdir /app
-
-# Устанавливаем рабочую директорию внутри контейнера
+FROM node:20.9.0-alpine AS runner
 WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN apk add --no-cache libc6-compat
 
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/.next ./.next
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/next.config.* ./
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
 
-# Копируем package.json и yarn.lock для установки зависимостей
-COPY --from=builder /app/package.json /app/yarn.lock ./
-
-# Устанавливаем только продакшн зависимости
-RUN yarn install --production --frozen-lockfile
-
-# В докере наше приложение должно слушать порт 3000
 EXPOSE 3000
-
-# Команда для запуска приложения
 CMD ["yarn", "start"]
