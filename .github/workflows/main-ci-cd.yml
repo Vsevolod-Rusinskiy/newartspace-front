@@ -9,7 +9,7 @@ permissions:
   packages: write
 
 env:
-  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/newartspace-front
+  IMAGE_NAME: ghcr.io/vsevolod-rusinskiy/newartspace-front
 
 jobs:
   checks:
