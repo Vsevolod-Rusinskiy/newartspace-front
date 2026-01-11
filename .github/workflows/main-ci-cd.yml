@@ -52,3 +52,37 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 60m
+          script: |
+            set -e
+
+            IMAGE="${{ env.IMAGE_NAME }}:sha-${{ github.sha }}"
+
+            echo "Pull image: $IMAGE"
+            docker logout ghcr.io || true
+            docker pull "$IMAGE"
+
+            echo "Recreate container"
+            docker rm -f front || true
+
+            docker run -d \
+              --name front \
+              --restart unless-stopped \
+              --network newartspace-net \
+              --env-file /var/www/newartspace/frontend/.env \
+              -p 127.0.0.1:3001:3000 \
+              "$IMAGE"
+
+            echo "Status:"
+            docker ps -f name=front
