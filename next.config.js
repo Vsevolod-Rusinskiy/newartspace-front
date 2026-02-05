@@ -14,6 +14,10 @@ const nextConfig = {
         hostname: 'storage.yandexcloud.net',
       },
     ],
+    // Временная защита от CVE-2025-59471 (DoS в Image Optimizer)
+    // Ограничения размера изображений применяются через middleware.ts
+    // Для полного исправления требуется обновление до Next.js 15.5.10+
+    minimumCacheTTL: 60,
   },
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname)
