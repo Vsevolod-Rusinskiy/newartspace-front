@@ -9,11 +9,12 @@ export const revalidate = 300
 export async function generateMetadata({
   params,
 }: {
-  params: { id_slug: string }
+  params: Promise<{ id_slug: string }>
 }): Promise<Metadata> {
   try {
     // Извлекаем ID из URL
-    const [id] = params.id_slug.split('-')
+    const { id_slug } = await params
+    const [id] = id_slug.split('-')
     if (!id || isNaN(Number(id))) return { title: 'Страница не найдена' }
 
     // Получаем данные картины
@@ -37,7 +38,7 @@ export async function generateMetadata({
       : `${painting.title || 'Картина'}, ${technique}, ${dimensions}, ${year}`
 
     // Формируем канонический URL
-    const canonicalUrl = `https://newartspace.ru/paintings/${params.id_slug}`
+    const canonicalUrl = `https://newartspace.ru/paintings/${id_slug}`
 
     return {
       title,
@@ -73,9 +74,10 @@ export async function generateMetadata({
 export default async function PaintingCardPageServer({
   params,
 }: {
-  params: { id_slug: string }
+  params: Promise<{ id_slug: string }>
 }) {
-  const [id] = params.id_slug.split('-')
+  const { id_slug } = await params
+  const [id] = id_slug.split('-')
   if (!id || isNaN(Number(id))) notFound()
   const painting = await fetchPaintingById(id)
   if (!painting) notFound()
@@ -110,7 +112,7 @@ export default async function PaintingCardPageServer({
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://newartspace.ru/paintings/${params.id_slug}`,
+      '@id': `https://newartspace.ru/paintings/${id_slug}`,
     },
   }
 

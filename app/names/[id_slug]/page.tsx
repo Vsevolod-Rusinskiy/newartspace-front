@@ -9,11 +9,12 @@ export const revalidate = 300
 export async function generateMetadata({
   params,
 }: {
-  params: { id_slug: string }
+  params: Promise<{ id_slug: string }>
 }): Promise<Metadata> {
   try {
     // Извлекаем ID из URL
-    const [id] = params.id_slug.split('-')
+    const { id_slug } = await params
+    const [id] = id_slug.split('-')
     if (!id) return { title: 'Страница не найдена' }
 
     // Получаем данные художника
@@ -21,7 +22,7 @@ export async function generateMetadata({
     if (!artist) return { title: 'Страница не найдена' }
 
     // Формируем канонический URL
-    const canonicalUrl = `https://newartspace.ru/names/${params.id_slug}`
+    const canonicalUrl = `https://newartspace.ru/names/${id_slug}`
 
     // Формируем мета-данные
     return {
@@ -62,9 +63,10 @@ export async function generateMetadata({
 export default async function ArtistCardPageServer({
   params,
 }: {
-  params: { id_slug: string }
+  params: Promise<{ id_slug: string }>
 }) {
-  const [id] = params.id_slug.split('-')
+  const { id_slug } = await params
+  const [id] = id_slug.split('-')
   if (!id) notFound()
   const artist = await fetchArtistById(id)
   if (!artist) notFound()
@@ -78,7 +80,7 @@ export default async function ArtistCardPageServer({
     image: artist.imgUrl,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://newartspace.ru/names/${params.id_slug}`,
+      '@id': `https://newartspace.ru/names/${id_slug}`,
     },
   }
 
