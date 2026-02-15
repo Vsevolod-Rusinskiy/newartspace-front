@@ -31,5 +31,5 @@ export function middleware(request: NextRequest) {
 
 // Применяем middleware только к Image Optimizer endpoint
 export const config = {
-  matcher: '/_next/image/:path*',
+  matcher: ['/_next/image/:path*'],
 }
