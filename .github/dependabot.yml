@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Не обновляем Next.js автоматически до мажорной версии
+    # (обновление до 15.5.10+ требует рефакторинга)
+    ignore:
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
