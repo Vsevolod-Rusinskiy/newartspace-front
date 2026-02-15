@@ -326,15 +326,15 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bugsnag/browser-performance@^2.9.1":
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/@bugsnag/browser-performance/-/browser-performance-2.10.1.tgz#f887903c7d89c0f01e86b4d740a2a6291d4e2190"
-  integrity sha512-d5/EC9yC9bGnt4QuIa67kClSTKSMmblE7WPWXNmGQqQC40bqwWWDeJEJs0ZBB7WU6VBy5QWcRLZwyXkHLT0Xkg==
+"@bugsnag/browser-performance@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/browser-performance/-/browser-performance-3.2.0.tgz#d767ec31d9e3a2f2c94d5456f7a1e040840e8891"
+  integrity sha512-FAie32pG55CZb8nG2J+ObsIdVdJRnsIEkS+F14MmZbntOIZmNip1YzJiEXDyQQSH7VSrT7mkxZ+nwzBfzTlq8Q==
   dependencies:
-    "@bugsnag/core-performance" "^2.10.0"
+    "@bugsnag/core-performance" "^3.2.0"
     "@bugsnag/cuid" "^3.1.1"
-    "@bugsnag/delivery-fetch-performance" "^2.10.0"
-    "@bugsnag/request-tracker-performance" "^2.10.0"
+    "@bugsnag/delivery-fetch-performance" "^3.2.0"
+    "@bugsnag/request-tracker-performance" "^3.2.0"
 
 "@bugsnag/browser@^8.1.2":
   version "8.1.2"
@@ -343,10 +343,10 @@
   dependencies:
     "@bugsnag/core" "^8.1.1"
 
-"@bugsnag/core-performance@^2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/core-performance/-/core-performance-2.10.0.tgz#4440e766bc04b8a927d441514d891245ef810fd5"
-  integrity sha512-PLRfWExNh+RURbABfeLOiprO95jjiCPHXHjxWE+ewmebBMY9FAYlLH8gxA94+RAdh3VRNKp7uRJDhFWIas8AoA==
+"@bugsnag/core-performance@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/core-performance/-/core-performance-3.2.0.tgz#c4b0dd999251f68f20cc5c2d04fcafbb780d04b8"
+  integrity sha512-g2tNpwhme3l0QvOe3VVUhAFXDubPfm/9kRg++ELrAPiA2QVMQNPwBUS73ICFfLBCnPIa+P8StsGpYg6vUddfEA==
   dependencies:
     "@bugsnag/cuid" "^3.1.1"
 
@@ -366,12 +366,12 @@
   resolved "https://registry.yarnpkg.com/@bugsnag/cuid/-/cuid-3.1.1.tgz#dbd5d76559f6b7a66306fceacf503888883da514"
   integrity sha512-d2z4b0rEo3chI07FNN1Xds8v25CNeekecU6FC/2Fs9MxY2EipkZTThVcV2YinMn8dvRUlViKOyC50evoUxg8tw==
 
-"@bugsnag/delivery-fetch-performance@^2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/delivery-fetch-performance/-/delivery-fetch-performance-2.10.0.tgz#530be920827b07f70e88d676760ff72fcf32214b"
-  integrity sha512-qnZpIHeMuKZjZYY4rz6ecU+TlaGdsQDGOXHCkX5lYwpyFRXBwPlyi3BW6uwYFYe0HUtSbylEBcpuhgpJ61sNng==
+"@bugsnag/delivery-fetch-performance@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/delivery-fetch-performance/-/delivery-fetch-performance-3.2.0.tgz#ebd0ca6f1df30d410b2c2d3062d73d909959bf27"
+  integrity sha512-U5CzG7cN0z4CimaWeIXnkBm7D01OPXZItYRviTVtBOnl2FLY4xuHa+B8Veh39WKLztqG0RMI9YlD4I0zI09faA==
   dependencies:
-    "@bugsnag/core-performance" "^2.10.0"
+    "@bugsnag/core-performance" "^3.2.0"
 
 "@bugsnag/js@^8.0.0":
   version "8.1.2"
@@ -398,12 +398,12 @@
   resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-8.1.1.tgz#3604c9d79f0d44a2a239ff1e80a2dee13db3a822"
   integrity sha512-G21+YMDSsdco/CjD6BkfQH73t92mJB9/REU2bYCvDvU9yqKiRQyhTr5D2Ak/ON4KmbKAqexBh/pXGkzOGSP7xQ==
 
-"@bugsnag/request-tracker-performance@^2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/request-tracker-performance/-/request-tracker-performance-2.10.0.tgz#d5f3f5dc61e3f44bc3163033db2a160a1b504a5e"
-  integrity sha512-8yAcs7e0kyHtzD9ekmhVhQq2Z2sWhDKYDfOFlSy7qQnWHKH/34hOwWPgjUck5Mt1g3/7Pp/dWdhPep1Bz1tJFw==
+"@bugsnag/request-tracker-performance@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/request-tracker-performance/-/request-tracker-performance-3.2.0.tgz#857647c0d1c1dd09793483ebda6890346f1f0a18"
+  integrity sha512-mo9UcwynXL3vUB/g4TR4r7nZpc/l/IFHYUoamboBILidJmsZZvFA3fXw60o02jCs8sMu54EbRuL0l01Q5hysjg==
   dependencies:
-    "@bugsnag/core-performance" "^2.10.0"
+    "@bugsnag/core-performance" "^3.2.0"
 
 "@bugsnag/safe-json-stringify@^6.0.0":
   version "6.0.0"

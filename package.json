@@ -15,7 +15,7 @@
     "unit": "jest --config ./src/shared/config/jest/jest.config.ts"
   },
   "dependencies": {
-    "@bugsnag/browser-performance": "^2.9.1",
+    "@bugsnag/browser-performance": "^3.2.0",
     "@bugsnag/js": "^8.0.0",
     "@bugsnag/plugin-react": "^8.0.0",
     "@hcaptcha/react-hcaptcha": "^1.11.0",
