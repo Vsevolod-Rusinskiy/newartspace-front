@@ -62,7 +62,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
     "prettier": "^3.2.5",
-    "ts-jest": "^29.2.4",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5"
   },
