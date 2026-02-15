@@ -15,14 +15,11 @@ import styles from './EventCardPage.module.scss'
 import { formatDateForRussia } from '@/src/shared/lib/common'
 import Image from 'next/image'
 
-interface EventPageParams {
-  params: {
-    eventsCardId: string
-  }
+interface EventPageProps {
+  eventsCardId: string
 }
 
-export const EventCardPage = (params: EventPageParams) => {
-  const { eventsCardId } = params.params
+export const EventCardPage = ({ eventsCardId }: EventPageProps) => {
   const dispatch = useAppDispatch()
   const { event, loading, error } = useSelector(
     (state: RootState) => state.event

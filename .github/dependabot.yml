@@ -4,6 +4,13 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # Группируем обновления в один PR
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "next"
     # Не обновляем Next.js автоматически до мажорной версии
     # (обновление до 15.5.10+ требует рефакторинга)
     ignore:
